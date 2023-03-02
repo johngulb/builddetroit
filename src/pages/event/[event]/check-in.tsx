@@ -168,7 +168,7 @@ const EventPage = ({ attestator_cid, event, messages }) => {
 							Follow us on Instagram
 						</ButtonLink>
 
-						<ChatRoom initialMessages={messages} checkIn={checkIn} />
+						{/* <ChatRoom initialMessages={messages} checkIn={checkIn} /> */}
 
 						{/* <Profile
 							name='Robert Konsdorf'
