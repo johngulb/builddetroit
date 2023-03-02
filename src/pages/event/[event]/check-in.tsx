@@ -132,7 +132,7 @@ const EventPage = ({ attestator_cid, event, messages }) => {
 						: ''
 				}
 				openGraph={openGraph}
-				canonical={`https://app.detroitartdao.com/event/${event.slug}/check-in`}
+				canonical={`https://builddetroit.xyz/event/${event.slug}/check-in`}
 			/>
 			<PageContainer>
 				<EventInfo event={event} linkLocation={true} variant='compact' />
@@ -147,7 +147,7 @@ const EventPage = ({ attestator_cid, event, messages }) => {
 							<p>Share this QR code for other guests to check in.</p>
 							<div style={{ marginTop: 16 }}>
 								<QRCode
-									value={`https://app.detroitartdao.com/event/${event.slug}/check-in?attestator=${checkIn.user_cid}`}
+									value={`https://builddetroit.xyz/event/${event.slug}/check-in?attestator=${checkIn.user_cid}`}
 								/>
 							</div>
 						</div>

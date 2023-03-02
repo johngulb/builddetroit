@@ -225,7 +225,7 @@ const EventPage = ({ event, events }) => {
         title={`${event.title} | Detroit Art Events`}
         description={event.content ? `${stripHtml(event.content).result.replaceAll('\n',' ').replaceAll('  ',' ').slice(0, 180)}...` : ''}
         openGraph={openGraph}
-        canonical={`https://app.detroitartdao.com/event/${event.slug}`}
+        canonical={`https://builddetroit.xyz/event/${event.slug}`}
       />
       <AuthModal
         show={showAuth}

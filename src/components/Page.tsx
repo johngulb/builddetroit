@@ -30,7 +30,7 @@ export const Page = ({ children, headerProps }) => {
         openGraph={{
           type: "website",
           locale: "en_IE",
-          url: "https://app.detroitartdao.com/",
+          url: "https://builddetroit.xyz/",
           siteName: "Detroit Art | Community Events",
         }}
         // twitter={{

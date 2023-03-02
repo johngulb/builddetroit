@@ -28,7 +28,7 @@ const Page = ({ events }) => {
       <NextSeo
         title={`Find Events in Detroit | Detroit Art`}
         description='Explore the local art and tech scene in Detroit. RSVP to the next event and come out to learn about web3!'
-        canonical={`https://app.detroitartdao.com/events`}
+        canonical={`https://builddetroit.xyz/events`}
       />
       <PageContainer>
         <EventList events={events} variant="compact" />

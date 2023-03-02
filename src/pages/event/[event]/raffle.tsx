@@ -99,7 +99,7 @@ const EventPage = ({ event }) => {
             : ""
         }
         openGraph={openGraph}
-        canonical={`https://app.detroitartdao.com/event/${event.slug}/check-in`}
+        canonical={`https://builddetroit.xyz/event/${event.slug}/check-in`}
       />
       <PageContainer>
         <EventInfo event={event} linkLocation={true} variant="compact" />
