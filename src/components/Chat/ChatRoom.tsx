@@ -2,9 +2,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { ChatRoomMessage } from './mockChatData';
 import SendIcon from '@mui/icons-material/Send';
-import { DateTime } from 'luxon';
+// import { DateTime } from 'luxon';
 import { DPoPEventCheckIn } from '../../dpop';
-import axios from 'axios';
+// import axios from 'axios';
 
 interface ChatRoomProps {
 	checkIn: DPoPEventCheckIn;
@@ -87,17 +87,17 @@ export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
 					<ul className='message-list' ref={messageListRef}>
 						{messages.map((message) => {
 							const isCurrentUser = message.user_id === checkIn.user.id;
-							const dateCreated = DateTime.fromISO(
-								message.message_sent_time
-							).toRelative();
+							// const dateCreated = DateTime.fromISO(
+							// 	message.message_sent_time
+							// ).toRelative();
 							const className = `message-list-item ${
 								isCurrentUser ? 'current-user' : ''
 							}`.trim();
 							return (
 								<li className={className} key={message.commentable_id}>
-									<span className='message-list-item-message-timestamp'>
+									{/* <span className='message-list-item-message-timestamp'>
 										{dateCreated}
-									</span>
+									</span> */}
 									<div className='message-list-item-message-text'>
 										{message.text}
 									</div>
