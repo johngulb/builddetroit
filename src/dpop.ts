@@ -173,6 +173,23 @@ export const getContent = async (cid: string) => {
   return result;
 };
 
+export const createContact = async (contact: Contact, user_cid?: string) => {
+  const data = contact;
+  if (user_cid)
+    data['attestator'] = user_cid;
+  const result = await authorizedRequest(`user`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: contact ? JSON.stringify(contact) : null,
+  });
+  if (result?.data?.user_cid)
+    saveContact(result.data);
+  return result?.data;
+};
+
+
 export const submitEventCheckIn = async (event: string, contact: Contact, user_cid: string) => {
   const data = contact;
   data['attestator'] = user_cid;

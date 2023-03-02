@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 import Place from "@mui/icons-material/Place";
 
 const VenueName = ({ venue }) => {
@@ -16,6 +16,7 @@ export const EventInfo = ({
   event,
   linkLocation = false,
   variant = "default",
+  header = 2,
 }) => {
   return (
     <EventInfoContainer className={`event-info ${variant}`}>
@@ -34,7 +35,8 @@ export const EventInfo = ({
             event.end_date
           ).format("h:mm a")}`}
         </div>
-        <h1>{event.title}</h1>
+        {header === 1 && <h1>{event.title}</h1>}
+        {header === 2 && <h2>{event.title}</h2>}
         {event.venue && (
           <>
             {linkLocation ? (
@@ -60,9 +62,10 @@ const EventInfoContainer = styled.div`
   &.nano {
     font-size: 12px;
   }
-  h1 {
+  h1, h2 {
     font-size: 1.8em;
     font-weight: bold;
+    margin-bottom: 0.25rem;
   }
   .time-range {
     font-size: 1.2em;

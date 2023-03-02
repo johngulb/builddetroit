@@ -5,9 +5,7 @@ import { NextSeo } from "next-seo";
 import { EventList } from "../components/Events/EventList";
 import { ContactBoxModal } from "../components/ContactBox";
 
-import {
-	Contact,
-} from '../dpop';
+import { Contact, createContact, getContact } from "../dpop";
 
 const PageWrapper = styled.div`
   /* background-color: #d1e4dd; */
@@ -21,16 +19,29 @@ const PageWrapper = styled.div`
 const PageContainer = styled.div`
   text-align: center;
   display: block;
-  max-width: 900px;
+  max-width: 700px;
   margin: auto;
+  .header {
+    padding: 2rem;
+    margin: 4rem 0;
+  }
   img {
     padding: 1rem;
     margin: auto;
   }
   h1 {
     margin-bottom: 1rem;
+    font-size: 4rem;
     @media only screen and (max-width: 822px) {
-      font-size: 3rem;
+      font-size: 2rem;
+    }
+  }
+  .section-title {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+    @media only screen and (max-width: 822px) {
+      font-size: 1.5rem;
     }
   }
 `;
@@ -55,17 +66,18 @@ const PageContainer = styled.div`
 // `;
 
 const HomePage = ({ events }) => {
-
   const [showContactBox, setShowContactBox] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
 
   const handleBuildWithUs = React.useCallback(() => {
-    console.log('CONSOLE LOG FUN: BUILD WITH US');
+    console.log("CONSOLE LOG FUN: BUILD WITH US");
     setShowContactBox(true);
   }, []);
 
   const handleSubmitContact = React.useCallback((contact: Contact) => {
-    console.log(contact);
+    // console.log(contact);
+    createContact(contact);
+    setShowContactBox(false);
   }, []);
 
   return (
@@ -82,59 +94,61 @@ const HomePage = ({ events }) => {
           className="custom-logo"
           alt=""
         /> */}
-        <h1>Hello Builders of Detroit</h1>
-        <p>
-          We are organizing a collective of creative people building cool things
-          in Detroit with the plan to launch a DAO.
-        </p>
-        <div>
-          <ButtonLink
-            // href="https://builddetroit.zyz/join-us"
-            // target="_blank"
-            // rel="noreferrer"
-            onClick={handleBuildWithUs}
-          >
-            BUILD WITH US
-          </ButtonLink>
-          {/* <ContactBox
+        <div className="header">
+          <h1>Builders of Detroit</h1>
+          <p>
+            We are organizing a collective of creative people building cool
+            things in Detroit with the plan to launch a DAO.
+          </p>
+          <div>
+            <ButtonLink
+              // href="https://builddetroit.zyz/join-us"
+              // target="_blank"
+              // rel="noreferrer"
+              onClick={handleBuildWithUs}
+            >
+              BUILD WITH US
+            </ButtonLink>
+            {/* <ContactBox
             bodyContent=""
             titleText=""
             buttonText="BUILD WITH US"
             onSubmit={handleBuildWithUs}
           /> */}
-          
-          <ContactBoxModal
-            show={showContactBox}
-            setShow={setShowContactBox}
-            onSubmit={handleSubmitContact}
-            bodyContent={
-              <>
-                <div style={{ fontSize: 14, marginBottom: 8, marginTop: 16 }}>
-                  <a
-                    onClick={() => {
-                      setShowContactBox(false);
-                      setShowAuth(true);
-                    }}
-                    style={{ color: "blue", fontWeight: "bold" }}
-                  >
-                    Login
-                  </a>{" "}
-                  or enter your contact info below.
-                </div>
-              </>
-            }
-            titleText={
-              <>
-                <div style={{ marginBottom: 8, textTransform: "uppercase" }}>
-                  JOIN BUILDERS IN DETROIT
-                </div>
-              </>
-            }
-            buttonText="BUILD WITH US"
-          />
-          <p>Find Us At Local Events</p>
-          <EventList events={events} variant="compact" />
+
+            <ContactBoxModal
+              show={showContactBox}
+              setShow={setShowContactBox}
+              onSubmit={handleSubmitContact}
+              bodyContent={
+                <>
+                  <div style={{ fontSize: 14, marginBottom: 8, marginTop: 16 }}>
+                    {/* <a
+                      onClick={() => {
+                        setShowContactBox(false);
+                        setShowAuth(true);
+                      }}
+                      style={{ color: "blue", fontWeight: "bold" }}
+                    >
+                      Login
+                    </a>{" "}
+                    or enter your contact info below. */}
+                  </div>
+                </>
+              }
+              titleText={
+                <>
+                  <div style={{ marginBottom: 8, textTransform: "uppercase" }}>
+                    JOIN BUILDERS IN DETROIT
+                  </div>
+                </>
+              }
+              buttonText="BUILD WITH US"
+            />
+          </div>
         </div>
+        <h2 className="section-title">Find Us At Local Events</h2>
+        <EventList events={events} variant="compact" />
       </PageContainer>
     </PageWrapper>
   );
