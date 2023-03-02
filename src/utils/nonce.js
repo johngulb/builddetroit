@@ -1,0 +1,1 @@
+export const nonce = () => Math.floor(Math.random() * 1000000);

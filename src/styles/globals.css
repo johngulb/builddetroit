@@ -1,98 +1,9 @@
-:root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-
-  --primary-glow: conic-gradient(
-    from 180deg at 50% 50%,
-    #16abff33 0deg,
-    #0885ff33 55deg,
-    #54d6ff33 120deg,
-    #0071ff33 160deg,
-    transparent 360deg
-  );
-  --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
-  );
-
-  --tile-start-rgb: 239, 245, 249;
-  --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(
-    #00000080,
-    #00000040,
-    #00000030,
-    #00000020,
-    #00000010,
-    #00000010,
-    #00000080
-  );
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -100,8 +11,1315 @@ a {
   text-decoration: none;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+  body {
+    color: white;
+    background: black;
+  }
+}
+
+@charset "UTF-8";
+
+/*
+Theme Name: Twenty Twenty-One
+Theme URI: https://wordpress.org/themes/twentytwentyone/
+Author: the WordPress team
+Author URI: https://wordpress.org/
+Description: Twenty Twenty-One is a blank canvas for your ideas and it makes the block editor your best brush. With new block patterns, which allow you to create a beautiful layout in a matter of seconds, this theme’s soft colors and eye-catching — yet timeless — design will let your work shine. Take it for a spin! See how Twenty Twenty-One elevates your portfolio, business website, or personal blog.
+Requires at least: 5.3
+Tested up to: 6.0
+Requires PHP: 5.6
+Version: 1.6
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: twentytwentyone
+Tags: one-column, accessibility-ready, custom-colors, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, block-patterns, rtl-language-support, sticky-post, threaded-comments, translation-ready
+
+Twenty Twenty-One WordPress Theme, (C) 2020 WordPress.org
+Twenty Twenty-One is distributed under the terms of the GNU GPL.
+*/
+
+/**
+ * SETTINGS
+ * File-header..........The file header for the themes style.css file.
+ * Fonts................Any font files, if the project needs specific fonts.
+ * Global...............Project-specific, globally available variables.
+ *
+ * TOOLS
+ * Functions............Global functions.
+ * Mixins...............Global mixins.
+ *
+ * GENERIC
+ * Normalize.css........Normalise browser defaults.
+ * Breakpoints..........Mixins and variables for responsive styles
+ * Vertical-margins.....Vertical spacing for the main components.
+ * Reset................Reset specific elements to make them easier to style in other contexts.
+ * Clearings............Clearings for the main components.
+ *
+ * ELEMENTS
+ * Blockquote...........Default blockquote.
+ * Forms................Element-level form styling.
+ * Headings.............H1–H6
+ * Links................Default links.
+ * Lists................Default lists.
+ * Media................Images, Figure, Figcaption, Embed, iFrame, Objects, Video.
+ *
+ * BLOCKS
+ * Audio................Specific styles for the audio block.
+ * Button...............Specific styles for the button block.
+ * Code.................Specific styles for the code block.
+ * Columns..............Specific styles for the columns block.
+ * Cover................Specific styles for the cover block.
+ * File.................Specific styles for the file block.
+ * Gallery..............Specific styles for the gallery block.
+ * Group................Specific styles for the group block.
+ * Heading..............Specific styles for the heading block.
+ * Image................Specific styles for the image block.
+ * Latest comments......Specific styles for the latest comments block.
+ * Latest posts.........Specific styles for the latest posts block.
+ * Legacy...............Specific styles for the legacy gallery.
+ * List.................Specific styles for the list block.
+ * Media text...........Specific styles for the media and text block.
+ * Navigation...........Specific styles for the navigation block.
+ * Paragraph............Specific styles for the paragraph block.
+ * Pullquote............Specific styles for the pullquote block.
+ * Quote................Specific styles for the quote block.
+ * Search...............Specific styles for the search block.
+ * Separator............Specific styles for the separator block.
+ * Spacer...............Specific styles for the spacer block.
+ * Table................Specific styles for the table block.
+ * Verse................Specific styles for the verse block.
+ * Video................Specific styles for the video block.
+ * Utilities............Block alignments.
+ *
+ * COMPONENTS
+ * Header...............Header styles.
+ * Footer...............Footer styles.
+ * Comments.............Comment styles.
+ * Archives.............Archive styles.
+ * 404..................404 styles.
+ * Search...............Search styles.
+ * Navigation...........Navigation styles.
+ * Footer Navigation....Footer Navigation styles.
+ * Pagination...........Pagination styles.
+ * Single...............Single page and post styles.
+ * Posts and pages......Misc, sticky post styles.
+ * Entry................Entry, author biography.
+ * Widget...............Widget styles.
+ * Editor...............Editor styles.
+ *
+ * UTILITIES
+ * A11y.................Screen reader text, prefers reduced motion etc.
+ * Color Palette........Classes for the color palette colors.
+ * Editor Font Sizes....Editor Font Sizes.
+ * Measure..............The width of a line of text, in characters.
+ */
+
+/* Categories 01 to 03 are the basics. */
+
+/* Variables */
+:root {
+
+	/* Font Family */
+	--global--font-primary: var(--font-headings, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif);
+	--global--font-secondary: var(--font-base, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif);
+
+	/* Font Size */
+	--global--font-size-base: 1.25rem;
+	--global--font-size-xs: 1rem;
+	--global--font-size-sm: 1.125rem;
+	--global--font-size-md: 1.25rem;
+	--global--font-size-lg: 1.5rem;
+	--global--font-size-xl: 2.25rem;
+	--global--font-size-xxl: 4rem;
+	--global--font-size-xxxl: 5rem;
+	--global--font-size-page-title: var(--global--font-size-xxl);
+	--global--letter-spacing: normal;
+
+	/* Line Height */
+	--global--line-height-body: 1.7;
+	--global--line-height-heading: 1.3;
+	--global--line-height-page-title: 1.1;
+
+	/* Headings */
+	--heading--font-family: var(--global--font-primary);
+	--heading--font-size-h6: var(--global--font-size-xs);
+	--heading--font-size-h5: var(--global--font-size-sm);
+	--heading--font-size-h4: var(--global--font-size-lg);
+	--heading--font-size-h3: calc(1.25 * var(--global--font-size-lg));
+	--heading--font-size-h2: var(--global--font-size-xl);
+	--heading--font-size-h1: var(--global--font-size-page-title);
+	--heading--letter-spacing-h6: 0.05em;
+	--heading--letter-spacing-h5: 0.05em;
+	--heading--letter-spacing-h4: var(--global--letter-spacing);
+	--heading--letter-spacing-h3: var(--global--letter-spacing);
+	--heading--letter-spacing-h2: var(--global--letter-spacing);
+	--heading--letter-spacing-h1: var(--global--letter-spacing);
+	--heading--line-height-h6: var(--global--line-height-heading);
+	--heading--line-height-h5: var(--global--line-height-heading);
+	--heading--line-height-h4: var(--global--line-height-heading);
+	--heading--line-height-h3: var(--global--line-height-heading);
+	--heading--line-height-h2: var(--global--line-height-heading);
+	--heading--line-height-h1: var(--global--line-height-page-title);
+	--heading--font-weight: normal;
+	--heading--font-weight-page-title: 300;
+	--heading--font-weight-strong: 600;
+
+	/* Block: Latest posts */
+	--latest-posts--title-font-family: var(--heading--font-family);
+	--latest-posts--title-font-size: var(--heading--font-size-h3);
+	--latest-posts--description-font-family: var(--global--font-secondary);
+	--latest-posts--description-font-size: var(--global--font-size-sm);
+	--list--font-family: var(--global--font-secondary);
+	--definition-term--font-family: var(--global--font-primary);
+
+	/* Colors */
+	--global--color-black: #000;
+	--global--color-dark-gray: #28303d;
+	--global--color-gray: #39414d;
+	--global--color-light-gray: #fafafa;
+	--global--color-green: #d1e4dd;
+	--global--color-blue: #d1dfe4;
+	--global--color-purple: #d1d1e4;
+	--global--color-red: #e4d1d1;
+	--global--color-orange: #e4dad1;
+	--global--color-yellow: #eeeadd;
+	--global--color-white: #fff;
+	--global--color-white-50: rgba(255, 255, 255, 0.5);
+	--global--color-white-90: rgba(255, 255, 255, 0.9);
+	--global--color-primary: var(--global--color-dark-gray);
+
+	/* Body text color, site title, footer text color. */
+	--global--color-secondary: var(--global--color-gray);
+
+	/* Headings */
+	--global--color-primary-hover: var(--global--color-primary);
+	--global--color-background: var(--global--color-light-gray);
+
+	/* Mint, default body background */
+	--global--color-border: var(--global--color-primary);
+
+	/* Used for borders (separators) */
+
+	/* Spacing */
+	--global--spacing-unit: 20px;
+	--global--spacing-measure: unset;
+	--global--spacing-horizontal: 25px;
+	--global--spacing-vertical: 30px;
+
+	/* Elevation */
+	--global--elevation: 1px 1px 3px 0 rgba(0, 0, 0, 0.2);
+
+	/* Forms */
+	--form--font-family: var(--global--font-secondary);
+	--form--font-size: var(--global--font-size-sm);
+	--form--line-height: var(--global--line-height-body);
+	--form--color-text: var(--global--color-dark-gray);
+	--form--color-ranged: var(--global--color-secondary);
+	--form--label-weight: 500;
+	--form--border-color: var(--global--color-secondary);
+	--form--border-width: 3px;
+	--form--border-radius: 0;
+	--form--spacing-unit: calc(0.5 * var(--global--spacing-unit));
+
+	/* Cover block */
+	--cover--height: calc(15 * var(--global--spacing-vertical));
+	--cover--color-foreground: var(--global--color-white);
+	--cover--color-background: var(--global--color-black);
+
+	/* Buttons */
+	--button--color-text: var(--global--color-background);
+	--button--color-text-hover: var(--global--color-secondary);
+	--button--color-text-active: var(--global--color-secondary);
+	--button--color-background: var(--global--color-secondary);
+	--button--color-background-active: var(--global--color-background);
+	--button--font-family: var(--global--font-primary);
+	--button--font-size: var(--global--font-size-base);
+	--button--font-weight: 500;
+	--button--line-height: 1.5;
+	--button--border-width: 3px;
+	--button--border-radius: 0;
+	--button--padding-vertical: 15px;
+	--button--padding-horizontal: calc(2 * var(--button--padding-vertical));
+
+	/* entry */
+	--entry-header--color: var(--global--color-primary);
+	--entry-header--color-link: currentColor;
+	--entry-header--color-hover: var(--global--color-primary-hover);
+	--entry-header--color-focus: var(--global--color-secondary);
+	--entry-header--font-size: var(--heading--font-size-h2);
+	--entry-content--font-family: var(--global--font-secondary);
+	--entry-author-bio--font-family: var(--heading--font-family);
+	--entry-author-bio--font-size: var(--heading--font-size-h4);
+
+	/* Header */
+	--branding--color-text: var(--global--color-primary);
+	--branding--color-link: var(--global--color-primary);
+	--branding--color-link-hover: var(--global--color-secondary);
+	--branding--title--font-family: var(--global--font-primary);
+	--branding--title--font-size: var(--global--font-size-lg);
+	--branding--title--font-size-mobile: var(--heading--font-size-h4);
+	--branding--title--font-weight: normal;
+	--branding--title--text-transform: uppercase;
+	--branding--description--font-family: var(--global--font-secondary);
+	--branding--description--font-size: var(--global--font-size-sm);
+	--branding--description--font-family: var(--global--font-secondary);
+	--branding--logo--max-width: 300px;
+	--branding--logo--max-height: 100px;
+	--branding--logo--max-width-mobile: 96px;
+	--branding--logo--max-height-mobile: 96px;
+
+	/* Main navigation */
+	--primary-nav--font-family: var(--global--font-secondary);
+	--primary-nav--font-family-mobile: var(--global--font-primary);
+	--primary-nav--font-size: var(--global--font-size-md);
+	--primary-nav--font-size-sub-menu: var(--global--font-size-xs);
+	--primary-nav--font-size-mobile: var(--global--font-size-sm);
+	--primary-nav--font-size-sub-menu-mobile: var(--global--font-size-sm);
+	--primary-nav--font-size-button: var(--global--font-size-xs);
+	--primary-nav--font-style: normal;
+	--primary-nav--font-style-sub-menu-mobile: normal;
+	--primary-nav--font-weight: normal;
+	--primary-nav--font-weight-button: 500;
+	--primary-nav--color-link: var(--global--color-primary);
+	--primary-nav--color-link-hover: var(--global--color-primary-hover);
+	--primary-nav--color-text: var(--global--color-primary);
+	--primary-nav--padding: calc(0.66 * var(--global--spacing-unit));
+	--primary-nav--border-color: var(--global--color-primary);
+
+	/* Pagination */
+	--pagination--color-text: var(--global--color-primary);
+	--pagination--color-link-hover: var(--global--color-primary-hover);
+	--pagination--font-family: var(--global--font-secondary);
+	--pagination--font-size: var(--global--font-size-lg);
+	--pagination--font-weight: normal;
+	--pagination--font-weight-strong: 600;
+
+	/* Footer */
+	--footer--color-text: var(--global--color-primary);
+	--footer--color-link: var(--global--color-primary);
+	--footer--color-link-hover: var(--global--color-primary-hover);
+	--footer--font-family: var(--global--font-primary);
+	--footer--font-size: var(--global--font-size-sm);
+
+	/* Block: Pull quote */
+	--pullquote--font-family: var(--global--font-primary);
+	--pullquote--font-size: var(--heading--font-size-h3);
+	--pullquote--font-style: normal;
+	--pullquote--letter-spacing: var(--heading--letter-spacing-h4);
+	--pullquote--line-height: var(--global--line-height-heading);
+	--pullquote--border-width: 3px;
+	--pullquote--border-color: var(--global--color-primary);
+	--pullquote--color-foreground: var(--global--color-primary);
+	--pullquote--color-background: var(--global--color-background);
+	--quote--font-family: var(--global--font-secondary);
+	--quote--font-size: var(--global--font-size-md);
+	--quote--font-size-large: var(--global--font-size-xl);
+	--quote--font-style: normal;
+	--quote--font-weight: 700;
+	--quote--font-weight-strong: bolder;
+	--quote--font-style-large: normal;
+	--quote--font-style-cite: normal;
+	--quote--line-height: var(--global--line-height-body);
+	--quote--line-height-large: 1.35;
+	--separator--border-color: var(--global--color-border);
+	--separator--height: 1px;
+
+	/* Block: Table */
+	--table--stripes-border-color: var(--global--color-light-gray);
+	--table--stripes-background-color: var(--global--color-light-gray);
+	--table--has-background-text-color: var(--global--color-dark-gray);
+
+	/* Widgets */
+	--widget--line-height-list: 1.9;
+	--widget--line-height-title: 1.4;
+	--widget--font-weight-title: 700;
+	--widget--spacing-menu: calc(0.66 * var(--global--spacing-unit));
+
+	/* Admin-bar height */
+	--global--admin-bar--height: 0px;
+}
+
+.admin-bar {
+	--global--admin-bar--height: 32px;
+}
+@media only screen and (max-width: 782px) {
+
+	.admin-bar {
+		--global--admin-bar--height: 46px;
+	}
+}
+
+@media only screen and (min-width: 652px) {
+
+	:root {
+		--global--font-size-xl: 2.5rem;
+		--global--font-size-xxl: 6rem;
+		--global--font-size-xxxl: 9rem;
+		--heading--font-size-h3: 2rem;
+		--heading--font-size-h2: 3rem;
+	}
+}
+
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+	line-height: 1.15;
+
+	/* 1 */
+	-webkit-text-size-adjust: 100%;
+
+	/* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+	margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+	display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+	box-sizing: content-box;
+
+	/* 1 */
+	height: 0;
+
+	/* 1 */
+	overflow: visible;
+
+	/* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+	font-family: monospace;
+
+	/* 1 */
+	font-size: 1em;
+
+	/* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+	background-color: transparent;
+	text-decoration-thickness: 1px;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+	border-bottom: none;
+
+	/* 1 */
+	text-decoration: underline;
+
+	/* 2 */
+	text-decoration-style: dotted;
+
+	/* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+	font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+	font-family: monospace;
+
+	/* 1 */
+	font-size: 1em;
+
+	/* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+	font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+	border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: inherit;
+
+	/* 1 */
+	font-size: 100%;
+
+	/* 1 */
+	line-height: 1.15;
+
+	/* 1 */
+	margin: 0;
+
+	/* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+
+	/* 1 */
+	overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+
+	/* 1 */
+	text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+	-webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
+	border-style: none;
+	padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring {
+	outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+	padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+	box-sizing: border-box;
+
+	/* 1 */
+	color: inherit;
+
+	/* 2 */
+	display: table;
+
+	/* 1 */
+	max-width: 100%;
+
+	/* 1 */
+	padding: 0;
+
+	/* 3 */
+	white-space: normal;
+
+	/* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+	vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+	overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type=checkbox],
+[type=radio] {
+	box-sizing: border-box;
+
+	/* 1 */
+	padding: 0;
+
+	/* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type=search] {
+	-webkit-appearance: textfield;
+
+	/* 1 */
+	outline-offset: -2px;
+
+	/* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type=search]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+	-webkit-appearance: button;
+
+	/* 1 */
+	font: inherit;
+
+	/* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+	display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+	display: list-item;
+}
+
+/* Misc
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+	display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+	display: none;
+}
+
+/**
+ * Responsive Styles
+ */
+
+/**
+ * Required Variables
+ */
+
+/**
+ * Root Media Query Variables
+ */
+:root {
+	--responsive--spacing-horizontal: calc(2 * var(--global--spacing-horizontal) * 0.6);
+	--responsive--aligndefault-width: calc(100vw - var(--responsive--spacing-horizontal));
+	--responsive--alignwide-width: calc(100vw - var(--responsive--spacing-horizontal));
+	--responsive--alignfull-width: 100%;
+	--responsive--alignright-margin: var(--global--spacing-horizontal);
+	--responsive--alignleft-margin: var(--global--spacing-horizontal);
+}
+
+@media only screen and (min-width: 482px) {
+
+	:root {
+		--responsive--aligndefault-width: min(calc(100vw - 4 * var(--global--spacing-horizontal)), 610px);
+		--responsive--alignwide-width: calc(100vw - 4 * var(--global--spacing-horizontal));
+		--responsive--alignright-margin: calc(0.5 * (100vw - var(--responsive--aligndefault-width)));
+		--responsive--alignleft-margin: calc(0.5 * (100vw - var(--responsive--aligndefault-width)));
+	}
+}
+@media only screen and (min-width: 822px) {
+
+	:root {
+		--responsive--aligndefault-width: min(calc(100vw - 8 * var(--global--spacing-horizontal)), 610px);
+		--responsive--alignwide-width: min(calc(100vw - 8 * var(--global--spacing-horizontal)), 1240px);
+	}
+}
+
+/**
+ * Extends
+ */
+.post-thumbnail,
+.entry-content .wp-audio-shortcode,
+.entry-content > *:not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.wp-block-separator):not(.woocommerce),
+*[class*=inner-container] > *:not(.entry-content):not(.alignwide):not(.alignfull):not(.alignleft):not(.alignright):not(.wp-block-separator):not(.woocommerce),
+.default-max-width {
+	max-width: var(--responsive--aligndefault-width);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.widget-area,
+.pagination,
+.comments-pagination,
+.post-navigation,
+.site-footer,
+.site-header,
+.alignwide,
+.wide-max-width {
+	max-width: var(--responsive--alignwide-width);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.alignfull,
+.wp-block-group .wp-block-group__inner-container > *.alignfull,
+.full-max-width {
+	max-width: var(--responsive--alignfull-width);
+	width: var(--responsive--alignfull-width);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media only screen and (min-width: 482px) {
+
+	.alignfull,
+	.full-max-width {
+		max-width: var(--responsive--alignfull-width);
+		width: auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+.entry-header .post-thumbnail,
+.singular .post-thumbnail,
+.alignfull [class*=inner-container] > .alignwide,
+.alignwide [class*=inner-container] > .alignwide {
+	margin-left: auto;
+	margin-right: auto;
+	width: var(--responsive--alignwide-width);
+	max-width: var(--responsive--alignfull-width);
+}
+
+@media only screen and (min-width: 482px) {
+
+	.entry-content > .alignleft {
+
+		/*rtl:ignore*/
+		margin-left: var(--responsive--alignleft-margin);
+
+		/*rtl:ignore*/
+		margin-right: var(--global--spacing-horizontal);
+	}
+}
+@media only screen and (min-width: 482px) {
+
+	.entry-content > .alignright {
+
+		/*rtl:ignore*/
+		margin-left: var(--global--spacing-horizontal);
+
+		/*rtl:ignore*/
+		margin-right: var(--responsive--alignright-margin);
+	}
+}
+
+/**
+ * Site Structure
+ *
+ * - Set vertical margins and responsive widths on
+ *   top-level wrappers and content wrappers
+ * - `--global--width-content` is a responsive variable
+ * - See: globals/_global-width-responsive.scss
+ */
+
+/**
+ * Top Level Wrappers (header, main, footer)
+ * - Set vertical padding and horizontal margins
+ */
+.site-header,
+.site-main,
+.widget-area,
+.site-footer {
+	padding-top: var(--global--spacing-vertical);
+	padding-bottom: var(--global--spacing-vertical);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.site-header {
+	padding-top: calc(0.75 * var(--global--spacing-vertical));
+	padding-bottom: calc(2 * var(--global--spacing-vertical));
+}
+@media only screen and (min-width: 482px) {
+
+	.site-header {
+		padding-bottom: calc(3 * var(--global--spacing-vertical));
+	}
+}
+
+/**
+ * Site-main children wrappers
+ * - Add double vertical margins here for clearer hierarchy
+ */
+.site-main > * {
+	margin-top: calc(3 * var(--global--spacing-vertical));
+	margin-bottom: calc(3 * var(--global--spacing-vertical));
+}
+
+.site-main > *:first-child {
+	margin-top: 0;
+}
+
+.site-main > *:last-child {
+	margin-bottom: 0;
+}
+
+/**
+ * Set the default maximum responsive content-width
+ */
+
+/**
+ * Set the wide maximum responsive content-width
+ */
+
+/**
+ * Set the full maximum responsive content-width
+ */
+
+/*
+ * Block & non-gutenberg content wrappers
+ * - Set margins
+ */
+.entry-header,
+.post-thumbnail,
+.entry-content,
+.entry-footer,
+.author-bio {
+	margin-top: var(--global--spacing-vertical);
+	margin-right: auto;
+	margin-bottom: var(--global--spacing-vertical);
+	margin-left: auto;
+}
+
+/*
+ * Block & non-gutenberg content wrapper children
+ * - Sets spacing-vertical margin logic
+ */
+.site-main > article > *,
+.site-main > .not-found > *,
+.entry-content > *,
+[class*=inner-container] > *,
+.wp-block-template-part > *,
+.wp-block-post-template :where(li > *) {
+	margin-top: calc(0.666 * var(--global--spacing-vertical));
+	margin-bottom: calc(0.666 * var(--global--spacing-vertical));
+}
+@media only screen and (min-width: 482px) {
+
+	.site-main > article > *,
+	.site-main > .not-found > *,
+	.entry-content > *,
+	[class*=inner-container] > *,
+	.wp-block-template-part > *,
+	.wp-block-post-template :where(li > *) {
+		margin-top: var(--global--spacing-vertical);
+		margin-bottom: var(--global--spacing-vertical);
+	}
+}
+
+.site-main > article > *:first-child,
+.site-main > .not-found > *:first-child,
+.entry-content > *:first-child,
+[class*=inner-container] > *:first-child,
+.wp-block-template-part > *:first-child,
+.wp-block-post-template :where(li > *):first-child {
+	margin-top: 0;
+}
+
+.site-main > article > *:last-child,
+.site-main > .not-found > *:last-child,
+.entry-content > *:last-child,
+[class*=inner-container] > *:last-child,
+.wp-block-template-part > *:last-child,
+.wp-block-post-template :where(li > *):last-child {
+	margin-bottom: 0;
+}
+
+.site-footer > *,
+.widget-area > * {
+	margin-top: calc(0.666 * var(--global--spacing-vertical));
+	margin-bottom: calc(0.666 * var(--global--spacing-vertical));
+}
+@media only screen and (min-width: 482px) {
+
+	.site-footer > *,
+	.widget-area > * {
+		margin-top: var(--global--spacing-vertical);
+		margin-bottom: var(--global--spacing-vertical);
+	}
+}
+
+/*
+ * Block & non-gutenberg content wrapper children
+ * - Sets spacing-unit margins
+ */
+.entry-header > *,
+.post-thumbnail > *,
+.page-content > *,
+.comment-content > *,
+.widget > * {
+	margin-top: var(--global--spacing-unit);
+	margin-bottom: var(--global--spacing-unit);
+}
+
+.entry-header > *:first-child,
+.post-thumbnail > *:first-child,
+.page-content > *:first-child,
+.comment-content > *:first-child,
+.widget > *:first-child {
+	margin-top: 0;
+}
+
+.entry-header > *:last-child,
+.post-thumbnail > *:last-child,
+.page-content > *:last-child,
+.comment-content > *:last-child,
+.widget > *:last-child {
+	margin-bottom: 0;
+}
+
+/*
+ * .entry-content children specific controls
+ * - Adds special margin overrides for alignment utility classes
+ */
+.entry-content > * {
+
+	/* Reset alignleft and alignright margins after alignfull */
+}
+
+.entry-content > *.alignleft,
+.entry-content > *.alignright,
+.entry-content > *.alignleft:first-child + *,
+.entry-content > *.alignright:first-child + *,
+.entry-content > *.alignfull.has-background {
+	margin-top: 0;
+}
+
+.entry-content > *:last-child,
+.entry-content > *.alignfull.has-background {
+	margin-bottom: 0;
+}
+
+.entry-content > *.alignfull + .alignleft,
+.entry-content > *.alignfull + .alignright {
+	margin-top: var(--global--spacing-vertical);
+}
+
+/**
+ * Reset specific elements to make them easier to style in other contexts.
+ */
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+form,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	padding: 0;
+	margin: 0;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
+
+/**
+ * Apply generic border-box to all elements.
+ * See:
+ * https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
+html {
+
+	/* Apply border-box across the entire page. */
+	box-sizing: border-box;
+	font-family: var(--global--font-secondary);
+	line-height: var(--global--line-height-body);
+}
+
+/**
+ * Relax the definition a bit, to allow components to override it manually.
+ */
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+body {
+	font-size: var(--global--font-size-base);
+	font-weight: normal;
+	color: var(--global--color-primary);
+	text-align: left;
+	background-color: var(--global--color-background) !important;
+}
+
+button {
+	cursor: pointer;
+}
+
+.clear:before,
+.clear:after,
+.entry-content:before,
+.entry-content:after,
+.comment-content:before,
+.comment-content:after,
+.site-header:before,
+.site-header:after,
+.site-content:before,
+.site-content:after,
+.site-footer:before,
+.site-footer:after {
+	content: "";
+	display: table;
+	table-layout: fixed;
+}
+
+.clear:after,
+.entry-content:after,
+.comment-content:after,
+.site-header:after,
+.site-content:after,
+.site-footer:after {
+	clear: both;
+}
+
+/* Category 04 can contain any default HTML element. Do not add classes here, just give the elements some basic styles. */
+blockquote {
+	padding: 0;
+	position: relative;
+	margin: var(--global--spacing-vertical) 0 var(--global--spacing-vertical) var(--global--spacing-horizontal);
+}
+
+blockquote > * {
+	margin-top: var(--global--spacing-unit);
+	margin-bottom: var(--global--spacing-unit);
+}
+
+blockquote > *:first-child {
+	margin-top: 0;
+}
+
+blockquote > *:last-child {
+	margin-bottom: 0;
+}
+
+blockquote p {
+	letter-spacing: var(--heading--letter-spacing-h4);
+	font-family: var(--quote--font-family);
+	font-size: var(--quote--font-size);
+	font-style: var(--quote--font-style);
+	font-weight: var(--quote--font-weight);
+	line-height: var(--quote--line-height);
+}
+
+blockquote cite,
+blockquote footer {
+	font-weight: normal;
+	color: var(--global--color-primary);
+	font-size: var(--global--font-size-xs);
+	letter-spacing: var(--global--letter-spacing);
+}
+
+blockquote.alignleft,
+blockquote.alignright {
+	padding-left: inherit;
+}
+
+blockquote.alignleft p,
+blockquote.alignright p {
+	font-size: var(--heading--font-size-h5);
+	max-width: inherit;
+	width: inherit;
+}
+
+blockquote.alignleft cite,
+blockquote.alignleft footer,
+blockquote.alignright cite,
+blockquote.alignright footer {
+	font-size: var(--global--font-size-xs);
+	letter-spacing: var(--global--letter-spacing);
+}
+
+blockquote strong {
+	font-weight: var(--quote--font-weight-strong);
+}
+
+blockquote:before {
+	content: "“";
+	font-size: var(--quote--font-size);
+	line-height: var(--quote--line-height);
+	position: absolute;
+	left: calc(-0.5 * var(--global--spacing-horizontal));
+}
+
+blockquote .wp-block-quote__citation,
+blockquote cite,
+blockquote footer {
+	color: var(--global--color-primary);
+	font-size: var(--global--font-size-xs);
+	font-style: var(--quote--font-style-cite);
+}
+@media only screen and (max-width: 481px) {
+
+	blockquote {
+		padding-left: calc(0.5 * var(--global--spacing-horizontal));
+	}
+
+	blockquote:before {
+		left: 0;
+	}
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+	clear: both;
+	font-family: var(--heading--font-family);
+	font-weight: var(--heading--font-weight);
+}
+
+h1 strong,
+.h1 strong,
+h2 strong,
+.h2 strong,
+h3 strong,
+.h3 strong,
+h4 strong,
+.h4 strong,
+h5 strong,
+.h5 strong,
+h6 strong,
+.h6 strong {
+	font-weight: var(--heading--font-weight-strong);
+}
+
+h1,
+.h1 {
+	font-size: var(--heading--font-size-h1);
+	letter-spacing: var(--heading--letter-spacing-h1);
+	line-height: var(--heading--line-height-h1);
+}
+
+h2,
+.h2 {
+	font-size: var(--heading--font-size-h2);
+	letter-spacing: var(--heading--letter-spacing-h2);
+	line-height: var(--heading--line-height-h2);
+}
+
+h3,
+.h3 {
+	font-size: var(--heading--font-size-h3);
+	letter-spacing: var(--heading--letter-spacing-h3);
+	line-height: var(--heading--line-height-h3);
+}
+
+h4,
+.h4 {
+	font-size: var(--heading--font-size-h4);
+	font-weight: var(--heading--font-weight-strong);
+	letter-spacing: var(--heading--letter-spacing-h4);
+	line-height: var(--heading--line-height-h4);
+}
+
+h5,
+.h5 {
+	font-size: var(--heading--font-size-h5);
+	font-weight: var(--heading--font-weight-strong);
+	letter-spacing: var(--heading--letter-spacing-h5);
+	line-height: var(--heading--line-height-h5);
+}
+
+h6,
+.h6 {
+	font-size: var(--heading--font-size-h6);
+	font-weight: var(--heading--font-weight-strong);
+	letter-spacing: var(--heading--letter-spacing-h6);
+	line-height: var(--heading--line-height-h6);
+}
+
+ul {
+	margin-left: 2rem;
+}
+
+.MuiBox-root {
+	outline: none;
+}
+
+a {
+	cursor: pointer;
 }
