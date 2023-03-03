@@ -131,7 +131,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
 
             <Social />
 
-            <ChatRoom attestator_cid={attestator_cid} initialMessages={event.comments} checkIn={checkIn} />
+            <ChatRoom attestator_cid={attestator_cid} event={event} initialMessages={event.comments} checkIn={checkIn} />
 
             {event.content && (
               <>
