@@ -3,12 +3,13 @@ import styled from '@emotion/styled';
 import { ChatRoomMessage } from './mockChatData';
 import SendIcon from '@mui/icons-material/Send';
 // import { DateTime } from 'luxon';
-import { DPoPEventCheckIn } from '../../dpop';
+import { DPoPEvent, DPoPEventCheckIn } from '../../dpop';
 // import axios from 'axios';
 
 interface ChatRoomProps {
 	attestator_cid: string; 
 	checkIn: DPoPEventCheckIn;
+	event: DPoPEvent; 
 	initialMessages: ChatRoomMessage[];
 }
 
@@ -17,6 +18,7 @@ interface ChatRoomProps {
 // https://api.dpop.tech/api/event/bagaaieraokagwwfa4qectjxdnkanh5h5bm7sbqw3d63usaz46q6m4ph2y4ba/comments
 
 export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
+	event,
 	attestator_cid,
 	checkIn,
 	initialMessages,
