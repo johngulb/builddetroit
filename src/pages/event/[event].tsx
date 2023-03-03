@@ -86,7 +86,7 @@ const EventLocationContainer = styled.div`
 
 const EventLocation = ({ event }) => {
   const address =
-    `${event.venue.geo.address} ${event.venue.geo.city}, ${event.venue.geo.state} ${event.venue.geo.zipcode}`.trim();
+    `${event.venue.geo?.address} ${event.venue.geo?.city}, ${event.venue.geo?.state} ${event.venue.geo?.zipcode}`.trim();
   return (
     <EventLocationContainer id="location">
       <h3>Event Location</h3>
@@ -104,7 +104,7 @@ const EventLocation = ({ event }) => {
         </a>
       </div>
       <div className="address">{address}</div>
-      <VenueMap venue={event.venue} />
+      {/* <VenueMap venue={event.venue} /> */}
     </EventLocationContainer>
   );
 };
