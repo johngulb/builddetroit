@@ -40,19 +40,19 @@ export const Page = ({ children, headerProps }) => {
         // }}
       />
       <Content>{children}</Content>
-      {!headerProps?.hideNavigation && (
-        <Footer>
+      <Footer>
+        <a href="https://thedetroitilove.com/">
           <img
             width="80"
             src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
             className="custom-logo"
             alt=""
           />
-          <div>
-            <p>Looking for something fun to do tonight? Look no further than the <a href="https://thedetroitilove.com/">detroitilove.com</a>.</p>
-          </div>
-        </Footer>
-      )}
+        </a>
+        <div>
+          <p>Looking for something fun to do tonight? Look no further than the <a href="https://thedetroitilove.com/">detroitilove.com</a>.</p>
+        </div>
+      </Footer>
     </Container>
   );
 };
