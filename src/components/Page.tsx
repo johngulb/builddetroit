@@ -41,7 +41,7 @@ export const Page = ({ children, headerProps }) => {
       />
       <Content>{children}</Content>
       <Footer>
-        <a href="https://thedetroitilove.com/">
+        <a href="https://thedetroitilove.com/" target="_blank">
           <img
             width="80"
             src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
@@ -50,7 +50,7 @@ export const Page = ({ children, headerProps }) => {
           />
         </a>
         <div>
-          <p>Looking for something fun to do tonight? Look no further than the <a href="https://thedetroitilove.com/">detroitilove.com</a>.</p>
+          <p>Looking for something fun to do tonight? Look no further than the <a href="https://thedetroitilove.com/" target="_blank">detroitilove.com</a>.</p>
         </div>
       </Footer>
     </Container>
