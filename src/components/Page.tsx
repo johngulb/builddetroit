@@ -43,8 +43,8 @@ export const Page = ({ children, headerProps }) => {
       {!headerProps?.hideNavigation && (
         <Footer>
           <img
-            width="60"
-            src="https://detroitartdao.com/wp-content/uploads/2022/08/cropped-DETROITART-LOGO.png"
+            width="80"
+            src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
             className="custom-logo"
             alt=""
           />
@@ -68,7 +68,7 @@ const Header = styled.div`
   text-align: center;
   padding: 0.5rem;
   padding-top: 0.75rem;
-  background-color: #c2caec;
+  background-color: #d2e4dd;
   border-bottom: solid 2px #ddd;
   position: fixed;
   width: 100%;
