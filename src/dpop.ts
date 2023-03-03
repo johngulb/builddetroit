@@ -14,6 +14,7 @@ export interface DPoPEvent {
   start_date: string;
   end_date: string;
   venue: Venue;
+  comments?: DPoPEventComment[];
 }
 
 export interface Venue {
@@ -38,6 +39,11 @@ export interface DPoPEventCheckIn {
   event_cid: string;
   user_cid: string;
   user?: User;
+}
+
+export interface DPoPEventComment {
+  text: string;
+  user: User;
 }
 
 export interface User {

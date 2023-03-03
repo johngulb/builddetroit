@@ -1,6 +1,7 @@
 import React from "react";
 import {
   DPoPEventCheckIn,
+  DPoPEventComment,
   Contact,
   getCheckIn,
   getContact,
@@ -14,11 +15,12 @@ import { EventInfo } from "../../../components/Events/EventInfo";
 import { NextSeo } from "next-seo";
 import { stripHtml } from "string-strip-html";
 import { ChatRoom } from "../../../components/Chat/ChatRoom";
-import { mockChatData } from "../../../components/Chat/mockChatData";
+import { ButtonLink } from "../../../components/ButtonLink";
+import { EventList } from "../../../components/Events/EventList";
 import { Social } from "../../../components/Social";
 import { CheckInQRCode } from "../../../components/CheckInQRCode";
 import { RaffleNumber } from "../../../components/Raffle";
-import { CenteredContainer, SectionTitle } from "../../../components/Styled";
+import { CenteredContainer, SectionSubtitle, SectionTitle } from "../../../components/Styled";
 
 const ProfileWrapper = styled.div`
   margin-bottom: 12px;
@@ -63,7 +65,7 @@ const PageContainer = styled.div`
   }
 `;
 
-const EventPage = ({ attestator_cid, event, messages }) => {
+const EventPage = ({ attestator_cid, event, events }) => {
   const [checkIn, setCheckIn] = React.useState<DPoPEventCheckIn>(null);
 
   const openGraph =
@@ -129,12 +131,19 @@ const EventPage = ({ attestator_cid, event, messages }) => {
 
             <Social />
 
-            {/* <ChatRoom initialMessages={messages} checkIn={checkIn} /> */}
+            <ChatRoom attestator_cid={attestator_cid} initialMessages={event.comments} checkIn={checkIn} />
 
             {event.content && (
               <>
-                <h3>Event Details</h3>
+                <SectionSubtitle>Event Details</SectionSubtitle>
                 <div dangerouslySetInnerHTML={{ __html: event.content }} />
+              </>
+            )}
+            {events && (
+              <>
+                <SectionSubtitle>Other Events</SectionSubtitle>
+                <EventList events={events} variant="compact" />
+                <ButtonLink href="/events">See All Events</ButtonLink>
               </>
             )}
           </div>
@@ -164,12 +173,17 @@ export const getServerSideProps = async ({ query, res }) => {
       },
     };
   }
+
+  const eventsRes = await fetch("https://api.dpop.tech/api/events");
+  const fetchedEvents = await eventsRes.json();
+  const events = fetchedEvents.data?.filter((e) => e.id !== event.id).slice(0, 3);
+  console.log('event: ', event);
   return {
     props: {
       attestator,
       attestator_cid: query.attestator,
       event,
-      messages: mockChatData,
+      events,
     },
   };
 };

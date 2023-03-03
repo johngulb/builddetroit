@@ -7,6 +7,7 @@ import { DPoPEventCheckIn } from '../../dpop';
 // import axios from 'axios';
 
 interface ChatRoomProps {
+	attestator_cid: string; 
 	checkIn: DPoPEventCheckIn;
 	initialMessages: ChatRoomMessage[];
 }
@@ -16,6 +17,7 @@ interface ChatRoomProps {
 // https://api.dpop.tech/api/event/bagaaieraokagwwfa4qectjxdnkanh5h5bm7sbqw3d63usaz46q6m4ph2y4ba/comments
 
 export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
+	attestator_cid,
 	checkIn,
 	initialMessages,
 }) => {
@@ -33,14 +35,18 @@ export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
 
 	const handleSendCommentRequest = async (newMessage: ChatRoomMessage) => {
 		fetch(
-			`https://api.dpop.tech/api/event/1188/comment`,
+			`https://api.dpop.tech/api/event/${event.id}/comment`,
 			{
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ text: newMessage.text }),
+				body: JSON.stringify({ 
+					text: newMessage.text,
+					user_cid: checkIn.user_cid,
+					attestator_cid
+				 }),
 			}
 		)
         .then((res) => res.json())
