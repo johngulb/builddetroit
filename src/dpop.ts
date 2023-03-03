@@ -6,7 +6,7 @@ export interface Contact {
   organization: string;
 }
 
-export interface Event {
+export interface DPoPEvent {
   id: number;
   cid: string;
   title: string;

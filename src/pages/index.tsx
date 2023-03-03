@@ -23,7 +23,7 @@ const PageContainer = styled.div`
   margin: auto;
   .header {
     padding: 2rem;
-    margin: 4rem 0;
+    margin: 2rem 0;
   }
   img {
     padding: 1rem;
@@ -95,6 +95,12 @@ const HomePage = ({ events }) => {
           alt=""
         /> */}
         <div className="header">
+          <img
+            width="144"
+            src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
+            className="custom-logo"
+            alt=""
+          />
           <h1>Builders of Detroit</h1>
           <p>
             We are organizing a collective of creative people building cool

@@ -18,7 +18,7 @@ export const Page = ({ children, headerProps }) => {
             <Link href="/">
               <img
                 width="40"
-                src="https://detroitartdao.com/wp-content/uploads/2022/08/cropped-DETROITART-LOGO.png"
+                src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
                 className="custom-logo"
                 alt=""
               />
@@ -30,7 +30,7 @@ export const Page = ({ children, headerProps }) => {
         openGraph={{
           type: "website",
           locale: "en_IE",
-          url: "https://builddetroit.xyz/",
+          url: "https://app.detroitartdao.com/",
           siteName: "Detroit Art | Community Events",
         }}
         // twitter={{
@@ -57,7 +57,7 @@ export const Page = ({ children, headerProps }) => {
 const Container = styled.div``;
 
 const Spacer = styled.div`
-  height: 55px;
+  height: 68px;
 `;
 
 const Content = styled.div`
@@ -68,7 +68,7 @@ const Header = styled.div`
   text-align: center;
   padding: 0.5rem;
   padding-top: 0.75rem;
-  background-color: #d2e4dd;
+  background-color: #c2caec;
   border-bottom: solid 2px #ddd;
   position: fixed;
   width: 100%;

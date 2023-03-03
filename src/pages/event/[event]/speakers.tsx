@@ -70,7 +70,6 @@ const EventPage = () => {
         >
           Join the Discord
         </ButtonLink>
-
         <Profile
           name="Robert Konsdorf"
           image="https://detroitartdao.com/wp-content/uploads/2023/02/IMG_3629-e1677184930924.jpeg"
@@ -97,6 +96,13 @@ const EventPage = () => {
             </>
           }
         />
+        <ButtonLink
+          href="https://creator.facings.io/eos"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Create on Facings
+        </ButtonLink>
         <Profile
           name="Ben London"
           image="https://detroitartdao.com/wp-content/uploads/2023/02/IMG_0290-e1677192157921.jpeg"
@@ -151,17 +157,17 @@ const EventPage = () => {
                 years experience deploying solutions that engage and grow
                 communities. He is currently a product lead at a fast growing
                 financial media company leading teams of developers and
-                empowering content creators to bring easy to consumer
-                information to end users.
+                empowering content creators to bring easy to consume information
+                to end users.
               </p>
               <p>
-                With a passion to learn he is making breaking into the world of
+                With a passion to learn he is breaking into the world of
                 cryptography and blockchains with an emphasis on usability and
                 creative ways to drive adoption of the technology.
               </p>
             </>
           }
-        />
+        />{" "}
       </PageContainer>
     </PageWrapper>
   );
