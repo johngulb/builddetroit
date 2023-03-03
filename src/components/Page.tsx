@@ -48,6 +48,9 @@ export const Page = ({ children, headerProps }) => {
             className="custom-logo"
             alt=""
           />
+          <div>
+            <p>Looking for something fun to do tonight? Look no further than the <a href="https://thedetroitilove.com/">detroitilove.com</a>.</p>
+          </div>
         </Footer>
       )}
     </Container>

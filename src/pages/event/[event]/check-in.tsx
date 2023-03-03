@@ -177,7 +177,7 @@ export const getServerSideProps = async ({ query, res }) => {
   const eventsRes = await fetch("https://api.dpop.tech/api/events");
   const fetchedEvents = await eventsRes.json();
   const events = fetchedEvents.data?.filter((e) => e.id !== event.id).slice(0, 3);
-  console.log('event: ', event);
+  // console.log('event: ', event);
   return {
     props: {
       attestator,
