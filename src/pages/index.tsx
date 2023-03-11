@@ -47,7 +47,7 @@ const PageContainer = styled.div`
   }
   p {
     font-size: 1rem;
-    max-width: 400px;
+    max-width: 420px;
     margin: 1rem auto;
     @media only screen and (max-width: 822px) {
       margin: 0.6rem auto;
@@ -94,7 +94,10 @@ const HomePage = ({ events }) => {
     <PageWrapper>
       <NextSeo
         title={`Build Detroit`}
-        description="Our mission is to leverage open source technology and resources to build a better future for Detroit. We are committed to empowering individuals and organizations to solve problems, innovate, and build the future they want to see."
+        description="Our mission is to leverage open source technology to build a better
+        future for Detroit. We are committed to provide educational resources that empower individuals
+        and organizations to solve problems, innovate, and build the future
+        they want to see."
         canonical={`https://builddetroit.xyz`}
       />
       <PageContainer>
@@ -117,9 +120,9 @@ const HomePage = ({ events }) => {
             future for Detroit.
           </p>
           <p>
-            We are committed to provide educational resources that empower individuals
-            and organizations to solve problems, innovate, and build the future
-            they want to see.
+            We are committed to provide educational resources that empower
+            individuals and organizations to solve problems, innovate, and build
+            the future they want to see.
           </p>
           <div>
             <ButtonLink
