@@ -182,7 +182,7 @@ const HomePage = ({ events }) => {
         {contact && (
           <Form
             formID="1"
-            populatedFields={{ email: contact.email, cid: contact.cid }}
+            populatedFields={{ email: contact?.email, cid: contact?.cid }}
           />
         )}
         <h2 className="section-title">FEATURED EVENTS</h2>

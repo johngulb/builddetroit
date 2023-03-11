@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import GravityForm from "react-gravity-form";
 
-import { ButtonLink } from "./Styled";
+import { Button } from "./Styled";
 
 const Loading = styled.div`
   color: red;
@@ -33,19 +33,23 @@ const GravityFormWrapper = styled.div`
   }
   textarea {
     width: 100%;
-    background-color: white;
+    background-color: inherit;
+    color: inherit;
   }
 `;
 
 const Checkbox = styled.div`
   text-align: left;
   .checkbox {
+    color-scheme: auto;
     padding: 0 0.5rem;
+    cursor: pointer;
     input {
       margin-right: 0.25rem;
     }
     label {
       margin-left: 0.25rem;
+      cursor: pointer;
     }
   }
 `;
@@ -60,6 +64,7 @@ export const Form = ({ formID, populatedFields }) => {
         // onSubmitSuccess={someFunction} // optional - calls after form has been submitted successfully
         // onError={handlerFunction} // optional - fires on GF error (gform_validation hook)
         styledComponents={{
+          Button,
           Checkbox,
           Loading,
         }} // optional
