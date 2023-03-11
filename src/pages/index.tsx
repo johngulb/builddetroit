@@ -31,7 +31,8 @@ const PageContainer = styled.div`
   }
   h1 {
     margin-bottom: 1rem;
-    font-size: 4rem;
+    font-size: 3.2rem;
+    text-transform: uppercase;
     @media only screen and (max-width: 822px) {
       font-size: 2rem;
     }
@@ -113,7 +114,7 @@ const HomePage = ({ events }) => {
               // rel="noreferrer"
               onClick={handleBuildWithUs}
             >
-              BUILD WITH US
+              COME BUILD WITH US
             </ButtonLink>
             {/* <ContactBox
             bodyContent=""
