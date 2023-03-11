@@ -45,6 +45,15 @@ const PageContainer = styled.div`
       font-size: 1.5rem;
     }
   }
+  p {
+    font-size: 1rem;
+    max-width: 400px;
+    margin: 1rem auto;
+    @media only screen and (max-width: 822px) {
+      margin: 0.6rem auto;
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 // const PageWrapper = styled.div`
@@ -85,7 +94,7 @@ const HomePage = ({ events }) => {
     <PageWrapper>
       <NextSeo
         title={`Build Detroit`}
-        description="Our mission is to leverage open source technology and resources to build a better future for Detroit and are committed to empowering individuals and organizations to solve problems, innovate, and build the future they want to see."
+        description="Our mission is to leverage open source technology and resources to build a better future for Detroit. We are committed to empowering individuals and organizations to solve problems, innovate, and build the future they want to see."
         canonical={`https://builddetroit.xyz`}
       />
       <PageContainer>
@@ -104,7 +113,13 @@ const HomePage = ({ events }) => {
           />
           <h1>Builders of Detroit</h1>
           <p>
-          Our mission is to leverage open source technology and resources to build a better future for Detroit and are committed to empowering individuals and organizations to solve problems, innovate, and build the future they want to see.
+            Our mission is to leverage open source technology to build a better
+            future for Detroit.
+          </p>
+          <p>
+            We are committed to provide educational resources that empower individuals
+            and organizations to solve problems, innovate, and build the future
+            they want to see.
           </p>
           <div>
             <ButtonLink
