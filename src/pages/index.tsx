@@ -54,6 +54,10 @@ const PageContainer = styled.div`
       font-size: 0.8rem;
     }
   }
+  .build-btn {
+    max-width: 280px;
+    margin: auto;
+  }
 `;
 
 // const PageWrapper = styled.div`
@@ -129,6 +133,7 @@ const HomePage = ({ events }) => {
               // href="https://builddetroit.zyz/join-us"
               // target="_blank"
               // rel="noreferrer"
+              className="build-btn"
               onClick={handleBuildWithUs}
             >
               COME BUILD WITH US
