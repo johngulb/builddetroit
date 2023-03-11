@@ -85,7 +85,7 @@ const HomePage = ({ events }) => {
     <PageWrapper>
       <NextSeo
         title={`Build Detroit`}
-        description="Our mission is to leverage open source technology and resources to build a better future for Detroit. We believe that by collaborating and sharing our knowledge, skills, and tools, we can overcome the barriers that have held our city back and create a more equitable, sustainable, and vibrant community for all. We are committed to empowering individuals and organizations to use open source technology to solve problems, innovate, and build the future they want to see. Together, we will create a more inclusive and prosperous Detroit that is a model for the world."
+        description="Our mission is to leverage open source technology and resources to build a better future for Detroit and are committed to empowering individuals and organizations to solve problems, innovate, and build the future they want to see."
         canonical={`https://builddetroit.xyz`}
       />
       <PageContainer>
@@ -104,7 +104,7 @@ const HomePage = ({ events }) => {
           />
           <h1>Builders of Detroit</h1>
           <p>
-            Our mission is to leverage open source technology and resources to build a better future for Detroit. We believe that by collaborating and sharing our knowledge, skills, and tools, we can overcome the barriers that have held our city back and create a more equitable, sustainable, and vibrant community for all. We are committed to empowering individuals and organizations to use open source technology to solve problems, innovate, and build the future they want to see. Together, we will create a more inclusive and prosperous Detroit that is a model for the world.
+          Our mission is to leverage open source technology and resources to build a better future for Detroit and are committed to empowering individuals and organizations to solve problems, innovate, and build the future they want to see.
           </p>
           <div>
             <ButtonLink
