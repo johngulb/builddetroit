@@ -10,7 +10,7 @@ import { Contact, createContact, getContact } from "../dpop";
 const PageWrapper = styled.div`
   /* background-color: #d1e4dd; */
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
   flex-direction: column;
   align-items: center;
   padding: 1rem;
@@ -161,7 +161,7 @@ const HomePage = ({ events }) => {
 };
 
 export const getServerSideProps = async () => {
-  const eventsRes = await fetch("https://api.dpop.tech/api/events");
+  const eventsRes = await fetch("https://api.dpop.tech/api/events?type=Tech");
   const fetchedEvents = await eventsRes.json();
   const events = fetchedEvents.data;
   return {
