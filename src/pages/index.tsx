@@ -4,8 +4,9 @@ import { ButtonLink } from "../components/ButtonLink";
 import { NextSeo } from "next-seo";
 import { EventList } from "../components/Events/EventList";
 import { ContactBoxModal } from "../components/ContactBox";
+import { Form } from "../components/Form";
 
-import { Contact, createContact, getContact } from "../dpop";
+import { Contact, createContact } from "../dpop";
 
 const PageWrapper = styled.div`
   /* background-color: #d1e4dd; */
@@ -81,7 +82,8 @@ const PageContainer = styled.div`
 
 const HomePage = ({ events }) => {
   const [showContactBox, setShowContactBox] = React.useState<boolean>(false);
-  const [showAuth, setShowAuth] = React.useState<boolean>(false);
+  // const [showAuth, setShowAuth] = React.useState<boolean>(false);
+  const [contact, setContact] = React.useState<Contact>();
 
   const handleBuildWithUs = React.useCallback(() => {
     console.log("CONSOLE LOG FUN: BUILD WITH US");
@@ -91,6 +93,7 @@ const HomePage = ({ events }) => {
   const handleSubmitContact = React.useCallback((contact: Contact) => {
     // console.log(contact);
     createContact(contact);
+    setContact(contact);
     setShowContactBox(false);
   }, []);
 
@@ -176,6 +179,12 @@ const HomePage = ({ events }) => {
             />
           </div>
         </div>
+        {contact && (
+          <Form
+            formID="1"
+            populatedFields={{ email: contact.email, cid: contact.cid }}
+          />
+        )}
         <h2 className="section-title">FEATURED EVENTS</h2>
         <EventList events={events} variant="compact" />
       </PageContainer>
