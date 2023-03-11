@@ -153,7 +153,7 @@ const HomePage = ({ events }) => {
             />
           </div>
         </div>
-        <h2 className="section-title">Find Us At Local Events</h2>
+        <h2 className="section-title">FEATURED EVENTS</h2>
         <EventList events={events} variant="compact" />
       </PageContainer>
     </PageWrapper>
