@@ -121,7 +121,7 @@ const HomePage = ({ events }) => {
                 COME BUILD WITH US
               </ButtonLink>
             )}
-            {user && (
+            {(user || contact) && (
               <div style={{ marginTop: 64 }}>
                 <p>Interested in learning more?</p>
                 <ButtonLink
