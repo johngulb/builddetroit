@@ -8,7 +8,7 @@ export const Social: React.FC<React.PropsWithChildren> = () => {
     <SocialWrapper>
       <SectionTitle>JOIN US ON SOCIAL</SectionTitle>
       <SocialLink
-        href="https://discord.gg/vsQ8s3KG"
+        href="https://discord.gg/bK8wjhS2Mg"
         target="_blank"
         rel="noreferrer"
       >

@@ -4,14 +4,13 @@ import { ButtonLink } from "../components/ButtonLink";
 import { NextSeo } from "next-seo";
 import { EventList } from "../components/Events/EventList";
 import { ContactBoxModal } from "../components/ContactBox";
+import { AuthModal } from "../components/Auth/AuthModal";
 import { Form } from "../components/Form";
 
-import { Contact, createContact } from "../dpop";
+import { Contact, createContact, getUser, User } from "../dpop";
 
 const PageWrapper = styled.div`
-  /* background-color: #d1e4dd; */
   display: flex;
-  /* height: 100vh; */
   flex-direction: column;
   align-items: center;
   padding: 1rem;
@@ -61,40 +60,31 @@ const PageContainer = styled.div`
   }
 `;
 
-// const PageWrapper = styled.div`
-//   background-color: #fafafa;
-//   max-width: 900px;
-//   margin: auto;
-//   img {
-//     margin-top: 1rem;
-//   }
-// `;
-
-// const PageContainer = styled.div`
-//   padding: 1rem;
-//   h3 {
-//     margin-top: 1em;
-//     margin-bottom: 0.25em;
-//     font-weight: bold;
-//     font-size: 1.3em;
-//   }
-// `;
-
 const HomePage = ({ events }) => {
   const [showContactBox, setShowContactBox] = React.useState<boolean>(false);
-  // const [showAuth, setShowAuth] = React.useState<boolean>(false);
+  const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [contact, setContact] = React.useState<Contact>();
+  const [user, setUser] = React.useState<User>();
 
   const handleBuildWithUs = React.useCallback(() => {
     console.log("CONSOLE LOG FUN: BUILD WITH US");
     setShowContactBox(true);
   }, []);
 
+  const handleAuthorized = React.useCallback((user) => {
+    setContact(user);
+    setShowAuth(false);
+  }, []);
+
   const handleSubmitContact = React.useCallback((contact: Contact) => {
-    // console.log(contact);
     createContact(contact);
     setContact(contact);
     setShowContactBox(false);
+  }, []);
+
+  React.useEffect(() => {
+    const user = getUser();
+    setUser(user);
   }, []);
 
   return (
@@ -108,12 +98,6 @@ const HomePage = ({ events }) => {
         canonical={`https://builddetroit.xyz`}
       />
       <PageContainer>
-        {/* <img
-          width="180"
-          src="https://detroitartdao.com/wp-content/uploads/2022/08/cropped-DETROITART-LOGO.png"
-          className="custom-logo"
-          alt=""
-        /> */}
         <div className="header">
           <img
             width="144"
@@ -132,22 +116,33 @@ const HomePage = ({ events }) => {
             the future they want to see.
           </p>
           <div>
-            <ButtonLink
-              // href="https://builddetroit.zyz/join-us"
-              // target="_blank"
-              // rel="noreferrer"
-              className="build-btn"
-              onClick={handleBuildWithUs}
-            >
-              COME BUILD WITH US
-            </ButtonLink>
-            {/* <ContactBox
-            bodyContent=""
-            titleText=""
-            buttonText="BUILD WITH US"
-            onSubmit={handleBuildWithUs}
-          /> */}
-
+            {!user && !contact && (
+              <ButtonLink className="build-btn" onClick={handleBuildWithUs}>
+                COME BUILD WITH US
+              </ButtonLink>
+            )}
+            {user && (
+              <div style={{ marginTop: 64 }}>
+                <p>Interested in learning more?</p>
+                <ButtonLink
+                  className="build-btn"
+                  href="https://discord.gg/bK8wjhS2Mg"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  JOIN US ON DISCORD
+                </ButtonLink>
+              </div>
+              // <ButtonLink className="build-btn" onClick={handleBuildWithUs}>
+              //   SHARE EVENT
+              // </ButtonLink>
+            )}
+            <AuthModal
+              show={showAuth}
+              setShow={setShowAuth}
+              onAuthorized={handleAuthorized}
+              mode="login"
+            />
             <ContactBoxModal
               show={showContactBox}
               setShow={setShowContactBox}
@@ -155,7 +150,7 @@ const HomePage = ({ events }) => {
               bodyContent={
                 <>
                   <div style={{ fontSize: 14, marginBottom: 8, marginTop: 16 }}>
-                    {/* <a
+                    <a
                       onClick={() => {
                         setShowContactBox(false);
                         setShowAuth(true);
@@ -164,7 +159,7 @@ const HomePage = ({ events }) => {
                     >
                       Login
                     </a>{" "}
-                    or enter your contact info below. */}
+                    or enter your contact info below.
                   </div>
                 </>
               }

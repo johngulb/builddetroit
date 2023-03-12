@@ -47,9 +47,9 @@ export const Register = ({ onRegister }) => {
       public_name: publicName,
       organization,
     }).then((res) => {
-      onRegister();
+      onRegister(res?.user);
     });
-  }, [name, email, password, phone]);
+  }, [name, email, password, phone, publicName, organization, onRegister]);
 
   return (
     <RegisterWrapper>

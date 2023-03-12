@@ -20,9 +20,9 @@ export const Login = ({ onLogin }) => {
 
   const handleSubmit = React.useCallback(() => {
     login(email, password).then((res) => {
-      onLogin();
+      onLogin(res?.user);
     });
-  }, [email, password]);
+  }, [email, onLogin, password]);
 
   return (
     <LoginWrapper>
