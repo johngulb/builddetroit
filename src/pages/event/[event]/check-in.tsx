@@ -22,32 +22,6 @@ import { CheckInQRCode } from "../../../components/CheckInQRCode";
 import { RaffleNumber } from "../../../components/Raffle";
 import { CenteredContainer, SectionSubtitle, SectionTitle } from "../../../components/Styled";
 
-const ProfileWrapper = styled.div`
-  margin-bottom: 12px;
-`;
-
-const Image = styled.img`
-  width: 100px;
-`;
-
-const Name = styled.div`
-  font-weight: bold;
-`;
-
-const Bio = styled.div`
-  font-size: 0.8rem;
-`;
-
-const Profile = ({ name, image, bio }) => {
-  return (
-    <ProfileWrapper>
-      <Image src={image} alt={name} />
-      <Name>{name}</Name>
-      <Bio>{bio}</Bio>
-    </ProfileWrapper>
-  );
-};
-
 const PageWrapper = styled.div`
   background-color: #fafafa;
   max-width: 700px;
@@ -141,6 +115,9 @@ const EventPage = ({ attestator_cid, event, events }) => {
             )}
             {events && (
               <>
+                <a href="https://builddetroit.xyz/event/future-of-business">
+                  <img alt="Future of Business" src="https://detroitartdao.com/wp-content/uploads/2023/03/FUTURE-OF-BUSINESS.jpg" />
+                </a>
                 <SectionSubtitle>Other Events</SectionSubtitle>
                 <EventList events={events} variant="compact" />
                 <ButtonLink href="/events">See All Events</ButtonLink>
