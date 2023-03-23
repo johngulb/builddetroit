@@ -317,7 +317,7 @@ export const getServerSideProps = async ({ query, res }) => {
   const event = await getEvent(query.event);
   const eventsRes = await fetch("https://api.dpop.tech/api/events");
   const fetchedEvents = await eventsRes.json();
-  const events = fetchedEvents.data?.filter((e) => e.id !== event.id).slice(0, 3);
+  const events = fetchedEvents.data?.filter((e) => e.id !== event.id).slice(0, 5);
   return {
     props: {
       event,

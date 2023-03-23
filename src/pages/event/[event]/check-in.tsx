@@ -115,9 +115,6 @@ const EventPage = ({ attestator_cid, event, events }) => {
             )}
             {events && (
               <>
-                <a href="https://builddetroit.xyz/event/future-of-business">
-                  <img alt="Future of Business" src="https://detroitartdao.com/wp-content/uploads/2023/03/FUTURE-OF-BUSINESS.jpg" />
-                </a>
                 <SectionSubtitle>Other Events</SectionSubtitle>
                 <EventList events={events} variant="compact" />
                 <ButtonLink href="/events">See All Events</ButtonLink>
