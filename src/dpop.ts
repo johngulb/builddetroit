@@ -83,6 +83,15 @@ export const saveContact = (contact: Contact) => {
   localStorage.setItem("DPoPContact", JSON.stringify(contact));
 };
 
+export const getUserCID = (): string | null => {
+  const user_cid = localStorage.getItem("DPoPUserCID");
+  return user_cid ? user_cid : null;
+};
+
+export const saveUserCID = (user_cid: string) => {
+  localStorage.setItem("DPoPUserCID", user_cid);
+};
+
 export const storeCheckIn = (checkIn: DPoPEventCheckIn) => {
   console.log("storeCheckIn: ", checkIn)
   localStorage.setItem(`DPoPEvent-${checkIn.event_cid}-checkin`, JSON.stringify(checkIn));
@@ -191,7 +200,7 @@ export const createContact = async (contact: Contact, user_cid?: string) => {
     },
     body: contact ? JSON.stringify(contact) : null,
   });
-  if (result?.data?.user_cid)
+  if (result?.data?.user_cid || result?.data?.cid)
     saveContact(result.data);
   return result?.data;
 };
