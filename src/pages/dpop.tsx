@@ -24,7 +24,7 @@ const PageContainer = styled.div`
 const HomePage = () => {
 
   React.useEffect(() => {
-    console.log("HI!");
+    console.log("Hello Builders!");
     const contact = getContact();
     const cid = contact.cid ?? null;
     window.parent.postMessage(cid, "*");
