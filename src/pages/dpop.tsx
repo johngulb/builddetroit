@@ -21,6 +21,14 @@ const PageContainer = styled.div`
 `;
 
 const HomePage = () => {
+
+  React.useEffect(() => {
+    const data = {
+      user_cid: null
+    };
+    window.parent.postMessage(JSON.stringify(data), "*");
+  });
+
   return (
     <PageWrapper>
       <NextSeo
@@ -32,7 +40,7 @@ const HomePage = () => {
         canonical={`https://builddetroit.xyz`}
       />
       <PageContainer>
-        
+
       </PageContainer>
     </PageWrapper>
   );
