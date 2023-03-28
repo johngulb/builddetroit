@@ -23,10 +23,9 @@ const PageContainer = styled.div`
 const HomePage = () => {
 
   React.useEffect(() => {
-    console.log("HI!");
-    const data = {
-      user_cid: null
-    };
+    const contact = localStorage.getItem('DPoPContact');
+    console.log("HI!", contact);
+    const data = contact;
     window.parent.postMessage(JSON.stringify(data), "*");
   });
 
