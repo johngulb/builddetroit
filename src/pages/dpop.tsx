@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { NextSeo } from "next-seo";
+import { getContact } from "../dpop";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -23,10 +24,10 @@ const PageContainer = styled.div`
 const HomePage = () => {
 
   React.useEffect(() => {
-    const contact = localStorage.getItem('DPoPContact');
-    console.log("HI!", contact);
-    const data = contact;
-    window.parent.postMessage(JSON.stringify(data), "*");
+    console.log("HI!");
+    const contact = getContact();
+    const cid = contact.cid ?? null;
+    window.parent.postMessage(cid, "*");
   });
 
   return (
