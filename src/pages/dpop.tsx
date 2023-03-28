@@ -23,6 +23,7 @@ const PageContainer = styled.div`
 const HomePage = () => {
 
   React.useEffect(() => {
+    console.log("HI!");
     const data = {
       user_cid: null
     };
