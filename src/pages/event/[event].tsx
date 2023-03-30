@@ -13,6 +13,7 @@ import { EventRsvpSuccess } from "../../components/Events/EventRsvpSuccess";
 import { EventAddToCalendar } from "../../components/Events/EventAddToCalendar";
 import { EventInfo } from "../../components/Events/EventInfo";
 import { EventList } from "../../components/Events/EventList";
+import { Social } from "../../components/Social";
 import { VenueMap } from "../../components/VenueMap";
 import { AuthModal } from "../../components/Auth/AuthModal";
 import { ContactBoxModal } from "../../components/ContactBox";
@@ -301,6 +302,17 @@ const EventPage = ({ event, events }) => {
         {event.venue && <EventLocation event={event} />}
         <h3>Event Details</h3>
         <div dangerouslySetInnerHTML={{ __html: event.content }} />
+
+        {(event.slug === 'women-in-web3-detroit') ? <Social
+              instagram={'https://instagram.com/women.in.web3.detroit/'}
+              slack={'https://join.slack.com/t/detroitblockchainers/shared_invite/zt-1s3bxzfhz-kHzJfU0nwWjThM4MY2UvOQ'}
+            />
+            :
+            <Social
+              discord={'https://discord.gg/bK8wjhS2Mg'}
+              instagram={'https://www.instagram.com/detroitartdao/'}
+            />}
+
         {events && (
           <>
             <h3>Other Events</h3>
