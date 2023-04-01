@@ -5,6 +5,7 @@ import {
   getEvent,
   submitEventRsvp,
   submitSignedEventRsvp,
+  getContact,
 } from "../../dpop";
 import styled from '@emotion/styled'
 import { Web3SigButton } from "../../components/Web3SigButton";
@@ -24,6 +25,7 @@ import { generate_cid } from "../api/cid";
 import { NextSeo } from 'next-seo';
 // import Image from 'next/image';
 import { stripHtml } from "string-strip-html";
+import { setHttpClientAndAgentOptions } from "next/dist/server/config";
 
 const PageWrapper = styled.div`
   background-color: #fafafa;
@@ -120,6 +122,14 @@ const EventPage = ({ event, events }) => {
   const user = useUser();
   const hasWallet = useHasWallet();
   const isAuthorized = useIsAuthorized();
+  const [isHost, setIsHost] = React.useState(false);
+
+  React.useEffect(() => {
+    const contact = getContact();
+    if (contact.cid === event.host?.cid) {
+      setIsHost(true);
+    }
+  }, [event.host?.cid]);
 
   // console.log("EVENT: ", event);
 
@@ -282,7 +292,13 @@ const EventPage = ({ event, events }) => {
             {didRSVP ? "RSVP RECEIVED" : "RSVP"}
           </ButtonLink>
         )}
-        <EventAddToCalendar event={event} />
+        {isHost && (
+          <>
+            <ButtonLink href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}>Start Check-In</ButtonLink>
+            <ButtonLink href={`/event/${event.slug}/raffle`}>Start Raffle</ButtonLink>
+          </>
+        )}
+          <EventAddToCalendar event={event} />
         {rsvps?.length > 0 && (
           <>
             <h3>RSVPs ({rsvps?.length})</h3>

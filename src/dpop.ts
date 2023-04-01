@@ -200,8 +200,11 @@ export const createContact = async (contact: Contact, user_cid?: string) => {
     },
     body: contact ? JSON.stringify(contact) : null,
   });
-  if (result?.data?.user_cid || result?.data?.cid)
-    saveContact(result.data);
+  if (result?.data?.user_cid || result?.data?.cid) {
+    const save = result.data;
+    save.email = contact.email;
+    saveContact(save);
+  }
   return result?.data;
 };
 
