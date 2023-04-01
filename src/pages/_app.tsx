@@ -11,18 +11,18 @@ import theme from "../theme";
 function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
 
-  React.useEffect(() => {
-    const receiveMessage = (event) => {
-      console.log("Received event: ", event);
+  // React.useEffect(() => {
+  //   const receiveMessage = (event) => {
+  //     console.log("Received event: ", event);
 
-      // Make sure the message is from a trusted source
-      if (event.origin !== "https://builddetroit.xyz") return;
+  //     // Make sure the message is from a trusted source
+  //     if (event.origin !== "https://builddetroit.xyz") return;
   
-      // Display the message from the iframe
-      console.log("Received message from iframe: ", event.data);
-    };
-    window.addEventListener("message", receiveMessage, false);  
-  });
+  //     // Display the message from the iframe
+  //     console.log("Received message from iframe: ", event.data);
+  //   };
+  //   window.addEventListener("message", receiveMessage, false);  
+  // });
 
   return (
     <Page {...pageProps}>
@@ -42,7 +42,7 @@ function MyApp(props: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <iframe src="https://dpop.tech/dpop"></iframe>
+        {/* <iframe src="https://dpop.tech/dpop"></iframe> */}
         <Component {...pageProps} />
       </ThemeProvider>
     </Page>
