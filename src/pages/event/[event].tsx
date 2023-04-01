@@ -292,7 +292,7 @@ const EventPage = ({ event, events }) => {
             {didRSVP ? "RSVP RECEIVED" : "RSVP"}
           </ButtonLink>
         )}
-        {isHost && (
+        {isHost && event.host && (
           <>
             <ButtonLink href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}>Start Check-In</ButtonLink>
             <ButtonLink href={`/event/${event.slug}/raffle`}>Start Raffle</ButtonLink>
