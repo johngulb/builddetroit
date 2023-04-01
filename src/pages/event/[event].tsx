@@ -126,7 +126,7 @@ const EventPage = ({ event, events }) => {
 
   React.useEffect(() => {
     const contact = getContact();
-    if (contact.cid === event.host?.cid) {
+    if (contact && contact?.cid === event.host?.cid) {
       setIsHost(true);
     }
   }, [event.host?.cid]);
