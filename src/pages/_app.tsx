@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import React from 'react';
 import { Page } from "../components/Page";
 import Head from "next/head";
 import { AppProps } from "next/app";
@@ -9,6 +10,18 @@ import theme from "../theme";
 
 function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
+
+  React.useEffect(() => {
+    const receiveMessage = (event) => {
+      // Make sure the message is from a trusted source
+      if (event.origin !== "https://builddetroit.xyz") return;
+  
+      // Display the message from the iframe
+      console.log("Received message from iframe: " + event.data);
+    };
+    window.addEventListener("message", receiveMessage, false);  
+  });
+
   return (
     <Page {...pageProps}>
       <Head>
@@ -27,6 +40,7 @@ function MyApp(props: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <iframe src="https://dpop.tech/dpop"></iframe>
         <Component {...pageProps} />
       </ThemeProvider>
     </Page>
