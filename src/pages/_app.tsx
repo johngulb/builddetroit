@@ -13,6 +13,8 @@ function MyApp(props: AppProps) {
 
   React.useEffect(() => {
     const receiveMessage = (event) => {
+      console.log("Received event: ", event);
+
       // Make sure the message is from a trusted source
       if (event.origin !== "https://builddetroit.xyz") return;
   
