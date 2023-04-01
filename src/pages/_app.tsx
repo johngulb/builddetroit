@@ -17,7 +17,7 @@ function MyApp(props: AppProps) {
       if (event.origin !== "https://builddetroit.xyz") return;
   
       // Display the message from the iframe
-      console.log("Received message from iframe: " + event.data);
+      console.log("Received message from iframe: ", event.data);
     };
     window.addEventListener("message", receiveMessage, false);  
   });
