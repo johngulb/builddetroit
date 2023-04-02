@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { ButtonLink } from "../components/ButtonLink";
 import { NextSeo } from "next-seo";
 import { EventList } from "../components/Events/EventList";
+import { EventSubmissionButton } from "../components/Events/EventSubmissionBox";
 import { ContactBoxModal } from "../components/ContactBox";
 import { AuthModal } from "../components/Auth/AuthModal";
 import { Form } from "../components/Form";
@@ -180,6 +181,7 @@ const HomePage = ({ events }) => {
             populatedFields={{ email: contact?.email, cid: contact?.cid }}
           />
         )}
+        {/* <EventSubmissionButton /> */}
         <h2 className="section-title">FEATURED EVENTS</h2>
         <EventList events={events} variant="compact" />
       </PageContainer>

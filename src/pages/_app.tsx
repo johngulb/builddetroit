@@ -4,6 +4,9 @@ import { Page } from "../components/Page";
 import Head from "next/head";
 import { AppProps } from "next/app";
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "../theme";
@@ -40,11 +43,13 @@ function MyApp(props: AppProps) {
         <link rel="icon" href="https://detroitartdao.com/wp-content/uploads/2022/08/cropped-Screen-Shot-2022-08-14-at-2.10.22-AM-192x192.png" sizes="192x192"></link>
         <link rel="apple-touch-icon" href="https://detroitartdao.com/wp-content/uploads/2022/08/cropped-Screen-Shot-2022-08-14-at-2.10.22-AM-180x180.png"></link>
       </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {/* <iframe src="https://dpop.tech/dpop"></iframe> */}
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {/* <iframe src="https://dpop.tech/dpop"></iframe> */}
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </LocalizationProvider>
     </Page>
   );
 }
