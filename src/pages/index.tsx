@@ -66,6 +66,7 @@ const HomePage = ({ events }) => {
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [contact, setContact] = React.useState<Contact>();
   const [user, setUser] = React.useState<User>();
+  const [isArtNight, setIsArtNight] = React.useState(false);
 
   const handleBuildWithUs = React.useCallback(() => {
     console.log("CONSOLE LOG FUN: BUILD WITH US");
@@ -88,6 +89,12 @@ const HomePage = ({ events }) => {
     setUser(user);
   }, []);
 
+  React.useEffect(() => {
+    if (window.origin === "https://artnightdetroit.com") {
+      setIsArtNight(true);
+    }
+  }, []);
+
   return (
     <PageWrapper>
       <NextSeo
@@ -106,16 +113,33 @@ const HomePage = ({ events }) => {
             className="custom-logo"
             alt=""
           />
-          <h1>Builders of Detroit</h1>
-          <p>
-            Our mission is to leverage open source technology to build a better
-            future for Detroit.
-          </p>
-          <p>
-            We are committed to provide educational resources that empower
-            individuals and organizations to solve problems, innovate, and build
-            the future they want to see.
-          </p>
+          {!isArtNight && (
+            <>
+              <h1>Builders of Detroit</h1>
+              <p>
+                Our mission is to leverage open source technology to build a
+                better future for Detroit.
+              </p>
+              <p>
+                We are committed to provide educational resources that empower
+                individuals and organizations to solve problems, innovate, and
+                build the future they want to see.
+              </p>
+            </>
+          )}
+          {isArtNight && (
+            <>
+              <div>
+                <hr></hr>
+                <br></br>
+                <div>Coming Soon</div>
+                <h2>Art Night Detroit</h2>
+                <br></br>
+                <hr></hr>
+                <br></br>
+              </div>
+            </>
+          )}
           <div>
             {!user && !contact && (
               <ButtonLink className="build-btn" onClick={handleBuildWithUs}>
