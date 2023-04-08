@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import { DefaultSeo } from "next-seo";
 import { Social } from "./Social";
+import { DPoP } from '../components/Auth/DPoP';
 
 export const Page = ({ children, headerProps }) => {
   // React.useEffect(() => {
@@ -33,6 +34,7 @@ export const Page = ({ children, headerProps }) => {
           locale: "en_IE",
         }}
       />
+      <DPoP />
       <Content>{children}</Content>
       <Footer>
         <a href="https://thedetroitilove.com/" target="_blank">
