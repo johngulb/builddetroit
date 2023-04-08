@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { ButtonLink } from "../components/ButtonLink";
-import { NextSeo } from "next-seo";
+import { NextSeo, NextSeoProps } from "next-seo";
 import { EventList } from "../components/Events/EventList";
 import { EventSubmissionButton } from "../components/Events/EventSubmissionBox";
 import { ContactBoxModal } from "../components/ContactBox";
 import { AuthModal } from "../components/Auth/AuthModal";
 import { Form } from "../components/Form";
-
 
 import { Contact, createContact, getUser, User } from "../dpop";
 
@@ -62,12 +61,18 @@ const PageContainer = styled.div`
   }
 `;
 
-const HomePage = ({ events }) => {
+type HomePageLayout = "default" | "artnight";
+interface HomePageProps {
+  events: any[];
+  layout: HomePageLayout;
+  meta: NextSeoProps;
+}
+
+const HomePage = ({ events, layout, meta }: HomePageProps) => {
   const [showContactBox, setShowContactBox] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [contact, setContact] = React.useState<Contact>();
   const [user, setUser] = React.useState<User>();
-  const [isArtNight, setIsArtNight] = React.useState(false);
 
   const handleBuildWithUs = React.useCallback(() => {
     console.log("CONSOLE LOG FUN: BUILD WITH US");
@@ -90,22 +95,9 @@ const HomePage = ({ events }) => {
     setUser(user);
   }, []);
 
-  React.useEffect(() => {
-    if (window.origin === "https://artnightdetroit.com") {
-      setIsArtNight(true);
-    }
-  }, []);
-
   return (
     <PageWrapper>
-      <NextSeo
-        title={`Build Detroit`}
-        description="Our mission is to leverage open source technology to build a better
-        future for Detroit. We are committed to provide educational resources that empower individuals
-        and organizations to solve problems, innovate, and build the future
-        they want to see."
-        canonical={`https://builddetroit.xyz`}
-      />
+      <NextSeo {...meta} />
       <PageContainer>
         <div className="header">
           <img
@@ -114,7 +106,7 @@ const HomePage = ({ events }) => {
             className="custom-logo"
             alt=""
           />
-          {!isArtNight && (
+          {layout === "default" && (
             <>
               <h1>Builders of Detroit</h1>
               <p>
@@ -128,7 +120,7 @@ const HomePage = ({ events }) => {
               </p>
             </>
           )}
-          {isArtNight && (
+          {layout === "artnight" && (
             <>
               <div>
                 <hr></hr>
@@ -218,9 +210,37 @@ export const getServerSideProps = async () => {
   const eventsRes = await fetch("https://api.dpop.tech/api/events?type=Tech");
   const fetchedEvents = await eventsRes.json();
   const events = fetchedEvents.data;
+  const url = process.env.NEXT_PUBLIC_SITE_URL;
+  const layout =
+    url === "https://artnightdetroit.com/" ? "artnight" : "default";
+  const image =
+    layout === "artnight"
+      ? "https://detroitartdao.com/wp-content/uploads/2023/02/272781136_145778497837915_7308205238901618223_n-1.jpg"
+      : "https://detroitartdao.com/wp-content/uploads/2023/04/Screenshot-2023-04-08-at-3.33.24-PM.png";
+  const site_name =
+    layout === "artnight" ? "Art Night Detroit" : "Build Detroit";
   return {
     props: {
       events,
+      layout,
+      meta: {
+        title: site_name,
+        description:
+          layout === "artnight"
+            ? "Art Night Detroit is a community-driven initiative that brings together artists, art enthusiasts, and community members for a night of creativity and connection. Our events feature live music, new local establishments, and opportunities to create art in a fun and supportive environment. Join us for an unforgettable night of art, culture, and community building."
+            : "Our mission is to leverage open source technology to build a better future for Detroit. We are committed to provide educational resources that empower individuals and organizations to solve problems, innovate, and build the future they want to see.",
+        canonical: url,
+        openGraph: {
+          url: url,
+          type: "webpage",
+          images: [
+            {
+              url: image,
+            },
+          ],
+          site_name,
+        },
+      },
       headerProps: {
         hideNavigation: true,
       },
