@@ -1,30 +1,31 @@
 import React from "react";
 import LazyLoad from "react-lazy-load";
+import { saveUserCID } from "../../dpop";
 
 export const DPoP = ({ onLoad }) => {
   const [isReady, setIsReady] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const receiveMessage = (event) => {
-      // Display the message from the iframe
-      console.log("Received message from iframe: " + event.data);
-
       // Make sure the message is from a trusted source
       if (event.origin !== "https://builddetroit.xyz") return;
+
+      // Display the message from the iframe
+      console.log("Received message from iframe: " + event.data);
 
       fetch(`https://api.dpop.tech/api/cid/${event.data}`, {
         headers: { "access-control": "no-cors" },
       })
         .then((res) => res.json())
         .then((res) => {
-          alert(JSON.stringify(res));
           console.log(res);
+          saveUserCID(event.data);
           onLoad(res);
         });
     };
 
     // Bind the event listener
-    document.addEventListener("message", receiveMessage, false);
+    window.addEventListener("message", receiveMessage, false);
 
     setTimeout(() => {
       setIsReady(true);
@@ -32,7 +33,7 @@ export const DPoP = ({ onLoad }) => {
 
     return () => {
       // Unbind the event listener on clean up
-      document.removeEventListener("message", receiveMessage, false);
+      window.removeEventListener("message", receiveMessage, false);
     };
   }, [onLoad]);
 

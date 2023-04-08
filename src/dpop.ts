@@ -71,6 +71,8 @@ const hostname = 'https://api.dpop.tech';
 // const hostname = 'http://localhost:9090';
 
 export const isAuthorized = () => {
+  const cid = getUserCID();
+  if (cid) return true;
   return localStorage.getItem("DPoPToken") ? true : false;
 };
 
@@ -94,9 +96,11 @@ export const saveUserCID = (user_cid: string) => {
 
 export const storeCID = (cid: string) => {
   const contact = getContact();
-  contact.cid = cid;
-  console.log('STORE CID: ', contact);
-  saveContact(contact);
+  if (contact) {
+    contact.cid = cid;
+    console.log('STORE CID: ', contact);
+    saveContact(contact);
+  }
 };
 
 export const storeCheckIn = (checkIn: DPoPEventCheckIn) => {
@@ -138,6 +142,8 @@ const authorizedRequest = async (endpoint: string, options: any = {}) => {
   const headers = options?.headers ?? {};
   const DPoPToken = getDPoPToken();
   if (DPoPToken) headers["Authorization"] = `Bearer ${DPoPToken}`;
+  const cid = getUserCID();
+  if (cid) headers["DPoP-CID"] = `${cid}`;
   options.headers = headers;
   // const res = await fetch(`http://localhost:9090/api/${endpoint}`, options);
   const res = await fetch(`${hostname}/api/${endpoint}`, options);
@@ -267,6 +273,9 @@ export const submitEventRsvp = async (event: string, contact?: Contact) => {
   });
   if (result.data?.user?.cid) {
     storeCID(result.data?.user?.cid);
+  }
+  if (result.status === 'error') {
+    throw new Error(result.message);
   }
   return result.data;
 };

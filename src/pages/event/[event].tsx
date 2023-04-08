@@ -163,6 +163,8 @@ const EventPage = ({ event, events }) => {
       // setTimeout(() => {
       //   window.location.href = event.url;
       // }, 1000);
+    }).catch((err) => {
+      alert(err);
     });
   };
 
