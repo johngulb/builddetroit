@@ -215,6 +215,32 @@ export const createContact = async (contact: Contact, user_cid?: string) => {
   return result?.data;
 };
 
+export const requestPhoneNumberVerification = async (phone: string) => {
+  const result = await authorizedRequest(`request-phone-number-verification`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      phone
+    }),
+  });
+  return result;
+};
+
+export const verifyPhoneNumber = async (code: string, secret: string) => {
+  const result = await authorizedRequest(`verify-phone-number`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      code,
+      secret
+    }),
+  });
+  return result;
+};
 
 export const submitEventCheckIn = async (event: string, contact: Contact, user_cid: string) => {
   const data = contact;

@@ -36,6 +36,7 @@
     "mdb-react-ui-kit": "^4.2.0",
     "metadata-scraper": "^0.2.61",
     "moment": "^2.29.4",
+    "mui-tel-input": "^3.1.1",
     "multer": "^1.4.5-lts.1",
     "multer-s3": "^3.0.1",
     "multiformats": "^10.0.2",

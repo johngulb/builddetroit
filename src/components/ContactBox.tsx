@@ -1,11 +1,14 @@
 import React from "react";
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 import LazyLoad from "react-lazy-load";
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { MuiTelInput } from "mui-tel-input";
+
+import { VerifyPhoneNumber } from "./VerifyPhoneNumber";
 
 import { getContact, saveContact } from "../dpop";
 
@@ -86,8 +89,11 @@ export const ContactBox = ({
     setEmail(e.target.value);
   }, []);
 
-  const handlePhoneChange = React.useCallback((e) => {
-    setPhone(e.target.value);
+  const handlePhoneChange = React.useCallback((value) => {
+    if (!value.match(/^\+?1/)) {
+      value = `+1${value.replace("+", "")}`;
+    }
+    setPhone(value);
   }, []);
 
   const handlePublicNameChange = React.useCallback((e) => {
@@ -113,7 +119,19 @@ export const ContactBox = ({
       public_name: publicName,
       organization,
     });
-  }, [name, email, phone, publicName, organization]);
+  }, [name, email, phone, publicName, organization, onSubmit]);
+
+  const handlePhoneConfirmation = React.useCallback((phone) => {
+    setPhone(phone);
+  }, []);
+
+  if (!phone) {
+    return (
+      <ContactBoxWrapper>
+        <VerifyPhoneNumber onConfirmation={handlePhoneConfirmation} />
+      </ContactBoxWrapper>
+    );
+  }
 
   return (
     <ContactBoxWrapper>
@@ -149,15 +167,15 @@ export const ContactBox = ({
           variant="filled"
           onChange={handleEmailChange}
         />
-        <TextField
-          value={phone}
-          label="Phone (optional)"
+        <MuiTelInput
+          disableDropdown={true}
+          defaultCountry={"US"}
           id="phone"
+          label="Phone"
           name="phone"
-          type="phone"
-          // feedback="Please enter your number."
-          variant="filled"
           onChange={handlePhoneChange}
+          value={phone}
+          variant="filled"
         />
         <TextField
           value={publicName}
