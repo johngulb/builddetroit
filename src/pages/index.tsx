@@ -9,6 +9,7 @@ import { AuthModal } from "../components/Auth/AuthModal";
 import { Form } from "../components/Form";
 
 import { Contact, createContact, getUser, User } from "../dpop";
+import { getEnvironment } from "../utils/environment";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -207,26 +208,24 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
 };
 
 export const getServerSideProps = async () => {
-  const eventsRes = await fetch("https://api.dpop.tech/api/events?type=Tech");
+  const url = process.env.NEXT_PUBLIC_SITE_URL;
+
+  const env = getEnvironment();
+
+  const eventsRes = await fetch(
+    `https://api.dpop.tech/api/events?type=${env.category}`
+  );
   const fetchedEvents = await eventsRes.json();
   const events = fetchedEvents.data;
-  const url = process.env.NEXT_PUBLIC_SITE_URL;
-  const layout =
-    url === "https://artnightdetroit.com/" ? "artnight" : "default";
-  const image =
-    layout === "artnight"
-      ? "https://detroitartdao.com/wp-content/uploads/2023/02/272781136_145778497837915_7308205238901618223_n-1.jpg"
-      : "https://detroitartdao.com/wp-content/uploads/2023/04/Screenshot-2023-04-08-at-3.33.24-PM.png";
-  const site_name =
-    layout === "artnight" ? "Art Night Detroit" : "Build Detroit";
+
   return {
     props: {
       events,
-      layout,
+      layout: env.layout,
       meta: {
-        title: site_name,
+        title: env.site_name,
         description:
-          layout === "artnight"
+          env.layout === "artnight"
             ? "Art Night Detroit is a community-driven initiative that brings together artists, art enthusiasts, and community members for a night of creativity and connection. Our events feature live music, new local establishments, and opportunities to create art in a fun and supportive environment. Join us for an unforgettable night of art, culture, and community building."
             : "Our mission is to leverage open source technology to build a better future for Detroit. We are committed to provide educational resources that empower individuals and organizations to solve problems, innovate, and build the future they want to see.",
         canonical: url,
@@ -235,10 +234,10 @@ export const getServerSideProps = async () => {
           type: "webpage",
           images: [
             {
-              url: image,
+              url: env.image,
             },
           ],
-          site_name,
+          site_name: env.site_name,
         },
       },
       headerProps: {

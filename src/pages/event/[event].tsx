@@ -7,7 +7,7 @@ import {
   submitSignedEventRsvp,
   getContact,
 } from "../../dpop";
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 import { Web3SigButton } from "../../components/Web3SigButton";
 import { ButtonLink } from "../../components/ButtonLink";
 import { EventRsvpSuccess } from "../../components/Events/EventRsvpSuccess";
@@ -21,11 +21,11 @@ import { ContactBoxModal } from "../../components/ContactBox";
 import { useHasWallet } from "../../hooks/useHasWallet";
 import { useIsAuthorized } from "../../hooks/useIsAuthorized";
 import { useUser } from "../../hooks/useUser";
-import { generate_cid } from "../api/cid";
-import { NextSeo } from 'next-seo';
+import { NextSeo } from "next-seo";
 // import Image from 'next/image';
 import { stripHtml } from "string-strip-html";
 import { setHttpClientAndAgentOptions } from "next/dist/server/config";
+import { getEnvironment } from "../../utils/environment";
 
 const PageWrapper = styled.div`
   background-color: #fafafa;
@@ -117,7 +117,7 @@ const EventPage = ({ event, events }) => {
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [rsvps, setRsvps] = React.useState(event.rsvps ?? []);
   const [didRSVP, setDidRSVP] = React.useState<boolean>(false);
-  const [rsvpCid, setRsvpCid] = React.useState<string>();
+  // const [rsvpCid, setRsvpCid] = React.useState<string>();
   const [showDidRsvp, setShowDidRsvp] = React.useState<boolean>(false);
   const user = useUser();
   const hasWallet = useHasWallet();
@@ -135,18 +135,18 @@ const EventPage = ({ event, events }) => {
 
   // const dateDisplay = event.start_date && event.end_date ? diplayDateRange(event.start_date, event.end_date) : '';
 
-  React.useEffect(() => {
-    (async () => {
-      if (user?.cid) {
-        const rsvp_cid = await generate_cid({
-          action: "rsvp",
-          event_cid: event.cid,
-          user_cid: user.cid,
-        });
-        setRsvpCid(rsvp_cid);
-      }
-    })();
-  }, [user]);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     if (user?.cid) {
+  //       const rsvp_cid = await generate_cid({
+  //         action: "rsvp",
+  //         event_cid: event.cid,
+  //         user_cid: user.cid,
+  //       });
+  //       setRsvpCid(rsvp_cid);
+  //     }
+  //   })();
+  // }, [user]);
 
   React.useEffect(() => {
     setDidRSVP(inRSVPs(rsvps));
@@ -183,26 +183,26 @@ const EventPage = ({ event, events }) => {
     });
   };
 
-  const handleRsvpSignature = (address, signature) => {
-    submitSignedEventRsvp(event.id, {
-      address,
-      content_id: rsvpCid,
-      signature,
-    }).then((res) => {
-      setShowRsvpModal(false);
-      setShowDidRsvp(true);
-      getEvent(event.id).then((res) => {
-        setRsvps(res.rsvps);
-      });
-      // window.open(event.url);
-      // window.open(window.location.href, '_blank');
-      //   if (event.url) {
-      //       setTimeout(() => {
-      //         window.location.href = event.url;
-      //       }, 1000);
-      //   }
-    });
-  };
+  // const handleRsvpSignature = (address, signature) => {
+  //   submitSignedEventRsvp(event.id, {
+  //     address,
+  //     content_id: rsvpCid,
+  //     signature,
+  //   }).then((res) => {
+  //     setShowRsvpModal(false);
+  //     setShowDidRsvp(true);
+  //     getEvent(event.id).then((res) => {
+  //       setRsvps(res.rsvps);
+  //     });
+  //     // window.open(event.url);
+  //     // window.open(window.location.href, '_blank');
+  //     //   if (event.url) {
+  //     //       setTimeout(() => {
+  //     //         window.location.href = event.url;
+  //     //       }, 1000);
+  //     //   }
+  //   });
+  // };
 
   const handleRsvp = React.useCallback(() => {
     if (isAuthorized) {
@@ -217,14 +217,17 @@ const EventPage = ({ event, events }) => {
     setShowAuth(false);
   }, [submitRsvp]);
 
-  const openGraph = event.image || event.venue?.image ? {
-    images: [
-      {
-        url: event.image ?? event.venue?.image,
-        alt: event.title,
-      },
-    ],
-  } : {};
+  const openGraph =
+    event.image || event.venue?.image
+      ? {
+          images: [
+            {
+              url: event.image ?? event.venue?.image,
+              alt: event.title,
+            },
+          ],
+        }
+      : {};
 
   const publicRSVPs = rsvps.filter((rsvp) => {
     return rsvp.user?.name?.length > 0;
@@ -234,7 +237,14 @@ const EventPage = ({ event, events }) => {
     <PageWrapper>
       <NextSeo
         title={`${event.title} | Detroit Art Events`}
-        description={event.content ? `${stripHtml(event.content).result.replaceAll('\n',' ').replaceAll('  ',' ').slice(0, 180)}...` : ''}
+        description={
+          event.content
+            ? `${stripHtml(event.content)
+                .result.replaceAll("\n", " ")
+                .replaceAll("  ", " ")
+                .slice(0, 180)}...`
+            : ""
+        }
         openGraph={openGraph}
         canonical={`https://builddetroit.xyz/event/${event.slug}`}
       />
@@ -244,7 +254,11 @@ const EventPage = ({ event, events }) => {
         onAuthorized={handleAuthorized}
         mode="login"
       />
-      <EventRsvpSuccess event={event} show={showDidRsvp} setShow={() => setShowDidRsvp(false)} />
+      <EventRsvpSuccess
+        event={event}
+        show={showDidRsvp}
+        setShow={() => setShowDidRsvp(false)}
+      />
       <ContactBoxModal
         show={showRsvpModal}
         setShow={setShowRsvpModal}
@@ -280,7 +294,7 @@ const EventPage = ({ event, events }) => {
       </PageContainer>
       {event.image && <img src={event.image} />}
       <PageContainer>
-        {false && hasWallet && isAuthorized && rsvpCid ? (
+        {/* {false && hasWallet && isAuthorized && rsvpCid ? (
           <Web3SigButton
             message={rsvpCid}
             className="rsvp-button"
@@ -291,23 +305,40 @@ const EventPage = ({ event, events }) => {
           <ButtonLink className="rsvp-button" id="rsvp" onClick={handleRsvp}>
             {didRSVP ? "RSVP RECEIVED" : "RSVP"}
           </ButtonLink>
-        )}
+        )} */}
+        <ButtonLink className="rsvp-button" id="rsvp" onClick={handleRsvp}>
+          {didRSVP ? "RSVP RECEIVED" : "RSVP"}
+        </ButtonLink>
         {isHost && event.host && (
           <>
-            <ButtonLink href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}>Start Check-In</ButtonLink>
-            <ButtonLink href={`/event/${event.slug}/raffle`}>Start Raffle</ButtonLink>
+            <ButtonLink
+              href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}
+            >
+              Start Check-In
+            </ButtonLink>
+            <ButtonLink href={`/event/${event.slug}/raffle`}>
+              Start Raffle
+            </ButtonLink>
           </>
         )}
-          <EventAddToCalendar event={event} />
+        <EventAddToCalendar event={event} />
         {rsvps?.length > 0 && (
           <>
             <h3>RSVPs ({rsvps?.length})</h3>
             <ul>
               {publicRSVPs.map((rsvp, i) => {
-                return <li key={i}>
-                  <span>{rsvp.user.name}</span>
-                  {rsvp.user?.organization && <span style={{ fontSize: 12, marginLeft: 4, color: '#666' }}>{rsvp.user.organization}</span>}
-                </li>;
+                return (
+                  <li key={i}>
+                    <span>{rsvp.user.name}</span>
+                    {rsvp.user?.organization && (
+                      <span
+                        style={{ fontSize: 12, marginLeft: 4, color: "#666" }}
+                      >
+                        {rsvp.user.organization}
+                      </span>
+                    )}
+                  </li>
+                );
               })}
               {publicRSVPs?.length !== rsvps.length && (
                 <li>and {rsvps.length - publicRSVPs?.length} other(s)</li>
@@ -319,15 +350,14 @@ const EventPage = ({ event, events }) => {
         <h3>Event Details</h3>
         <div dangerouslySetInnerHTML={{ __html: event.content }} />
 
-        {(event.slug === 'women-in-web3-detroit') ? <Social
-              instagram={'https://instagram.com/women.in.web3.detroit/'}
-              slack={'https://join.slack.com/t/detroitblockchainers/shared_invite/zt-1s3bxzfhz-kHzJfU0nwWjThM4MY2UvOQ'}
-            />
-            :
-            <Social
-              discord={'https://discord.gg/bK8wjhS2Mg'}
-              instagram={'https://www.instagram.com/detroitartdao/'}
-            />}
+        {event.slug === "women-in-web3-detroit" && (
+          <Social
+            instagram={"https://instagram.com/women.in.web3.detroit/"}
+            slack={
+              "https://join.slack.com/t/detroitblockchainers/shared_invite/zt-1s3bxzfhz-kHzJfU0nwWjThM4MY2UvOQ"
+            }
+          />
+        )}
 
         {events && (
           <>
@@ -343,9 +373,18 @@ const EventPage = ({ event, events }) => {
 
 export const getServerSideProps = async ({ query, res }) => {
   const event = await getEvent(query.event);
-  const eventsRes = await fetch("https://api.dpop.tech/api/events");
+
+  const env = getEnvironment();
+
+  const eventsRes = await fetch(
+    `https://api.dpop.tech/api/events?type=${env.category}`
+  );
   const fetchedEvents = await eventsRes.json();
-  const events = fetchedEvents.data?.filter((e) => e.id !== event.id).slice(0, 5);
+
+  const events = fetchedEvents.data
+    ?.filter((e) => e.id !== event.id)
+    .slice(0, 5);
+
   return {
     props: {
       event,

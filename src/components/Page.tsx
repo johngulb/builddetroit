@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { DefaultSeo } from "next-seo";
+import { Social } from "./Social";
 
 export const Page = ({ children, headerProps }) => {
   // React.useEffect(() => {
@@ -30,14 +31,7 @@ export const Page = ({ children, headerProps }) => {
         openGraph={{
           type: "website",
           locale: "en_IE",
-          url: "https://app.detroitartdao.com/",
-          siteName: "Detroit Art | Community Events",
         }}
-        // twitter={{
-        //   handle: "@handle",
-        //   site: "@site",
-        //   cardType: "summary_large_image",
-        // }}
       />
       <Content>{children}</Content>
       <Footer>
@@ -50,8 +44,19 @@ export const Page = ({ children, headerProps }) => {
           />
         </a>
         <div>
-          <p>Looking for something fun to do tonight? Look no further than the <a href="https://thedetroitilove.com/" target="_blank">detroitilove.com</a>.</p>
+          <p>
+            Looking for something fun to do tonight? Look no further than the{" "}
+            <a href="https://thedetroitilove.com/" target="_blank">
+              detroitilove.com
+            </a>
+            .
+          </p>
         </div>
+
+        <Social
+          discord={"https://discord.gg/bK8wjhS2Mg"}
+          instagram={"https://www.instagram.com/detroitartdao/"}
+        />
       </Footer>
     </Container>
   );

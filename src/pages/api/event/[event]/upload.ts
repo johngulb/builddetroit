@@ -3,11 +3,11 @@ import { getEvent } from '../../../../dpop';
 import { generate_cid } from '../../cid';
 import aws from "aws-sdk";
 
-const spacesEndpoint = new aws.Endpoint("nyc3.digitaloceanspaces.com");
+const spacesEndpoint = new aws.Endpoint(process.env.DO_SPACES_ENDPOINT);
 const s3 = new aws.S3({
   endpoint: spacesEndpoint,
-  accessKeyId: "DO00FG8V288XQEWLNH68", // replace with your access key
-  secretAccessKey: "3T0xh8FmbZt6n1m5n3RItrBMNq9Gea8KIpLVTP3NjhI", // replace with your secret   key
+  accessKeyId: process.env.DO_ACCESS_KEY_ID, // replace with your access key
+  secretAccessKey: process.env.DO_SECRET_ACCESS_KEY, // replace with your secret   key
 });
 
 const handler = async (req, res) => {
