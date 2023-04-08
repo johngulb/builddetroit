@@ -11,17 +11,18 @@ export const DPoP = ({ onLoad }) => {
       if (event.origin !== "https://builddetroit.xyz") return;
 
       // Display the message from the iframe
-      console.log("Received message from iframe: " + event.data);
+      console.log("Received message from iframe: " + JSON.stringify(event.data));
 
-      fetch(`https://api.dpop.tech/api/cid/${event.data}`, {
-        headers: { "access-control": "no-cors" },
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          console.log(res);
-          saveUserCID(event.data);
-          onLoad(res);
-        });
+      if (typeof event.data === 'string')
+        fetch(`https://api.dpop.tech/api/cid/${event.data}`, {
+          headers: { "access-control": "no-cors" },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            saveUserCID(event.data);
+            onLoad(res);
+          });
     };
 
     // Bind the event listener
