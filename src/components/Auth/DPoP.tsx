@@ -28,9 +28,7 @@ export const DPoP = ({ onLoad }) => {
     // Bind the event listener
     window.addEventListener("message", receiveMessage, false);
 
-    setTimeout(() => {
-      setIsReady(true);
-    }, 2000);
+    setIsReady(true);
 
     return () => {
       // Unbind the event listener on clean up
