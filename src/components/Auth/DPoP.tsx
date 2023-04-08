@@ -26,24 +26,28 @@ export const DPoP = ({ onLoad }) => {
     // Bind the event listener
     document.addEventListener("message", receiveMessage, false);
 
-    setIsReady(true);
+    setTimeout(() => {
+      setIsReady(true);
+    }, 2000);
 
     return () => {
       // Unbind the event listener on clean up
       document.removeEventListener("message", receiveMessage, false);
     };
-  }, []);
+  }, [onLoad]);
 
   return (
     <LazyLoad>
-      {isReady && (
-        <iframe
-          src="https://builddetroit.xyz/dpop"
-          width={0}
-          height={0}
-          frameBorder="none"
-        ></iframe>
-      )}
+      <>
+        {isReady && (
+          <iframe
+            src="https://builddetroit.xyz/dpop"
+            width={0}
+            height={0}
+            frameBorder="none"
+          ></iframe>
+        )}
+      </>
     </LazyLoad>
   );
 };

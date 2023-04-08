@@ -34,7 +34,7 @@ export const Page = ({ children, headerProps }) => {
           locale: "en_IE",
         }}
       />
-      <DPoP />
+      <DPoP onLoad={() => {}}/>
       <Content>{children}</Content>
       <Footer>
         <a href="https://thedetroitilove.com/" target="_blank">
