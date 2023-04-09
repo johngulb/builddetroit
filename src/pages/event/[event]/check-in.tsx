@@ -20,7 +20,12 @@ import { EventList } from "../../../components/Events/EventList";
 import { Social } from "../../../components/Social";
 import { CheckInQRCode } from "../../../components/CheckInQRCode";
 import { RaffleNumber } from "../../../components/Raffle";
-import { CenteredContainer, SectionSubtitle, SectionTitle } from "../../../components/Styled";
+import {
+  CenteredContainer,
+  SectionSubtitle,
+  SectionTitle,
+} from "../../../components/Styled";
+import Pusher from "pusher-js";
 
 const PageWrapper = styled.div`
   background-color: #fafafa;
@@ -41,6 +46,7 @@ const PageContainer = styled.div`
 
 const EventPage = ({ attestator_cid, event, events }) => {
   const [checkIn, setCheckIn] = React.useState<DPoPEventCheckIn>(null);
+  const [checkIns, setCheckIns] = React.useState<DPoPEventCheckIn[]>([]);
 
   const openGraph =
     event.image || event.venue?.image
@@ -77,6 +83,22 @@ const EventPage = ({ attestator_cid, event, events }) => {
     }
   }, [handleCheckIn]);
 
+  React.useEffect(() => {
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher("833f21249be60c36277b", {
+      cluster: "mt1",
+    });
+
+    var channel = pusher.subscribe(event.slug);
+    channel.bind("check_in", (data) => {
+      // alert(JSON.stringify(data));
+      if (data.check_ins) {
+        setCheckIns(data.check_ins);
+      }
+    });
+  }, [event.slug]);
+
   return (
     <PageWrapper>
       <NextSeo
@@ -103,17 +125,26 @@ const EventPage = ({ attestator_cid, event, events }) => {
 
             <CheckInQRCode event={event} checkIn={checkIn} />
 
-            {(event.slug === 'women-in-web3-detroit') ? <Social
-              instagram={'https://instagram.com/women.in.web3.detroit/'}
-              slack={'https://join.slack.com/t/detroitblockchainers/shared_invite/zt-1s3bxzfhz-kHzJfU0nwWjThM4MY2UvOQ'}
-            />
-            :
-            <Social
-              discord={'https://discord.gg/bK8wjhS2Mg'}
-              instagram={'https://www.instagram.com/detroitartdao/'}
-            />}
+            {event.slug === "women-in-web3-detroit" ? (
+              <Social
+                instagram={"https://instagram.com/women.in.web3.detroit/"}
+                slack={
+                  "https://join.slack.com/t/detroitblockchainers/shared_invite/zt-1s3bxzfhz-kHzJfU0nwWjThM4MY2UvOQ"
+                }
+              />
+            ) : (
+              <Social
+                discord={"https://discord.gg/bK8wjhS2Mg"}
+                instagram={"https://www.instagram.com/detroitartdao/"}
+              />
+            )}
 
-            <ChatRoom attestator_cid={attestator_cid} event={event} initialMessages={event.comments} checkIn={checkIn} />
+            <ChatRoom
+              attestator_cid={attestator_cid}
+              event={event}
+              comments={event.comments}
+              checkIn={checkIn}
+            />
 
             {event.content && (
               <>
@@ -158,7 +189,9 @@ export const getServerSideProps = async ({ query, res }) => {
 
   const eventsRes = await fetch("https://api.dpop.tech/api/events");
   const fetchedEvents = await eventsRes.json();
-  const events = fetchedEvents.data?.filter((e) => e.id !== event.id).slice(0, 3);
+  const events = fetchedEvents.data
+    ?.filter((e) => e.id !== event.id)
+    .slice(0, 3);
   // console.log('event: ', event);
   return {
     props: {

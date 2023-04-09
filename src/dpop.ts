@@ -43,6 +43,7 @@ export interface DPoPEventCheckIn {
 }
 
 export interface DPoPEventComment {
+  id: number;
   text: string;
   user: User;
 }

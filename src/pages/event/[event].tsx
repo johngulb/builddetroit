@@ -150,7 +150,9 @@ const EventPage = ({ event, events, referral }) => {
 
   React.useEffect(() => {
     setDidRSVP(inRSVPs(rsvps));
+  }, [rsvps]);
 
+  React.useEffect(() => {
     var pusher = new Pusher('833f21249be60c36277b', {
       cluster: 'mt1'
     });
@@ -162,7 +164,7 @@ const EventPage = ({ event, events, referral }) => {
         setRsvps(data.rsvps);
       }
     });
-  }, [event.slug, rsvps]);
+  }, [event.slug]);
 
   const submitRsvp = () => {
     submitEventRsvp(event.id, null, referral)
