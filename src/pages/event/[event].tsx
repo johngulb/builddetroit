@@ -258,6 +258,7 @@ const EventPage = ({ event, events, referral }) => {
         event={event}
         show={showDidRsvp}
         setShow={() => setShowDidRsvp(false)}
+        rsvp={rsvp}
       />
       <ContactBoxModal
         show={showRsvpModal}

@@ -27,14 +27,9 @@ const style = {
   //   p: 4,
 };
 
-export const EventRsvpSuccess = ({ event, show, setShow }) => {
+export const EventRsvpSuccess = ({ event, show, setShow, rsvp}) => {
   const [shareText, setShareText] = React.useState<string | null>(null);
   const [referral, setReferral] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    const cid = getUserCID();
-    setReferral(cid);
-  }, []);
 
   React.useEffect(() => {
     const dateString = `${moment(event.start_date).format("MMM")} ${moment(
@@ -44,10 +39,10 @@ export const EventRsvpSuccess = ({ event, show, setShow }) => {
     ).format("h:mm a")}`;
     setShareText(
       encodeURIComponent(
-        `Join me at ${event.title} on ${dateString}\n${window.origin}/event/${event.slug}` + referral ? `referral=${referral}` : ''
+        `Join me at ${event.title} on ${dateString}\n${window.origin}/event/${event.slug}` + (rsvp ? `?referral=${rsvp.user?.cid}` : '')
       )
     );
-  }, [event.end_date, event.slug, event.start_date, event.title, referral]);
+  }, [event.end_date, event.slug, event.start_date, event.title, referral, rsvp]);
 
   return (
     <LazyLoad>
