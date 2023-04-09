@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import moment from "moment";
 import LazyLoad from "react-lazy-load";
 
 import Box from "@mui/material/Box";
@@ -9,6 +10,7 @@ import { EventInfo } from "./EventInfo";
 import { EventAddToCalendar } from "./EventAddToCalendar";
 
 import Close from "@mui/icons-material/Close";
+import { ButtonLink } from "../Styled";
 
 const style = {
   position: "absolute" as "absolute",
@@ -25,6 +27,21 @@ const style = {
 };
 
 export const EventRsvpSuccess = ({ event, show, setShow }) => {
+  const [shareText, setShareText] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const dateString = `${moment(event.start_date).format("MMM")} ${moment(
+      event.start_date
+    ).format("D")} from ${moment(event.start_date).format("h:mm a")} - ${moment(
+      event.end_date
+    ).format("h:mm a")}`;
+    setShareText(
+      encodeURIComponent(
+        `Join me at ${event.title} on ${dateString}\n${window.origin}/event/${event.slug}`
+      )
+    );
+  }, [event.end_date, event.slug, event.start_date, event.title]);
+
   return (
     <LazyLoad>
       <ContactModalWrapper>
@@ -37,6 +54,9 @@ export const EventRsvpSuccess = ({ event, show, setShow }) => {
               <div className="contact-title">Your RSVP is Confirmed</div>
               <EventInfo event={event} variant="compact" />
               <EventAddToCalendar event={event} />
+              {shareText && (
+                <ButtonLink href={`sms:&body=${shareText}`}>Share</ButtonLink>
+              )}
             </ContactBoxWrapper>
           </Box>
         </Modal>
@@ -53,6 +73,14 @@ const ContactModalWrapper = styled.div`
 
 const ContactBoxWrapper = styled.div`
   padding: 1em;
+  .more-info {
+    .time-range {
+      font-size: 1rem;
+    }
+    h2 {
+      font-size: 1.4rem;
+    }
+  }
   button.close-btn {
     position: absolute;
     left: -20px;
@@ -74,7 +102,7 @@ const ContactBoxWrapper = styled.div`
     padding: 8px;
     margin-top: 12px;
     button {
-        color: white;
+      color: white;
     }
   }
   h1 {
