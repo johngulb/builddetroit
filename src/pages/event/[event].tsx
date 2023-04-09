@@ -256,7 +256,7 @@ const EventPage = ({ event, events, referral }) => {
       />
       <EventRsvpSuccess
         event={event}
-        referral={""}
+        referral={referral}
         show={showDidRsvp}
         setShow={() => setShowDidRsvp(false)}
       />
