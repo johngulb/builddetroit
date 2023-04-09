@@ -125,17 +125,12 @@ const EventPage = ({ attestator_cid, event, events }) => {
 
             <CheckInQRCode event={event} checkIn={checkIn} />
 
-            {event.slug === "women-in-web3-detroit" ? (
+            {event.slug === "women-in-web3-detroit" && (
               <Social
                 instagram={"https://instagram.com/women.in.web3.detroit/"}
                 slack={
                   "https://join.slack.com/t/detroitblockchainers/shared_invite/zt-1s3bxzfhz-kHzJfU0nwWjThM4MY2UvOQ"
                 }
-              />
-            ) : (
-              <Social
-                discord={"https://discord.gg/bK8wjhS2Mg"}
-                instagram={"https://www.instagram.com/detroitartdao/"}
               />
             )}
 
