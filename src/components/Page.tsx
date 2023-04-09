@@ -4,8 +4,19 @@ import Link from "next/link";
 import { DefaultSeo } from "next-seo";
 import { Social } from "./Social";
 import { DPoP } from "../components/Auth/DPoP";
+import { NextSeo, NextSeoProps } from "next-seo";
 
-export const Page = ({ children, headerProps }) => {
+export interface HeaderProps {
+  disableDPoP: boolean;
+  hideFooter: boolean;
+};
+
+export interface PageProps {
+  headerProps: HeaderProps;
+  meta: NextSeoProps;
+};
+
+export const Page = ({ children, headerProps, meta }) => {
   // React.useEffect(() => {
   //     ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
   //         console.log(accounts)
@@ -28,6 +39,7 @@ export const Page = ({ children, headerProps }) => {
           </Header>
         </>
       )}
+      <NextSeo {...meta} />
       <DefaultSeo
         openGraph={{
           type: "website",

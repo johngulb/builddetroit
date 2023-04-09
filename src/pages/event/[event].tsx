@@ -112,15 +112,15 @@ const EventLocation = ({ event }) => {
   );
 };
 
-const EventPage = ({ event, events }) => {
+const EventPage = ({ event, events, referral }) => {
   const [showRsvpModal, setShowRsvpModal] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [rsvps, setRsvps] = React.useState(event.rsvps ?? []);
   const [didRSVP, setDidRSVP] = React.useState<boolean>(false);
   // const [rsvpCid, setRsvpCid] = React.useState<string>();
   const [showDidRsvp, setShowDidRsvp] = React.useState<boolean>(false);
-  const user = useUser();
-  const hasWallet = useHasWallet();
+  // const user = useUser();
+  // const hasWallet = useHasWallet();
   const isAuthorized = useIsAuthorized();
   const [isHost, setIsHost] = React.useState(false);
 
@@ -153,19 +153,21 @@ const EventPage = ({ event, events }) => {
   }, [rsvps]);
 
   const submitRsvp = () => {
-    submitEventRsvp(event.id).then((res) => {
-      setShowDidRsvp(true);
-      getEvent(event.id).then((res) => {
-        setRsvps(res.rsvps);
+    submitEventRsvp(event.id, null, referral)
+      .then((res) => {
+        setShowDidRsvp(true);
+        getEvent(event.id).then((res) => {
+          setRsvps(res.rsvps);
+        });
+        // window.open(event.url);
+        // window.open(window.location.href, '_blank');
+        // setTimeout(() => {
+        //   window.location.href = event.url;
+        // }, 1000);
+      })
+      .catch((err) => {
+        alert(err);
       });
-      // window.open(event.url);
-      // window.open(window.location.href, '_blank');
-      // setTimeout(() => {
-      //   window.location.href = event.url;
-      // }, 1000);
-    }).catch((err) => {
-      alert(err);
-    });
   };
 
   const submitEmailRsvp = (contact: Contact) => {
@@ -219,37 +221,12 @@ const EventPage = ({ event, events }) => {
     setShowAuth(false);
   }, [submitRsvp]);
 
-  const openGraph =
-    event.image || event.venue?.image
-      ? {
-          images: [
-            {
-              url: event.image ?? event.venue?.image,
-              alt: event.title,
-            },
-          ],
-        }
-      : {};
-
   const publicRSVPs = rsvps.filter((rsvp) => {
     return rsvp.user?.name?.length > 0;
   });
 
   return (
     <PageWrapper>
-      <NextSeo
-        title={`${event.title} | Detroit Art Events`}
-        description={
-          event.content
-            ? `${stripHtml(event.content)
-                .result.replaceAll("\n", " ")
-                .replaceAll("  ", " ")
-                .slice(0, 180)}...`
-            : ""
-        }
-        openGraph={openGraph}
-        canonical={`https://builddetroit.xyz/event/${event.slug}`}
-      />
       <AuthModal
         show={showAuth}
         setShow={setShowAuth}
@@ -258,6 +235,7 @@ const EventPage = ({ event, events }) => {
       />
       <EventRsvpSuccess
         event={event}
+        referral={''}
         show={showDidRsvp}
         setShow={() => setShowDidRsvp(false)}
       />
@@ -294,7 +272,6 @@ const EventPage = ({ event, events }) => {
       <PageContainer>
         <EventInfo event={event} linkLocation={true} />
       </PageContainer>
-      {event.image && <img src={event.image} />}
       <PageContainer>
         {/* {false && hasWallet && isAuthorized && rsvpCid ? (
           <Web3SigButton
@@ -349,6 +326,9 @@ const EventPage = ({ event, events }) => {
           </>
         )}
         {event.venue && <EventLocation event={event} />}
+        
+        {/* {event.image && <img src={event.image} />} */}
+
         <h3>Event Details</h3>
         <div dangerouslySetInnerHTML={{ __html: event.content }} />
 
@@ -387,10 +367,39 @@ export const getServerSideProps = async ({ query, res }) => {
     ?.filter((e) => e.id !== event.id)
     .slice(0, 5);
 
+  const url = `${env.url}/event/${event.slug}`;
+
+  const image = env.image;
+  // const image = event.image ?? event.venue?.image ?? env.image;
+
   return {
     props: {
       event,
       events,
+      referral: query.referral ?? null,
+      meta: {
+        title: env.site_name,
+        description: event.content
+          ? `${stripHtml(event.content)
+              .result.replaceAll("\n", " ")
+              .replaceAll("  ", " ")
+              .slice(0, 180)}...`
+          : "",
+        canonical: url,
+        openGraph: {
+          url: url,
+          type: "webpage",
+          images: image
+            ? [
+                {
+                  url: image,
+                  alt: event.title,
+                },
+              ]
+            : [],
+          site_name: env.site_name,
+        },
+      },
     },
   };
 };

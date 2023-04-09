@@ -263,13 +263,15 @@ export const submitEventCheckIn = async (event: string, contact: Contact, user_c
   return result?.data;
 };
 
-export const submitEventRsvp = async (event: string, contact?: Contact) => {
+export const submitEventRsvp = async (event: string, contact?: Contact, referral?: string) => {
+  const data = contact ? contact as any : {};
+  data.referral = referral;
   const result = await authorizedRequest(`event/${event}/rsvp`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: contact ? JSON.stringify(contact) : null,
+    body: data ? JSON.stringify(data) : null,
   });
   if (result.data?.user?.cid) {
     storeCID(result.data?.user?.cid);

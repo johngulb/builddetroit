@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { ButtonLink } from "../components/ButtonLink";
-import { NextSeo, NextSeoProps } from "next-seo";
 import { EventList } from "../components/Events/EventList";
 import { EventSubmissionButton } from "../components/Events/EventSubmissionBox";
 import { ContactBoxModal } from "../components/ContactBox";
@@ -66,10 +65,9 @@ type HomePageLayout = "default" | "artnight";
 interface HomePageProps {
   events: any[];
   layout: HomePageLayout;
-  meta: NextSeoProps;
 }
 
-const HomePage = ({ events, layout, meta }: HomePageProps) => {
+const HomePage = ({ events, layout }: HomePageProps) => {
   const [showContactBox, setShowContactBox] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [contact, setContact] = React.useState<Contact>();
@@ -98,7 +96,6 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
 
   return (
     <PageWrapper>
-      <NextSeo {...meta} />
       <PageContainer>
         <div className="header">
           <img

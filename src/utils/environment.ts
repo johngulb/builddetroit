@@ -15,5 +15,6 @@ export const getEnvironment = () => {
     image,
     layout,
     site_name,
+    url,
   };
 };

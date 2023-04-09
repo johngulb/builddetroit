@@ -26,7 +26,7 @@ const style = {
   //   p: 4,
 };
 
-export const EventRsvpSuccess = ({ event, show, setShow }) => {
+export const EventRsvpSuccess = ({ event, referral, show, setShow }) => {
   const [shareText, setShareText] = React.useState<string | null>(null);
 
   React.useEffect(() => {
@@ -37,10 +37,10 @@ export const EventRsvpSuccess = ({ event, show, setShow }) => {
     ).format("h:mm a")}`;
     setShareText(
       encodeURIComponent(
-        `Join me at ${event.title} on ${dateString}\n${window.origin}/event/${event.slug}`
+        `Join me at ${event.title} on ${dateString}\n${window.origin}/event/${event.slug}?referral=${referral}`
       )
     );
-  }, [event.end_date, event.slug, event.start_date, event.title]);
+  }, [event.end_date, event.slug, event.start_date, event.title, referral]);
 
   return (
     <LazyLoad>
