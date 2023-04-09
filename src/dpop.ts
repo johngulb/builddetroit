@@ -102,6 +102,7 @@ export const storeCID = (cid: string) => {
     contact.cid = cid;
     console.log('STORE CID: ', contact);
     saveContact(contact);
+    saveUserCID(cid);
   }
 };
 

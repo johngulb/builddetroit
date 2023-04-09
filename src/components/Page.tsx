@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import { DefaultSeo } from "next-seo";
 import { Social } from "./Social";
-// import { DPoP } from "../components/Auth/DPoP";
+import { DPoP } from "../components/Auth/DPoP";
 import { NextSeo, NextSeoProps } from "next-seo";
 
 export interface HeaderProps {
@@ -47,7 +47,7 @@ export const Page = ({ children, headerProps, meta }) => {
         }}
       />
       <Content>{children}</Content>
-      {/* {!headerProps?.disableDPoP && <DPoP onLoad={() => {}} />} */}
+      {!headerProps?.disableDPoP && <DPoP onLoad={() => {}} />}
       {!headerProps?.hideFooter && (
         <>
           <Footer>
