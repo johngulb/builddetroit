@@ -29,7 +29,12 @@ const style = {
 
 export const EventRsvpSuccess = ({ event, show, setShow }) => {
   const [shareText, setShareText] = React.useState<string | null>(null);
-  const referral = getUserCID();
+  const [referral, setReferral] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const cid = getUserCID();
+    setReferral(cid);
+  }, []);
 
   React.useEffect(() => {
     const dateString = `${moment(event.start_date).format("MMM")} ${moment(

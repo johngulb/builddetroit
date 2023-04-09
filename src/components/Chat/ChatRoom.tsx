@@ -34,8 +34,6 @@ export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
   };
 
   React.useEffect(() => {
-    Pusher.logToConsole = true;
-
     var pusher = new Pusher("833f21249be60c36277b", {
       cluster: "mt1",
     });
