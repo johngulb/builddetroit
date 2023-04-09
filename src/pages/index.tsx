@@ -9,6 +9,7 @@ import { Form } from "../components/Form";
 
 import { Contact, createContact, getUser, User } from "../dpop";
 import { getEnvironment } from "../utils/environment";
+import { NextSeoProps } from "next-seo";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -65,9 +66,10 @@ type HomePageLayout = "default" | "artnight";
 interface HomePageProps {
   events: any[];
   layout: HomePageLayout;
+  meta: NextSeoProps;
 }
 
-const HomePage = ({ events, layout }: HomePageProps) => {
+const HomePage = ({ events, layout, meta }: HomePageProps) => {
   const [showContactBox, setShowContactBox] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [contact, setContact] = React.useState<Contact>();
@@ -125,6 +127,7 @@ const HomePage = ({ events, layout }: HomePageProps) => {
                 <br></br>
                 <div>Coming Soon</div>
                 <h2>Art Night Detroit</h2>
+                <img src={meta.openGraph.images[0].url} width={300} />
                 <br></br>
                 <hr></hr>
                 <br></br>

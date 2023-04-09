@@ -46,8 +46,8 @@ export const Page = ({ children, headerProps, meta }) => {
           locale: "en_IE",
         }}
       />
-      {!headerProps?.disableDPoP && <DPoP onLoad={() => {}} />}
       <Content>{children}</Content>
+      {!headerProps?.disableDPoP && <DPoP onLoad={() => {}} />}
       {!headerProps?.hideFooter && (
         <>
           <Footer>
