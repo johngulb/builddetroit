@@ -21,11 +21,11 @@ import { ContactBoxModal } from "../../components/ContactBox";
 import { useHasWallet } from "../../hooks/useHasWallet";
 import { useIsAuthorized } from "../../hooks/useIsAuthorized";
 import { useUser } from "../../hooks/useUser";
-import { NextSeo } from "next-seo";
 // import Image from 'next/image';
 import { stripHtml } from "string-strip-html";
-import { setHttpClientAndAgentOptions } from "next/dist/server/config";
 import { getEnvironment } from "../../utils/environment";
+
+import Pusher from 'pusher-js';
 
 const PageWrapper = styled.div`
   background-color: #fafafa;
@@ -150,7 +150,19 @@ const EventPage = ({ event, events, referral }) => {
 
   React.useEffect(() => {
     setDidRSVP(inRSVPs(rsvps));
-  }, [rsvps]);
+
+    var pusher = new Pusher('833f21249be60c36277b', {
+      cluster: 'mt1'
+    });
+
+    var channel = pusher.subscribe(event.slug);
+    channel.bind('rsvp', (data) => {
+      // alert(JSON.stringify(data));
+      if (data.rsvps) {
+        setRsvps(data.rsvps);
+      }
+    });
+  }, [event.slug, rsvps]);
 
   const submitRsvp = () => {
     submitEventRsvp(event.id, null, referral)

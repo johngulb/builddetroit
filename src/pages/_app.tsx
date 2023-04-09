@@ -10,6 +10,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "../theme";
+import Script from 'next/script';
 
 function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
@@ -43,6 +44,7 @@ function MyApp(props: AppProps) {
         <link rel="icon" href="https://detroitartdao.com/wp-content/uploads/2022/08/cropped-Screen-Shot-2022-08-14-at-2.10.22-AM-192x192.png" sizes="192x192"></link>
         <link rel="apple-touch-icon" href="https://detroitartdao.com/wp-content/uploads/2022/08/cropped-Screen-Shot-2022-08-14-at-2.10.22-AM-180x180.png"></link>
       </Head>
+      <Script src="https://js.pusher.com/7.2/pusher.min.js" />
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <ThemeProvider theme={theme}>
           <CssBaseline />

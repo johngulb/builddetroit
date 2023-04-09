@@ -43,6 +43,7 @@
     "next": "latest",
     "next-seo": "^5.14.1",
     "nookies": "^2.5.2",
+    "pusher-js": "^8.0.2",
     "react": "latest",
     "react-dom": "latest",
     "react-gravity-form": "^1.0.36",
