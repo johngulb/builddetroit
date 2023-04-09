@@ -212,7 +212,7 @@ const ChatRoomWrapper = styled.div`
       border-radius: 5px;
       resize: none;
       height: 35px;
-      font-size: 15px;
+      font-size: 16px;
       padding: 0 5px;
     }
 
