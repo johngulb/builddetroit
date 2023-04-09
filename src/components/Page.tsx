@@ -34,9 +34,9 @@ export const Page = ({ children, headerProps }) => {
           locale: "en_IE",
         }}
       />
-      {!headerProps.disableDPoP && <DPoP onLoad={() => {}} />}
+      {!headerProps?.disableDPoP && <DPoP onLoad={() => {}} />}
       <Content>{children}</Content>
-      {!headerProps.hideFooter && (
+      {!headerProps?.hideFooter && (
         <>
           <Footer>
             <a href="https://thedetroitilove.com/" target="_blank">
