@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { NextSeo } from "next-seo";
-import { getContact } from "../dpop";
+import { getContact } from "../../dpop";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -51,6 +51,8 @@ export const getServerSideProps = async () => {
   return {
     props: {
       headerProps: {
+        disableDPoP: true,
+        hideFooter: true,
         hideNavigation: true,
       },
     },

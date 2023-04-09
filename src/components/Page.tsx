@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import { DefaultSeo } from "next-seo";
 import { Social } from "./Social";
-import { DPoP } from '../components/Auth/DPoP';
+import { DPoP } from "../components/Auth/DPoP";
 
 export const Page = ({ children, headerProps }) => {
   // React.useEffect(() => {
@@ -34,32 +34,37 @@ export const Page = ({ children, headerProps }) => {
           locale: "en_IE",
         }}
       />
-      <DPoP onLoad={() => {}}/>
+      {!headerProps.disableDPoP && <DPoP onLoad={() => {}} />}
       <Content>{children}</Content>
-      <Footer>
-        <a href="https://thedetroitilove.com/" target="_blank">
-          <img
-            width="80"
-            src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
-            className="custom-logo"
-            alt=""
-          />
-        </a>
-        <div>
-          <p>
-            Looking for something fun to do tonight? Look no further than the{" "}
+      {!headerProps.hideFooter && (
+        <>
+          <Footer>
             <a href="https://thedetroitilove.com/" target="_blank">
-              detroitilove.com
+              <img
+                width="80"
+                src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
+                className="custom-logo"
+                alt=""
+              />
             </a>
-            .
-          </p>
-        </div>
+            <div>
+              <p>
+                Looking for something fun to do tonight? Look no further than
+                the{" "}
+                <a href="https://thedetroitilove.com/" target="_blank">
+                  detroitilove.com
+                </a>
+                .
+              </p>
+            </div>
 
-        <Social
-          discord={"https://discord.gg/bK8wjhS2Mg"}
-          instagram={"https://www.instagram.com/detroitartdao/"}
-        />
-      </Footer>
+            <Social
+              discord={"https://discord.gg/bK8wjhS2Mg"}
+              instagram={"https://www.instagram.com/detroitartdao/"}
+            />
+          </Footer>
+        </>
+      )}
     </Container>
   );
 };
