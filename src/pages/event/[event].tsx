@@ -392,7 +392,7 @@ export const getServerSideProps = async ({ query, res }) => {
       events,
       referral: query.referral ?? null,
       meta: {
-        title: env.site_name,
+        title: `${event.title} | ${env.site_name}`,
         description: event.content
           ? `${stripHtml(event.content)
               .result.replaceAll("\n", " ")
