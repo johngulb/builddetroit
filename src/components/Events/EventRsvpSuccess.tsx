@@ -11,6 +11,7 @@ import { EventAddToCalendar } from "./EventAddToCalendar";
 
 import Close from "@mui/icons-material/Close";
 import { ButtonLink } from "../Styled";
+import { getUserCID } from "../../dpop";
 
 const style = {
   position: "absolute" as "absolute",
@@ -26,8 +27,9 @@ const style = {
   //   p: 4,
 };
 
-export const EventRsvpSuccess = ({ event, referral, show, setShow }) => {
+export const EventRsvpSuccess = ({ event, show, setShow }) => {
   const [shareText, setShareText] = React.useState<string | null>(null);
+  const referral = getUserCID();
 
   React.useEffect(() => {
     const dateString = `${moment(event.start_date).format("MMM")} ${moment(
@@ -37,7 +39,7 @@ export const EventRsvpSuccess = ({ event, referral, show, setShow }) => {
     ).format("h:mm a")}`;
     setShareText(
       encodeURIComponent(
-        `Join me at ${event.title} on ${dateString}\n${window.origin}/event/${event.slug}?referral=${referral}`
+        `Join me at ${event.title} on ${dateString}\n${window.origin}/event/${event.slug}` + referral ? `referral=${referral}` : ''
       )
     );
   }, [event.end_date, event.slug, event.start_date, event.title, referral]);
