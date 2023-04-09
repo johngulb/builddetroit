@@ -2,13 +2,13 @@ import React from "react";
 import styled from "@emotion/styled";
 import SendIcon from "@mui/icons-material/Send";
 // import { DateTime } from 'luxon';
-import { DPoPEvent, DPoPEventCheckIn, DPoPEventComment, getContact } from "../../dpop";
+import { DPoPEvent, DPoPEventComment, User } from "../../dpop";
 // import axios from 'axios';
 import Pusher from "pusher-js";
 
 interface ChatRoomProps {
   attestator_cid: string;
-  checkIn: DPoPEventCheckIn;
+  user: User;
   event: DPoPEvent;
   comments: DPoPEventComment[];
 }
@@ -20,8 +20,8 @@ interface ChatRoomProps {
 export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
   event,
   attestator_cid,
-  checkIn,
   comments,
+  user,
 }) => {
   const [messages, setMessages] = React.useState<DPoPEventComment[]>(
     comments ?? []
@@ -61,7 +61,7 @@ export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
       },
       body: JSON.stringify({
         text: newMessage.text,
-        user_cid: checkIn.user_cid,
+        user_cid: user.cid,
         attestator_cid,
       }),
     })
@@ -79,7 +79,7 @@ export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
       return;
     const dateCreated = new Date().toISOString();
     const newMessage: any = {
-	  user: checkIn.user,
+	  user: user,
       text: newMessageText,
       message_sent_time: dateCreated,
     };
@@ -109,7 +109,7 @@ export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
         <div className="message-list-container">
           <ul className="message-list" ref={messageListRef}>
             {messages.map((message) => {
-              const isCurrentUser = message.user.id === checkIn.user.id;
+              const isCurrentUser = message.user.id === user.id;
               // const dateCreated = DateTime.fromISO(
               // 	message.message_sent_time
               // ).toRelative();

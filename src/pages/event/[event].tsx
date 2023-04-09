@@ -6,6 +6,8 @@ import {
   submitEventRsvp,
   submitSignedEventRsvp,
   getContact,
+  myRSVP,
+  DPoPEventRsvp,
 } from "../../dpop";
 import styled from "@emotion/styled";
 import { Web3SigButton } from "../../components/Web3SigButton";
@@ -25,7 +27,8 @@ import { useUser } from "../../hooks/useUser";
 import { stripHtml } from "string-strip-html";
 import { getEnvironment } from "../../utils/environment";
 
-import Pusher from 'pusher-js';
+import Pusher from "pusher-js";
+import { ChatRoom } from "../../components/Chat/ChatRoom";
 
 const PageWrapper = styled.div`
   background-color: #fafafa;
@@ -117,6 +120,7 @@ const EventPage = ({ event, events, referral }) => {
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [rsvps, setRsvps] = React.useState(event.rsvps ?? []);
   const [didRSVP, setDidRSVP] = React.useState<boolean>(false);
+  const [rsvp, setRSVP] = React.useState<DPoPEventRsvp | null>(null);
   // const [rsvpCid, setRsvpCid] = React.useState<string>();
   const [showDidRsvp, setShowDidRsvp] = React.useState<boolean>(false);
   // const user = useUser();
@@ -149,16 +153,18 @@ const EventPage = ({ event, events, referral }) => {
   // }, [user]);
 
   React.useEffect(() => {
+    const rsvp = myRSVP(rsvps);
+    setRSVP(rsvp);
     setDidRSVP(inRSVPs(rsvps));
   }, [rsvps]);
 
   React.useEffect(() => {
-    var pusher = new Pusher('833f21249be60c36277b', {
-      cluster: 'mt1'
+    var pusher = new Pusher("833f21249be60c36277b", {
+      cluster: "mt1",
     });
 
     var channel = pusher.subscribe(event.slug);
-    channel.bind('rsvp', (data) => {
+    channel.bind("rsvp", (data) => {
       // alert(JSON.stringify(data));
       if (data.rsvps) {
         setRsvps(data.rsvps);
@@ -172,6 +178,7 @@ const EventPage = ({ event, events, referral }) => {
         setShowDidRsvp(true);
         getEvent(event.id).then((res) => {
           setRsvps(res.rsvps);
+          setRSVP(res.rsvp);
         });
         // window.open(event.url);
         // window.open(window.location.href, '_blank');
@@ -249,7 +256,7 @@ const EventPage = ({ event, events, referral }) => {
       />
       <EventRsvpSuccess
         event={event}
-        referral={''}
+        referral={""}
         show={showDidRsvp}
         setShow={() => setShowDidRsvp(false)}
       />
@@ -300,7 +307,7 @@ const EventPage = ({ event, events, referral }) => {
           </ButtonLink>
         )} */}
         <ButtonLink className="rsvp-button" id="rsvp" onClick={handleRsvp}>
-          {didRSVP ? "RSVP RECEIVED" : "RSVP"}
+          {rsvp ? "RSVP RECEIVED" : "RSVP"}
         </ButtonLink>
         {isHost && event.host && (
           <>
@@ -337,10 +344,18 @@ const EventPage = ({ event, events, referral }) => {
                 <li>and {rsvps.length - publicRSVPs?.length} other(s)</li>
               )}
             </ul>
+            {rsvp && (
+              <ChatRoom
+                attestator_cid={referral}
+                event={event}
+                comments={event.comments}
+                user={rsvp.user}
+              />
+            )}
           </>
         )}
         {event.venue && <EventLocation event={event} />}
-        
+
         {/* {event.image && <img src={event.image} />} */}
 
         <h3>Event Details</h3>

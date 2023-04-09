@@ -33,6 +33,7 @@ export interface DPoPEventRsvp {
   cid?: string;
   event_cid: string;
   user_cid: string;
+  user?: User;
 }
 
 export interface DPoPEventCheckIn {
@@ -303,6 +304,12 @@ export const getRsvps = async () => {
 export const inRSVPs = (rsvps) => {
   const userId = getUserId();
   return rsvps.filter((rsvp) => rsvp.user.id == userId)?.length ? true : false;
+};
+
+export const myRSVP = (rsvps) => {
+  const cid = getUserCID();
+  const matches = rsvps.filter((rsvp) => rsvp.user.cid == cid);
+  return matches[0]; 
 };
 
 const parseJwt = (token) => {

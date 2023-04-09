@@ -138,7 +138,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
               attestator_cid={attestator_cid}
               event={event}
               comments={event.comments}
-              checkIn={checkIn}
+              user={checkIn.user}
             />
 
             {event.content && (

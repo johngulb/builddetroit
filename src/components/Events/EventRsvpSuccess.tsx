@@ -55,7 +55,7 @@ export const EventRsvpSuccess = ({ event, referral, show, setShow }) => {
               <EventInfo event={event} variant="compact" />
               <EventAddToCalendar event={event} />
               {shareText && (
-                <ButtonLink href={`sms:&body=${shareText}`}>Share</ButtonLink>
+                <ButtonLink href={`sms:&body=${shareText}`}>INVITE FRIENDS!</ButtonLink>
               )}
             </ContactBoxWrapper>
           </Box>
@@ -98,11 +98,12 @@ const ContactBoxWrapper = styled.div`
     text-align: center;
     width: 100%;
     display: inline-block !important;
-    background-color: #28303d;
+    /* background-color: #28303d; */
+    border: solid 4px #28303d;
     padding: 8px;
     margin-top: 12px;
     button {
-      color: white;
+      color: #28303d;
     }
   }
   h1 {
