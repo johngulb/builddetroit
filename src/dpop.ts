@@ -34,6 +34,7 @@ export interface DPoPEventRsvp {
   event_cid: string;
   user_cid: string;
   user?: User;
+  number?: number;
 }
 
 export interface DPoPEventCheckIn {
