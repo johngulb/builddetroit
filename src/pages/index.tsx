@@ -127,7 +127,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
                 <br></br>
                 <div>Coming Soon</div>
                 <h2>Art Night Detroit</h2>
-                <img src={meta.openGraph.images[0].url} width={300} />
+                <img src={meta.openGraph.images[0].url} width={200} />
                 <br></br>
                 <hr></hr>
                 <br></br>
