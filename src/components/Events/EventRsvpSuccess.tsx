@@ -12,6 +12,7 @@ import { EventAddToCalendar } from "./EventAddToCalendar";
 import Close from "@mui/icons-material/Close";
 import { ButtonLink } from "../Styled";
 import { getUserCID } from "../../dpop";
+import { EventInviteButton } from "./EventInviteButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -30,20 +31,6 @@ const style = {
 export const EventRsvpSuccess = ({ event, show, setShow, rsvp}) => {
   const [shareText, setShareText] = React.useState<string | null>(null);
   const [referral, setReferral] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    const dateString = `${moment(event.start_date).format("MMM")} ${moment(
-      event.start_date
-    ).format("D")} from ${moment(event.start_date).format("h:mm a")} - ${moment(
-      event.end_date
-    ).format("h:mm a")}`;
-    setShareText(
-      encodeURIComponent(
-        `Join me at ${event.title} on ${dateString}\n${window.origin}/event/${event.slug}` + (rsvp ? `?referral=${rsvp.user?.cid}` : '')
-      )
-    );
-  }, [event.end_date, event.slug, event.start_date, event.title, referral, rsvp]);
-
   return (
     <LazyLoad>
       <ContactModalWrapper>
@@ -56,9 +43,7 @@ export const EventRsvpSuccess = ({ event, show, setShow, rsvp}) => {
               <div className="contact-title">Your RSVP is Confirmed</div>
               <EventInfo event={event} variant="compact" />
               <EventAddToCalendar event={event} />
-              {shareText && (
-                <ButtonLink href={`sms:&body=${shareText}`}>INVITE FRIENDS!</ButtonLink>
-              )}
+              <EventInviteButton event={event} rsvp={rsvp} />
             </ContactBoxWrapper>
           </Box>
         </Modal>
