@@ -56,11 +56,12 @@ export const ButtonLink = styled.a`
         color: #28303d;
         background-color: transparent;
     }
-    .hollow {
+    &.hollow {
       color: #28303d;
       background-color: transparent;
       &:hover {
         background-color: #28303d;
+        color: white;
       }
     }
 `;

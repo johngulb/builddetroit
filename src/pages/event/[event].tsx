@@ -11,7 +11,7 @@ import {
 } from "../../dpop";
 import styled from "@emotion/styled";
 import { Web3SigButton } from "../../components/Web3SigButton";
-import { ButtonLink } from "../../components/ButtonLink";
+import { ButtonLink } from "../../components/Styled";
 import { EventRsvpSuccess } from "../../components/Events/EventRsvpSuccess";
 import { EventAddToCalendar } from "../../components/Events/EventAddToCalendar";
 import { EventInfo } from "../../components/Events/EventInfo";
@@ -308,12 +308,12 @@ const EventPage = ({ event, events, referral }) => {
           </ButtonLink>
         )} */}
         {rsvps?.length < 80 && (
-          <ButtonLink className="rsvp-button" id="rsvp" onClick={handleRsvp}>
-            {rsvp ? "RSVP RECEIVED" : "RSVP"}
+          <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
+          {rsvp ? "RSVP RECEIVED" : "RSVP"}
           </ButtonLink>
         )}
         {rsvps?.length >= 80 && (
-          <ButtonLink className="rsvp-button" id="rsvp" onClick={handleRsvp}>
+          <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
             {rsvp ? "ON WAITLIST" : "JOIN WAITLIST"}
           </ButtonLink>
         )}
@@ -322,10 +322,11 @@ const EventPage = ({ event, events, referral }) => {
           <>
             <ButtonLink
               href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}
+              className="hollow"
             >
               Start Check-In
             </ButtonLink>
-            <ButtonLink href={`/event/${event.slug}/raffle`}>
+            <ButtonLink href={`/event/${event.slug}/raffle`} className="hollow">
               Start Raffle
             </ButtonLink>
           </>
