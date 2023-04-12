@@ -11,8 +11,18 @@ export const RaffleNumber: React.FC<
 > = ({ checkIn }) => {
   return (
     <RaffleWrapper>
-      <div>YOUR RAFFLE NUMBER</div>
-      <Number className="raffle-id"># {checkIn.user?.id}</Number>
+      {checkIn.rsvp && (
+        <Number className="raffle-id">{`${
+          checkIn.rsvp?.confirmed ? "CONFIRMATION" : ""
+        } #${checkIn.rsvp?.number}`}</Number>
+      )}
+      {!checkIn.rsvp && (
+        <>
+          <div>MISSING CONFIRMATION</div>
+        </>
+      )}
+      {/* <div>YOUR RAFFLE NUMBER</div>
+      <Number className="raffle-id"># {checkIn.user?.id}</Number> */}
     </RaffleWrapper>
   );
 };
@@ -24,6 +34,6 @@ const RaffleWrapper = styled.div`
 
 const Number = styled.div`
   font-weight: bold;
-  font-size: 4rem;
-  line-height: 4rem;
+  font-size: 3rem;
+  line-height: 3rem;
 `;

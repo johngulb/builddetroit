@@ -35,6 +35,7 @@ export interface DPoPEventRsvp {
   user_cid: string;
   user?: User;
   number?: number;
+  confirmed?: boolean;
 }
 
 export interface DPoPEventCheckIn {
@@ -42,6 +43,7 @@ export interface DPoPEventCheckIn {
   event_cid: string;
   user_cid: string;
   user?: User;
+  rsvp?: DPoPEventRsvp;
 }
 
 export interface DPoPEventComment {
