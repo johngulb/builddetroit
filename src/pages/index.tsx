@@ -166,6 +166,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
               show={showContactBox}
               setShow={setShowContactBox}
               onSubmit={handleSubmitContact}
+              onConfirmation={() => {}}
               bodyContent={
                 <>
                   <div style={{ fontSize: 14, marginBottom: 8, marginTop: 16 }}>

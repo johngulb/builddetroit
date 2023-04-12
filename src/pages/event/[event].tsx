@@ -265,6 +265,7 @@ const EventPage = ({ event, events, referral }) => {
         show={showRsvpModal}
         setShow={setShowRsvpModal}
         onSubmit={submitEmailRsvp}
+        onConfirmation={() => {}}
         bodyContent={
           <>
             <EventInfo event={event} variant="compact" />
