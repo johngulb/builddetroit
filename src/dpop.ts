@@ -267,6 +267,20 @@ export const submitEventCheckIn = async (event: string, contact: Contact, user_c
   return result?.data;
 };
 
+export const submitEventConfirmationCheckIn = async (event: string, user_cid: string, attestator: string) => {
+  const data = { attestator, user_cid };
+  const result = await authorizedRequest(`event/${event}/check-in`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (result?.data?.user_cid)
+    storeCheckIn(result.data);
+  return result?.data;
+};
+
 export const submitEventRsvp = async (event: string, contact?: Contact, referral?: string) => {
   const data = contact ? contact as any : {};
   data.referral = referral;

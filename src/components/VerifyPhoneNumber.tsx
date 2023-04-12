@@ -3,7 +3,7 @@ import { MuiTelInput } from 'mui-tel-input'
 import TextField from "@mui/material/TextField";
 import { Button } from "./Styled";
 import styled from "@emotion/styled";
-import { requestPhoneNumberVerification, verifyPhoneNumber } from "../dpop";
+import { requestPhoneNumberVerification, saveUserCID, verifyPhoneNumber } from "../dpop";
 
 
 export const VerifyPhoneNumber = ({ onConfirmation }) => {
@@ -30,7 +30,10 @@ export const VerifyPhoneNumber = ({ onConfirmation }) => {
     if (e.target.value.length === 4) {
       verifyPhoneNumber(e.target.value, secret).then((res) => {
         if (res.status === 'verified') {
-          onConfirmation(phoneNumber);
+          if (res.user_cid) {
+            saveUserCID(res.user_cid);
+          }
+          onConfirmation(phoneNumber, res.user_cid);
         }
       });
     }

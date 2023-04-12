@@ -30,6 +30,7 @@ export const ContactBoxModal = ({
   show,
   setShow,
   onSubmit,
+  onConfirmation,
   titleText,
   bodyContent,
   buttonText,
@@ -43,6 +44,7 @@ export const ContactBoxModal = ({
               bodyContent={bodyContent}
               titleText={titleText}
               buttonText={buttonText}
+              onConfirmation={onConfirmation}
               onSubmit={onSubmit}
             />
           </Box>
@@ -59,6 +61,7 @@ const ContactModalWrapper = styled.div`
 `;
 
 export const ContactBox = ({
+  onConfirmation,
   onSubmit,
   bodyContent,
   buttonText = "Submit",
@@ -121,8 +124,9 @@ export const ContactBox = ({
     });
   }, [name, email, phone, publicName, organization, onSubmit]);
 
-  const handlePhoneConfirmation = React.useCallback((phone) => {
+  const handlePhoneConfirmation = React.useCallback((phone, user_cid) => {
     setPhone(phone);
+    onConfirmation(user_cid);
   }, []);
 
   if (!phone) {

@@ -8,6 +8,7 @@ import {
   getContent,
   getEvent,
   submitEventCheckIn,
+  submitEventConfirmationCheckIn,
 } from "../../../dpop";
 import styled from "@emotion/styled";
 import { ContactBox } from "../../../components/ContactBox";
@@ -64,6 +65,17 @@ const EventPage = ({ attestator_cid, event, events }) => {
     const checkIn = getCheckIn(event.cid);
     setCheckIn(checkIn);
   }, [event.cid]);
+
+  const handleConfirmationCheckIn = React.useCallback(
+    (user_cid: string) => {
+      submitEventConfirmationCheckIn(event.slug, user_cid, attestator_cid).then(
+        (checkIn) => {
+          setCheckIn(checkIn);
+        }
+      );
+    },
+    [attestator_cid, event.slug]
+  );
 
   const handleCheckIn = React.useCallback(
     (contact: Contact) => {
@@ -159,6 +171,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
             titleText=""
             buttonText="Check In"
             onSubmit={handleCheckIn}
+            onConfirmation={handleConfirmationCheckIn}
           />
         )}
       </PageContainer>
