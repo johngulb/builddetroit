@@ -308,7 +308,10 @@ const EventPage = ({ event, events, referral }) => {
             {didRSVP ? "RSVP RECEIVED" : "RSVP"}
           </ButtonLink>
         )} */}
-        {rsvps?.length < 80 && (
+        <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
+          {rsvp ? "RSVP RECEIVED" : "RSVP"}
+        </ButtonLink>
+        {/* {rsvps?.length < 80 && (
           <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
           {rsvp ? "RSVP RECEIVED" : "RSVP"}
           </ButtonLink>
@@ -317,7 +320,7 @@ const EventPage = ({ event, events, referral }) => {
           <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
             {rsvp ? "ON WAITLIST" : "JOIN WAITLIST"}
           </ButtonLink>
-        )}
+        )} */}
         {rsvp && <EventInviteButton event={event} rsvp={rsvp} />}
         {isHost && event.host && (
           <>
@@ -335,8 +338,9 @@ const EventPage = ({ event, events, referral }) => {
         <EventAddToCalendar event={event} />
         {rsvps?.length > 0 && (
           <>
-            <h3>RSVPs ({Math.min(rsvps?.length, 80)} / 80)</h3>
-            {/* <ul>
+            <h3>RSVPs ({rsvps?.length})</h3>
+            {/* <h3>RSVPs ({Math.min(rsvps?.length, 80)} / 80)</h3> */}
+            <ul>
               {publicRSVPs.map((rsvp, i) => {
                 return (
                   <li key={i}>
@@ -354,8 +358,8 @@ const EventPage = ({ event, events, referral }) => {
               {publicRSVPs?.length !== rsvps.length && (
                 <li>and {rsvps.length - publicRSVPs?.length} other(s)</li>
               )}
-            </ul> */}
-            {rsvps?.length > 80 && <h3>Waitlist ({rsvps?.length - 80})</h3>}
+            </ul>
+            {/* {rsvps?.length > 80 && <h3>Waitlist ({rsvps?.length - 80})</h3>} */}
             {rsvp && (
               <ChatRoom
                 attestator_cid={referral}
