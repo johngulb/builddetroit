@@ -8,6 +8,7 @@ import {
   getContact,
   myRSVP,
   DPoPEventRsvp,
+  submitEventConfirmationRsvp,
 } from "../../dpop";
 import styled from "@emotion/styled";
 import { Web3SigButton } from "../../components/Web3SigButton";
@@ -192,6 +193,21 @@ const EventPage = ({ event, events, referral }) => {
       });
   };
 
+  const handleConfirmationRsvp = React.useCallback(
+    (user_cid: string) => {
+      submitEventConfirmationRsvp(event.slug, user_cid, referral).then(
+        (rsvp) => {
+          setShowDidRsvp(true);
+          setShowRsvpModal(false);
+          getEvent(event.id).then((res) => {
+            setRsvps(res.rsvps);
+          });
+        }
+      );
+    },
+    [event.id, event.slug, referral]
+  );
+
   const submitEmailRsvp = (contact: Contact) => {
     submitEventRsvp(event.id, contact).then((res) => {
       setShowDidRsvp(true);
@@ -265,7 +281,7 @@ const EventPage = ({ event, events, referral }) => {
         show={showRsvpModal}
         setShow={setShowRsvpModal}
         onSubmit={submitEmailRsvp}
-        onConfirmation={() => {}}
+        onConfirmation={handleConfirmationRsvp}
         bodyContent={
           <>
             <EventInfo event={event} variant="compact" />

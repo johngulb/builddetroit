@@ -302,6 +302,21 @@ export const submitEventRsvp = async (event: string, contact?: Contact, referral
   return result.data;
 };
 
+export const submitEventConfirmationRsvp = async (event: string, user_cid: string, referral: string) => {
+  const data = { referral, user_cid };
+  const result = await authorizedRequest(`event/${event}/rsvp`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (result.data?.user?.cid) {
+    storeCID(result.data?.user?.cid);
+  }
+  return result?.data;
+};
+
 export const submitSignedEventRsvp = async (
   event: string,
   cs: ContentSignature
