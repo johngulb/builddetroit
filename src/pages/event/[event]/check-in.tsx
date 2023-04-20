@@ -135,7 +135,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
 
             <CheckInQRCode event={event} checkIn={checkIn} />
 
-            {event.slug === "women-in-web3-detroit" && (
+            {event.slug === "women-in-web3-detroit-2" && (
               <Social
                 instagram={"https://instagram.com/women.in.web3.detroit/"}
                 slack={
