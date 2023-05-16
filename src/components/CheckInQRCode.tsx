@@ -19,7 +19,7 @@ export const CheckInQRCode: React.FC<
       </p>
       <div style={{ marginTop: 16 }}>
         <QRCode
-          value={`https://artnightdetroit.com/event/${event.slug}/check-in?attestator=${checkIn.user_cid}`}
+          value={`https://builddetroit.xyz/event/${event.slug}/check-in?attestator=${checkIn.user_cid}`}
         />
       </div>
     </CheckInQRCodeWrapper>
