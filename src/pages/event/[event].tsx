@@ -31,6 +31,7 @@ import { getEnvironment } from "../../utils/environment";
 import Pusher from "pusher-js";
 import { ChatRoom } from "../../components/Chat/ChatRoom";
 import { EventInviteButton } from "../../components/Events/EventInviteButton";
+import { EventShare } from "../../components/Events/EventShare";
 
 const PageWrapper = styled.div`
   background-color: #fafafa;
@@ -337,6 +338,7 @@ const EventPage = ({ event, events, referral }) => {
             {rsvp ? "ON WAITLIST" : "JOIN WAITLIST"}
           </ButtonLink>
         )} */}
+        <EventShare event={event} />
         {rsvp && <EventInviteButton event={event} rsvp={rsvp} />}
         {isHost && event.host && (
           <>

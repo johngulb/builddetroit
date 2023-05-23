@@ -38,7 +38,7 @@ const HomePage = () => {
         future for Detroit. We are committed to provide educational resources that empower individuals
         and organizations to solve problems, innovate, and build the future
         they want to see."
-        canonical={`https://builddetroit.xyz`}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}`}
       />
       <PageContainer>
 
