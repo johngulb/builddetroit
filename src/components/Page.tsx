@@ -48,7 +48,7 @@ export const Page = ({ children, headerProps, meta }) => {
         }}
       />
       <Content>{children}</Content>
-      {!headerProps?.disableDPoP && <DPoP onLoad={() => {}} />}
+      {/* {!headerProps?.disableDPoP && <DPoP onLoad={() => {}} />} */}
       {!headerProps?.hideFooter && (
         <>
           <Footer>
