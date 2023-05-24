@@ -208,6 +208,11 @@ export const getContent = async (cid: string) => {
   return result;
 };
 
+export const getUserEvents = async (user_cid?: string) => {
+  const result = await authorizedRequest(`user/events${user_cid ? `?user_cid=${user_cid}` : ''}`);
+  return result?.data;
+};
+
 export const createContact = async (contact: Contact, user_cid?: string) => {
   const data = contact;
   if (user_cid)
