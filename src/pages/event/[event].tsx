@@ -326,7 +326,7 @@ const EventPage = ({ event, events, referral }) => {
           </ButtonLink>
         )} */}
         <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
-          {rsvp ? "RSVP RECEIVED" : "RSVP"}
+          {rsvp ? "ATTENDANCE NOTED!" : "I'M GOING"}
         </ButtonLink>
         {/* {rsvps?.length < 80 && (
           <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
@@ -356,9 +356,9 @@ const EventPage = ({ event, events, referral }) => {
         <EventAddToCalendar event={event} />
         {rsvps?.length > 0 && (
           <>
-            <h3>RSVPs ({rsvps?.length})</h3>
+            {/* <h3>RSVPs ({rsvps?.length})</h3> */}
             {/* <h3>RSVPs ({Math.min(rsvps?.length, 80)} / 80)</h3> */}
-            <ul>
+            {/* <ul>
               {publicRSVPs.map((rsvp, i) => {
                 return (
                   <li key={i}>
@@ -376,7 +376,7 @@ const EventPage = ({ event, events, referral }) => {
               {publicRSVPs?.length !== rsvps.length && (
                 <li>and {rsvps.length - publicRSVPs?.length} other(s)</li>
               )}
-            </ul>
+            </ul> */}
             {/* {rsvps?.length > 80 && <h3>Waitlist ({rsvps?.length - 80})</h3>} */}
             {rsvp && (
               <ChatRoom
