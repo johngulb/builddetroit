@@ -128,10 +128,10 @@ const EventPage = ({ attestator_cid, event, events }) => {
         <EventInfo event={event} linkLocation={true} variant="compact" />
         {checkIn ? (
           <div style={{ marginTop: 16 }}>
-            <CenteredContainer>
+            {/* <CenteredContainer>
               <SectionTitle>You are checked in!</SectionTitle>
               <RaffleNumber checkIn={checkIn} />
-            </CenteredContainer>
+            </CenteredContainer> */}
 
             <CheckInQRCode event={event} checkIn={checkIn} />
 
@@ -144,26 +144,26 @@ const EventPage = ({ attestator_cid, event, events }) => {
               />
             )}
 
-            <ChatRoom
+            {/* <ChatRoom
               attestator_cid={attestator_cid}
               event={event}
               comments={event.comments}
               user={checkIn.user}
-            />
+            /> */}
 
             {event.content && (
               <>
-                <SectionSubtitle>Event Details</SectionSubtitle>
+                <SectionSubtitle>Clue</SectionSubtitle>
                 <div dangerouslySetInnerHTML={{ __html: event.content }} />
               </>
             )}
-            {events && (
+            {/* {events && (
               <>
                 <SectionSubtitle>Other Events</SectionSubtitle>
                 <EventList events={events} variant="compact" />
                 <ButtonLink href="/events">See All Events</ButtonLink>
               </>
-            )}
+            )} */}
           </div>
         ) : (
           <ContactBox
