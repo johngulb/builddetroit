@@ -36,7 +36,7 @@ export const Page = ({ children, headerProps, meta }) => {
                 alt=""
               />
             </Link>
-            <Link href="/going">Going</Link>
+            {/* <Link href="/going">Going</Link> */}
           </Header>
         </>
       )}
