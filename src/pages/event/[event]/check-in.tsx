@@ -91,7 +91,9 @@ const EventPage = ({ attestator_cid, event, events }) => {
   React.useEffect(() => {
     const contact = getContact();
     if (contact) {
-      handleCheckIn(contact);
+      setTimeout(() => {
+        handleCheckIn(contact);
+      }, 100)
     }
   }, [handleCheckIn]);
 

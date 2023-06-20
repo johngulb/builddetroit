@@ -127,7 +127,7 @@ export const ContactBox = ({
   const handlePhoneConfirmation = React.useCallback((phone, user_cid) => {
     setPhone(phone);
     onConfirmation(user_cid);
-  }, []);
+  }, [onConfirmation]);
 
   if (!phone) {
     return (
