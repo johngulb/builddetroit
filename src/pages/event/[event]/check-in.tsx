@@ -166,13 +166,21 @@ const EventPage = ({ attestator_cid, event, events }) => {
             )} */}
           </div>
         ) : (
-          <ContactBox
-            bodyContent=""
-            titleText=""
-            buttonText="Check In"
-            onSubmit={handleCheckIn}
-            onConfirmation={handleConfirmationCheckIn}
-          />
+          <div>
+            <ContactBox
+              bodyContent=""
+              titleText=""
+              buttonText="Check In"
+              onSubmit={handleCheckIn}
+              onConfirmation={handleConfirmationCheckIn}
+            />
+            {event.content && (
+              <>
+                <SectionSubtitle>Clue</SectionSubtitle>
+                <div dangerouslySetInnerHTML={{ __html: event.content }} />
+              </>
+            )}
+          </div>
         )}
       </PageContainer>
     </PageWrapper>
