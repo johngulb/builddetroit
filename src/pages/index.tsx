@@ -62,7 +62,7 @@ const PageContainer = styled.div`
   }
 `;
 
-type HomePageLayout = "default" | "artnight";
+type HomePageLayout = "default" | "artnight" | "detroiter";
 interface HomePageProps {
   events: any[];
   layout: HomePageLayout;
