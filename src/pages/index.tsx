@@ -120,6 +120,20 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
               </p>
             </>
           )}
+          {layout === "detroiter" && (
+            <>
+              <h1>Detroiter Network</h1>
+              <p>
+                Our mission is to unite and empower Detroiters by providing a dynamic platform that fosters connections, celebrates local pride, and drives positive change in our vibrant community.
+              </p>
+              <p>
+                Through our app, we aim to amplify the voices and stories of Detroit residents, promoting inclusivity, diversity, and collaboration. By connecting individuals, businesses, and organizations, we strive to facilitate meaningful interactions, promote local initiatives, and create opportunities for personal and professional growth.
+              </p>
+              <p>
+              Together, we envision a connected Detroit, where residents thrive, support one another, and collectively contribute to the ongoing revitalization and success of our great city.
+              </p>
+            </>
+          )}
           {layout === "artnight" && (
             <>
               <div>

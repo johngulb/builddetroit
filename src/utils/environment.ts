@@ -1,7 +1,9 @@
 export const getEnvironment = () => {
   const url = process.env.NEXT_PUBLIC_SITE_URL;
-  const layout =
+  let layout =
     url === "https://artnightdetroit.com/" ? "artnight" : "default";
+  if (process.env.SITE_LAYOUT)
+    layout = process.env.SITE_LAYOUT;
   const category = layout === "artnight" ? "Art" : "Tech";
   const image =
     layout === "artnight"
