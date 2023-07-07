@@ -4,7 +4,9 @@ export const getEnvironment = () => {
     url === "https://artnightdetroit.com/" ? "artnight" : "default";
   if (process.env.SITE_LAYOUT)
     layout = process.env.SITE_LAYOUT;
-  const category = layout === "artnight" ? "Art" : "Tech";
+  let category = layout === "artnight" ? "Art" : "Tech";
+  if (layout === 'detroiter')
+    category = ''
   const image =
     layout === "artnight"
       ? "https://detroitartdao.com/wp-content/uploads/2023/02/272781136_145778497837915_7308205238901618223_n-1.jpg"
