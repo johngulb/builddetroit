@@ -4,7 +4,7 @@ import puppeteer from "puppeteer";
 const fetchData = async (url) => {
   // Launch the browser
   const browser = await puppeteer.launch({
-    executablePath: "/usr/bin/chromium-browser",
+    ignoreDefaultArgs: ["--disable-extensions"], // this made it work for now
     headless: false,
   });
 
