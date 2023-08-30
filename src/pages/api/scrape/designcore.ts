@@ -3,7 +3,10 @@ import puppeteer from "puppeteer";
 
 const fetchData = async (url) => {
   // Launch the browser
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    executablePath: "/usr/bin/chromium-browser",
+    headless: false,
+  });
 
   // Create a page
   const page = await browser.newPage();
