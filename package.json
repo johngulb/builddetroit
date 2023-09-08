@@ -8,6 +8,10 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "_moduleAliases": {
+    "@client": "src/clients/*",
+    "@utils": "src/utils/*"
+  },
   "dependencies": {
     "@emotion/cache": "^11.10.5",
     "@emotion/react": "^11.10.5",
@@ -45,6 +49,7 @@
     "next-seo": "^5.14.1",
     "nookies": "^2.5.2",
     "puppeteer": "^21.1.1",
+    "puppeteer-core": "^21.1.1",
     "pusher-js": "^8.0.2",
     "react": "latest",
     "react-dom": "latest",
