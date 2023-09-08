@@ -1,5 +1,128 @@
 export const events = [
   {
+    title: "Detroit Month of Design Opening Party and Design Crawl",
+    desc: "To kick off the 13th annual Detroit Month of Design Festival, please join us for a Downtown Detroit Design Crawl to celebrate the designers, products, and projects that showcase our city’s creative talent and treasured small businesses. Presented by the Consulate of Italy with additional support from Downtown Detroit Partnership, start your journey at LoveITDetroit, Space Lab Detroit, or Rossetti, then set out along the city streets. <br><br>\n<strong>Event Details</strong><br>\nFriday, September 1st<br>\n6:00 pm - 9:00 pm<br>\nLocations<br>\n1). LoveITDetroit | 1001 Woodward<br>\n2). Space Lab Detroit | 607 Shelby St, Suite 700<br>\n3). Rossetti |160 West Fort Street, Suite 400<br><br>\n\n<strong>About Design Core Detroit</strong><br>\nDesign Core Detroit champions design-driven businesses and their role in strengthening Detroit’s economy. It offers services to strengthen, grow and attract design businesses, increases market demand for design services, and tells Detroit’s design story locally and globally. Design Core is a department within College for Creative Studies.\n<br><br>\nDesign Core serves design-driven industries that specialize in design or utilize design as a central discipline of their business strategy. As the steward of Detroit’s UNESCO City of Design designation, Design Core serves as the convener and backbone organization for the Detroit City of Design initiative.<br><br>\n\n<strong>About Consulate of Italy in Detroit</strong><br>\nThe role of the Consulate's diplomatic-consular mission is to protect the interests of, and provide services to, Italians when not on Italian soil. The services must be offered on the basis of equality, impartiality, efficiency and transparency, for the purpose of protecting Italian citizens and promoting respect for human rights and freedoms.\n<br><br>\n<strong>About Downtown Detroit Partnership</strong><br>\nThe Downtown Detroit Partnership (DDP) strengthens and supports Downtown Detroit through strategic initiatives and programs. DDP convenes business, philanthropic, and government partners to create a vibrant and resilient urban core for Detroit and the region.",
+    image:
+      "https://designcore.org/wp-content/uploads/2023/07/MOD23_DesignCrawl_Sq.png",
+    time: "06:00 pm to 09:00 pm",
+    date: "Friday, 09/01/2023",
+    location: "1001 Woodward Ave",
+    startDate: "2023-09-01T22:00:00.000Z",
+    endDate: "2023-09-02T01:00:00.000Z",
+    isMultiple: false,
+  },
+  {
+    title: "ROSSETTI BLOCK PARTY",
+    desc: 'As one of the leading design firms in the region, ROSSETTI invites you to attend their Open House Block Party to kick off the 2023 Detroit Month of Design. Experience the artistry, creativity, and expertise that define ROSSETTI’s collective of studios and celebrate how design can bring communities together to accomplish common goals. Light refreshments and beverages will be available, and guests are encouraged to bring questions, inspiration, and a curiosity for the transformative power of design. <br><br>\n<strong>Event Details</strong><br>\nFriday, September 1<br>\n6:00 pm - 10:00 pm<br><br>\n\n<strong>About ROSSETTI</strong><br>\nROSSETTI is a collective of studios with expertise in planning, architecture, interiors and analytics. They realize projects that are meaningful to their community, to their clients, and themselves. They  innovate at all scales from micro to macro. Their philosophy drives them to amplify experience and value for every project."',
+    image:
+      "https://designcore.org/wp-content/uploads/gravity_forms/10-913e10bff85de7fb893484314cbab141/2023/05/Square-Graphic.jpg",
+    time: "06:00 pm to 10:00 pm",
+    date: "Friday, 09/01/2023",
+    location: "160 Fort ST Suite #400 Detroit, MI 48226",
+    startDate: "2023-09-01T22:00:00.000Z",
+    endDate: "2023-09-02T02:00:00.000Z",
+    isMultiple: false,
+  },
+  {
+    title: "re:animation Artist Talk",
+    desc: 'The Latin root animare means ""give breath to"" and ""endow with spirit."" The objects in this collection were made from plastic waste found in alleys, dumpsters, and on the street. re:animation documents the journey from trash to treasure. Material that was at one time a living dinosaur, was then processed into plastic, before being discarded as waste. This body of work extends the lifespan of this material by creating organic forms resembling living organisms, with a nod to the items’ original function. <br><br>\nJoin Cody Norman and Gallery Director Isabelle Weiss in discussion of the creation of this new body of work as well as Norman\'s mission to challenge our perception of material and confront the reality of plastic waste in our environment. With only nine percent of plastic being recycled annually, the remainder is either burned, dumped in landfills, or left in the environment to disintegrate into microplastics, working its way up the food chain to humans. Throughout his career, Norman has created numerous bodies of work that not only challenge the role of the viewer in consuming/discarding plastic but also our perception of plastic as an inferior ""fine art"" material due to its synthetic nature.<br><br>\n\n<strong>Event Details</strong><br>\nSaturday, September 2nd<br>\n4:00 pm - 6:00 pm<br><br>\n\n<strong>About I.M. Weiss Gallery</strong><br>\nI.M. Weiss Gallery focuses on contemporary craft disciplines, artists, and ideas that make compelling objects. Their program is a living archive of craft and design for Detroit and beyond. I.M. Weiss Gallery was founded in 2014, originally as NEXT:SPACE, by Isabelle Weiss, an Accredited Appraiser and Contemporary Fine/Decorative Arts specialist in Detroit, MI. Their mission is to nurture a new generation of the region’s iconic craft and design legacy. They approach their first decade of supporting contemporary craft and design in Detroit with renewed focus on scholarship and personal stewardship—important tools in building the value and legacy of craft and design in the contemporary art market—for Detroit and beyond.\n<br><br>\n<strong>About Cody Norman</strong><br>\nCody Norman is a Chicago-based artist, designer, and educator. Norman works with both digital and analog fabrication processes to transform recycled and bio plastics into functional art objects. Creating enigmatic forms that feel at once familiar and foreign, Norman’s process physically blurs the line between digital and hand craft.',
+    image:
+      "https://designcore.org/wp-content/uploads/gravity_forms/10-913e10bff85de7fb893484314cbab141/2023/05/IMWG_reanimation_Cody-Norman_artist-talk1.jpg",
+    time: "04:00 pm to 06:00 pm",
+    date: "Saturday, 09/02/2023",
+    location: "2857 E. Grand Boulevard #104, Detroit, MI  48202",
+    startDate: "2023-09-02T20:00:00.000Z",
+    endDate: "2023-09-02T22:00:00.000Z",
+    isMultiple: false,
+  },
+  {
+    title: "Showering with Identity",
+    desc: "There are only a few phenomena more intimate than showering, so we invite you to join us in this intimate relationship with identity. Through various experiences, multiple award-winning cases, challenges, fails and transformations, we will look into the different facets of identity. &nbsp;<br><br><strong>The dynamic agenda is as follows:</strong><br>\n- Our identity: context-thinking approach&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>\n- City identity: does engaging matter?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;\n- Circularity in identity: how to?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;\n- Researching identities: creating vs. revealing&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;\n- Visualizing identity: how to translate?&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n- Company’s identity: allowing to belong&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;\n- Acting out identity: being community&nbsp;<br>\n- Post-war city identity: balancing memory and projection&nbsp;<br><br>\n\n<strong>Panel discussion. “Failing to identitfy.” Guest Speakers:</strong><br>\nJonas Liugaila<br>\nVidmantas Girskas<br>\nEglė Vitkutė<br>\nEugenijus Kaminskis<br>\nŽemartas Budrys<br>\nDominykas Karpovič<br>\nPaulius Budrikis<br>\nBenjaminas Alimas<br>\nAlgirdas Orantas<br><br>\n\n<strong>Event Details</strong><br>\nThursday, September 7 th<br>\n5:00 pm – 8:00 pm (EEST)<br><br>\n\n<strong>About The CRITICAL</strong><br>\nWe live in multiple worlds defined by perceptions and interpretations. They are relationships between individuals, cultures, environment, and economy, which we refer to as context. By understanding and actively engaging the context, our agency finds solutions to challenges and designs new worlds for the better.",
+    image:
+      "https://designcore.org/wp-content/uploads/2023/08/Critical-Detroit-social-media_Instagrfam_1080x1080.jpg",
+    time: "5:00 pm to 8:00 pm",
+    date: "Thursday, 09/07/2023",
+    location: "Virtual",
+    startDate: "2023-09-07T21:00:00.000Z",
+    endDate: "2023-09-08T00:00:00.000Z",
+    isMultiple: false,
+  },
+  {
+    title: "The House that Robot Built",
+    desc: "Tour Michigan's first 3D-printed home and learn about its construction with Citizen Robotics' resident robot tamer. <br><br>\n<strong>Event Details</strong><br>\nThursday, September 7th <br>\n6:00 pm - 8:00 pm <br><br>\n\n<strong>About Citizen Robotics</strong><br>\nCitizen Robotics fosters the adoption of robotics and automation in home building in order to provide affordable, sustainable housing and ease the worker shortage.\"",
+    image:
+      "https://designcore.org/wp-content/uploads/gravity_forms/10-913e10bff85de7fb893484314cbab141/2023/06/IMG_92321.jpg",
+    time: "06:00 pm to 08:00 pm",
+    date: "Thursday, 09/07/2023",
+    location: "1444 Sheridan St, Detroit MI 48214",
+    startDate: "2023-09-07T22:00:00.000Z",
+    endDate: "2023-09-08T00:00:00.000Z",
+    isMultiple: false,
+  },
+  {
+    title: "ONLY IN DETROIT: PHOTOGRAPHY EXHIBITION BY CYRUS TETTEH",
+    desc: "Join us for the opening reception of Super Cy’s photography exhibit featuring pieces all shot in Detroit. His work will illuminate some of the city’s most authentic people and moments since 2017. After viewing the seminal works of his professional photography career, visitors can browse a mini retail market installation and shop Detroit-based brands hand-picked by Super Cy.<br><br>\n<strong>Event Details</strong><br>\nFriday, September 8th <br>\n5:00 pm - 9:00 pm<br><br>\n\n<strong>About Cyrus Tetteh</strong><br>\nCyrus “SUPER CY” Tetteh is a Ghanaian-American photographer, director, musician, and all around creative. Tetteh has been a photographer with the City of Detroit Media Department since 2017.",
+    image:
+      "https://designcore.org/wp-content/uploads/gravity_forms/10-913e10bff85de7fb893484314cbab141/2023/05/Black-Minimalist-Typography-Modern-Photography-Exhibition-Flyer-1.png",
+    time: "05:00 pm to 09:00 pm",
+    date: "Friday, 09/08/2023",
+    location: "15 E Kirby St, Detroit, MI 48202",
+    startDate: "2023-09-08T21:00:00.000Z",
+    endDate: "2023-09-09T01:00:00.000Z",
+    isMultiple: false,
+  },
+  {
+    title: "The Prelude – NOVA24 | Photo + Film Festival",
+    desc: "Celebrate the vibrant local photography and film community at the opening of the first annual NOVA24 | Photo + Film Festival. Join creators and leaders of the industry including international artists, curators, and publishers at the first large-scale film and photography festival hosted in Detroit.<br><br>\n\n An introduction to a month-long exhibition hosted by The Congregation Detroit, The Prelude introduces NOVA24 with an interior experimental filmmaking space and outdoor photography exhibit. Curated by festival co-founders Mara Magyarosi-Laytner and Raymar, The Prelude calls for photographers and filmmakers in the city of Detroit and beyond to exhibit their most innovative and conceptual work. What does the future of photography and film look like? The Prelude proclaims the trailblazers of this medium are right here. Welcome to NOVA24.<br><br>\n<strong>Event Details</strong><br>\nFriday, September 8 <br>\n6:00 PM - 9:00 PM<br><br>\n\n<strong>About NOVA24</strong><br>\nNOVA24 | Photo + Film Festival is an annual July event in the Detroit metropolitan area highlighting the best of photographers and filmmakers on the international stage. Founded in 2023 by artists Mara Magyarosi-Laytner and Raymar, NOVA24 is a launchpad for innovative visual work inviting participation from creators around the world to showcase the city of Detroit and beyond.",
+    image:
+      "https://designcore.org/wp-content/uploads/gravity_forms/10-913e10bff85de7fb893484314cbab141/2023/06/The-Prelude-Graphic-copy.jpg",
+    time: "06:00 pm to 09:00 pm",
+    date: "Friday, 09/08/2023",
+    location:
+      "The Congregation Detroit | 9321 Rosa Parks Blvd. Detroit, MI 48206",
+    startDate: "2023-09-08T22:00:00.000Z",
+    endDate: "2023-09-09T01:00:00.000Z",
+    isMultiple: false,
+  },
+  {
+    title: "Robot High Five!",
+    desc: 'Presented by the team responsible for Detroit’s first 3D-printed home, visitors are invited to experience the marvel that is 3D printing at a large scale! Citizen Robotics fosters the adoption of robotics and automation in home building in order to provide affordable, sustainable housing and ease the worker shortage. At this event vistors will engage with the team and discover how they transform design dreams into reality through 3D printing.<br><br>\n<strong>Event Details</strong><br>\nSaturday, September 9th<br>\n6:00 pm - 9:00 pm <br><br>\n\n<strong>About Citizen Robotics</strong><br>\nCitizen Robotics fosters the adoption of robotics and automation in home building in order to provide affordable, sustainable housing and ease the worker shortage."',
+    image:
+      "https://designcore.org/wp-content/uploads/gravity_forms/10-913e10bff85de7fb893484314cbab141/2023/06/210918_SettingTheTableFAH_NEM_0024_NoahElliottMorrison-1.jpg",
+    time: "06:00 pm to 09:00 pm",
+    date: "Saturday, 09/09/2023",
+    location: "2100 20th St, Detroit, MI 48216",
+    startDate: "2023-09-09T22:00:00.000Z",
+    endDate: "2023-09-10T01:00:00.000Z",
+    isMultiple: false,
+  },
+  {
+    title:
+      "How Paint and Coatings can brand a commercial space or create your personal design aesthetic at home",
+    desc: "Paints and coatings can be used to define a brand or design intent within the interior and exterior of a commercial building. They can also be used to define your personal style at home.  This talk will explore the different types of coatings from wall paint to resinous flooring for use in the design of a commercial or residential space through a series of images, tips, inspirational flatlays, and samples.<br><br>\n<strong>Event Details</strong><br>\nMonday, September 11th<br> \n4:30 pm - 5:30 pm<br><br>\n\n<strong>About Sherwin-Williams</strong><br>\nSherwin-Williams is a paint and coatings manufacturer supporting the City of Detroit with two locations and an additional sixty stores in Southeast Michigan. They provide interior and exterior paint for residential and commercial facilities, as well as color tools and trends to meet the desired aesthetic. Beyond paint they offer resinous flooring, terrazzo, liquid applied roof coatings, intumescent coatings, caulks and sealants, wood stains, and concrete stains to bring your design to life.",
+    image:
+      "https://designcore.org/wp-content/uploads/gravity_forms/10-913e10bff85de7fb893484314cbab141/2023/05/IMG_3578.jpg",
+    time: "04:30 pm to 05:30 pm",
+    date: "Monday, 09/11/2023",
+    location: "SpaceLab | 607 Shelby St,  Suite 700,  Detroit MI 48226",
+    startDate: "2023-09-11T20:30:00.000Z",
+    endDate: "2023-09-11T21:30:00.000Z",
+    isMultiple: false,
+  },
+  {
+    title:
+      "Radical Collaboration: What does Design and Circularity in Detroit and beyond look like in the Future?",
+    desc: "Detroit as a community represents strong collaborative efforts due to necessity and need. In comparison to a dense market and creative hub such as New York City, which is extremely competitive, Detroit’s collaborative spirit may be our very own superpower. While access to resources and funding may be a challenge, the city and various regional partners already hold the key to future success. <br><br>\nThis panel will explore how designers can best serve various collaborators and partners to align the vision of the future in order to work together to achieve radical transformation in design and position Detroit and Michigan to have a global competitive advantage. The goal of the discussion is to affect the future positively, help designers develop a point of view, and encourage the audience to focus on the ‘why?’ in addition to the how.<br><br>\n\n<strong>Event Details</strong><br>\nWednesday, September 13<br>\n5:00 pm - 9:00 pm<br><br>\n\n<strong>About PLAYGROUND DETROIT </strong><br>\nEstablished in 2012, PLAYGROUND DETROIT is an art gallery and creative talent agency representing top emerging artists in Detroit, Michigan. Opened in 2017, the gallery is located at 2845 Gratiot Avenue in McDougall-Hunt in a historic building from 1877. Their services include artwork sales and commissions, curatorial services, experiential marketing, event rental and production, and digital advertising and social content.",
+    image:
+      "https://designcore.org/wp-content/uploads/gravity_forms/10-913e10bff85de7fb893484314cbab141/2023/05/MH-detail.jpg",
+    time: "05:00 pm to 09:00 pm",
+    date: "Wednesday, 09/13/2023",
+    location: "Newlab @ Michigan Central |  2050 15th Street, Detroit MI 48216",
+    startDate: "2023-09-13T21:00:00.000Z",
+    endDate: "2023-09-14T01:00:00.000Z",
+    isMultiple: false,
+  },
+  {
     title: "Social Design Club Workshop",
     desc: "Discover a safe space for designers in the professional industry to come together to give each other constructive criticism on what they are currently working on. In order to participate, you must bring in work that is 60-100% done, you can only present digital work, and you must register for the workshop. Attendees will be sorted into small groups where each individual designer will present their work and engage other designers in discussion.<br><br>\nTo keep critiques short and productive, participants are asked to de-scope the work you really need feedback on and come to critiques with specific questions. At the end of the event, all attendees will be invited to mingle and network during happy hour. <br><br>\n\n<strong>Event Details</strong><br>\nWednesday, September 13th<br>\n5:30 pm - 8:30 pm<br><br>\n\n<strong>About Social Design Club</strong><br>\nSocial Design Club is a community of designers rooted in collaboration, constructive criticism, and networking. Their mission is to provide access to a safe space and camaraderie to help designers fine tune their skills and master their craft. They are perfect for the solo designer in their department, freelancers, or a designer who just wants a fresh pair of eyes on their work or side projects.",
     image:

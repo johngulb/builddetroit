@@ -4,7 +4,6 @@ import { events } from "../../../data/designmonth";
 const handler = async (req, res) => {
   const results = [];
   for (let index = 0; index < events.length; index++) {
-  // for (let index = 0; index < events.length; index++) {
     const event = events[index];
     console.log(event);
     const data = await fetchPageData(event);
