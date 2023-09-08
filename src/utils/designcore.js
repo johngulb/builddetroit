@@ -70,17 +70,18 @@ export const fetchPageData = async (url) => {
 //   }
 
   return {
-    title,
-    desc,
-    image,
-    time,
+    // events,
+    // regLink,
     date,
+    desc,
+    endDate,
+    image,
+    isMultiple,
     location,
     startDate,
-    endDate,
-    // regLink,
-    isMultiple,
-    // events,
+    time,
+    title,
+    url,
   };
 };
 
