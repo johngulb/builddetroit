@@ -130,42 +130,42 @@ const EventPage = ({ attestator_cid, event, events }) => {
         <EventInfo event={event} linkLocation={true} variant="compact" />
         {checkIn ? (
           <div style={{ marginTop: 16 }}>
-            {/* <CenteredContainer>
+            <CenteredContainer>
               <SectionTitle>You are checked in!</SectionTitle>
               <RaffleNumber checkIn={checkIn} />
-            </CenteredContainer> */}
+            </CenteredContainer>
 
             <CheckInQRCode event={event} checkIn={checkIn} />
 
-            {event.slug === "women-in-web3-detroit-2" && (
+            {/* {event.slug === "women-in-web3-detroit-2" && (
               <Social
                 instagram={"https://instagram.com/women.in.web3.detroit/"}
                 slack={
                   "https://join.slack.com/t/detroitblockchainers/shared_invite/zt-1s3bxzfhz-kHzJfU0nwWjThM4MY2UvOQ"
                 }
               />
-            )}
+            )} */}
 
-            {/* <ChatRoom
+            <ChatRoom
               attestator_cid={attestator_cid}
               event={event}
               comments={event.comments}
               user={checkIn.user}
-            /> */}
+            />
 
             {event.content && (
               <>
-                <SectionSubtitle>Clue</SectionSubtitle>
+                <SectionSubtitle>Details</SectionSubtitle>
                 <div dangerouslySetInnerHTML={{ __html: event.content }} />
               </>
             )}
-            {/* {events && (
+            {events && (
               <>
                 <SectionSubtitle>Other Events</SectionSubtitle>
                 <EventList events={events} variant="compact" />
                 <ButtonLink href="/events">See All Events</ButtonLink>
               </>
-            )} */}
+            )}
           </div>
         ) : (
           <div>
@@ -178,7 +178,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
             />
             {event.content && (
               <>
-                <SectionSubtitle>Clue</SectionSubtitle>
+                <SectionSubtitle>Details</SectionSubtitle>
                 <div dangerouslySetInnerHTML={{ __html: event.content }} />
               </>
             )}
