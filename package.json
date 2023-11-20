@@ -40,6 +40,7 @@
     "luxon": "^3.2.1",
     "mdb-react-ui-kit": "^4.2.0",
     "metadata-scraper": "^0.2.61",
+    "module-alias": "^2.2.3",
     "moment": "^2.29.4",
     "mui-tel-input": "^3.1.1",
     "multer": "^1.4.5-lts.1",

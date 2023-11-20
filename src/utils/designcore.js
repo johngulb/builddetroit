@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { completion } from "../clients/openai";
+import { completion } from "@client/openai";
 
 export const fetchPageData = async (url) => {
   // Launch the browser

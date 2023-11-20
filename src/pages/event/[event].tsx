@@ -6,6 +6,7 @@ import {
   submitEventRsvp,
   submitSignedEventRsvp,
   getContact,
+  getUserCID,
   myRSVP,
   DPoPEventRsvp,
   submitEventConfirmationRsvp,
@@ -132,8 +133,8 @@ const EventPage = ({ event, events, referral }) => {
   const [isHost, setIsHost] = React.useState(false);
 
   React.useEffect(() => {
-    const contact = getContact();
-    if (contact && contact?.cid === event.host?.cid) {
+    const cid = getUserCID();
+    if (cid && cid === event.host?.cid) {
       setIsHost(true);
     }
   }, [event.host?.cid]);
