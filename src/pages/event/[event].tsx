@@ -395,7 +395,7 @@ const EventPage = ({ event, events, referral }) => {
         )}
         {event.venue && <EventLocation event={event} />}
 
-        {/* {event.image && <img src={event.image} />} */}
+        {event.image && <img src={event.image} />}
 
         <h3>Event Details</h3>
         <div dangerouslySetInnerHTML={{ __html: event.content }} />

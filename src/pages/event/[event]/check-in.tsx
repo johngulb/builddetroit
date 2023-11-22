@@ -146,6 +146,8 @@ const EventPage = ({ attestator_cid, event, events }) => {
               />
             )} */}
 
+            {event.image && <img src={event.image} />}
+
             <ChatRoom
               attestator_cid={attestator_cid}
               event={event}
