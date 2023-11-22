@@ -13,7 +13,7 @@ import {
 } from "../../dpop";
 import styled from "@emotion/styled";
 import { Web3SigButton } from "../../components/Web3SigButton";
-import { ButtonLink } from "../../components/Styled";
+import { ButtonLink, ButtonLinkCompact } from "../../components/Styled";
 import { EventRsvpSuccess } from "../../components/Events/EventRsvpSuccess";
 import { EventAddToCalendar } from "../../components/Events/EventAddToCalendar";
 import { EventInfo } from "../../components/Events/EventInfo";
@@ -326,7 +326,11 @@ const EventPage = ({ event, events, referral }) => {
             {didRSVP ? "RSVP RECEIVED" : "RSVP"}
           </ButtonLink>
         )} */}
-        <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
+        <ButtonLink
+          className={`rsvp-button ${rsvp ? "hollow" : ""}`}
+          id="rsvp"
+          onClick={handleRsvp}
+        >
           {rsvp ? "ATTENDANCE NOTED!" : "I'M GOING"}
         </ButtonLink>
         {/* {rsvps?.length < 80 && (
@@ -404,6 +408,19 @@ const EventPage = ({ event, events, referral }) => {
             }
           />
         )}
+
+        {event.event_categories &&
+          event.event_categories.map((category) => {
+            return (
+              <ButtonLinkCompact
+                className="compact"
+                href={`/events/${category.slug}`}
+                key={category.name}
+              >
+                {category.name}
+              </ButtonLinkCompact>
+            );
+          })}
 
         {events && (
           <>

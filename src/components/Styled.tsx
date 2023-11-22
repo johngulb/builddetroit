@@ -65,3 +65,9 @@ export const ButtonLink = styled.a`
       }
     }
 `;
+
+export const ButtonLinkCompact = styled(ButtonLink)`
+  padding: 0rem 0.5rem;
+  display: inline-block;
+  font-size: 1rem;
+`;
