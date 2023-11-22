@@ -35,8 +35,8 @@ export const EventInfo = ({
             event.end_date
           ).format("h:mm a")}`}
         </div>
-        {header === 1 && <h1>{event.title}</h1>}
-        {header === 2 && <h2>{event.title}</h2>}
+        {header === 1 && <h1 dangerouslySetInnerHTML={{ __html: event.title }} />}
+        {header === 2 && <h2 dangerouslySetInnerHTML={{ __html: event.title }} />}
         {event.venue && (
           <>
             {linkLocation ? (
