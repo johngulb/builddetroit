@@ -5,6 +5,9 @@ import { Button } from "./Styled";
 import styled from "@emotion/styled";
 import { requestPhoneNumberVerification, saveUserCID, verifyPhoneNumber } from "../dpop";
 
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 export const VerifyPhoneNumber = ({ onConfirmation }) => {
   const [showVerificationInput, setShowVerificationInput] =
@@ -41,7 +44,7 @@ export const VerifyPhoneNumber = ({ onConfirmation }) => {
 
   return (
     <VerifyPhoneNumberWrapper>
-      <p>Verify your phone number</p>
+      <p>Start by verifying your phone number.</p>
       {!showVerificationInput && (
         <>
           <MuiTelInput
@@ -54,6 +57,9 @@ export const VerifyPhoneNumber = ({ onConfirmation }) => {
             value={phoneNumber}
             variant="filled"
           />
+          <FormGroup style={{ marginTop: 12 }}>
+            <FormControlLabel control={<Checkbox defaultChecked />} label="I opt in to receiving messages related to events in my area." />
+          </FormGroup>
           <Button onClick={handleOnSubmit}>Submit</Button>
         </>
       )}
