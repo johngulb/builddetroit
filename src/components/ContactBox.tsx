@@ -124,18 +124,18 @@ export const ContactBox = ({
     });
   }, [name, email, phone, publicName, organization, onSubmit]);
 
-  const handlePhoneConfirmation = React.useCallback((phone, user_cid) => {
-    setPhone(phone);
-    onConfirmation(user_cid);
-  }, [onConfirmation]);
+  // const handlePhoneConfirmation = React.useCallback((phone, user_cid) => {
+  //   setPhone(phone);
+  //   onConfirmation(user_cid);
+  // }, [onConfirmation]);
 
-  if (!phone) {
-    return (
-      <ContactBoxWrapper>
-        <VerifyPhoneNumber onConfirmation={handlePhoneConfirmation} />
-      </ContactBoxWrapper>
-    );
-  }
+  // if (!phone) {
+  //   return (
+  //     <ContactBoxWrapper>
+  //       <VerifyPhoneNumber onConfirmation={handlePhoneConfirmation} />
+  //     </ContactBoxWrapper>
+  //   );
+  // }
 
   return (
     <ContactBoxWrapper>
@@ -177,6 +177,7 @@ export const ContactBox = ({
           id="phone"
           label="Phone"
           name="phone"
+          required
           onChange={handlePhoneChange}
           value={phone}
           variant="filled"
