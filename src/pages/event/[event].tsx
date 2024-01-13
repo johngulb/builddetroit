@@ -450,8 +450,8 @@ export const getServerSideProps = async ({ query, res }) => {
 
   const url = `${env.url}/event/${event.slug}`;
 
-  const image = env.image;
-  // const image = event.image ?? event.venue?.image ?? env.image;
+  // const image = env.image;
+  const image = event.image ?? event.venue?.image ?? env.image;
 
   return {
     props: {
