@@ -133,10 +133,10 @@ const EventPage = ({ attestator_cid, event, events }) => {
             <CenteredContainer>
               <SectionTitle>You are checked in and...</SectionTitle>
               <h2 style={{ fontSize: '1.7rem' }}><b>ENTERED TO WIN</b></h2>
-              <h2 style={{ fontSize: '1.7rem' }}><b>2 TICKETS TO</b></h2>
-              <h2 style={{ fontSize: '2rem' }}><b>RED WINGS vs KINGS</b></h2>
-              <h2 style={{ fontSize: '1.2rem' }}><b>JANUARY 13TH</b></h2>
-              {/* <RaffleNumber checkIn={checkIn} /> */}
+              <h2 style={{ fontSize: '1.7rem' }}><b>ONE OF 3 LIONS JERSEYS</b></h2>
+              {/* <h2 style={{ fontSize: '2rem' }}><b>RED WINGS vs KINGS</b></h2>
+              <h2 style={{ fontSize: '1.2rem' }}><b>JANUARY 13TH</b></h2> */}
+              <RaffleNumber checkIn={checkIn} />
             </CenteredContainer>
 
             <CheckInQRCode event={event} checkIn={checkIn} />
