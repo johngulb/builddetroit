@@ -30,6 +30,9 @@ export const RaffleNumber: React.FC<
 const RaffleWrapper = styled.div`
   text-align: center;
   font-size: 1.8rem;
+  padding: 1rem;
+  border: solid 1px #999;
+  margin-top: 24px;
 `;
 
 const Number = styled.div`

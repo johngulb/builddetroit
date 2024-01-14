@@ -93,7 +93,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
     if (contact) {
       setTimeout(() => {
         handleCheckIn(contact);
-      }, 100)
+      }, 100);
     }
   }, [handleCheckIn]);
 
@@ -131,9 +131,20 @@ const EventPage = ({ attestator_cid, event, events }) => {
         {checkIn ? (
           <div style={{ marginTop: 16 }}>
             <CenteredContainer>
-              <SectionTitle>You are checked in and...</SectionTitle>
-              <h2 style={{ fontSize: '1.7rem' }}><b>ENTERED TO WIN</b></h2>
-              <h2 style={{ fontSize: '1.7rem' }}><b>ONE OF 3 LIONS JERSEYS</b></h2>
+              <SectionTitle>Congrats, you are entered to win!</SectionTitle>
+              <div
+                style={{
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  marginTop: 8,
+                  fontWeight: "bold",
+                }}
+              >
+                NOTE: YOU MUST BE PRESENT TO WIN
+              </div>
+              {/* <h2 style={{ fontSize: "1.7rem", marginBottom: 16 }}>
+                <b>ENTERED TO WIN</b>
+              </h2> */}
               {/* <h2 style={{ fontSize: '2rem' }}><b>RED WINGS vs KINGS</b></h2>
               <h2 style={{ fontSize: '1.2rem' }}><b>JANUARY 13TH</b></h2> */}
               <RaffleNumber checkIn={checkIn} />
