@@ -1,3 +1,5 @@
+// I'm not sure where I should go next. I'm making my way to Denver, and don't know if I should go through Kansas City or Lincoln Nebraska.
+
 import React from "react";
 import styled from "@emotion/styled";
 import { NextSeo } from "next-seo";
@@ -27,6 +29,16 @@ const PageContainer = styled.div`
     text-align: center;
     color: white;
   }
+  p {
+    text-align: center;
+    color: white;
+  }
+  textarea {
+    padding: 0.25rem;
+    display: block;
+    text-align: center;
+    margin: 1rem 0;
+  }
 `;
 
 const Content = styled.div`
@@ -43,11 +55,62 @@ const Content = styled.div`
   }
 `;
 
-const Page = ({ user }) => {
+const Page = () => {
+  const [direction, setDirection] = React.useState<string>("");
+  const [message, setMessage] = React.useState<string>("");
+  const [response, setResponse] = React.useState<string>("");
+
+  const options = {
+    know: {
+      prompt: "I know where I am headed.",
+      message:
+        "It's great to have a clear path. Anything specific you'd like to share about your journey?",
+    },
+    find: {
+      prompt: "I am finding my way.",
+      message:
+        "Embracing the journey of discovery is a powerful experience. How can I assist you on this part of your adventure?",
+    },
+    lost: {
+      prompt: "I am lost. :(",
+      message:
+        "I understand that feeling lost can be disheartening. Take a deep breath. What's been challenging, and how can I help you find your way?",
+    },
+  };
 
   const handleButtonPress = React.useCallback((e) => {
     console.log(e.target.innerHTML, e.target.id);
+    setDirection(e.target.id);
   }, []);
+
+  const handleSubmit = React.useCallback(() => {
+    console.log("options", options, direction);
+    const chat = `i'm building an interactive artwork that has the goal to help someone along on their journey in life.
+
+    the prompt is "Hello fellow traveler... How are you doing on your journey?"
+    
+    the initial inputs the traveler can select to help provide direction are: "I know where I am headed", "I am finding my way." and "I am lost. :("
+    
+    the traveler selected "${options[direction].prompt}" and was prompted the following: "${options[direction].message}"
+    
+    they answered:
+    
+    "${message}"
+    
+    can you share a response`;
+    console.log("chat", chat);
+    (async () => {
+      const res = await fetch(`/api/chat`, {
+        method: "POST",
+        body: JSON.stringify({
+          text: chat,
+        }),
+        headers: { "content-type": "application/json" },
+      });
+      const json = await res.json();
+      setResponse(json.detail.choices[0].message.content);
+    })();
+  }, [direction, message, options]);
 
   return (
     <PageWrapper>
@@ -64,12 +127,43 @@ const Page = ({ user }) => {
             height={300}
             src="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2024/02/06231740/dark-side-of-the-moon-cosmnaut-helmet-only-1.png"
           />
-          <h3>Hello fellow traveler...<br />How are you doing on your journey?</h3>
-          <div className="button-container">
-            <button id="know" onClick={handleButtonPress}>I know where I am headed.</button>
-            <button id="find" onClick={handleButtonPress}>I am finding my way.</button>
-            <button id="lost" onClick={handleButtonPress}>I am lost. :(</button>
-          </div>
+          <h3>
+            Hello fellow traveler...
+            <br />
+            How are you doing on your journey?
+          </h3>
+          {!direction?.length && (
+            <div className="button-container">
+              <button id="know" onClick={handleButtonPress}>
+                I know where I am headed.
+              </button>
+              <button id="find" onClick={handleButtonPress}>
+                I am finding my way.
+              </button>
+              <button id="lost" onClick={handleButtonPress}>
+                I am lost. :(
+              </button>
+            </div>
+          )}
+          {direction?.length && (
+            <>
+              <p>{options[direction]?.message}</p>
+              <textarea
+                placeholder="enter message..."
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                }}
+              />
+              <button id="submit" onClick={handleSubmit}>
+                SUBMIT
+              </button>
+            </>
+          )}
+          {response?.length && (
+            <>
+              <p>{response}</p>
+            </>
+          )}
         </Content>
       </PageContainer>
     </PageWrapper>
