@@ -132,7 +132,7 @@ const Page = () => {
             <br />
             How are you doing on your journey?
           </h3>
-          {!direction?.length && (
+          {direction?.length === 0 && (
             <div className="button-container">
               <button id="know" onClick={handleButtonPress}>
                 I know where I am headed.
@@ -145,7 +145,7 @@ const Page = () => {
               </button>
             </div>
           )}
-          {direction?.length && (
+          {direction?.length === 0 && (
             <>
               <p>{options[direction]?.message}</p>
               <textarea
@@ -159,7 +159,7 @@ const Page = () => {
               </button>
             </>
           )}
-          {response?.length && (
+          {response?.length === 0 && (
             <>
               <p>{response}</p>
             </>
