@@ -1,6 +1,7 @@
 // I'm not sure where I should go next. I'm making my way to Denver, and don't know if I should go through Kansas City or Lincoln Nebraska.
 
 import React from "react";
+import Image from "next/image";
 import styled from "@emotion/styled";
 import { NextSeo } from "next-seo";
 
@@ -21,13 +22,15 @@ const PageContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
+  color: white;
   h3 {
     margin-top: 1em;
     margin-bottom: 0.25em;
     font-weight: bold;
     font-size: 1.8em;
-    text-align: center;
-    color: white;
+    @media only screen and (max-width: 822px) {
+      font-size: 1em;
+    }
   }
   p {
     text-align: center;
@@ -38,6 +41,11 @@ const PageContainer = styled.div`
     display: block;
     text-align: center;
     margin: 1rem 0;
+    width: 100%;
+  }
+  button.submmit {
+    padding: 0.5rem 2rem;
+    font-weight: bold;
   }
 `;
 
@@ -51,6 +59,7 @@ const Content = styled.div`
       border: solid 1px #fff;
       margin: 0.5rem;
       font-size: 1rem;
+      color: white;
     }
   }
 `;
@@ -60,6 +69,7 @@ const Page = () => {
   const [message, setMessage] = React.useState<string>("");
   const [response, setResponse] = React.useState<string>("");
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const options = {
     know: {
       prompt: "I know where I am headed.",
@@ -121,10 +131,10 @@ const Page = () => {
       />
       <PageContainer>
         <Content>
-          <img
+          <Image
             alt="cosmonaut helmet"
-            width={300}
-            height={300}
+            width={180}
+            height={180}
             src="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2024/02/06231740/dark-side-of-the-moon-cosmnaut-helmet-only-1.png"
           />
           <h3>
@@ -145,7 +155,7 @@ const Page = () => {
               </button>
             </div>
           )}
-          {direction?.length === 0 && (
+          {direction?.length > 0 && (
             <>
               <p>{options[direction]?.message}</p>
               <textarea
@@ -154,16 +164,26 @@ const Page = () => {
                   setMessage(e.target.value);
                 }}
               />
-              <button id="submit" onClick={handleSubmit}>
+              <button className="submmit" id="submit" onClick={handleSubmit}>
                 SUBMIT
               </button>
             </>
           )}
-          {response?.length === 0 && (
+          {response?.length > 0 && (
             <>
               <p>{response}</p>
             </>
           )}
+          <br />
+          <br />
+          <br />
+          <h4>Invite fellow travelers</h4>
+          <Image
+            alt="Invite fellow travelers"
+            src="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2024/02/20222248/Screenshot-2024-02-19-at-6.02.54-PM.png"
+            width={150}
+            height={150}
+          />
         </Content>
       </PageContainer>
     </PageWrapper>
