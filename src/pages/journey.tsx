@@ -177,7 +177,7 @@ const Page = () => {
           <br />
           <br />
           <br />
-          <h4>Invite fellow travelers</h4>
+          <h4>invite travelers</h4>
           <Image
             alt="Invite fellow travelers"
             src="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2024/02/20222248/Screenshot-2024-02-19-at-6.02.54-PM.png"
