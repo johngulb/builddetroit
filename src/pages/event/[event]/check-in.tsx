@@ -127,11 +127,14 @@ const EventPage = ({ attestator_cid, event, events }) => {
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}/event/${event.slug}/check-in`}
       />
       <PageContainer>
-        <EventInfo event={event} linkLocation={true} variant="compact" />
+        {/* <EventInfo event={event} linkLocation={true} variant="compact" /> */}
+        <div style={{ textAlign: 'center' }}>
+          <h2><b><i>Learn how YOU can invest in revitalization of Detroit</i></b></h2>
+        </div>
         {checkIn ? (
           <div style={{ marginTop: 16 }}>
             <CenteredContainer>
-              <SectionTitle>Your on this list!</SectionTitle>
+              <SectionTitle>Stay tuned, you are on this list!</SectionTitle>
               {/* <SectionTitle>Congrats, you are entered to win!</SectionTitle> */}
               {/* <div
                 style={{
@@ -148,7 +151,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
               </h2> */}
               {/* <h2 style={{ fontSize: '2rem' }}><b>RED WINGS vs KINGS</b></h2>
               <h2 style={{ fontSize: '1.2rem' }}><b>JANUARY 13TH</b></h2> */}
-              <RaffleNumber checkIn={checkIn} />
+              {/* <RaffleNumber checkIn={checkIn} /> */}
             </CenteredContainer>
 
             <CheckInQRCode event={event} checkIn={checkIn} />
@@ -188,8 +191,8 @@ const EventPage = ({ attestator_cid, event, events }) => {
         ) : (
           <div>
             <ContactBox
-              bodyContent="Learn how you can invest in revitalization of Detroit"
-              titleText="Invest in Detroit"
+              bodyContent=""
+              titleText=""
               buttonText="Join the List"
               onSubmit={handleCheckIn}
               onConfirmation={handleConfirmationCheckIn}
