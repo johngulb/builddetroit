@@ -131,8 +131,9 @@ const EventPage = ({ attestator_cid, event, events }) => {
         {checkIn ? (
           <div style={{ marginTop: 16 }}>
             <CenteredContainer>
-              <SectionTitle>Congrats, you are entered to win!</SectionTitle>
-              <div
+              <SectionTitle>Your on this list!</SectionTitle>
+              {/* <SectionTitle>Congrats, you are entered to win!</SectionTitle> */}
+              {/* <div
                 style={{
                   fontSize: 14,
                   fontStyle: "italic",
@@ -141,7 +142,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
                 }}
               >
                 NOTE: YOU MUST BE PRESENT TO WIN
-              </div>
+              </div> */}
               {/* <h2 style={{ fontSize: "1.7rem", marginBottom: 16 }}>
                 <b>ENTERED TO WIN</b>
               </h2> */}
@@ -187,16 +188,17 @@ const EventPage = ({ attestator_cid, event, events }) => {
         ) : (
           <div>
             <ContactBox
-              bodyContent=""
-              titleText=""
-              buttonText="Check In"
+              bodyContent="Learn how you can invest in revitalization of Detroit"
+              titleText="Invest in Detroit"
+              buttonText="Join the List"
               onSubmit={handleCheckIn}
               onConfirmation={handleConfirmationCheckIn}
             />
             {event.content && (
               <>
                 <SectionSubtitle>Details</SectionSubtitle>
-                <div dangerouslySetInnerHTML={{ __html: event.content }} />
+                <div dangerouslySetInnerHTML={{ __html: "Tokenization of assets simplifies how communities are able to invest in their city!" }} />
+                {/* <div dangerouslySetInnerHTML={{ __html: event.content }} /> */}
               </>
             )}
           </div>
