@@ -128,7 +128,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
       />
       <PageContainer>
         {/* <EventInfo event={event} linkLocation={true} variant="compact" /> */}
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center', fontSize: '2rem' }}>
           <h2><b><i>Learn how YOU can invest in revitalization of Detroit</i></b></h2>
         </div>
         {checkIn ? (
