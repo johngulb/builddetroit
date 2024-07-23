@@ -1,6 +1,6 @@
 
 export const getEvent = async (event: string) => {
-    const result = await (await fetch(`https://api.dpop.tech/api/event/${event}`)).json();
+    const result = await (await fetch(`https://api.detroiter.network/api/event/${event}`)).json();
     return result.data;
 };
 

@@ -72,7 +72,7 @@ export interface ContentSignature {
   address: string;
 }
 
-const hostname = 'https://api.dpop.tech';
+const hostname = 'https://api.detroiter.network';
 // const hostname = 'http://localhost:9090';
 
 export const isAuthorized = () => {

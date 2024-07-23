@@ -5,8 +5,8 @@ export const checkInEvent = async (event: string) => {
 };
 
 const handler = async (req, res) => {
-    console.log(`https://api.dpop.tech/api/event/${req.query.event}/check-in`);
-    const checkInRes = await fetch(`https://api.dpop.tech/api/event/${req.query.event}/check-in`, {
+    console.log(`https://api.detroiter.network/api/event/${req.query.event}/check-in`);
+    const checkInRes = await fetch(`https://api.detroiter.network/api/event/${req.query.event}/check-in`, {
         method: 'POST',
     });
     const data = checkInRes.json();

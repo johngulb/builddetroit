@@ -39,8 +39,8 @@ const Page = ({ events }) => {
 
 export const getServerSideProps = async ({ query }) => {
   const type = query.type;
-  console.log(`https://api.dpop.tech/api/events?type=${type}`);
-  const eventsRes = await fetch(`https://api.dpop.tech/api/events?type=${type}`);
+  console.log(`https://api.detroiter.network/api/events?type=${type}`);
+  const eventsRes = await fetch(`https://api.detroiter.network/api/events?type=${type}`);
   const fetchedEvents = await eventsRes.json();
   const events = fetchedEvents.data;
   return {

@@ -13,9 +13,9 @@ interface ChatRoomProps {
   comments: DPoPEventComment[];
 }
 
-// https://api.dpop.tech/api/event/{event_id}/comment
-// https://api.dpop.tech/api/event/{event_id}/comments
-// https://api.dpop.tech/api/event/bagaaieraokagwwfa4qectjxdnkanh5h5bm7sbqw3d63usaz46q6m4ph2y4ba/comments
+// https://api.detroiter.network/api/event/{event_id}/comment
+// https://api.detroiter.network/api/event/{event_id}/comments
+// https://api.detroiter.network/api/event/bagaaieraokagwwfa4qectjxdnkanh5h5bm7sbqw3d63usaz46q6m4ph2y4ba/comments
 
 export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
   event,
@@ -51,7 +51,7 @@ export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
   React.useEffect(() => handleScrollToBottomOfMessageList(), []);
 
   const handleSendCommentRequest = async (newMessage: DPoPEventComment) => {
-    fetch(`https://api.dpop.tech/api/event/${event.id}/comment`, {
+    fetch(`https://api.detroiter.network/api/event/${event.id}/comment`, {
       method: "POST",
       headers: {
         Accept: "application/json",

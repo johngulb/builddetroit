@@ -20,7 +20,7 @@ export const register = async (params: RegisterParams) => {
 
 const handler = async (req, res) => {
   const params = req.body;
-  const registerRes = await await fetch(`https://api.dpop.tech/api/register`, {
+  const registerRes = await await fetch(`https://api.detroiter.network/api/register`, {
     method: "POST",
     body: JSON.stringify(params),
     headers: { "content-type": "application/json" },

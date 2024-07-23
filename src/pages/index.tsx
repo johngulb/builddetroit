@@ -231,7 +231,7 @@ export const getServerSideProps = async () => {
   const env = getEnvironment();
 
   const eventsRes = await fetch(
-    `https://api.dpop.tech/api/events?type=${env.category}`
+    `https://api.detroiter.network/api/events?type=${env.category}`
   );
   const fetchedEvents = await eventsRes.json();
   const events = fetchedEvents.data;
