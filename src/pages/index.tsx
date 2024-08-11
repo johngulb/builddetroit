@@ -118,6 +118,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
                 individuals and organizations to solve problems, innovate, and
                 build the future they want to see.
               </p>
+              <iframe width="300" height="500" src="https://www.youtube.com/embed/g_RazHjfeo8" title="Doing God&#39;s Work - Sunday August 11th, 2024" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </>
           )}
           {layout === "detroiter" && (
@@ -135,6 +136,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
               <p>
                 Together, we envision a connected Detroit, where residents thrive, support one another, and collectively contribute to the ongoing revitalization and success of our great city.
               </p>
+              <iframe width="300" height="500" src="https://www.youtube.com/embed/g_RazHjfeo8" title="Doing God&#39;s Work - Sunday August 11th, 2024" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </>
           )}
           {layout === "artnight" && (
@@ -226,7 +228,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
 };
 
 export const getServerSideProps = async () => {
-  const url = process.env.NEXT_PUBLIC_SITE_URL;
+  const url = process.env.NEXT_PUBLIC_SITE_URL ?? '';
 
   const env = getEnvironment();
 

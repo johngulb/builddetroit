@@ -34,66 +34,6 @@ import { ChatRoom } from "../../components/Chat/ChatRoom";
 import { EventInviteButton } from "../../components/Events/EventInviteButton";
 import { EventShare } from "../../components/Events/EventShare";
 
-const PageWrapper = styled.div`
-  background-color: #fafafa;
-  max-width: 700px;
-  margin: auto;
-  img {
-    margin-top: 1rem;
-    max-width: 100%;
-  }
-`;
-
-const PageContainer = styled.div`
-  padding: 1rem;
-  .rsvp-button {
-    width: 100%;
-  }
-  h3 {
-    padding-top: 2em;
-    margin-bottom: 0.5em;
-    font-weight: bold;
-    font-size: 1.3em;
-  }
-`;
-
-// const diplayDateRange = (start_date, end_date) => {
-//     const s = moment(start_date);
-//     const e = moment(end_date);
-//     let display = '';
-//     if (s.format('YYYY MM DD') === e.format('YYYY MM DD')) {
-//         display = `${s.format('ddd, MMM D h:mm a')} - ${e.format('h:mm a')}`;
-//     } else {
-//         display = `${s.format('ddd, MMM D h:mm a')} - ${e.format('D h:mm a')}`;
-//     }
-//     // display = display.replaceAll(':00','');
-//     if (s.format('a') === e.format('a')) {
-//         display = display.replace(e.format('a'), '');
-//     }
-//     return display;
-// };
-
-const EventLocationContainer = styled.div`
-  .venue,
-  .address {
-    font-size: 1em;
-    line-height: 1.2em;
-    padding-bottom: 0.2em;
-  }
-  .venue {
-    font-weight: bold;
-  }
-  .venue-map {
-    max-height: 180px;
-    margin: 0.25em 0;
-  }
-  .get-directions {
-    margin-left: 0.25em;
-    font-size: 0.8em;
-    color: blue;
-  }
-`;
-
 const EventLocation = ({ event }) => {
   const address =
     `${event.venue.geo?.address} ${event.venue.geo?.city}, ${event.venue.geo?.state} ${event.venue.geo?.zipcode}`.trim();
@@ -398,7 +338,7 @@ const EventPage = ({ event, events, referral }) => {
         {event.image && <img src={event.image} />}
 
         <h3>Event Details</h3>
-        <div dangerouslySetInnerHTML={{ __html: event.content }} />
+        <div className="content" dangerouslySetInnerHTML={{ __html: event.content }} />
 
         {event.slug === "women-in-web3-detroit" && (
           <Social
@@ -433,6 +373,55 @@ const EventPage = ({ event, events, referral }) => {
     </PageWrapper>
   );
 };
+
+
+const PageWrapper = styled.div`
+  background-color: #fafafa;
+  max-width: 700px;
+  margin: auto;
+  img {
+    margin-top: 1rem;
+    max-width: 100%;
+  }
+`;
+
+const PageContainer = styled.div`
+  padding: 1rem;
+  .rsvp-button {
+    width: 100%;
+  }
+  h3 {
+    padding-top: 2em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+  .content {
+    font-size: 0.9rem;
+    white-space: pre-line;
+  }
+`;
+
+const EventLocationContainer = styled.div`
+  .venue,
+  .address {
+    font-size: 1em;
+    line-height: 1.2em;
+    padding-bottom: 0.2em;
+  }
+  .venue {
+    font-weight: bold;
+  }
+  .venue-map {
+    max-height: 180px;
+    margin: 0.25em 0;
+  }
+  .get-directions {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+    color: blue;
+  }
+`;
 
 export const getServerSideProps = async ({ query, res }) => {
   const event = await getEvent(query.event);
