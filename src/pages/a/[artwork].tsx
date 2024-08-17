@@ -17,7 +17,7 @@ const ArtworkPage = ({ artwork }) => {
             )}
             {content.data.type === "video/mp4" && (
               <>
-                <video controls>
+                <video controls preload="metadata">
                   <source src={content.data.url} type="video/mp4"></source>
                 </video>
               </>
