@@ -3,6 +3,7 @@ import * as json from "multiformats/codecs/json";
 import { sha256 } from "multiformats/hashes/sha2";
 
 import aws from "aws-sdk";
+const s3Bucket = "dpop"; // replace with your bucket name
 
 const spacesEndpoint = new aws.Endpoint(process.env.DO_SPACES_ENDPOINT);
 const s3 = new aws.S3({
@@ -24,7 +25,6 @@ export const upload = async (json_data) => {
 
   const cid = await generate_cid(data);
 
-  const s3Bucket = "dpop"; // replace with your bucket name
   const objectName = cid; // File name which you want to put in s3 bucket
   const objectData = data;
   const objectType = "application/json"; // type of file
