@@ -35,7 +35,7 @@ const PageContainer = styled.div`
   h1 {
     margin-bottom: 1rem;
     font-size: 3.2rem;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     @media only screen and (max-width: 822px) {
       font-size: 2rem;
     }
@@ -109,7 +109,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
           />
           {layout === "default" && (
             <>
-              <h1>Builders of Detroit</h1>
+              <h1>DPoP Labs</h1>
               <p>
                 Our mission is to empower creators in Detroit by fostering connections that drive positive change in our community.
               </p>
@@ -137,7 +137,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
           )}
           {layout === "detroiter" && (
             <>
-              <h1>Detroiter Network</h1>
+              <h1>DPoP Labs</h1>
               <p>
                 Our mission is to empower creators in Detroit by fostering connections that drive positive change in our community.
               </p>
