@@ -54,7 +54,7 @@ const PageContainer = styled.div`
     margin: 1rem auto;
     @media only screen and (max-width: 822px) {
       margin: 0.6rem auto;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
     }
   }
   .build-btn {
@@ -111,7 +111,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
             <>
               <h1>DPoP Labs</h1>
               <p>
-                Our mission is to empower creators in Detroit by fostering connections that drive positive change in our community.
+                Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community.
               </p>
               {/* <p>
                 Our mission is to leverage open source technology to build a
@@ -139,7 +139,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
             <>
               <h1>DPoP Labs</h1>
               <p>
-                Our mission is to empower creators in Detroit by fostering connections that drive positive change in our community.
+                Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community.
               </p>
               {/* <p>
                 Through our app, we aim to amplify the voices and stories of Detroit residents, promoting inclusivity, diversity, and collaboration.
