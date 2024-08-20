@@ -49,6 +49,7 @@ const uploadFile = (fileName) => {
     // await uploadFile('../../public/videos/NvV30TKGBmiLjq4bY0oWaFka9N8UdMYtOEsqJsNi.mp4');
     // await uploadFile('../../public/videos/ErjXR0EkslxyYY92Y7HOiFXtZ8MeAwYwha852pF9.mp4');
     // await uploadFile('../../public/videos/jIhCtwC0DnD6DeY1rNgKkpfpf5mFP3znFrR6oCDp.mp4');
+    await uploadFile('../../public/videos/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4');
     // console.log('result: ', result)
 })();
 // cvTs7BJfRkhrFiyMXuRatqfFfQZlbFwzzYelVsv6.mp4
@@ -62,3 +63,7 @@ const uploadFile = (fileName) => {
 // ffmpeg -i NvV30TKGBmiLjq4bY0oWaFka9N8UdMYtOEsqJsNi.mov -qscale 0 NvV30TKGBmiLjq4bY0oWaFka9N8UdMYtOEsqJsNi.mp4
 // ffmpeg -i ErjXR0EkslxyYY92Y7HOiFXtZ8MeAwYwha852pF9.mov -qscale 0 ErjXR0EkslxyYY92Y7HOiFXtZ8MeAwYwha852pF9.mp4
 // ffmpeg -i jIhCtwC0DnD6DeY1rNgKkpfpf5mFP3znFrR6oCDp.mov -qscale 0 jIhCtwC0DnD6DeY1rNgKkpfpf5mFP3znFrR6oCDp.mp4
+
+
+// curl https://dpop.nyc3.digitaloceanspaces.com/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mov > uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mov
+// ffmpeg -i GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mov -qscale 0 GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4

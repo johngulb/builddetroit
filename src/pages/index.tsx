@@ -6,6 +6,7 @@ import { EventSubmissionButton } from "../components/Events/EventSubmissionBox";
 import { ContactBoxModal } from "../components/ContactBox";
 import { AuthModal } from "../components/Auth/AuthModal";
 import { Form } from "../components/Form";
+import { Social } from "../components/Social";
 
 import { Contact, createContact, getUser, User } from "../dpop";
 import { getEnvironment } from "../utils/environment";
@@ -110,6 +111,9 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
             <>
               <h1>Builders of Detroit</h1>
               <p>
+                Our mission is to empower creators in Detroit by fostering connections that drive positive change in our community.
+              </p>
+              {/* <p>
                 Our mission is to leverage open source technology to build a
                 better future for Detroit.
               </p>
@@ -117,7 +121,15 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
                 We are committed to provide educational resources that empower
                 individuals and organizations to solve problems, innovate, and
                 build the future they want to see.
-              </p>
+              </p> */}
+              <Social
+                discord={"https://discord.gg/bK8wjhS2Mg"}
+                instagram={"https://www.instagram.com/dpop.labs/"}
+              />
+              <video controls preload="metadata" style={{ width: '300px' }}>
+                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
+              </video>
+              <ButtonLink href="/a/doing-gods-work-1">View Creation</ButtonLink>
               <iframe width="300" height="500" src="https://www.youtube.com/embed/g_RazHjfeo8" title="Doing God&#39;s Work - Sunday August 11th, 2024" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
             </>
           )}
@@ -125,9 +137,9 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
             <>
               <h1>Detroiter Network</h1>
               <p>
-                Our mission is to unite and empower Detroiters by providing a dynamic platform that fosters connections, celebrates local pride, and drives positive change in our vibrant community.
+                Our mission is to empower creators in Detroit by fostering connections that drive positive change in our community.
               </p>
-              <p>
+              {/* <p>
                 Through our app, we aim to amplify the voices and stories of Detroit residents, promoting inclusivity, diversity, and collaboration.
               </p>
               <p>
@@ -135,7 +147,15 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
               </p>
               <p>
                 Together, we envision a connected Detroit, where residents thrive, support one another, and collectively contribute to the ongoing revitalization and success of our great city.
-              </p>
+              </p> */}
+              <Social
+                discord={"https://discord.gg/bK8wjhS2Mg"}
+                instagram={"https://www.instagram.com/dpop.labs/"}
+              />
+              <video controls preload="metadata" style={{ width: '300px' }}>
+                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
+              </video>
+              <ButtonLink href="/a/doing-gods-work-1">View Creation</ButtonLink>
               <iframe width="300" height="500" src="https://www.youtube.com/embed/g_RazHjfeo8" title="Doing God&#39;s Work - Sunday August 11th, 2024" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
             </>
           )}
@@ -159,7 +179,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
                 COME BUILD WITH US
               </ButtonLink>
             )}
-            {(user || contact) && (
+            {/* {(user || contact) && (
               <div style={{ marginTop: 64 }}>
                 <p>Interested in learning more?</p>
                 <ButtonLink
@@ -174,7 +194,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
               // <ButtonLink className="build-btn" onClick={handleBuildWithUs}>
               //   SHARE EVENT
               // </ButtonLink>
-            )}
+            )} */}
             <AuthModal
               show={showAuth}
               setShow={setShowAuth}

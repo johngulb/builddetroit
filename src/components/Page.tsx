@@ -73,7 +73,7 @@ export const Page = ({ children, headerProps, meta }) => {
 
             <Social
               discord={"https://discord.gg/bK8wjhS2Mg"}
-              instagram={"https://www.instagram.com/detroitartdao/"}
+              instagram={"https://www.instagram.com/dpop.labs/"}
             />
           </Footer>
         </>
