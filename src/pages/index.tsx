@@ -122,15 +122,17 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
                 individuals and organizations to solve problems, innovate, and
                 build the future they want to see.
               </p> */}
+              <video controls preload="metadata" style={{ width: '300px' }}>
+                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
+              </video>
+              <video controls preload="metadata" style={{ width: '300px' }}>
+                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/jIhCtwC0DnD6DeY1rNgKkpfpf5mFP3znFrR6oCDp.mp4#t=0.1`} type="video/mp4"></source>
+              </video>
+              <ButtonLink href="/a/doing-gods-work-1">View Creation</ButtonLink>
               <Social
                 discord={"https://discord.gg/bK8wjhS2Mg"}
                 instagram={"https://www.instagram.com/dpop.labs/"}
               />
-              <video controls preload="metadata" style={{ width: '300px' }}>
-                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
-              </video>
-              <ButtonLink href="/a/doing-gods-work-1">View Creation</ButtonLink>
-              <iframe width="300" height="500" src="https://www.youtube.com/embed/g_RazHjfeo8" title="Doing God&#39;s Work - Sunday August 11th, 2024" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
             </>
           )}
           {layout === "detroiter" && (
@@ -148,15 +150,17 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
               <p>
                 Together, we envision a connected Detroit, where residents thrive, support one another, and collectively contribute to the ongoing revitalization and success of our great city.
               </p> */}
+              <video controls preload="metadata" style={{ width: '300px' }}>
+                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
+              </video>
+              <video controls preload="metadata" style={{ width: '300px' }}>
+                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/jIhCtwC0DnD6DeY1rNgKkpfpf5mFP3znFrR6oCDp.mp4#t=0.1`} type="video/mp4"></source>
+              </video>
+              <ButtonLink href="/a/doing-gods-work-1">View Creation</ButtonLink>
               <Social
                 discord={"https://discord.gg/bK8wjhS2Mg"}
                 instagram={"https://www.instagram.com/dpop.labs/"}
               />
-              <video controls preload="metadata" style={{ width: '300px' }}>
-                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
-              </video>
-              <ButtonLink href="/a/doing-gods-work-1">View Creation</ButtonLink>
-              <iframe width="300" height="500" src="https://www.youtube.com/embed/g_RazHjfeo8" title="Doing God&#39;s Work - Sunday August 11th, 2024" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
             </>
           )}
           {layout === "artnight" && (
