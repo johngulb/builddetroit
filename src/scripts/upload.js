@@ -2,55 +2,71 @@ const fs = require('fs');
 const path = require('path');
 const aws = require("aws-sdk");
 
+var ffmpeg = require('fluent-ffmpeg');
+var command = ffmpeg();
+
 const s3Bucket = "dpop"; // replace with your bucket name
 
 const spacesEndpoint = new aws.Endpoint('nyc3.digitaloceanspaces.com');
 const s3 = new aws.S3({
-  endpoint: spacesEndpoint,
-  accessKeyId: '', // replace with your access key
-  secretAccessKey: '', // replace with your secret   key
+    endpoint: spacesEndpoint,
+    accessKeyId: '', // replace with your access key
+    secretAccessKey: '', // replace with your secret   key
 });
 
 const getExtension = str => str.slice(str.lastIndexOf("."));
 
 // Function to upload file
 const uploadFile = (fileName) => {
-  // Read content from the file
-  const fileContent = fs.readFileSync(fileName);
+    // Read content from the file
+    const fileContent = fs.readFileSync(fileName);
 
-  // Base file name (without directory path)
-  const baseName = path.basename(fileName);
+    // Base file name (without directory path)
+    const baseName = path.basename(fileName);
 
-  // Setting up S3 upload parameters
-  const params = {
-    Bucket: s3Bucket,
-    Key: `uploads/${baseName}`, // File name you want to save as in S3
-    Body: fileContent,
-    ContentType: 'video/mp4', // Adjust based on your file type
-    ACL: 'public-read', // or 'private', depending on your needs
-    // ACL: "public-read",
-    // Bucket: s3Bucket,
-    // Key: objectName,
-    // Body: objectData,
-    // ContentType: objectType,
-  };
+    // Setting up S3 upload parameters
+    const params = {
+        Bucket: s3Bucket,
+        Key: `uploads/${baseName}`, // File name you want to save as in S3
+        Body: fileContent,
+        ContentType: 'video/mp4', // Adjust based on your file type
+        ACL: 'public-read', // or 'private', depending on your needs
+        // ACL: "public-read",
+        // Bucket: s3Bucket,
+        // Key: objectName,
+        // Body: objectData,
+        // ContentType: objectType,
+    };
 
-  // Uploading files to the bucket
-  s3.upload(params, function(err, data) {
-    if (err) {
-      throw err;
-    }
-    console.log(`File uploaded successfully. ${data.Location}`);
-  });
+    // Uploading files to the bucket
+    s3.upload(params, function (err, data) {
+        if (err) {
+            throw err;
+        }
+        console.log(`File uploaded successfully. ${data.Location}`);
+    });
 };
+
+const convert = () => {
+    ffmpeg('https://dpop.nyc3.digitaloceanspaces.com/uploads/TF9U6JD6o1HhtzjrLo3Yo0QSCawh0J526FbKWP7p.mov')
+        .on('progress', function (progress) {
+            console.log('Processing: ' + progress.percent + '% done');
+        })
+        .output('../../public/videos/TF9U6JD6o1HhtzjrLo3Yo0QSCawh0J526FbKWP7p.mp4')
+        .on('end', function() {
+            uploadFile('../../public/videos/TF9U6JD6o1HhtzjrLo3Yo0QSCawh0J526FbKWP7p.mp4');
+        })
+        .run();
+}
 
 (async () => {
     // await uploadFile('../../public/videos/TF9U6JD6o1HhtzjrLo3Yo0QSCawh0J526FbKWP7p.mp4');
     // await uploadFile('../../public/videos/NvV30TKGBmiLjq4bY0oWaFka9N8UdMYtOEsqJsNi.mp4');
     // await uploadFile('../../public/videos/ErjXR0EkslxyYY92Y7HOiFXtZ8MeAwYwha852pF9.mp4');
     // await uploadFile('../../public/videos/jIhCtwC0DnD6DeY1rNgKkpfpf5mFP3znFrR6oCDp.mp4');
-    await uploadFile('../../public/videos/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4');
+    // await uploadFile('../../public/videos/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4');
     // console.log('result: ', result)
+    await convert();
 })();
 // cvTs7BJfRkhrFiyMXuRatqfFfQZlbFwzzYelVsv6.mp4
 
@@ -67,3 +83,5 @@ const uploadFile = (fileName) => {
 
 // curl https://dpop.nyc3.digitaloceanspaces.com/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mov > uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mov
 // ffmpeg -i GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mov -qscale 0 GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4
+
+// curl https://dpop.nyc3.digitaloceanspaces.com/uploads/ptduLeYfb5SHwkBg8875kM1yKdcaTbg2DbruqO6R.mp4 > ptduLeYfb5SHwkBg8875kM1yKdcaTbg2DbruqO6R.mp4
