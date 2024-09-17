@@ -177,7 +177,7 @@ export const ContactBox = ({
           id="phone"
           label="Phone"
           name="phone"
-          required
+          // required
           onChange={handlePhoneChange}
           value={phone}
           variant="filled"
