@@ -93,9 +93,9 @@ export const ContactBox = ({
   }, []);
 
   const handlePhoneChange = React.useCallback((value) => {
-    if (!value.match(/^\+?1/)) {
-      value = `+1${value.replace("+", "")}`;
-    }
+    // if (!value.match(/^\+?1/)) {
+    //   value = `+1${value.replace("+", "")}`;
+    // }
     setPhone(value);
   }, []);
 
@@ -172,7 +172,7 @@ export const ContactBox = ({
           onChange={handleEmailChange}
         />
         <MuiTelInput
-          disableDropdown={true}
+          // disableDropdown={true}
           defaultCountry={"US"}
           id="phone"
           label="Phone"
