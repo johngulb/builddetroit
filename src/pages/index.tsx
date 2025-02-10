@@ -68,9 +68,10 @@ interface HomePageProps {
   events: any[];
   layout: HomePageLayout;
   meta: NextSeoProps;
+  category: string;
 }
 
-const HomePage = ({ events, layout, meta }: HomePageProps) => {
+const HomePage = ({ events, layout, meta, category }: HomePageProps) => {
   const [showContactBox, setShowContactBox] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [contact, setContact] = React.useState<Contact>();
@@ -245,7 +246,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
         )}
         {/* <EventSubmissionButton /> */}
         <h2 className="section-title">FEATURED EVENTS</h2>
-        <EventList events={events} variant="compact" />
+        <EventList category={category} events={events} variant="compact" />
       </PageContainer>
     </PageWrapper>
   );
@@ -258,7 +259,7 @@ export const getServerSideProps = async () => {
   try {
     // Use more modern fetch pattern with error handling
     const response = await fetch(
-      `https://api.detroiter.network/api/events?type=${env.category}`,
+      `https://api.detroiter.network/api/events?type=${env.category}&limit=18`,
       {
         headers: {
           'Accept': 'application/json',
@@ -276,6 +277,7 @@ export const getServerSideProps = async () => {
     return {
       props: {
         events,
+        category: env.category,
         layout: env.layout,
         meta: {
           title: env.site_name,
