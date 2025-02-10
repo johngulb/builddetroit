@@ -150,7 +150,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
               <p>
                 Together, we envision a connected Detroit, where residents thrive, support one another, and collectively contribute to the ongoing revitalization and success of our great city.
               </p> */}
-              <video controls preload="metadata" style={{ width: '300px' }}>
+              {/* <video controls preload="metadata" style={{ width: '300px' }}>
                 <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
               </video>
               <video controls preload="metadata" style={{ width: '300px' }}>
@@ -160,7 +160,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
               <Social
                 discord={"https://discord.gg/bK8wjhS2Mg"}
                 instagram={"https://www.instagram.com/dpop.labs/"}
-              />
+              /> */}
             </>
           )}
           {layout === "artnight" && (
@@ -178,11 +178,11 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
             </>
           )}
           <div>
-            {!user && !contact && (
+            {/* {!user && !contact && (
               <ButtonLink className="build-btn" onClick={handleBuildWithUs}>
                 COME BUILD WITH US
               </ButtonLink>
-            )}
+            )} */}
             {/* {(user || contact) && (
               <div style={{ marginTop: 64 }}>
                 <p>Interested in learning more?</p>
