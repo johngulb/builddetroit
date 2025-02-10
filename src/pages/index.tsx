@@ -122,7 +122,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
                 individuals and organizations to solve problems, innovate, and
                 build the future they want to see.
               </p> */}
-              <video controls preload="metadata" style={{ width: '300px' }}>
+              {/* <video controls preload="metadata" style={{ width: '300px' }}>
                 <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
               </video>
               <video controls preload="metadata" style={{ width: '300px' }}>
@@ -132,7 +132,7 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
               <Social
                 discord={"https://discord.gg/bK8wjhS2Mg"}
                 instagram={"https://www.instagram.com/dpop.labs/"}
-              />
+              /> */}
             </>
           )}
           {layout === "detroiter" && (
