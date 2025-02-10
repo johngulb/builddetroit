@@ -429,7 +429,7 @@ export const getServerSideProps = async ({ query, res }) => {
   const env = getEnvironment();
 
   const eventsRes = await fetch(
-    `https://api.detroiter.network/api/events?type=${env.category}`
+    `https://api.detroiter.network/api/events?type=${env.category}&limit=6`
   );
   const fetchedEvents = await eventsRes.json();
 
