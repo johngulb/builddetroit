@@ -246,7 +246,7 @@ const HomePage = ({ events, layout, meta, category }: HomePageProps) => {
         )}
         {/* <EventSubmissionButton /> */}
         <h2 className="section-title">FEATURED EVENTS</h2>
-        <EventList category={category} events={events} variant="compact" />
+        <EventList category={category} events={events} variant="compact" loadMore={true} />
       </PageContainer>
     </PageWrapper>
   );

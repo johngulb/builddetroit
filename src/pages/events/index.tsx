@@ -31,14 +31,14 @@ const Page = ({ events }) => {
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}/events`}
       />
       <PageContainer>
-        <EventList events={events} variant="compact" />
+        <EventList events={events} variant="compact" loadMore={true} />
       </PageContainer>
     </PageWrapper>
   );
 };
 
 export const getServerSideProps = async ({ res }) => {
-  const eventsRes = await fetch('https://api.detroiter.network/api/events');
+  const eventsRes = await fetch('https://api.detroiter.network/api/events?limit=18');
   const fetchedEvents = await eventsRes.json();
   const events = fetchedEvents.data;
   return {

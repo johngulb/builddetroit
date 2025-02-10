@@ -2,7 +2,14 @@ import React from "react";
 import styled from "@emotion/styled";
 import { EventInfo } from "./EventInfo";
 
-export const EventList = ({ events, variant = "default", category }) => {
+interface EventListProps {
+  events: any[];
+  variant?: string;
+  category?: string;
+  loadMore?: boolean;
+}
+
+export const EventList = ({ events, variant = "default", category, loadMore = false }: EventListProps) => {
   const [eventList, setEventList] = React.useState<any[]>(events);
   const [loading, setLoading] = React.useState(false);
   const [hasMore, setHasMore] = React.useState(true);
@@ -10,10 +17,10 @@ export const EventList = ({ events, variant = "default", category }) => {
 
   const handleObserver = React.useCallback((entries) => {
     const target = entries[0];
-    if (target.isIntersecting && hasMore && !loading) {
+    if (target.isIntersecting && hasMore && !loading && loadMore) {
       fetchEvents();
     }
-  }, [hasMore, loading]);
+  }, [hasMore, loading, loadMore]);
 
   React.useEffect(() => {
     const option = {
@@ -33,7 +40,13 @@ export const EventList = ({ events, variant = "default", category }) => {
     setLoading(true);
     try {
       const offset = eventList.length;
-      const response = await fetch(`https://api.detroiter.network/api/events?type=${category}&limit=18&offset=${offset}`);
+      const params = new URLSearchParams({
+        type: category || '',
+        limit: '18',
+        offset: offset.toString()
+      });
+      const url = `https://api.detroiter.network/api/events?${params}`;
+      const response = await fetch(url);
       const result = await response.json();
       const data = result.data;
       if (data.length === 0) {
@@ -60,7 +73,28 @@ export const EventList = ({ events, variant = "default", category }) => {
           <EventInfo event={event} variant={variant} />
         </a>
       ))}
-      {hasMore && <div ref={loader}>Loading...</div>}
+      {hasMore && loadMore && (
+        <div ref={loader} style={{
+          textAlign: 'center',
+          padding: '20px',
+          color: '#666',
+          fontSize: '0.9em',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px'
+        }}>
+          <div className="loading-spinner" style={{
+            width: '20px',
+            height: '20px',
+            border: '2px solid #f3f3f3',
+            borderTop: '2px solid #666',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite'
+          }} />
+          Loading more events...
+        </div>
+      )}
     </EventListWrapper>
   );
 };
