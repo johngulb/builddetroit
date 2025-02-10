@@ -253,41 +253,78 @@ const HomePage = ({ events, layout, meta }: HomePageProps) => {
 
 export const getServerSideProps = async () => {
   const url = process.env.NEXT_PUBLIC_SITE_URL ?? '';
-
   const env = getEnvironment();
 
-  const eventsRes = await fetch(
-    `https://api.detroiter.network/api/events?type=${env.category}`
-  );
-  const fetchedEvents = await eventsRes.json();
-  const events = fetchedEvents.data;
+  try {
+    // Use more modern fetch pattern with error handling
+    const response = await fetch(
+      `https://api.detroiter.network/api/events?type=${env.category}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+        },
+      }
+    );
 
-  return {
-    props: {
-      events,
-      layout: env.layout,
-      meta: {
-        title: env.site_name,
-        description:
-          env.layout === "artnight"
-            ? "Art Night Detroit is a community-driven initiative that brings together artists, art enthusiasts, and community members for a night of creativity and connection. Our events feature live music, new local establishments, and opportunities to create art in a fun and supportive environment. Join us for an unforgettable night of art, culture, and community building."
-            : "Our mission is to leverage open source technology to build a better future for Detroit. We are committed to provide educational resources that empower individuals and organizations to solve problems, innovate, and build the future they want to see.",
-        canonical: url,
-        openGraph: {
-          url: url,
-          type: "webpage",
-          images: [
-            {
-              url: env.image,
-            },
-          ],
-          site_name: env.site_name,
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const fetchedEvents = await response.json();
+    const events = fetchedEvents.data;
+
+    return {
+      props: {
+        events,
+        layout: env.layout,
+        meta: {
+          title: env.site_name,
+          description:
+            env.layout === "artnight"
+              ? "Art Night Detroit is a community-driven initiative that brings together artists, art enthusiasts, and community members for a night of creativity and connection. Our events feature live music, new local establishments, and opportunities to create art in a fun and supportive environment. Join us for an unforgettable night of art, culture, and community building."
+              : "Our mission is to leverage open source technology to build a better future for Detroit. We are committed to provide educational resources that empower individuals and organizations to solve problems, innovate, and build the future they want to see.",
+          canonical: url,
+          openGraph: {
+            url,
+            type: "webpage",
+            images: [
+              {
+                url: env.image,
+              },
+            ],
+            site_name: env.site_name,
+          },
+        },
+        headerProps: {
+          hideNavigation: true,
         },
       },
-      headerProps: {
-        hideNavigation: true,
+    };
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    // Return empty events array if fetch fails
+    return {
+      props: {
+        events: [],
+        layout: env.layout,
+        meta: {
+          title: env.site_name,
+          description: env.layout === "artnight" 
+            ? "Art Night Detroit is a community-driven initiative that brings together artists, art enthusiasts, and community members for a night of creativity and connection."
+            : "Our mission is to leverage open source technology to build a better future for Detroit.",
+          canonical: url,
+          openGraph: {
+            url,
+            type: "webpage",
+            images: [{ url: env.image }],
+            site_name: env.site_name,
+          },
+        },
+        headerProps: {
+          hideNavigation: true,
+        },
       },
-    },
-  };
+    };
+  }
 };
 export default HomePage;
