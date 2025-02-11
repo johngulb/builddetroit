@@ -102,7 +102,7 @@ export const ChatRoom: React.FC<React.PropsWithChildren<ChatRoomProps>> = ({
 
   return (
     <ChatRoomWrapper>
-      <h3>Chat Room</h3>
+      <h3 className="section-title">Chat Room</h3>
       <div className="chat-room-container">
         <div className="message-list-container">
           <ul className="message-list" ref={messageListRef}>

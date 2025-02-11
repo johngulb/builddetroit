@@ -7,9 +7,10 @@ interface EventListProps {
   variant?: string;
   category?: string;
   loadMore?: boolean;
+  header?: number;
 }
 
-export const EventList = ({ events, variant = "default", category, loadMore = false }: EventListProps) => {
+export const EventList = ({ events, variant = "default", category, loadMore = false, header = 2 }: EventListProps) => {
   const [eventList, setEventList] = React.useState<any[]>(events);
   const [loading, setLoading] = React.useState(false);
   const [hasMore, setHasMore] = React.useState(true);
@@ -70,7 +71,7 @@ export const EventList = ({ events, variant = "default", category, loadMore = fa
     <EventListWrapper>
       {eventList?.map((event, i) => (
         <a href={`/event/${event.slug}`} key={`event-${i}`}>
-          <EventInfo event={event} variant={variant} />
+          <EventInfo event={event} variant={variant} header={header} />
         </a>
       ))}
       {hasMore && loadMore && (

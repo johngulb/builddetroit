@@ -115,9 +115,9 @@ const HomePage = ({
     <PageWrapper>
       <PageContainer>
         <div className="header-container">
-          {layout === "default" && <DPoPLabs />}
+          {layout === "detroiter" && <DPoPLabs />}
 
-          {layout === "detroiter" && (
+          {layout === "default" && (
             <Hero
               title={
                 <>
@@ -195,6 +195,7 @@ const HomePage = ({
           category={category}
           events={events}
           variant="compact"
+          header={3}
           loadMore={true}
         />
         <h2 className="section-title">COMMUNITIES</h2>

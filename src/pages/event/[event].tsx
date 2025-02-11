@@ -39,7 +39,7 @@ const EventLocation = ({ event }) => {
     `${event.venue.geo?.address} ${event.venue.geo?.city}, ${event.venue.geo?.state} ${event.venue.geo?.zipcode}`.trim();
   return (
     <EventLocationContainer id="location">
-      <h3>Event Location</h3>
+      <h3 className="section-title">Event Location</h3>
       <div className="venue">
         {event.venue.title}
         <a
