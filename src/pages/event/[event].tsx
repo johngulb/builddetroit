@@ -191,24 +191,22 @@ const EventPage = ({ event, events, referral }) => {
           <EventShare event={event} />
           <EventAddToCalendar event={event} />
         </ActionButtonsContainer>
-        <ActionButtonsContainer>
-          {isHost && event.host && (
-            <>
-              <ActionButton
-                href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}
-                className="hollow"
-              >
-                Start Check-In
-              </ActionButton>
-              <ActionButton
-                href={`/event/${event.slug}/raffle`}
-                className="hollow"
-              >
-                Start Raffle
-              </ActionButton>
-            </>
-          )}
-        </ActionButtonsContainer>
+        {isHost && event.host && (
+          <ActionButtonsContainer>
+            <ActionButton
+              href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}
+              className="hollow"
+            >
+              Start Check-In
+            </ActionButton>
+            <ActionButton
+              href={`/event/${event.slug}/raffle`}
+              className="hollow"
+            >
+              Start Raffle
+            </ActionButton>
+          </ActionButtonsContainer>
+        )}
         {rsvps?.length > 0 && (
           <>
             <h3 className="section-title">RSVPs ({rsvps?.length})</h3>
@@ -292,6 +290,7 @@ const PageContainer = styled.div`
   padding: 1rem;
   .rsvp-button {
     width: 100%;
+    height: 55px;
   }
   h3.section-title {
     padding-top: 1em;
@@ -303,7 +302,8 @@ const PageContainer = styled.div`
     font-size: 0.9rem;
     white-space: pre-line;
   }
-  .share-button, .rsvp-button {
+  .share-button,
+  .rsvp-button {
     margin: 0;
   }
   .share-button {
