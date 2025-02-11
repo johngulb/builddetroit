@@ -14,16 +14,17 @@ const eventLocation = (event) => {
 
 export const EventAddToCalendar = ({ event }) => {
   return (
-    <LazyLoad>
-      <AddToCalendarButton
-        calendarEvent={{
-          title: event.title?.replaceAll('&', 'and'),
-          description: stripHtml(event.content?.replaceAll('&', 'and') ?? '').result,
-          address: event.venue ? eventLocation(event)?.replaceAll('&', 'and') : '',
-          startDate: moment(event.start_date).toDate(),
-          endDate: moment(event.end_date).toDate(),
-        }}
-      />
-    </LazyLoad>
+    <AddToCalendarButton
+      calendarEvent={{
+        title: event.title?.replaceAll("&", "and"),
+        description: stripHtml(event.content?.replaceAll("&", "and") ?? "")
+          .result,
+        address: event.venue
+          ? eventLocation(event)?.replaceAll("&", "and")
+          : "",
+        startDate: moment(event.start_date).toDate(),
+        endDate: moment(event.end_date).toDate(),
+      }}
+    />
   );
 };

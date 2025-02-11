@@ -2,6 +2,7 @@ import React from "react";
 import AddToCalendarButtonTooltip from "./Tooltip/AddToCalendarButtonTooltip";
 import { CalendarEvent } from "./index";
 import styled from '@emotion/styled'
+import { ButtonLinkCompact } from "../../components/Styled";
 
 interface AddToCalendarButtonProps {
   calendarEvent: CalendarEvent;
@@ -20,9 +21,9 @@ export const AddToCalendarButton = ({
   return (
     <AddToCalendarButtonWrapper>
       <div className="add-to-calendar-wrapper">
-        <button className="add-to-calendar-button" onClick={handleClick}>
-          Add to Calendar
-        </button>
+        <StyledButton onClick={handleClick} className="hollow">
+          <i className="fas fa-calendar-plus" style={{marginBottom: '4px'}}></i>
+        </StyledButton>
         {isTooltipVisible && (
           <AddToCalendarButtonTooltip calendarEvent={calendarEvent} />
         )}
@@ -31,20 +32,18 @@ export const AddToCalendarButton = ({
   );
 }
 
-const AddToCalendarButtonWrapper = styled.div`
-  .add-to-calendar-button {
-    border: none;
-    background: none;
-    color: blue;
-    font-weight: bold;
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 0.8em;
+const StyledButton = styled(ButtonLinkCompact)`
+  padding: 0.5rem;
+  margin: 0;
+  svg {
+    display: block;
   }
+`;
+
+const AddToCalendarButtonWrapper = styled.div`
   .add-to-calendar-wrapper {
     position: relative;
-    position: relative;
-    display: inline;
+    display: inline-block;
   }
 
   .event-card {

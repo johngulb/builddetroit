@@ -84,4 +84,6 @@ export const ButtonLinkCompact = styled(ButtonLink)`
   display: inline-block;
   font-size: 1rem;
   margin-right: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 `;

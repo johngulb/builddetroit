@@ -53,7 +53,7 @@ export const EventShare: React.FC<React.PropsWithChildren<EventShareProps>> = ({
   return (
     <>
       <ButtonLink className="share-button" onClick={handleShare}>
-        Share Event
+        <i className="fas fa-share-alt" style={{marginBottom: '4px'}}></i>
       </ButtonLink>
       <Modal open={show} onClose={() => setShow(false)}>
         <Box sx={style}>

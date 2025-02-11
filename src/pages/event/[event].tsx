@@ -27,7 +27,6 @@ import { EventShare } from "../../components/Events/EventShare";
 import { UserCard } from "../../components/UserCard";
 import { EventLocation } from "../../components/Events/EventLocation";
 
-
 const EventPage = ({ event, events, referral }) => {
   const [showRsvpModal, setShowRsvpModal] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
@@ -35,8 +34,20 @@ const EventPage = ({ event, events, referral }) => {
   const [didRSVP, setDidRSVP] = React.useState<boolean>(false);
   const [rsvp, setRSVP] = React.useState<DPoPEventRsvp | null>(null);
   const [showDidRsvp, setShowDidRsvp] = React.useState<boolean>(false);
+  const [showFixedRsvp, setShowFixedRsvp] = React.useState<boolean>(false);
   const isAuthorized = useIsAuthorized();
   const [isHost, setIsHost] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      setShowFixedRsvp(scrollPosition > windowHeight - 600);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   React.useEffect(() => {
     const cid = getUserCID();
@@ -170,32 +181,41 @@ const EventPage = ({ event, events, referral }) => {
         <EventInfo event={event} linkLocation={true} header={2} />
       </PageContainer>
       <PageContainer>
-        <DesktopRSVPButton className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
-          {rsvp ? "RSVP RECEIVED" : "RSVP"}
-        </DesktopRSVPButton>
-        <EventShare event={event} />
-        {/* {rsvp && <EventInviteButton event={event} rsvp={rsvp} />} */}
-        {isHost && event.host && (
-          <>
-            <ButtonLink
-              href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}
-              className="hollow"
-            >
-              Start Check-In
-            </ButtonLink>
-            <ButtonLink href={`/event/${event.slug}/raffle`} className="hollow">
-              Start Raffle
-            </ButtonLink>
-          </>
-        )}
-        <EventAddToCalendar event={event} />
+        <ActionButtonsContainer>
+          <ActionButton
+            className={`rsvp-button ${rsvp ? "hollow" : ""}`}
+            onClick={handleRsvp}
+          >
+            {rsvp ? "REGISTERED" : "RSVP"}
+          </ActionButton>
+          <EventShare event={event} />
+          <EventAddToCalendar event={event} />
+        </ActionButtonsContainer>
+        <ActionButtonsContainer>
+          {isHost && event.host && (
+            <>
+              <ActionButton
+                href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}
+                className="hollow"
+              >
+                Start Check-In
+              </ActionButton>
+              <ActionButton
+                href={`/event/${event.slug}/raffle`}
+                className="hollow"
+              >
+                Start Raffle
+              </ActionButton>
+            </>
+          )}
+        </ActionButtonsContainer>
         {rsvps?.length > 0 && (
           <>
             <h3 className="section-title">RSVPs ({rsvps?.length})</h3>
             <ul style={{ margin: 0 }}>
               {publicRSVPs.map((rsvp, i) => {
                 return (
-                  <li key={i} style={{ listStyleType: 'none' }}>
+                  <li key={i} style={{ listStyleType: "none" }}>
                     <UserCard user={rsvp.user} />
                   </li>
                 );
@@ -220,7 +240,10 @@ const EventPage = ({ event, events, referral }) => {
         {event.image && <img src={event.image} />}
 
         <h3 className="section-title">Event Details</h3>
-        <div className="content" dangerouslySetInnerHTML={{ __html: event.content }} />
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{ __html: event.content }}
+        />
 
         {event.event_categories &&
           event.event_categories.map((category) => {
@@ -243,15 +266,16 @@ const EventPage = ({ event, events, referral }) => {
           </>
         )}
       </PageContainer>
-      <MobileRSVPBar>
-        <ButtonLink className={`rsvp-button inverted`} onClick={handleRsvp}>
-          {rsvp ? "RSVP RECEIVED" : "RSVP"}
-        </ButtonLink>
-      </MobileRSVPBar>
+      {showFixedRsvp && (
+        <MobileRSVPBar>
+          <ButtonLink className={`rsvp-button inverted`} onClick={handleRsvp}>
+            {rsvp ? "REGISTERED" : "RSVP"}
+          </ButtonLink>
+        </MobileRSVPBar>
+      )}
     </PageWrapper>
   );
 };
-
 
 const PageWrapper = styled.div`
   background-color: #fafafa;
@@ -279,12 +303,39 @@ const PageContainer = styled.div`
     font-size: 0.9rem;
     white-space: pre-line;
   }
+  .share-button, .rsvp-button {
+    margin: 0;
+  }
+  .share-button {
+    width: 55px;
+    height: 55px;
+  }
+  .add-to-calendar-wrapper {
+    .hollow {
+      width: 55px;
+      height: 55px;
+      font-size: 1.3rem;
+      background: black;
+      color: white;
+    }
+  }
 `;
 
-const DesktopRSVPButton = styled(ButtonLink)`
-  @media (max-width: 768px) {
-    display: none;
-  }
+const ActionButtonsContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+`;
+
+const ActionButton = styled(ButtonLink)`
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 `;
 
 const MobileRSVPBar = styled.div`
@@ -296,35 +347,14 @@ const MobileRSVPBar = styled.div`
     left: 0;
     right: 0;
     padding: 1rem;
-    background: #6c6c6c;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    background: #333333;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 100;
 
     .rsvp-button {
       margin: 0;
       width: 100%;
     }
-  }
-`;
-
-const EventLocationContainer = styled.div`
-  .venue,
-  .address {
-    font-size: 1em;
-    line-height: 1.2em;
-    padding-bottom: 0.2em;
-  }
-  .venue {
-    font-weight: bold;
-  }
-  .venue-map {
-    max-height: 180px;
-    margin: 0.25em 0;
-  }
-  .get-directions {
-    margin-left: 0.25em;
-    font-size: 0.8em;
-    color: blue;
   }
 `;
 

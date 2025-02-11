@@ -437,13 +437,13 @@ export const getRsvps = async () => {
 
 export const inRSVPs = (rsvps) => {
   const userId = getUserId();
-  return rsvps.filter((rsvp) => rsvp.user.id == userId)?.length ? true : false;
+  return rsvps.filter((rsvp) => rsvp.user?.id == userId)?.length ? true : false;
 };
 
 export const myRSVP = (rsvps) => {
   const cid = getUserCID();
   const user = getUser();
-  const matches = rsvps.filter((rsvp) => rsvp.user.cid == cid || rsvp.user.id == user.id);
+  const matches = rsvps.filter((rsvp) => rsvp.user?.cid == cid || rsvp.user?.id == user?.id);
   return matches[0]; 
 };
 
