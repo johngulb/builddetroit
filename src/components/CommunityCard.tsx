@@ -14,7 +14,6 @@ const CommunityCard = ({ community, variant = 'default' }: CommunityCardProps) =
   return (
     <CardWrapper 
       href={`/communities/${slug}`} 
-      target="_blank" 
       rel="noopener noreferrer"
       variant={variant}
     >

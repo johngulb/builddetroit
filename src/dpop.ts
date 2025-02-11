@@ -137,6 +137,14 @@ export const storeCID = (cid: string) => {
   }
 };
 
+export const logout = () => {
+  localStorage.removeItem("DPoPUser");
+  localStorage.removeItem("DPoPToken");
+  localStorage.removeItem("DPoPUserCID");
+  localStorage.removeItem("DPoPContact");
+  window.location.href = "/login";
+};
+
 export const storeCheckIn = (checkIn: DPoPEventCheckIn) => {
   console.log("storeCheckIn: ", checkIn)
   localStorage.setItem(`DPoPEvent-${checkIn.event_cid}-checkin`, JSON.stringify(checkIn));

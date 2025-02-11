@@ -2,17 +2,12 @@ import React from "react";
 import styled from "@emotion/styled";
 import { EventList } from "../../components/Events/EventList";
 import { NextSeo } from "next-seo";
-import {
-  Community,
-  getCommunity,
-  getEvents,
-  joinCommunity,
-  leaveCommunity,
-} from "../../dpop";
-import { SectionTitle } from "../../components/Styled";
+import { Community, getCommunity, getEvents } from "../../dpop";
 import { ButtonLink } from "../../components/Styled";
 import { useCommunity } from "../../hooks/useCommunity";
 import MemberCard from "../../components/MemberCard";
+import { useUser } from "../../hooks/useUser";
+import Link from "next/link";
 
 interface CommunityPageProps {
   community: Community;
@@ -21,6 +16,7 @@ interface CommunityPageProps {
 
 const CommunityPage = ({ community, events }: CommunityPageProps) => {
   const [activeTab, setActiveTab] = React.useState("events");
+  const user = useUser();
   const {
     community: communityDetails,
     isMember,
@@ -51,9 +47,11 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
 
         <div className="description">{community.description}</div>
 
-        <ButtonLink onClick={toggleJoin} className={isMember ? "hollow" : ""}>
-          {isMember ? "Leave Community" : "Join Community"}
-        </ButtonLink>
+        {user && (
+          <ButtonLink onClick={toggleJoin} className={isMember ? "hollow" : ""}>
+            {isMember ? "Leave Community" : "Join Community"}
+          </ButtonLink>
+        )}
 
         <TabContainer>
           <TabButton
@@ -79,7 +77,7 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
           />
         )}
 
-        {activeTab === "members" && (
+        {activeTab === "members" && user && (
           <div className="members-container">
             {communityDetails?.members &&
             communityDetails.members.length > 0 ? (
@@ -91,6 +89,16 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
             ) : (
               <div>No members yet</div>
             )}
+          </div>
+        )}
+
+        {activeTab === "members" && !user && (
+          <div className="members-container">
+            <div>
+              Please{" "}
+              <Link href="/register">register</Link> or{" "}
+              <Link href="/login">login</Link> to see members
+            </div>
           </div>
         )}
       </PageContainer>
@@ -200,5 +208,9 @@ const PageContainer = styled.div`
 
   .members-container {
     min-height: 200px;
+    a {
+      color: #0082ae;
+      text-decoration: underline;
+    }
   }
 `;

@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { getUser, User } from "../../dpop";
+import { getUser, logout, User } from "../../dpop";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/router";
 
 const ProfilePage = () => {
@@ -19,14 +20,22 @@ const ProfilePage = () => {
     }
   }, []);
 
+  const handleLogout = () => {
+    logout();
+    window.location.href = "/login";
+  };
+
   const formatPhoneNumber = (value: string) => {
-    if (!value) return '';
+    if (!value) return "";
     // Remove all non-digit characters
-    const digits = value.replace(/\D/g, '');
-    
+    const digits = value.replace(/\D/g, "");
+
     // Format as (XXX) XXX-XXXX
     if (digits.length >= 10) {
-      return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6,10)}`;
+      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(
+        6,
+        10
+      )}`;
     }
     return value;
   };
@@ -34,31 +43,43 @@ const ProfilePage = () => {
   return (
     <ProfileWrapper>
       <ProfileContent>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "1rem",
+            justifyContent: "flex-end",
+            marginBottom: "1rem",
+          }}
+        >
+          <Button
+            variant="contained"
+            startIcon={<EditIcon />}
+            onClick={() => router.push("/profile/edit")}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="outlined"
+            color="error"
+            startIcon={<LogoutIcon />}
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </Box>{" "}
         <div className="profile-info">
           {user && (
             <div className="user-info">
               <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                   mb: 3,
-                  position: 'relative',
-                  width: '100%'
+                  position: "relative",
+                  width: "100%",
                 }}
               >
-                <Button
-                  variant="contained"
-                  startIcon={<EditIcon />}
-                  onClick={() => router.push('/profile/edit')}
-                  sx={{
-                    position: 'absolute',
-                    right: 0,
-                    top: 0
-                  }}
-                >
-                  Edit
-                </Button>
                 <Avatar
                   src={user.profile_picture || undefined}
                   sx={{ width: 100, height: 100 }}
@@ -118,7 +139,7 @@ const ProfileContent = styled.div`
     background: white;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     h2 {
       margin-bottom: 2rem;

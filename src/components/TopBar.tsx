@@ -18,10 +18,16 @@ export const TopBar = () => {
         <span className="tickets">5 🎟</span>
         </div> */}
       <div className="left" />
-      {user && (
+      {user ? (
         <a href={`/profile`}>
           <Button variant="outline" className="user-button">
             {user?.public_name || user?.name}
+          </Button>
+        </a>
+      ) : (
+        <a href={`/login`}>
+          <Button variant="outline" className="user-button">
+            Login
           </Button>
         </a>
       )}
