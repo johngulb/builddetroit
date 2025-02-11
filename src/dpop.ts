@@ -1,6 +1,3 @@
-import { NextSeo } from "next-seo";
-import React from "react";
-import { PageWrapper } from "./pages/communities/[id]";
 
 export interface Contact {
   cid?: string;
@@ -22,6 +19,13 @@ export interface DPoPEvent {
   comments?: DPoPEventComment[];
 }
 
+export interface Member {
+  id: number;
+  user: User;
+  role: string;
+  created_at: string;
+  updated_at: string;
+}
 
 export interface Community {
   id: number;
@@ -33,6 +37,8 @@ export interface Community {
   data: {
     type: string;
   };
+  members?: Member[];
+  is_member?: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -430,16 +436,41 @@ const parseJwt = (token) => {
   return JSON.parse(jsonPayload);
 };
 
+/** Communities */
 
 export const getCommunity = async (id: string) => {
   const result = await authorizedRequest(`community/${id}`);
   return result ?? null;
 };
 
+export const getCommunityDetails = async (slug: string) => {
+  const result = await authorizedRequest(`community/${slug}/details`);
+  return result ?? null;
+};
 
 export const getCommunities = async () => {
   const result = await authorizedRequest("communities");
-  return result ?? [];
+  return result.data ?? [];
 };
+
+export const joinCommunity = async (id: string) => {
+  const result = await authorizedRequest(`community/${id}/join`, {
+    method: "POST",
+  });
+  return result;
+};
+
+export const leaveCommunity = async (id: string) => {
+  const result = await authorizedRequest(`community/${id}/leave`, {
+    method: "POST",
+  });
+  return result;
+};
+
+export const getCommunityMembers = async (id: string) => {
+  const result = await authorizedRequest(`community/${id}/members`);
+  return result;
+};
+
 
 

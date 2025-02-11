@@ -10,8 +10,12 @@ export const PageTitle = styled.h1`
 export const SectionTitle = styled.h2`
   font-size: 1.4rem;
   font-weight: bold;
-  margin-top: 1rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  text-align: left;
+  @media only screen and (max-width: 822px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const SectionSubtitle = styled.h3`
@@ -27,43 +31,43 @@ export const CenteredContainer = styled.div`
 `;
 
 export const Button = styled.button`
-    width: 100%;
-    color: white;
-    background-color: #28303d;
-    border: solid 4px #28303d;
-    text-align: center;
-    padding: 0.5rem;
-    margin: 1rem auto;
-    display: block;
-    cursor: pointer;
-    &:hover {
-        color: #28303d;
-        background-color: transparent;
-    }
+  width: 100%;
+  color: white;
+  background-color: #28303d;
+  border: solid 4px #28303d;
+  text-align: center;
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  cursor: pointer;
+  &:hover {
+    color: #28303d;
+    background-color: transparent;
+  }
 `;
 
 export const ButtonLink = styled.a`
-    /* color: #d1e4dd; */
-    color: white;
-    background-color: #28303d;
-    border: solid 4px #28303d;
-    text-align: center;
-    padding: 0.5rem;
-    margin: 1rem auto;
-    display: block;
-    cursor: pointer;
+  /* color: #d1e4dd; */
+  color: white;
+  background-color: #28303d;
+  border: solid 4px #28303d;
+  text-align: center;
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  cursor: pointer;
+  &:hover {
+    color: #28303d;
+    background-color: transparent;
+  }
+  &.hollow {
+    color: #28303d;
+    background-color: transparent;
     &:hover {
-        color: #28303d;
-        background-color: transparent;
+      background-color: #28303d;
+      color: white;
     }
-    &.hollow {
-      color: #28303d;
-      background-color: transparent;
-      &:hover {
-        background-color: #28303d;
-        color: white;
-      }
-    }
+  }
 `;
 
 export const ButtonLinkCompact = styled(ButtonLink)`

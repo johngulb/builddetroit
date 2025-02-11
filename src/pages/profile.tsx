@@ -22,13 +22,41 @@ const ProfilePage = () => {
       setName(user.name || "");
       setPublicName(user.public_name || "");
       setEmail(user.email || "");
-      setPhone(user.phone || "");
+      setPhone(formatPhoneNumber(user.phone || ""));
       setOrganization(user.organization || "");
     }
   }, []);
 
+  const formatPhoneNumber = (value: string) => {
+    // Remove all non-digit characters
+    const digits = value.replace(/\D/g, '');
+    
+    // Format as (XXX) XXX-XXXX
+    if (digits.length >= 10) {
+      return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6,10)}`;
+    }
+    // Partial formatting as user types
+    else if (digits.length > 6) {
+      return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+    }
+    else if (digits.length > 3) {
+      return `(${digits.slice(0,3)}) ${digits.slice(3)}`;
+    }
+    else if (digits.length > 0) {
+      return `(${digits}`;
+    }
+    return '';
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedPhone = formatPhoneNumber(e.target.value);
+    setPhone(formattedPhone);
+  };
+
   const handleSubmit = React.useCallback(async () => {
-    await updateUser({ name, email, phone, public_name: publicName, organization });
+    // Remove formatting before sending to API
+    const rawPhone = phone.replace(/\D/g, '');
+    await updateUser({ name, email, phone: rawPhone, public_name: publicName, organization });
   }, [name, email, phone, publicName, organization]);
 
   return (
@@ -69,7 +97,8 @@ const ProfilePage = () => {
                   value={phone}
                   label="Phone"
                   variant="filled"
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={handlePhoneChange}
+                  placeholder="(555) 555-5555"
                 />
                 <TextField
                   value={organization}

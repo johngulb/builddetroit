@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { NextSeo } from 'next-seo';
-import Link from 'next/link';
 import CommunityCard from "../../components/CommunityCard";
 import { Community, getCommunities } from "../../dpop";
 
