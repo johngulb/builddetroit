@@ -4,28 +4,21 @@ import {
   inRSVPs,
   getEvent,
   submitEventRsvp,
-  submitSignedEventRsvp,
-  getContact,
   getUserCID,
   myRSVP,
   DPoPEventRsvp,
   submitEventConfirmationRsvp,
 } from "../../dpop";
 import styled from "@emotion/styled";
-import { Web3SigButton } from "../../components/Web3SigButton";
 import { ButtonLink, ButtonLinkCompact } from "../../components/Styled";
 import { EventRsvpSuccess } from "../../components/Events/EventRsvpSuccess";
 import { EventAddToCalendar } from "../../components/Events/EventAddToCalendar";
 import { EventInfo } from "../../components/Events/EventInfo";
 import { EventList } from "../../components/Events/EventList";
 import { Social } from "../../components/Social";
-import { VenueMap } from "../../components/VenueMap";
 import { AuthModal } from "../../components/Auth/AuthModal";
 import { ContactBoxModal } from "../../components/ContactBox";
-import { useHasWallet } from "../../hooks/useHasWallet";
 import { useIsAuthorized } from "../../hooks/useIsAuthorized";
-import { useUser } from "../../hooks/useUser";
-// import Image from 'next/image';
 import { stripHtml } from "string-strip-html";
 import { getEnvironment } from "../../utils/environment";
 
@@ -33,6 +26,7 @@ import Pusher from "pusher-js";
 import { ChatRoom } from "../../components/Chat/ChatRoom";
 import { EventInviteButton } from "../../components/Events/EventInviteButton";
 import { EventShare } from "../../components/Events/EventShare";
+import { UserCard } from "../../components/UserCard";
 
 const EventLocation = ({ event }) => {
   const address =
@@ -65,10 +59,7 @@ const EventPage = ({ event, events, referral }) => {
   const [rsvps, setRsvps] = React.useState(event.rsvps ?? []);
   const [didRSVP, setDidRSVP] = React.useState<boolean>(false);
   const [rsvp, setRSVP] = React.useState<DPoPEventRsvp | null>(null);
-  // const [rsvpCid, setRsvpCid] = React.useState<string>();
   const [showDidRsvp, setShowDidRsvp] = React.useState<boolean>(false);
-  // const user = useUser();
-  // const hasWallet = useHasWallet();
   const isAuthorized = useIsAuthorized();
   const [isHost, setIsHost] = React.useState(false);
 
@@ -78,23 +69,6 @@ const EventPage = ({ event, events, referral }) => {
       setIsHost(true);
     }
   }, [event.host?.cid]);
-
-  // console.log("EVENT: ", event);
-
-  // const dateDisplay = event.start_date && event.end_date ? diplayDateRange(event.start_date, event.end_date) : '';
-
-  // React.useEffect(() => {
-  //   (async () => {
-  //     if (user?.cid) {
-  //       const rsvp_cid = await generate_cid({
-  //         action: "rsvp",
-  //         event_cid: event.cid,
-  //         user_cid: user.cid,
-  //       });
-  //       setRsvpCid(rsvp_cid);
-  //     }
-  //   })();
-  // }, [user]);
 
   React.useEffect(() => {
     const rsvp = myRSVP(rsvps);
@@ -116,7 +90,7 @@ const EventPage = ({ event, events, referral }) => {
     });
   }, [event.slug]);
 
-  const submitRsvp = () => {
+  const submitRsvp = React.useCallback(() => {
     submitEventRsvp(event.id, null, referral)
       .then((res) => {
         setShowDidRsvp(true);
@@ -124,16 +98,11 @@ const EventPage = ({ event, events, referral }) => {
           setRsvps(res.rsvps);
           setRSVP(res.rsvp);
         });
-        // window.open(event.url);
-        // window.open(window.location.href, '_blank');
-        // setTimeout(() => {
-        //   window.location.href = event.url;
-        // }, 1000);
       })
       .catch((err) => {
         alert(err);
       });
-  };
+  }, [event.id, referral]);
 
   const handleConfirmationRsvp = React.useCallback(
     (user_cid: string) => {
@@ -157,36 +126,8 @@ const EventPage = ({ event, events, referral }) => {
       getEvent(event.id).then((res) => {
         setRsvps(res.rsvps);
       });
-      // window.open(event.url);
-      // window.open(window.location.href, '_blank');
-      //   if (event.url) {
-      //       setTimeout(() => {
-      //         window.location.href = event.url;
-      //       }, 1000);
-      //   }
     });
   };
-
-  // const handleRsvpSignature = (address, signature) => {
-  //   submitSignedEventRsvp(event.id, {
-  //     address,
-  //     content_id: rsvpCid,
-  //     signature,
-  //   }).then((res) => {
-  //     setShowRsvpModal(false);
-  //     setShowDidRsvp(true);
-  //     getEvent(event.id).then((res) => {
-  //       setRsvps(res.rsvps);
-  //     });
-  //     // window.open(event.url);
-  //     // window.open(window.location.href, '_blank');
-  //     //   if (event.url) {
-  //     //       setTimeout(() => {
-  //     //         window.location.href = event.url;
-  //     //       }, 1000);
-  //     //   }
-  //   });
-  // };
 
   const handleRsvp = React.useCallback(() => {
     if (isAuthorized) {
@@ -254,35 +195,9 @@ const EventPage = ({ event, events, referral }) => {
         <EventInfo event={event} linkLocation={true} header={2} />
       </PageContainer>
       <PageContainer>
-        {/* {false && hasWallet && isAuthorized && rsvpCid ? (
-          <Web3SigButton
-            message={rsvpCid}
-            className="rsvp-button"
-            buttonText="RSVP"
-            onSignature={handleRsvpSignature}
-          />
-        ) : (
-          <ButtonLink className="rsvp-button" id="rsvp" onClick={handleRsvp}>
-            {didRSVP ? "RSVP RECEIVED" : "RSVP"}
-          </ButtonLink>
-        )} */}
-        <ButtonLink
-          className={`rsvp-button ${rsvp ? "hollow" : ""}`}
-          id="rsvp"
-          onClick={handleRsvp}
-        >
-          {rsvp ? "ATTENDANCE NOTED!" : "I'M GOING"}
-        </ButtonLink>
-        {/* {rsvps?.length < 80 && (
-          <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
+        <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
           {rsvp ? "RSVP RECEIVED" : "RSVP"}
           </ButtonLink>
-        )}
-        {rsvps?.length >= 80 && (
-          <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
-            {rsvp ? "ON WAITLIST" : "JOIN WAITLIST"}
-          </ButtonLink>
-        )} */}
         <EventShare event={event} />
         {rsvp && <EventInviteButton event={event} rsvp={rsvp} />}
         {isHost && event.host && (
@@ -301,27 +216,19 @@ const EventPage = ({ event, events, referral }) => {
         <EventAddToCalendar event={event} />
         {rsvps?.length > 0 && (
           <>
-            {/* <h3>RSVPs ({rsvps?.length})</h3> */}
-            {/* <h3>RSVPs ({Math.min(rsvps?.length, 80)} / 80)</h3> */}
-            {/* <ul>
+            <h3 className="section-title">RSVPs ({rsvps?.length})</h3>
+            <ul style={{ margin: 0 }}>
               {publicRSVPs.map((rsvp, i) => {
                 return (
-                  <li key={i}>
-                    <span>{rsvp.user.name}</span>
-                    {rsvp.user?.organization && (
-                      <span
-                        style={{ fontSize: 12, marginLeft: 4, color: "#666" }}
-                      >
-                        {rsvp.user.organization}
-                      </span>
-                    )}
+                  <li key={i} style={{ listStyleType: 'none' }}>
+                    <UserCard user={rsvp.user} />
                   </li>
                 );
               })}
               {publicRSVPs?.length !== rsvps.length && (
                 <li>and {rsvps.length - publicRSVPs?.length} other(s)</li>
               )}
-            </ul> */}
+            </ul>
             {/* {rsvps?.length > 80 && <h3>Waitlist ({rsvps?.length - 80})</h3>} */}
             {rsvp && (
               <ChatRoom
@@ -339,15 +246,6 @@ const EventPage = ({ event, events, referral }) => {
 
         <h3 className="section-title">Event Details</h3>
         <div className="content" dangerouslySetInnerHTML={{ __html: event.content }} />
-
-        {event.slug === "women-in-web3-detroit" && (
-          <Social
-            instagram={"https://instagram.com/women.in.web3.detroit/"}
-            slack={
-              "https://join.slack.com/t/detroitblockchainers/shared_invite/zt-1s3bxzfhz-kHzJfU0nwWjThM4MY2UvOQ"
-            }
-          />
-        )}
 
         {event.event_categories &&
           event.event_categories.map((category) => {
