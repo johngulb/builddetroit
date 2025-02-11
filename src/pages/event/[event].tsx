@@ -179,6 +179,7 @@ const EventPage = ({ event, events, referral }) => {
       />
       <PageContainer>
         <EventInfo event={event} linkLocation={true} header={2} />
+        {event.image && <img src={event.image} />}
       </PageContainer>
       <PageContainer>
         <ActionButtonsContainer>
@@ -234,8 +235,6 @@ const EventPage = ({ event, events, referral }) => {
           </>
         )}
         {event.venue && <EventLocation event={event} />}
-
-        {event.image && <img src={event.image} />}
 
         <h3 className="section-title">Event Details</h3>
         <div
