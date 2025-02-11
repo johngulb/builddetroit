@@ -13,15 +13,13 @@ export const AddToCalendarButton = ({
 }: AddToCalendarButtonProps) => {
   const [isTooltipVisible, setIsTooltipVisible] = React.useState(false);
 
-  const handleClick = React.useCallback((event: React.SyntheticEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    setIsTooltipVisible(!isTooltipVisible);
-  }, []);
-
   return (
     <AddToCalendarButtonWrapper>
       <div className="add-to-calendar-wrapper">
-        <StyledButton onClick={handleClick} className="hollow">
+        <StyledButton onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+          e.preventDefault();
+          setIsTooltipVisible(!isTooltipVisible);
+        }} className="hollow">
           <i className="fas fa-calendar-plus" style={{marginBottom: '4px'}}></i>
         </StyledButton>
         {isTooltipVisible && (
