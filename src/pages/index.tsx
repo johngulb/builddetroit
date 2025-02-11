@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { ButtonLink } from "../components/ButtonLink";
 import { EventList } from "../components/Events/EventList";
-import { EventSubmissionButton } from "../components/Events/EventSubmissionBox";
 import { ContactBoxModal } from "../components/ContactBox";
 import { AuthModal } from "../components/Auth/AuthModal";
 import { Form } from "../components/Form";
-import { Social } from "../components/Social";
 
-import { Contact, createContact, getUser, User } from "../dpop";
+import { Contact, createContact, getUser, User, getCommunities, getEvents } from "../dpop";
 import { getEnvironment } from "../utils/environment";
 import { NextSeoProps } from "next-seo";
+import Hero from "../components/Hero";
+import CommunityCard from "../components/CommunityCard";
+import { Community } from "../dpop";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -20,13 +20,15 @@ const PageWrapper = styled.div`
 `;
 
 const PageContainer = styled.div`
-  text-align: center;
   display: block;
   max-width: 700px;
   margin: auto;
   .header {
     padding: 2rem;
     margin: 2rem 0;
+  }
+  .header-container {
+    margin-top: -1rem;
   }
   img {
     padding: 1rem;
@@ -42,15 +44,16 @@ const PageContainer = styled.div`
   }
   .section-title {
     margin-bottom: 2rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
+    text-align: left;
+    margin-top: 2rem;
     @media only screen and (max-width: 822px) {
       font-size: 1.5rem;
     }
   }
   p {
     font-size: 1rem;
-    max-width: 420px;
     margin: 1rem auto;
     @media only screen and (max-width: 822px) {
       margin: 0.6rem auto;
@@ -69,18 +72,14 @@ interface HomePageProps {
   layout: HomePageLayout;
   meta: NextSeoProps;
   category: string;
+  communities: Community[];
 }
 
-const HomePage = ({ events, layout, meta, category }: HomePageProps) => {
+const HomePage = ({ events, layout, meta, category, communities }: HomePageProps) => {
   const [showContactBox, setShowContactBox] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [contact, setContact] = React.useState<Contact>();
   const [user, setUser] = React.useState<User>();
-
-  const handleBuildWithUs = React.useCallback(() => {
-    console.log("CONSOLE LOG FUN: BUILD WITH US");
-    setShowContactBox(true);
-  }, []);
 
   const handleAuthorized = React.useCallback((user) => {
     setContact(user);
@@ -101,67 +100,30 @@ const HomePage = ({ events, layout, meta, category }: HomePageProps) => {
   return (
     <PageWrapper>
       <PageContainer>
-        <div className="header">
-          <img
-            width="144"
-            src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
-            className="custom-logo"
-            alt=""
-          />
+        <div className="header-container">
           {layout === "default" && (
             <>
-              <h1>DPoP Labs</h1>
-              <p>
-                Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community.
-              </p>
-              {/* <p>
-                Our mission is to leverage open source technology to build a
-                better future for Detroit.
-              </p>
-              <p>
-                We are committed to provide educational resources that empower
-                individuals and organizations to solve problems, innovate, and
-                build the future they want to see.
-              </p> */}
-              {/* <video controls preload="metadata" style={{ width: '300px' }}>
-                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
-              </video>
-              <video controls preload="metadata" style={{ width: '300px' }}>
-                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/jIhCtwC0DnD6DeY1rNgKkpfpf5mFP3znFrR6oCDp.mp4#t=0.1`} type="video/mp4"></source>
-              </video>
-              <ButtonLink href="/a/doing-gods-work-1">View Creation</ButtonLink>
-              <Social
-                discord={"https://discord.gg/bK8wjhS2Mg"}
-                instagram={"https://www.instagram.com/dpop.labs/"}
-              /> */}
+              <Hero
+                title={
+                  <>
+                    Welcome to the
+                    <br />
+                    Renaissance City
+                  </>
+                }
+                subtitle="Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community."
+                image="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2025/02/10201802/penobscot-e1739236711632.jpg"
+              />
             </>
           )}
+
           {layout === "detroiter" && (
             <>
               <h1>DPoP Labs</h1>
               <p>
-                Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community.
+                Our mission is to empower creators in Detroit by deploying
+                technology that drives positive change in our community.
               </p>
-              {/* <p>
-                Through our app, we aim to amplify the voices and stories of Detroit residents, promoting inclusivity, diversity, and collaboration.
-              </p>
-              <p>
-                By connecting individuals, businesses, and organizations, we strive to facilitate meaningful interactions, promote local initiatives, and create opportunities for personal and professional growth.
-              </p>
-              <p>
-                Together, we envision a connected Detroit, where residents thrive, support one another, and collectively contribute to the ongoing revitalization and success of our great city.
-              </p> */}
-              {/* <video controls preload="metadata" style={{ width: '300px' }}>
-                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/GM8FHSFQBvfUGTFFcPCu74zC0XQ9BQA8NYTrmJTa.mp4#t=0.1`} type="video/mp4"></source>
-              </video>
-              <video controls preload="metadata" style={{ width: '300px' }}>
-                <source src={`https://nyc3.digitaloceanspaces.com/dpop/uploads/jIhCtwC0DnD6DeY1rNgKkpfpf5mFP3znFrR6oCDp.mp4#t=0.1`} type="video/mp4"></source>
-              </video>
-              <ButtonLink href="/a/doing-gods-work-1">View Creation</ButtonLink>
-              <Social
-                discord={"https://discord.gg/bK8wjhS2Mg"}
-                instagram={"https://www.instagram.com/dpop.labs/"}
-              /> */}
             </>
           )}
           {layout === "artnight" && (
@@ -179,27 +141,6 @@ const HomePage = ({ events, layout, meta, category }: HomePageProps) => {
             </>
           )}
           <div>
-            {/* {!user && !contact && (
-              <ButtonLink className="build-btn" onClick={handleBuildWithUs}>
-                COME BUILD WITH US
-              </ButtonLink>
-            )} */}
-            {/* {(user || contact) && (
-              <div style={{ marginTop: 64 }}>
-                <p>Interested in learning more?</p>
-                <ButtonLink
-                  className="build-btn"
-                  href="https://discord.gg/bK8wjhS2Mg"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  JOIN US ON DISCORD
-                </ButtonLink>
-              </div>
-              // <ButtonLink className="build-btn" onClick={handleBuildWithUs}>
-              //   SHARE EVENT
-              // </ButtonLink>
-            )} */}
             <AuthModal
               show={showAuth}
               setShow={setShowAuth}
@@ -246,37 +187,48 @@ const HomePage = ({ events, layout, meta, category }: HomePageProps) => {
         )}
         {/* <EventSubmissionButton /> */}
         <h2 className="section-title">FEATURED EVENTS</h2>
-        <EventList category={category} events={events} variant="compact" loadMore={true} />
+        <EventList
+          category={category}
+          events={events}
+          variant="compact"
+          loadMore={true}
+        />
+        <h2 className="section-title">COMMUNITIES</h2>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: "2rem",
+            marginBottom: "3rem",
+          }}
+        >
+          {communities?.map((community: Community) => (
+            <CommunityCard key={community.slug} community={community} />
+          ))}
+        </div>
       </PageContainer>
     </PageWrapper>
   );
 };
 
 export const getServerSideProps = async () => {
-  const url = process.env.NEXT_PUBLIC_SITE_URL ?? '';
+  const url = process.env.NEXT_PUBLIC_SITE_URL ?? "";
   const env = getEnvironment();
 
   try {
     // Use more modern fetch pattern with error handling
-    const response = await fetch(
-      `https://api.detroiter.network/api/events?type=${env.category}&limit=18`,
-      {
-        headers: {
-          'Accept': 'application/json',
-        },
-      }
-    );
+    const events = await getEvents({
+      type: env.category,
+      limit: 18,
+      offset: 0
+    });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const fetchedEvents = await response.json();
-    const events = fetchedEvents.data;
+    const communities = await getCommunities();
 
     return {
       props: {
         events,
+        communities,
         category: env.category,
         layout: env.layout,
         meta: {
@@ -303,7 +255,7 @@ export const getServerSideProps = async () => {
       },
     };
   } catch (error) {
-    console.error('Error fetching events:', error);
+    console.error("Error fetching events:", error);
     // Return empty events array if fetch fails
     return {
       props: {
@@ -311,9 +263,10 @@ export const getServerSideProps = async () => {
         layout: env.layout,
         meta: {
           title: env.site_name,
-          description: env.layout === "artnight" 
-            ? "Art Night Detroit is a community-driven initiative that brings together artists, art enthusiasts, and community members for a night of creativity and connection."
-            : "Our mission is to leverage open source technology to build a better future for Detroit.",
+          description:
+            env.layout === "artnight"
+              ? "Art Night Detroit is a community-driven initiative that brings together artists, art enthusiasts, and community members for a night of creativity and connection."
+              : "Our mission is to leverage open source technology to build a better future for Detroit.",
           canonical: url,
           openGraph: {
             url,

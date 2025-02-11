@@ -16,7 +16,7 @@ export const EventInfo = ({
   event,
   linkLocation = false,
   variant = "default",
-  header = 2,
+  header = 3,
 }) => {
   return (
     <EventInfoContainer className={`event-info ${variant}`}>
@@ -37,6 +37,7 @@ export const EventInfo = ({
         </div>
         {header === 1 && <h1 dangerouslySetInnerHTML={{ __html: event.title }} />}
         {header === 2 && <h2 dangerouslySetInnerHTML={{ __html: event.title }} />}
+        {header === 3 && <h3 dangerouslySetInnerHTML={{ __html: event.title }} />}
         {event.venue && (
           <>
             {linkLocation ? (
@@ -62,7 +63,7 @@ const EventInfoContainer = styled.div`
   &.nano {
     font-size: 12px;
   }
-  h1, h2 {
+  h1, h2, h3 {
     font-size: 1.8em;
     font-weight: bold;
     margin-bottom: 0.25rem;

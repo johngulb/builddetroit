@@ -1,3 +1,7 @@
+import { NextSeo } from "next-seo";
+import React from "react";
+import { PageWrapper } from "./pages/communities/[id]";
+
 export interface Contact {
   cid?: string;
   name: string;
@@ -16,6 +20,21 @@ export interface DPoPEvent {
   end_date: string;
   venue: Venue;
   comments?: DPoPEventComment[];
+}
+
+
+export interface Community {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  image: string;
+  cover: string;
+  data: {
+    type: string;
+  };
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Venue {
@@ -91,6 +110,7 @@ export const saveContact = (contact: Contact) => {
 };
 
 export const getUserCID = (): string | null => {
+  if (typeof window === 'undefined') return null;
   const user_cid = localStorage.getItem("DPoPUserCID");
   return user_cid ? user_cid : null;
 };
@@ -120,19 +140,23 @@ export const getCheckIn = (event_cid: string) => {
 };
 
 const getDPoPToken = () => {
+  if (typeof window === 'undefined') return null;
   return localStorage.getItem("DPoPToken");
 };
 
 const setDPoPToken = (token: string) => {
+  if (typeof window === 'undefined') return;
   localStorage.setItem("DPoPToken", token);
 };
 
 export const getUser = (): User => {
+  if (typeof window === 'undefined') return null;
   const u = localStorage.getItem("DPoPUser");
   return JSON.parse(u);
 };
 
 const setUser = (user: User) => {
+  if (typeof window === 'undefined') return;
   localStorage.setItem("DPoPUser", JSON.stringify(user));
 };
 
@@ -197,6 +221,23 @@ export const register = async (params: RegisterParams) => {
 export const getEvent = async (event: string) => {
   const result = await (
     await fetch(`${hostname}/api/event/${event}`)
+  ).json();
+  return result.data;
+};
+
+interface EventQueryParams {
+  type?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export const getEvents = async ({type, limit, offset}: EventQueryParams) => {
+  const params = new URLSearchParams();
+  if (type) params.set('type', type);
+  params.set('limit', limit?.toString() ?? '18');
+  params.set('offset', offset?.toString() ?? '0');
+  const result = await (
+    await fetch(`${hostname}/api/events?${params.toString()}`)
   ).json();
   return result.data;
 };
@@ -371,3 +412,17 @@ const parseJwt = (token) => {
   );
   return JSON.parse(jsonPayload);
 };
+
+
+export const getCommunity = async (id: string) => {
+  const result = await authorizedRequest(`community/${id}`);
+  return result ?? null;
+};
+
+
+export const getCommunities = async () => {
+  const result = await authorizedRequest("communities");
+  return result ?? [];
+};
+
+
