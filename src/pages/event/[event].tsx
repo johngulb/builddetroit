@@ -226,7 +226,7 @@ const EventPage = ({ event, events, referral }) => {
         onConfirmation={handleConfirmationRsvp}
         bodyContent={
           <>
-            <EventInfo event={event} variant="compact" />
+            <EventInfo event={event} variant="compact" header={2} />
             <div style={{ fontSize: 14, marginBottom: 8, marginTop: 16 }}>
               <a
                 onClick={() => {
@@ -251,7 +251,7 @@ const EventPage = ({ event, events, referral }) => {
         buttonText="RSVP"
       />
       <PageContainer>
-        <EventInfo event={event} linkLocation={true} />
+        <EventInfo event={event} linkLocation={true} header={2} />
       </PageContainer>
       <PageContainer>
         {/* {false && hasWallet && isAuthorized && rsvpCid ? (
@@ -337,7 +337,7 @@ const EventPage = ({ event, events, referral }) => {
 
         {event.image && <img src={event.image} />}
 
-        <h3>Event Details</h3>
+        <h3 className="section-title">Event Details</h3>
         <div className="content" dangerouslySetInnerHTML={{ __html: event.content }} />
 
         {event.slug === "women-in-web3-detroit" && (
@@ -364,8 +364,8 @@ const EventPage = ({ event, events, referral }) => {
 
         {events && (
           <>
-            <h3>Other Events</h3>
-            <EventList events={events} variant="compact" />
+            <h3 className="section-title">Other Events</h3>
+            <EventList events={events} variant="compact" loadMore={false} />
             <ButtonLink href="/events">See All Events</ButtonLink>
           </>
         )}
@@ -390,7 +390,7 @@ const PageContainer = styled.div`
   .rsvp-button {
     width: 100%;
   }
-  h3 {
+  h3.section-title {
     padding-top: 2em;
     margin-bottom: 0.5em;
     font-weight: bold;

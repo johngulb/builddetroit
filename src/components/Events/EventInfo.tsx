@@ -16,7 +16,7 @@ export const EventInfo = ({
   event,
   linkLocation = false,
   variant = "default",
-  header = 3,
+  header = 2,
 }) => {
   return (
     <EventInfoContainer className={`event-info ${variant}`}>

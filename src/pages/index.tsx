@@ -5,12 +5,20 @@ import { ContactBoxModal } from "../components/ContactBox";
 import { AuthModal } from "../components/Auth/AuthModal";
 import { Form } from "../components/Form";
 
-import { Contact, createContact, getUser, User, getCommunities, getEvents } from "../dpop";
+import {
+  Contact,
+  createContact,
+  getUser,
+  User,
+  getCommunities,
+  getEvents,
+} from "../dpop";
 import { getEnvironment } from "../utils/environment";
 import { NextSeoProps } from "next-seo";
 import Hero from "../components/Hero";
 import CommunityCard from "../components/CommunityCard";
 import { Community } from "../dpop";
+import { DPoPLabs } from "../components/DPoPLabs";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -75,7 +83,13 @@ interface HomePageProps {
   communities: Community[];
 }
 
-const HomePage = ({ events, layout, meta, category, communities }: HomePageProps) => {
+const HomePage = ({
+  events,
+  layout,
+  meta,
+  category,
+  communities,
+}: HomePageProps) => {
   const [showContactBox, setShowContactBox] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [contact, setContact] = React.useState<Contact>();
@@ -101,30 +115,20 @@ const HomePage = ({ events, layout, meta, category, communities }: HomePageProps
     <PageWrapper>
       <PageContainer>
         <div className="header-container">
-          {layout === "default" && (
-            <>
-              <Hero
-                title={
-                  <>
-                    Welcome to the
-                    <br />
-                    Renaissance City
-                  </>
-                }
-                subtitle="Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community."
-                image="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2025/02/10201802/penobscot-e1739236711632.jpg"
-              />
-            </>
-          )}
+          {layout === "default" && <DPoPLabs />}
 
           {layout === "detroiter" && (
-            <>
-              <h1>DPoP Labs</h1>
-              <p>
-                Our mission is to empower creators in Detroit by deploying
-                technology that drives positive change in our community.
-              </p>
-            </>
+            <Hero
+              title={
+                <>
+                  Welcome to the
+                  <br />
+                  Renaissance City
+                </>
+              }
+              subtitle="Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community."
+              image="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2025/02/10201802/penobscot-e1739236711632.jpg"
+            />
           )}
           {layout === "artnight" && (
             <>
@@ -220,7 +224,7 @@ export const getServerSideProps = async () => {
     const events = await getEvents({
       type: env.category,
       limit: 18,
-      offset: 0
+      offset: 0,
     });
 
     const communities = await getCommunities();
