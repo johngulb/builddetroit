@@ -72,7 +72,7 @@ const Page = () => {
                 <Login onLogin={handleOnLogin}/>
 
                 <Footer>
-                    Don't have an account?{' '}
+                    Don&apos;t have an account?{' '}
                     <Link href="/register">Sign up</Link>
                 </Footer>
             </PageContainer>
