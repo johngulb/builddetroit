@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import ProfilePicture from "../ProfilePicture";
 
 import { register } from "../../dpop";
 
@@ -13,6 +14,7 @@ export const Register = ({ onRegister }) => {
   const [phone, setPhone] = React.useState<string>();
   const [publicName, setPublicName] = React.useState<string>();
   const [organization, setOrganization] = React.useState<string>();
+  const [profilePicture, setProfilePicture] = React.useState<string | null>(null);
 
   const handleNameChange = React.useCallback((e) => {
     setName(e.target.value);
@@ -46,13 +48,21 @@ export const Register = ({ onRegister }) => {
       phone,
       public_name: publicName,
       organization,
+      profile_picture: profilePicture,
     }).then((res) => {
       onRegister(res?.user);
     });
-  }, [name, email, password, phone, publicName, organization, onRegister]);
+  }, [name, email, password, phone, publicName, organization, profilePicture, onRegister]);
 
   return (
     <RegisterWrapper>
+      <Box sx={{ mb: 3 }}>
+        <ProfilePicture
+          data={{ profile_picture: profilePicture }}
+          updateData={(data) => setProfilePicture(data.profile_picture)}
+        />
+      </Box>
+
       <Box
         component="form"
         sx={{
@@ -67,7 +77,6 @@ export const Register = ({ onRegister }) => {
           id="name"
           name="name"
           type="text"
-          // feedback="Please enter your name."
           variant="filled"
           required
           onChange={handleNameChange}
@@ -79,7 +88,6 @@ export const Register = ({ onRegister }) => {
           name="email"
           type="email"
           required
-          // feedback="Please enter your email."
           variant="filled"
           onChange={handleEmailChange}
         />
@@ -89,7 +97,6 @@ export const Register = ({ onRegister }) => {
           id="phone"
           name="phone"
           type="phone"
-          // feedback="Please enter your number."
           variant="filled"
           onChange={handlePhoneChange}
         />
@@ -99,17 +106,15 @@ export const Register = ({ onRegister }) => {
           id="password"
           name="password"
           type="password"
-          // feedback="Please enter a password."
           variant="filled"
           required
           onChange={handlePasswordChange}
         />
-                <TextField
+        <TextField
           value={publicName}
           label="Public Display Name (optional)"
           id="public_name"
           name="public_name"
-          // feedback="Please enter your number."
           variant="filled"
           onChange={handlePublicNameChange}
         />
@@ -119,7 +124,6 @@ export const Register = ({ onRegister }) => {
           id="organization"
           name="organization"
           type="organization"
-          // feedback="Please enter your number."
           variant="filled"
           onChange={handleOrganizationChange}
         />

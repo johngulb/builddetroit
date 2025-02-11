@@ -221,7 +221,13 @@ export const login = async (email: string, password: string) => {
   return result;
 };
 
-interface RegisterParams extends User {
+interface RegisterParams {
+  name: string;
+  email: string;
+  phone: string | null;
+  public_name: string | null; 
+  organization: string | null;
+  profile_picture: string | null;
   password: string;
 }
 
