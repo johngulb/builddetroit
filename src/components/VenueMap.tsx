@@ -1,42 +1,29 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
+import { Venue } from '../dpop';
 
-const AnyReactComponent = ({ lat, lng }) => <div style={{
-    color: 'white', 
-    background: 'red',
-    padding: '6px',
-    display: 'inline-flex',
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '100%',
-    transform: 'translate(-50%, -50%)'
-  }} />;
+const containerStyle = {
+  width: '100%',
+  height: '240px',
+};
 
-export const VenueMap = ({
-    venue
-}) => {
-    const defaultProps = {
-      center: {
-        lat: venue.geo.lat,
-        lng: venue.geo.lng
-      },
-      zoom: 11
-    };
-  
-    return (
-      // Important! Always set the container height explicitly
-      <div className="map venue-map" style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyAzuNV3xElq-r3vnzjsppngzp5wfwMyvKo" }}
-          defaultCenter={defaultProps.center}
-          defaultZoom={defaultProps.zoom}
-        >
-          <AnyReactComponent
-            lat={venue.geo.lat}
-            lng={venue.geo.lng}
-          />
-        </GoogleMapReact>
-      </div>
-    );
+interface VenueMapProps {
+  venue: Venue;
+}
+
+export const VenueMap: React.FC<VenueMapProps> = ({ venue }) => {
+  if (!venue.geo?.lat || !venue.geo?.lng) {
+    return null;
   }
+
+  const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${venue.geo.lat},${venue.geo.lng}&zoom=15&size=600x300&markers=${venue.geo.lat},${venue.geo.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+
+  return (
+    <div style={containerStyle}>
+      <img 
+        src={mapUrl}
+        alt={`Map showing location of ${venue.title}`}
+        style={{width: '100%', height: '100%', objectFit: 'cover'}}
+      />
+    </div>
+  );
+};

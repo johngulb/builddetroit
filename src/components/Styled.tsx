@@ -68,6 +68,15 @@ export const ButtonLink = styled.a`
       color: white;
     }
   }
+  &.inverted {
+    color: white;
+    background-color: transparent;
+    border: solid 4px white;
+    &:hover {
+      background-color: #28303d;
+      color: white;
+    }
+  }
 `;
 
 export const ButtonLinkCompact = styled(ButtonLink)`

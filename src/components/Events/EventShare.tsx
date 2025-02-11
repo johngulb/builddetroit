@@ -14,10 +14,8 @@ const style = {
   width: 400,
   maxWidth: "85%",
   bgcolor: "background.paper",
-  // border: "2px solid #000",
   borderRadius: "2px",
   boxShadow: 24,
-  // p: 4,
 };
 
 interface EventShareProps {
@@ -33,6 +31,25 @@ export const EventShare: React.FC<React.PropsWithChildren<EventShareProps>> = ({
     setShow(true);
   }, [setShow]);
 
+  const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/event/${event.slug}`;
+  const shareText = `Check out ${event.title}`;
+
+  const handleFacebookShare = () => {
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
+  };
+
+  const handleTwitterShare = () => {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
+  };
+
+  const handleLinkedInShare = () => {
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank');
+  };
+
+  const handleEmailShare = () => {
+    window.open(`mailto:?subject=${encodeURIComponent(shareText)}&body=${encodeURIComponent(shareUrl)}`, '_blank');
+  };
+
   return (
     <>
       <ButtonLink className="share-button" onClick={handleShare}>
@@ -41,11 +58,23 @@ export const EventShare: React.FC<React.PropsWithChildren<EventShareProps>> = ({
       <Modal open={show} onClose={() => setShow(false)}>
         <Box sx={style}>
           <ShareQRCodeWrapper>
-            <p style={{ fontSize: 18 }}>Share this event.</p>
+            <p style={{ fontSize: 18 }}>Share this event</p>
+            <div className="social-buttons">
+              <button onClick={handleFacebookShare}>
+                <i className="fab fa-facebook"></i>
+              </button>
+              <button onClick={handleTwitterShare}>
+                <i className="fab fa-twitter"></i>
+              </button>
+              <button onClick={handleLinkedInShare}>
+                <i className="fab fa-linkedin"></i>
+              </button>
+              <button onClick={handleEmailShare}>
+                <i className="fas fa-envelope"></i>
+              </button>
+            </div>
             <div style={{ marginTop: 16 }}>
-              <QRCode
-                value={`${process.env.NEXT_PUBLIC_SITE_URL}/event/${event.slug}`}
-              />
+              <QRCode value={shareUrl} />
             </div>
           </ShareQRCodeWrapper>
         </Box>
@@ -57,4 +86,31 @@ export const EventShare: React.FC<React.PropsWithChildren<EventShareProps>> = ({
 const ShareQRCodeWrapper = styled.div`
   padding: 1rem;
   text-align: center;
+
+  .social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+
+    button {
+      background: #333;
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #555;
+      }
+    }
+  }
 `;

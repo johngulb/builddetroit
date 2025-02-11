@@ -15,7 +15,6 @@ import { EventRsvpSuccess } from "../../components/Events/EventRsvpSuccess";
 import { EventAddToCalendar } from "../../components/Events/EventAddToCalendar";
 import { EventInfo } from "../../components/Events/EventInfo";
 import { EventList } from "../../components/Events/EventList";
-import { Social } from "../../components/Social";
 import { AuthModal } from "../../components/Auth/AuthModal";
 import { ContactBoxModal } from "../../components/ContactBox";
 import { useIsAuthorized } from "../../hooks/useIsAuthorized";
@@ -24,34 +23,10 @@ import { getEnvironment } from "../../utils/environment";
 
 import Pusher from "pusher-js";
 import { ChatRoom } from "../../components/Chat/ChatRoom";
-import { EventInviteButton } from "../../components/Events/EventInviteButton";
 import { EventShare } from "../../components/Events/EventShare";
 import { UserCard } from "../../components/UserCard";
+import { EventLocation } from "../../components/Events/EventLocation";
 
-const EventLocation = ({ event }) => {
-  const address =
-    `${event.venue.geo?.address} ${event.venue.geo?.city}, ${event.venue.geo?.state} ${event.venue.geo?.zipcode}`.trim();
-  return (
-    <EventLocationContainer id="location">
-      <h3 className="section-title">Event Location</h3>
-      <div className="venue">
-        {event.venue.title}
-        <a
-          className="get-directions"
-          href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(
-            event.venue.title + " " + address
-          )}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          (Get Directions)
-        </a>
-      </div>
-      <div className="address">{address}</div>
-      {/* <VenueMap venue={event.venue} /> */}
-    </EventLocationContainer>
-  );
-};
 
 const EventPage = ({ event, events, referral }) => {
   const [showRsvpModal, setShowRsvpModal] = React.useState<boolean>(false);
@@ -195,11 +170,11 @@ const EventPage = ({ event, events, referral }) => {
         <EventInfo event={event} linkLocation={true} header={2} />
       </PageContainer>
       <PageContainer>
-        <ButtonLink className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
+        <DesktopRSVPButton className={`rsvp-button ${rsvp ? 'hollow' : ''}`} id="rsvp" onClick={handleRsvp}>
           {rsvp ? "RSVP RECEIVED" : "RSVP"}
-          </ButtonLink>
+        </DesktopRSVPButton>
         <EventShare event={event} />
-        {rsvp && <EventInviteButton event={event} rsvp={rsvp} />}
+        {/* {rsvp && <EventInviteButton event={event} rsvp={rsvp} />} */}
         {isHost && event.host && (
           <>
             <ButtonLink
@@ -268,6 +243,11 @@ const EventPage = ({ event, events, referral }) => {
           </>
         )}
       </PageContainer>
+      <MobileRSVPBar>
+        <ButtonLink className={`rsvp-button inverted`} onClick={handleRsvp}>
+          {rsvp ? "RSVP RECEIVED" : "RSVP"}
+        </ButtonLink>
+      </MobileRSVPBar>
     </PageWrapper>
   );
 };
@@ -277,6 +257,7 @@ const PageWrapper = styled.div`
   background-color: #fafafa;
   max-width: 700px;
   margin: auto;
+  padding-bottom: 80px; /* Add space for fixed mobile bar */
   img {
     margin-top: 1rem;
     max-width: 100%;
@@ -297,6 +278,32 @@ const PageContainer = styled.div`
   .content {
     font-size: 0.9rem;
     white-space: pre-line;
+  }
+`;
+
+const DesktopRSVPButton = styled(ButtonLink)`
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MobileRSVPBar = styled.div`
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: #6c6c6c;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+
+    .rsvp-button {
+      margin: 0;
+      width: 100%;
+    }
   }
 `;
 

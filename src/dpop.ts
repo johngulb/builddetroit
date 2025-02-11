@@ -51,6 +51,10 @@ export interface Venue {
   geo: {
     lat: number;
     lng: number;
+    address?: string;
+    city?: string;
+    state?: string;
+    zipcode?: string;
   };
 }
 
@@ -438,7 +442,8 @@ export const inRSVPs = (rsvps) => {
 
 export const myRSVP = (rsvps) => {
   const cid = getUserCID();
-  const matches = rsvps.filter((rsvp) => rsvp.user.cid == cid);
+  const user = getUser();
+  const matches = rsvps.filter((rsvp) => rsvp.user.cid == cid || rsvp.user.id == user.id);
   return matches[0]; 
 };
 
