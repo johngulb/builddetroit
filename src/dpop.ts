@@ -86,8 +86,10 @@ export interface User {
   name: string;
   phone: string | null;
   public_address: string | null;
-  public_name: string | null;
+  public_name: string | null; 
   organization: string | null;
+  profile_picture: string | null;
+  communities?: Community[];
   updated_at: string;
 }
 
@@ -155,6 +157,11 @@ const setDPoPToken = (token: string) => {
   localStorage.setItem("DPoPToken", token);
 };
 
+export const getProfile = async (id: string) => {
+  const result = await authorizedRequest(`user/${id}`);
+  return result;
+};
+
 export const getUser = (): User => {
   if (typeof window === 'undefined') return null;
   const u = localStorage.getItem("DPoPUser");
@@ -206,17 +213,17 @@ export const login = async (email: string, password: string) => {
   return result;
 };
 
-interface RegisterParams extends Contact {
+interface RegisterParams extends User {
   password: string;
 }
 
-export const updateUser = async (params: Contact) => {
+export const updateUser = async (params: Partial<User>) => {
   const result = await authorizedRequest(`user`, {
     method: "PUT",
     body: JSON.stringify(params),
   });
-  if (result.user) {
-    setUser(result.user);
+  if (result.data) {
+    setUser(result.data);
   }
   return result;
 };

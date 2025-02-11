@@ -1,17 +1,21 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { getUser, updateUser, User } from "../dpop";
+import { getUser, updateUser, User } from "../../dpop";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import ProfilePictureForm from "../../components/ProfilePicture";
+import { useRouter } from "next/router";
 
-const ProfilePage = () => {
+const EditProfilePage = () => {
   const [user, setUser] = React.useState<User | null>(null);
   const [name, setName] = React.useState("");
   const [publicName, setPublicName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [organization, setOrganization] = React.useState("");
+  const [profilePicture, setProfilePicture] = React.useState<string | null>(null);
+  const router = useRouter();
 
   React.useEffect(() => {
     const user = getUser();
@@ -24,6 +28,7 @@ const ProfilePage = () => {
       setEmail(user.email || "");
       setPhone(formatPhoneNumber(user.phone || ""));
       setOrganization(user.organization || "");
+      setProfilePicture(user.profile_picture || null);
     }
   }, []);
 
@@ -56,16 +61,36 @@ const ProfilePage = () => {
   const handleSubmit = React.useCallback(async () => {
     // Remove formatting before sending to API
     const rawPhone = phone.replace(/\D/g, '');
-    await updateUser({ name, email, phone: rawPhone, public_name: publicName, organization });
-  }, [name, email, phone, publicName, organization]);
+    await updateUser({ 
+      name, 
+      email, 
+      phone: rawPhone, 
+      public_name: publicName, 
+      organization,
+      profile_picture: profilePicture 
+    });
+    router.push('/profile');
+  }, [name, email, phone, publicName, organization, profilePicture]);
 
   return (
     <ProfileWrapper>
       <ProfileContent>
         <div className="profile-info">
-          <div style={{color: '#666666', paddingBottom: '1rem'}}>Update Profile Information</div>
           {user && (
             <div className="user-info">
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  mb: 3
+                }}
+              >
+                <ProfilePictureForm 
+                  data={{ profile_picture: profilePicture }}
+                  updateData={(data) => setProfilePicture(data.profile_picture)}
+                />
+              </Box>
               <Box
                 component="form"
                 sx={{
@@ -129,7 +154,6 @@ const ProfileWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 4rem;
 `;
 
 const ProfileContent = styled.div`
@@ -159,4 +183,4 @@ const ProfileContent = styled.div`
   }
 `;
 
-export default ProfilePage;
+export default EditProfilePage;

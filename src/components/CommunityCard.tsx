@@ -5,19 +5,25 @@ import { Community } from '../dpop';
 
 interface CommunityCardProps {
   community: Community;
+  variant?: 'default' | 'compact';
 }
 
-const CommunityCard = ({ community }: CommunityCardProps) => {
+const CommunityCard = ({ community, variant = 'default' }: CommunityCardProps) => {
   const { name, description, image, slug } = community;
   
   return (
-    <CardWrapper href={`/communities/${slug}`} target="_blank" rel="noopener noreferrer">
+    <CardWrapper 
+      href={`/communities/${slug}`} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      variant={variant}
+    >
       {image && (
-        <ImageContainer>
+        <ImageContainer variant={variant}>
           <img src={image} alt={name} />
         </ImageContainer>
       )}
-      <ContentContainer>
+      <ContentContainer variant={variant}>
         <h3>{name}</h3>
         <p>{description}</p>
       </ContentContainer>
@@ -25,9 +31,9 @@ const CommunityCard = ({ community }: CommunityCardProps) => {
   );
 };
 
-const CardWrapper = styled.a`
+const CardWrapper = styled.a<{variant: 'default' | 'compact'}>`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${props => props.variant === 'compact' ? 'row' : 'column'};
   background: white;
   border-radius: 8px;
   overflow: hidden;
@@ -42,9 +48,10 @@ const CardWrapper = styled.a`
   }
 `;
 
-const ImageContainer = styled.div`
-  width: 100%;
-  height: 200px;
+const ImageContainer = styled.div<{variant: 'default' | 'compact'}>`
+  width: ${props => props.variant === 'compact' ? '100px' : '100%'};
+  height: ${props => props.variant === 'compact' ? '100px' : '200px'};
+  flex-shrink: 0;
   overflow: hidden;
 
   img {
@@ -55,22 +62,22 @@ const ImageContainer = styled.div`
   }
 `;
 
-const ContentContainer = styled.div`
-  padding: 1.5rem;
+const ContentContainer = styled.div<{variant: 'default' | 'compact'}>`
+  padding: ${props => props.variant === 'compact' ? '1rem' : '1.5rem'};
+  flex-grow: 1;
 
   h3 {
     margin: 0 0 0.5rem 0;
-    font-size: 1.25rem;
+    font-size: ${props => props.variant === 'compact' ? '1rem' : '1.25rem'};
     font-weight: bold;
   }
 
   p {
     margin: 0;
-    font-size: 1rem;
+    font-size: ${props => props.variant === 'compact' ? '0.875rem' : '1rem'};
     color: #666;
     line-height: 1.5;
   }
 `;
 
 export default CommunityCard;
-

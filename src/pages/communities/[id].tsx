@@ -66,25 +66,21 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
             active={activeTab === "members"}
             onClick={() => setActiveTab("members")}
           >
-            Members
+            Members ({communityDetails?.members?.length})
           </TabButton>
         </TabContainer>
 
         {activeTab === "events" && (
-          <>
-            <SectionTitle>Upcoming Events</SectionTitle>
-            <EventList
-              events={events}
-              variant="compact"
-              loadMore={false}
-              header={3}
-            />
-          </>
+          <EventList
+            events={events}
+            variant="compact"
+            loadMore={false}
+            header={3}
+          />
         )}
 
         {activeTab === "members" && (
           <div className="members-container">
-            <SectionTitle>Community Members</SectionTitle>
             {communityDetails?.members &&
             communityDetails.members.length > 0 ? (
               <div className="members-grid">
@@ -143,7 +139,7 @@ export const PageWrapper = styled.div`
 const TabContainer = styled.div`
   display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid #ddd;
 `;
 
