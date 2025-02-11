@@ -8,7 +8,7 @@ export interface Contact {
   email: string;
   phone: string;
   public_name: string;
-  organization: string;
+  organization?: string;
 }
 
 export interface DPoPEvent {
@@ -188,7 +188,10 @@ export const login = async (email: string, password: string) => {
       headers: { "content-type": "application/json" },
     })
   ).json();
-  if (result.authorization.token) {
+  if (result.status === 'error') {
+    throw new Error(result.message);
+  }
+  if (result.authorization?.token) {
     setDPoPToken(result.authorization.token);
   }
   if (result.user) {
@@ -201,6 +204,17 @@ interface RegisterParams extends Contact {
   password: string;
 }
 
+export const updateUser = async (params: Contact) => {
+  const result = await authorizedRequest(`user`, {
+    method: "PUT",
+    body: JSON.stringify(params),
+  });
+  if (result.user) {
+    setUser(result.user);
+  }
+  return result;
+};
+
 export const register = async (params: RegisterParams) => {
   const result = await (
     await fetch(`${hostname}/api/register`, {
@@ -209,7 +223,10 @@ export const register = async (params: RegisterParams) => {
       headers: { "content-type": "application/json" },
     })
   ).json();
-  if (result.authorization.token) {
+  if (result.status === 'error') {
+    throw new Error(result.message);
+  }
+  if (result.authorization?.token) {
     setDPoPToken(result.authorization.token);
   }
   if (result.user) {

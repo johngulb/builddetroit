@@ -22,7 +22,7 @@ const PageContainer = styled.div`
 const Page = () => {
 
     const handleOnRegister = React.useCallback(() => {
-
+        
     }, []);
 
     return (

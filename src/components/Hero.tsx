@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from '@emotion/styled';
-
+import React from "react";
+import styled from "@emotion/styled";
+import { TopBar } from "./TopBar";
 interface HeroProps {
   title?: React.ReactNode | string;
   subtitle?: string;
@@ -12,6 +12,9 @@ const Hero = ({ title, subtitle, image, children }: HeroProps) => {
   return (
     <HeroWrapper>
       <HeroBackground image={image}>
+        {/* Top Bar */}
+        <TopBar />
+
         <HeroContent>
           <div className="content-wrapper">
             {title && <h1>{title}</h1>}
@@ -33,7 +36,8 @@ const HeroWrapper = styled.div`
 const HeroBackground = styled.div<{ image?: string }>`
   width: 100vw;
   min-height: 400px;
-  background-image: ${props => props.image ? `url(${props.image})` : 'none'};
+  background-image: ${(props) =>
+    props.image ? `url(${props.image})` : "none"};
   background-size: cover;
   background-position: center;
   position: relative;
@@ -45,7 +49,7 @@ const HeroBackground = styled.div<{ image?: string }>`
   align-items: center;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -73,7 +77,7 @@ const HeroContent = styled.div`
       font-size: 3.5rem;
       font-weight: bold;
       margin-bottom: 1rem;
-      
+
       @media (max-width: 768px) {
         font-size: 2.5rem;
         padding: 0 1rem;
@@ -83,7 +87,7 @@ const HeroContent = styled.div`
     p {
       font-size: 1.5rem;
       margin-bottom: 2rem;
-      
+
       @media (max-width: 768px) {
         font-size: 1.2rem;
         padding: 0 1rem;
