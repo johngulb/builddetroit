@@ -1,10 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { DPoPEvent, Venue } from "../../dpop";
-
-import dynamic from "next/dynamic";
-
-const VenueMap = dynamic(() => import("../VenueMap").then(mod => mod.VenueMap), { ssr: false });
+import { VenueMap } from "../VenueMap";
 
 const EventLocationContainer = styled.div`
   .venue {
@@ -39,10 +36,8 @@ export const EventLocation: React.FC<EventLocationProps> = ({ event }) => {
         <LocationDirections venue={event.venue}>
           <div className="venue">{event.venue.title}</div>
           <div className="address">{getLocationAddress(event.venue)}</div>
-        </LocationDirections>
-        <React.Suspense fallback={<div>Loading map...</div>}>
           <VenueMap venue={event.venue} />
-        </React.Suspense>
+        </LocationDirections>
       </EventLocationContainer>
     </>
   );

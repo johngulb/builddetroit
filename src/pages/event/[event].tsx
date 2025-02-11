@@ -270,10 +270,10 @@ const PageContainer = styled.div`
     width: 100%;
   }
   h3.section-title {
-    padding-top: 2em;
+    padding-top: 1em;
     margin-bottom: 0.5em;
     font-weight: bold;
-    font-size: 1.3em;
+    font-size: 1em;
   }
   .content {
     font-size: 0.9rem;
