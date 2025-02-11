@@ -9,7 +9,7 @@ interface MemberProps {
 
 const MemberCard = ({ member }: MemberProps) => {
   return (
-    <MemberCardContainer>
+    <MemberCardContainer href={`/profile/${member.user.id}`}>
       <div className="member-avatar">
         <Avatar 
           src={member.user.profile_picture || undefined}
@@ -26,7 +26,7 @@ const MemberCard = ({ member }: MemberProps) => {
   );
 };
 
-const MemberCardContainer = styled.div`
+const MemberCardContainer = styled.a`
   padding: 0.5rem;
   border: 1px solid #eee;
   border-radius: 8px;
