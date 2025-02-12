@@ -1,459 +1,285 @@
-const BITCOIN_PIZZA_DAY_QUIZ = {
-  quiz_title: "PizzaDAO Quiz",
-  description: "Test Your Knowledge on PizzaDAO and Its Mission!",
-  sections: [
+export const PIZZA_SCAVENGER_HUNT = {
+  event_name: "PizzaDAO Scavenger Hunt",
+  description:
+    "Join us for an interactive scavenger hunt across the city! Visit participating pizza spots, complete challenges, and earn rewards powered by PizzaDAO.",
+  start_date: "2025-03-15",
+  end_date: "2025-03-22",
+  rules: {
+    "1": "Participants must check in at each location using a QR code or blockchain verification.",
+    "2": "Each completed challenge earns points. The top participants will win prizes.",
+    "3": "Bonus points for social media shares using #PizzaDAOHunt.",
+    "4": "All tasks must be completed within the event timeframe.",
+    "5": "Proof of completion (photo or receipt) may be required for some challenges.",
+  },
+  tasks: [
     {
-      section_title: "General Knowledge",
-      questions: [
-        {
-          question: "What is PizzaDAO?",
-          options: {
-            a: "A decentralized autonomous organization focused on pizza restaurants",
-            b: "A blockchain-powered gaming platform",
-            c: "A food delivery app",
-            d: "A traditional pizza franchise",
-          },
-          answer: "a",
-        },
-        {
-          question: "What event does PizzaDAO famously sponsor every year?",
-          options: {
-            a: "National Cheese Pizza Day",
-            b: "Bitcoin Pizza Day",
-            c: "National Pizza Week",
-            d: "Global Crypto Festival",
-          },
-          answer: "b",
-        },
-        {
-          question: "How does PizzaDAO support local pizzerias?",
-          options: {
-            a: "By purchasing and distributing free pizzas globally",
-            b: "By creating a crypto-based rewards system",
-            c: "By investing in pizza restaurant franchises",
-            d: "By developing an AI-driven pizza-making robot",
-          },
-          answer: "a",
-        },
-        {
-          question:
-            "What cryptocurrency standard does PizzaDAO use for its community tokens?",
-          options: {
-            a: "ERC-20",
-            b: "ERC-721",
-            c: "ERC-1155",
-            d: "Bitcoin Lightning Network",
-          },
-          answer: "a",
-        },
-      ],
+      task_id: 1,
+      description:
+        "Take a selfie with the restaurant's logo and post on Twitter/X with #PizzaDAOHunt.",
+      points: 10,
     },
     {
-      section_title: "Blockchain and PizzaDAO",
-      questions: [
-        {
-          question:
-            "Why is blockchain technology relevant to PizzaDAO's mission?",
-          options: {
-            a: "It ensures pizzas are delivered faster",
-            b: "It enables transparent and decentralized funding for pizzerias",
-            c: "It prevents people from ordering pineapple on pizza",
-            d: "It allows anyone to mine pizza tokens",
-          },
-          answer: "b",
-        },
-        {
-          question:
-            "What is the significance of 'Bitcoin Pizza Day' in crypto history?",
-          options: {
-            a: "The day Bitcoin became legal tender in El Salvador",
-            b: "The day the first real-world Bitcoin transaction was made to buy pizzas",
-            c: "The day Ethereum was officially launched",
-            d: "The day Satoshi Nakamoto revealed their identity",
-          },
-          answer: "b",
-        },
-        {
-          question: "Which of the following is NOT a primary goal of PizzaDAO?",
-          options: {
-            a: "Supporting small pizzerias with crypto funding",
-            b: "Educating communities about DAOs and Web3",
-            c: "Creating a global pizza monopoly",
-            d: "Hosting events that celebrate pizza and crypto culture",
-          },
-          answer: "c",
-        },
-        {
-          question: "How does PizzaDAO distribute funds to pizzerias?",
-          options: {
-            a: "Through smart contracts and decentralized governance",
-            b: "By sending checks through the mail",
-            c: "By requiring pizza shops to stake Ethereum",
-            d: "Through centralized crowdfunding",
-          },
-          answer: "a",
-        },
-      ],
+      task_id: 2,
+      description:
+        "Order a pizza at a participating location and scan the QR code on your receipt.",
+      points: 15,
     },
     {
-      section_title: "Community and Impact",
-      questions: [
-        {
-          question:
-            "PizzaDAO operates under a 'public goods' model. What does this mean?",
-          options: {
-            a: "It aims to maximize profits for shareholders",
-            b: "It reinvests earnings into community-driven initiatives",
-            c: "It sells pizza ingredients at wholesale prices",
-            d: "It runs ads to generate revenue",
-          },
-          answer: "b",
-        },
-        {
-          question:
-            "Which of the following best describes the governance structure of PizzaDAO?",
-          options: {
-            a: "A single CEO makes all decisions",
-            b: "A board of directors votes on major changes",
-            c: "Community members propose and vote on initiatives using blockchain governance",
-            d: "The largest donor has the most influence",
-          },
-          answer: "c",
-        },
-        {
-          question:
-            "What type of token might PizzaDAO use to allow voting on initiatives?",
-          options: {
-            a: "Stablecoin",
-            b: "Governance token",
-            c: "Meme coin",
-            d: "Non-fungible token (NFT)",
-          },
-          answer: "b",
-        },
-        {
-          question:
-            "What does PizzaDAO's initiative 'Global Pizza Party' aim to achieve?",
-          options: {
-            a: "Fund free pizza events worldwide",
-            b: "Create an international pizza-making competition",
-            c: "Promote gourmet pizza recipes on blockchain",
-            d: "Establish a single, global pizza currency",
-          },
-          answer: "a",
-        },
-      ],
+      task_id: 3,
+      description:
+        "Find the hidden pizza-themed NFT QR code at a designated location and claim it.",
+      points: 20,
+    },
+    {
+      task_id: 4,
+      description:
+        "Participate in a community challenge, such as leaving a positive review for the restaurant.",
+      points: 10,
+    },
+    {
+      task_id: 5,
+      description:
+        "Complete all 5 location check-ins to unlock a bonus reward.",
+      points: 50,
     },
   ],
-  scoring: {
-    "10-12": "🍕🍕🍕 — You're a PizzaDAO Master!",
-    "7-9": "🍕🍕 — You've got the crust but need more toppings!",
-    "4-6": "🍕 — You need to slice deeper into the DAO knowledge!",
-    "0-3": "❌ — Time to learn the PizzaDAO recipe from scratch!",
+  participating_locations: [
+    {
+      location_id: 1,
+      name: "Detroit Slice House",
+      address: "123 Main St, Detroit, MI",
+      qr_code_url: "https://example.com/qrcode1",
+      special_offer: "10% off any pizza for scavenger hunt participants",
+    },
+    {
+      location_id: 2,
+      name: "Motor City Pizza Spot",
+      address: "456 Woodward Ave, Detroit, MI",
+      qr_code_url: "https://example.com/qrcode2",
+      special_offer: "Free drink with any large pizza",
+    },
+    {
+      location_id: 3,
+      name: "Deep Dish Delight",
+      address: "789 Gratiot Ave, Detroit, MI",
+      qr_code_url: "https://example.com/qrcode3",
+      special_offer: "Buy one, get one free slice",
+    },
+    {
+      location_id: 4,
+      name: "Crypto Crust Pizza",
+      address: "321 Brush St, Detroit, MI",
+      qr_code_url: "https://example.com/qrcode4",
+      special_offer: "Exclusive NFT collectible for participants",
+    },
+    {
+      location_id: 5,
+      name: "Blockchain Bites Pizzeria",
+      address: "555 Cass Ave, Detroit, MI",
+      qr_code_url: "https://example.com/qrcode5",
+      special_offer: "Chance to win a free pizza for a year!",
+    },
+  ],
+  rewards: {
+    top_3_participants: [
+      {
+        rank: 1,
+        reward: "1 ETH + VIP Pizza Party + Limited Edition PizzaDAO NFT",
+      },
+      {
+        rank: 2,
+        reward: "0.5 ETH + Free Pizza for a Month + PizzaDAO NFT",
+      },
+      {
+        rank: 3,
+        reward: "0.25 ETH + $50 Pizza Gift Card + PizzaDAO NFT",
+      },
+    ],
+    completion_reward:
+      "Exclusive PizzaDAO NFT + Discount Codes for Future Purchases",
+    social_media_bonus:
+      "10 extra points for every post with #PizzaDAOHunt (Max 3 posts per participant)",
   },
 };
 
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
+import React from "react";
+import styled from "@emotion/styled";
+import { Page } from "../../components/Page";
+import Hero from "../../components/Hero";
 
-export default function PizzaQuiz() {
-  const [currentSection, setCurrentSection] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState({});
-  const [showResults, setShowResults] = useState(false);
-
-  const section = BITCOIN_PIZZA_DAY_QUIZ.sections[currentSection];
-  const question = section?.questions[currentQuestion];
-
-  const handleAnswer = (answer: string) => {
-    setAnswers({
-      ...answers,
-      [`${currentSection}-${currentQuestion}`]: answer
-    });
-
-    if (currentQuestion < section.questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else if (currentSection < BITCOIN_PIZZA_DAY_QUIZ.sections.length - 1) {
-      setCurrentSection(currentSection + 1);
-      setCurrentQuestion(0);
-    } else {
-      setShowResults(true);
-    }
-  };
-
-  const calculateScore = () => {
-    let correct = 0;
-    BITCOIN_PIZZA_DAY_QUIZ.sections.forEach((section, sectionIndex) => {
-      section.questions.forEach((question, questionIndex) => {
-        if (answers[`${sectionIndex}-${questionIndex}`] === question.answer) {
-          correct++;
-        }
-      });
-    });
-    return correct;
-  };
-
-  const getScoreMessage = (score: number) => {
-    const scoring = BITCOIN_PIZZA_DAY_QUIZ.scoring;
-    for (const range in scoring) {
-      const [min, max] = range.split('-').map(Number);
-      if (score >= min && score <= max) {
-        return scoring[range];
-      }
-    }
-    return scoring['0-3'];
-  };
-
-  if (showResults) {
-    const score = calculateScore();
-    return (
-      <QuizContainer>
-        <h1>Quiz Results</h1>
-        <ResultsContainer>
-          <h2>You scored: {score} out of 12</h2>
-          <p>{getScoreMessage(score)}</p>
-
-          {BITCOIN_PIZZA_DAY_QUIZ.sections.map((section, sectionIndex) => (
-            <SectionResults key={sectionIndex}>
-              <h3>{section.section_title}</h3>
-              {section.questions.map((question, questionIndex) => {
-                const userAnswer = answers[`${sectionIndex}-${questionIndex}`];
-                const isCorrect = userAnswer === question.answer;
-                
-                return (
-                  <QuestionResult key={questionIndex} correct={isCorrect}>
-                    <QuestionHeader>
-                      <span>{isCorrect ? '✓' : '✗'}</span>
-                      <h4>{question.question}</h4>
-                    </QuestionHeader>
-                    <AnswerDetails>
-                      <p>Your answer: {question.options[userAnswer]}</p>
-                      {!isCorrect && (
-                        <p>Correct answer: {question.options[question.answer]}</p>
-                      )}
-                    </AnswerDetails>
-                  </QuestionResult>
-                );
-              })}
-            </SectionResults>
-          ))}
-
-          <button onClick={() => {
-            setCurrentSection(0);
-            setCurrentQuestion(0);
-            setAnswers({});
-            setShowResults(false);
-          }}>Try Again</button>
-        </ResultsContainer>
-      </QuizContainer>
-    );
-  }
-
+const PizzaHuntPage = () => {
   return (
-    <QuizContainer>
-      <h1>{BITCOIN_PIZZA_DAY_QUIZ.quiz_title}</h1>
-      <p>{BITCOIN_PIZZA_DAY_QUIZ.description}</p>
-      
-      <SectionTitle>{section.section_title}</SectionTitle>
-      
-      <QuestionContainer>
-        <h3>Question {currentQuestion + 1} of {section.questions.length}</h3>
-        <p>{question.question}</p>
-        
-        <OptionsContainer>
-          {Object.entries(question.options).map(([key, value]) => (
-            <OptionButton 
-              key={key}
-              onClick={() => handleAnswer(key)}
-              selected={answers[`${currentSection}-${currentQuestion}`] === key}
-            >
-              {value}
-            </OptionButton>
-          ))}
-        </OptionsContainer>
-      </QuestionContainer>
-    </QuizContainer>
+    <Page
+      meta={{
+        title: "Detroit Pizza DAO Scavenger Hunt",
+        description: "Join the ultimate pizza scavenger hunt across Detroit and win crypto rewards!",
+      }}
+      headerProps={{
+        disableDPoP: false,
+        hideFooter: false,
+      }}
+    >
+      <Hero
+        title="Detroit Pizza DAO Scavenger Hunt"
+        subtitle="Hunt for QR codes at Detroit's best pizzerias and win ETH rewards!"
+        image="/images/pizza-banner.jpg"
+      />
+
+      <PageContainer>
+        <Section>
+          <h2>How It Works</h2>
+          <ol>
+            <li>Visit participating pizza locations across Detroit</li>
+            <li>Scan unique QR codes at each location</li>
+            <li>Share on social media with #PizzaDAOHunt</li>
+            <li>Earn points and compete for ETH prizes!</li>
+          </ol>
+        </Section>
+
+        <Section>
+          <h2>Participating Locations</h2>
+          <LocationGrid>
+            {PIZZA_SCAVENGER_HUNT.participating_locations.map((location) => (
+              <LocationCard key={location.location_id}>
+                <h3>{location.name}</h3>
+                <p>{location.address}</p>
+                <SpecialOffer>{location.special_offer}</SpecialOffer>
+              </LocationCard>
+            ))}
+          </LocationGrid>
+        </Section>
+
+        <Section>
+          <h2>Rewards</h2>
+          <RewardsContainer>
+            <TopRewards>
+              {PIZZA_SCAVENGER_HUNT.rewards.top_3_participants.map((reward) => (
+                <RewardCard key={reward.rank}>
+                  <h3>#{reward.rank}</h3>
+                  <p>{reward.reward}</p>
+                </RewardCard>
+              ))}
+            </TopRewards>
+
+            <BonusRewards>
+              <div>
+                <h3>Completion Reward</h3>
+                <p>{PIZZA_SCAVENGER_HUNT.rewards.completion_reward}</p>
+              </div>
+              <div>
+                <h3>Social Media Bonus</h3>
+                <p>{PIZZA_SCAVENGER_HUNT.rewards.social_media_bonus}</p>
+              </div>
+            </BonusRewards>
+          </RewardsContainer>
+        </Section>
+      </PageContainer>
+    </Page>
   );
-}
+};
 
-const QuizContainer = styled.div`
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2.5rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
-
-  h1 {
-    text-align: center;
-    color: #1a1a1a;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    font-weight: 700;
-  }
-
-  p {
-    text-align: center;
-    color: #404040;
-    margin-bottom: 2.5rem;
-    line-height: 1.6;
-  }
+const PageContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 `;
 
-const SectionTitle = styled.h2`
-  color: #1a1a1a;
-  margin-bottom: 2.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 3px solid #e0e0e0;
-  font-size: 1.5rem;
-  font-weight: 600;
-`;
-
-const QuestionContainer = styled.div`
-  margin-bottom: 2.5rem;
-
-  h3 {
-    color: #404040;
-    margin-bottom: 1.25rem;
-    font-weight: 600;
-  }
-
-  p {
-    font-size: 1.25rem;
-    color: #1a1a1a;
-    margin-bottom: 2rem;
-    line-height: 1.5;
-  }
-`;
-
-const OptionsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-`;
-
-const OptionButton = styled.button<{ selected?: boolean }>`
-  padding: 1.25rem;
-  border: 2px solid ${props => props.selected ? '#2E7D32' : '#e0e0e0'};
-  border-radius: 8px;
-  background: ${props => props.selected ? '#E8F5E9' : 'white'};
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
-  font-size: 1.1rem;
-  color: #1a1a1a;
-  line-height: 1.4;
-
-  &:hover {
-    background: ${props => props.selected ? '#C8E6C9' : '#f8f8f8'};
-    border-color: ${props => props.selected ? '#2E7D32' : '#bdbdbd'};
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px ${props => props.selected ? 'rgba(46, 125, 50, 0.2)' : 'rgba(0, 0, 0, 0.1)'};
-  }
-`;
-
-const ResultsContainer = styled.div`
-  text-align: center;
-  padding: 2rem;
+const Section = styled.section`
+  margin-bottom: 4rem;
 
   h2 {
-    color: #1a1a1a;
-    margin-bottom: 1.5rem;
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
   }
 
-  p {
-    font-size: 1.25rem;
-    color: #404040;
-    margin-bottom: 2.5rem;
-    line-height: 1.6;
-  }
-
-  button {
-    padding: 1.25rem 2.5rem;
-    background: #2E7D32;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 2rem;
-
-    &:hover {
-      background: #1B5E20;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.3);
-    }
-
-    &:active {
-      transform: translateY(1px);
+  ol {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    
+    li {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
     }
   }
 `;
 
-const SectionResults = styled.div`
-  text-align: left;
-  margin: 2rem 0;
+const LocationGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+`;
+
+const LocationCard = styled.div`
+  background: white;
   padding: 1.5rem;
-  background: #f8f8f8;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
   h3 {
-    color: #1a1a1a;
-    margin-bottom: 1.5rem;
     font-size: 1.3rem;
-    font-weight: 600;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 0.5rem;
-  }
-`;
-
-const QuestionResult = styled.div<{ correct: boolean }>`
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 6px;
-  border-left: 4px solid ${props => props.correct ? '#2E7D32' : '#d32f2f'};
-`;
-
-const QuestionHeader = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-
-  span {
-    font-size: 1.2rem;
-    font-weight: bold;
+    margin-bottom: 0.5rem;
   }
 
-  h4 {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 500;
-    flex: 1;
-  }
-`;
-
-const AnswerDetails = styled.div`
-  margin-left: 2rem;
-  
   p {
-    margin: 0.5rem 0;
-    font-size: 1rem;
-    color: #404040;
-    text-align: left;
+    color: #666;
+    margin-bottom: 1rem;
   }
 `;
+
+const SpecialOffer = styled.div`
+  background: #f8f8f8;
+  padding: 0.8rem;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #333;
+`;
+
+const RewardsContainer = styled.div`
+  max-width: 900px;
+  margin: 0 auto;
+`;
+
+const TopRewards = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+`;
+
+const RewardCard = styled.div`
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+
+  h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  p {
+    color: #666;
+  }
+`;
+
+const BonusRewards = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  text-align: center;
+
+  h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: #666;
+  }
+`;
+
+export default PizzaHuntPage;
