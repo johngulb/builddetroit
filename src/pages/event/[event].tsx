@@ -211,16 +211,16 @@ const EventPage = ({ event, events, referral }) => {
         {rsvps?.length > 0 && (
           <>
             <h3 className="section-title">RSVPs ({rsvps?.length})</h3>
-            <ul style={{ margin: 0 }}>
+            <ul className="rsvp-container">
               {publicRSVPs.map((rsvp, i) => {
                 return (
-                  <li key={i} style={{ listStyleType: "none" }}>
+                  <li key={i}>
                     <UserCard user={rsvp.user} />
                   </li>
                 );
               })}
               {publicRSVPs?.length !== rsvps.length && (
-                <li>and {rsvps.length - publicRSVPs?.length} other(s)</li>
+                <li className="other-rsvps">and {rsvps.length - publicRSVPs?.length} other(s)</li>
               )}
             </ul>
             {/* {rsvps?.length > 80 && <h3>Waitlist ({rsvps?.length - 80})</h3>} */}
@@ -290,6 +290,16 @@ const PageContainer = styled.div`
   .rsvp-button {
     width: 100%;
     height: 55px;
+  }
+  .rsvp-container {
+    margin-left: 0;
+    li {
+      list-style-type: none;
+    }
+    .other-rsvps {
+      font-size: 0.8rem;
+      color: #666;
+    }
   }
   h3.section-title {
     padding-top: 1em;

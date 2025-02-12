@@ -500,3 +500,45 @@ export const getCommunityMembers = async (id: string) => {
 
 
 
+/** Search */
+
+export const searchEvents = async (query: string) => {
+  const result = await authorizedRequest(`search/events`, {
+    method: "POST",
+    body: JSON.stringify({ query }),
+  });
+  return result.data;
+};
+
+export const getEventCategories = async () => {
+  // const result = await authorizedRequest(`event-categories`);
+  // return result.data;
+  return [
+    {
+      id: 1,
+      name: "All",
+      slug: "all",
+    },
+    {
+      id: 2,
+      name: "Music",
+      slug: "music",
+    },
+    {
+      id: 3,
+      name: "Art",
+      slug: "art",
+    },
+    {
+      id: 4,
+      name: "Tech",
+      slug: "tech",
+    },    
+    {
+      id: 5,
+      name: "Fitness",
+      slug: "fitness",
+    },
+  ];
+};
+

@@ -2,9 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { DefaultSeo } from "next-seo";
-import { Social } from "./Social";
-import { DPoP } from "../components/Auth/DPoP";
 import { NextSeo, NextSeoProps } from "next-seo";
+import { useUser } from "../hooks/useUser";
+import { AuthButton } from "./AuthButton";
 
 export interface HeaderProps {
   disableDPoP: boolean;
@@ -17,26 +17,25 @@ export interface PageProps {
 };
 
 export const Page = ({ children, headerProps, meta }) => {
-  // React.useEffect(() => {
-  //     ethereum.request({ method: 'eth_requestAccounts' }).then((accounts) => {
-  //         console.log(accounts)
-  //     })
-  // }, []);
+  const user = useUser();
+  
   return (
     <Container>
       {!headerProps?.hideNavigation && (
         <>
           <Spacer />
           <Header>
-            <Link href="/">
-              <img
-                width="40"
-                src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
-                className="custom-logo"
-                alt=""
-              />
-            </Link>
-            {/* <Link href="/going">Going</Link> */}
+            <HeaderContent>
+              <Link href="/">
+                <img
+                  width="40"
+                  src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
+                  className="custom-logo"
+                  alt=""
+                />
+              </Link>
+              <AuthButton />
+            </HeaderContent>
           </Header>
         </>
       )}
@@ -48,7 +47,6 @@ export const Page = ({ children, headerProps, meta }) => {
         }}
       />
       <Content>{children}</Content>
-      {/* {!headerProps?.disableDPoP && <DPoP onLoad={() => {}} />} */}
       {!headerProps?.hideFooter && (
         <>
           <Footer>
@@ -70,11 +68,6 @@ export const Page = ({ children, headerProps, meta }) => {
                 .
               </p>
             </div>
-
-            {/* <Social
-              discord={"https://discord.gg/bK8wjhS2Mg"}
-              instagram={"https://www.instagram.com/stucrew202/"}
-            /> */}
           </Footer>
         </>
       )}
@@ -102,6 +95,15 @@ const Header = styled.div`
   width: 100%;
   top: 0;
   z-index: 1000;
+`;
+
+const HeaderContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 `;
 
 const Footer = styled.div`
