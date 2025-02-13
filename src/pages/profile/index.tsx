@@ -9,6 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/router";
 import { EventInfo } from "../../components/Events/EventInfo";
 import { useEvents } from "../../hooks/useEvents";
+import { EventBookmark } from "../../components/Events/EventBookmark";
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -129,10 +130,11 @@ const ProfilePage = () => {
           {bookmarkedEvents.length > 0 ? (
             <div className="events-list">
               {bookmarkedEvents.map((event) => (
-                <div key={event.id} className="event-list-item">
-                  <a href={`/event/${event.slug}`}>
+                <div key={event.id} className="event-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <a href={`/event/${event.slug}`} style={{ flex: 1 }}>
                     <EventInfo event={event} variant="compact" header={3} />
                   </a>
+                  <EventBookmark eventId={event.id} />
                 </div>
               ))}
             </div>
@@ -155,7 +157,7 @@ const ProfileWrapper = styled.div`
 `;
 
 const ProfileContent = styled.div`
-  padding: 2rem;
+  padding: 1rem;
   width: 100%;
   max-width: 600px;
 
@@ -169,9 +171,9 @@ const ProfileContent = styled.div`
 
   .bookmarked-events {
     h2 {
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       color: #333;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
 
     .events-list {
