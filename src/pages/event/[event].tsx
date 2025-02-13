@@ -26,6 +26,7 @@ import { ChatRoom } from "../../components/Chat/ChatRoom";
 import { EventShare } from "../../components/Events/EventShare";
 import { UserCard } from "../../components/UserCard";
 import { EventLocation } from "../../components/Events/EventLocation";
+import { EventBookmark } from "../../components/Events/EventBookmark";
 
 const EventPage = ({ event, events, referral }) => {
   const [showRsvpModal, setShowRsvpModal] = React.useState<boolean>(false);
@@ -153,7 +154,11 @@ const EventPage = ({ event, events, referral }) => {
         onConfirmation={handleConfirmationRsvp}
         bodyContent={
           <>
-            <EventInfo event={event} variant="compact" header={2} />
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <EventInfo event={event} variant="compact" header={2} />
+              <EventBookmark eventId={event.id} />
+            </div>
+
             <div style={{ fontSize: 14, marginBottom: 8, marginTop: 16 }}>
               <a
                 onClick={() => {
@@ -178,7 +183,11 @@ const EventPage = ({ event, events, referral }) => {
         buttonText="RSVP"
       />
       <PageContainer>
-        <EventInfo event={event} linkLocation={true} header={2} />
+        <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+          <EventInfo event={event} linkLocation={true} header={2} />
+          <EventBookmark eventId={event.id} />
+        </div>
+
         {event.image && <img src={event.image} />}
       </PageContainer>
       <PageContainer>
@@ -220,7 +229,9 @@ const EventPage = ({ event, events, referral }) => {
                 );
               })}
               {publicRSVPs?.length !== rsvps.length && (
-                <li className="other-rsvps">and {rsvps.length - publicRSVPs?.length} other(s)</li>
+                <li className="other-rsvps">
+                  and {rsvps.length - publicRSVPs?.length} other(s)
+                </li>
               )}
             </ul>
             {/* {rsvps?.length > 80 && <h3>Waitlist ({rsvps?.length - 80})</h3>} */}

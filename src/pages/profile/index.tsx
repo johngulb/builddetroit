@@ -7,10 +7,14 @@ import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/router";
+import { EventInfo } from "../../components/Events/EventInfo";
+import { useEvents } from "../../hooks/useEvents";
 
 const ProfilePage = () => {
   const router = useRouter();
   const [user, setUser] = React.useState<User | null>(null);
+  const [bookmarkedEvents, setBookmarkedEvents] = React.useState([]);
+  const [events] = useEvents();
 
   React.useEffect(() => {
     const user = getUser();
@@ -18,7 +22,15 @@ const ProfilePage = () => {
     if (!user) {
       window.location.href = "/login";
     }
-  }, []);
+
+    const bookmarkedEvents = JSON.parse(
+      localStorage.getItem("bookmarkedEvents") || "[]"
+    );
+    const bookmarkedEventsData = events.filter((event) =>
+      bookmarkedEvents.includes(event.id)
+    );
+    setBookmarkedEvents(bookmarkedEventsData);
+  }, [events]);
 
   const handleLogout = () => {
     logout();
@@ -27,10 +39,7 @@ const ProfilePage = () => {
 
   const formatPhoneNumber = (value: string) => {
     if (!value) return "";
-    // Remove all non-digit characters
     const digits = value.replace(/\D/g, "");
-
-    // Format as (XXX) XXX-XXXX
     if (digits.length >= 10) {
       return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(
         6,
@@ -48,7 +57,7 @@ const ProfilePage = () => {
             display: "flex",
             gap: "1rem",
             justifyContent: "flex-end",
-            marginBottom: "1rem",
+            mb: 2,
           }}
         >
           <Button
@@ -66,54 +75,69 @@ const ProfilePage = () => {
           >
             Logout
           </Button>
-        </Box>{" "}
+        </Box>
+
         <div className="profile-info">
           {user && (
             <div className="user-info">
               <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  mb: 3,
-                  position: "relative",
-                  width: "100%",
-                }}
+                sx={{ display: "flex", alignItems: "center", gap: 3 }}
               >
                 <Avatar
                   src={user.profile_picture || undefined}
-                  sx={{ width: 100, height: 100 }}
+                  sx={{ width: 80, height: 80 }}
                 />
+                <Box>
+                  <InfoField>
+                    {/* <label>Name</label> */}
+                    <div>{user.name}</div>
+                  </InfoField>
+                  <InfoField>
+                    {/* <label>Email</label> */}
+                    <div>{user.email}</div>
+                  </InfoField>
+                  {user.phone && (
+                    <InfoField>
+                      {/* <label>Phone</label> */}
+                      <div>{formatPhoneNumber(user.phone)}</div>
+                    </InfoField>
+                  )}
+                  {user.organization && (
+                    <InfoField>
+                      {/* <label>Organization</label> */}
+                      <div>{user.organization}</div>
+                    </InfoField>
+                  )}
+                </Box>
               </Box>
-              <Box sx={{ "& > div": { marginBottom: 2 } }}>
-                <InfoField>
-                  <label>Name</label>
-                  <div>{user.name}</div>
-                </InfoField>
+              {/* <Box
+                sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}
+              >
                 {user.public_name && (
                   <InfoField>
                     <label>Public Name</label>
                     <div>{user.public_name}</div>
                   </InfoField>
                 )}
-                <InfoField>
-                  <label>Email</label>
-                  <div>{user.email}</div>
-                </InfoField>
-                {user.phone && (
-                  <InfoField>
-                    <label>Phone</label>
-                    <div>{formatPhoneNumber(user.phone)}</div>
-                  </InfoField>
-                )}
-                {user.organization && (
-                  <InfoField>
-                    <label>Organization</label>
-                    <div>{user.organization}</div>
-                  </InfoField>
-                )}
-              </Box>
+              </Box> */}
             </div>
+          )}
+        </div>
+
+        <div className="bookmarked-events">
+          <h2>Bookmarked</h2>
+          {bookmarkedEvents.length > 0 ? (
+            <div className="events-list">
+              {bookmarkedEvents.map((event) => (
+                <div key={event.id} className="event-list-item">
+                  <a href={`/event/${event.slug}`}>
+                    <EventInfo event={event} variant="compact" header={3} />
+                  </a>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="no-events">No bookmarked events yet</p>
           )}
         </div>
       </ProfileContent>
@@ -137,36 +161,48 @@ const ProfileContent = styled.div`
 
   .profile-info {
     background: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
 
+  .bookmarked-events {
     h2 {
       margin-bottom: 2rem;
       color: #333;
-      text-align: center;
+      font-size: 1.5rem;
     }
 
-    .user-info {
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
+    .events-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .no-events {
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+
+    .event-list-item a {
+      text-decoration: none;
+      color: inherit;
     }
   }
 `;
 
 const InfoField = styled.div`
   label {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #666;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.15rem;
     display: block;
   }
 
   div {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #333;
   }
 `;

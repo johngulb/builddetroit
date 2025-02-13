@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { EventInfo } from "./EventInfo";
+import { EventBookmark } from "./EventBookmark";
 
 interface EventListProps {
   events: any[];
@@ -70,9 +71,12 @@ export const EventList = ({ events, variant = "default", category, loadMore = fa
   return (
     <EventListWrapper>
       {eventList?.map((event, i) => (
-        <a href={`/event/${event.slug}`} key={`event-${i}`}>
-          <EventInfo event={event} variant={variant} header={header} />
-        </a>
+        <div key={`event-${i}`} className="event-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <a href={`/event/${event.slug}`} style={{ flex: 1 }}>
+            <EventInfo event={event} variant={variant} header={header} />
+          </a>
+          <EventBookmark eventId={event.id} />
+        </div>
       ))}
       {hasMore && loadMore && (
         <div ref={loader} style={{

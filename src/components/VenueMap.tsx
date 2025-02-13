@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { Venue } from '../dpop';
 
 interface VenueMapProps {
@@ -6,37 +8,60 @@ interface VenueMapProps {
 }
 
 export const VenueMap: React.FC<VenueMapProps> = ({ venue }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
   const [dimensions, setDimensions] = useState({ width: 400, height: 200 });
 
   useEffect(() => {
+    if (!venue.geo?.lat || !venue.geo?.lng) return;
+
+    mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
+
+    if (mapContainer.current) {
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [venue.geo.lng, venue.geo.lat],
+        zoom: 15
+      });
+
+      // Add marker
+      new mapboxgl.Marker()
+        .setLngLat([venue.geo.lng, venue.geo.lat])
+        .addTo(map.current);
+    }
+
     const updateDimensions = () => {
-      if (containerRef.current) {
-        const width = containerRef.current.offsetWidth;
+      if (mapContainer.current) {
+        const width = mapContainer.current.offsetWidth;
         const height = width * 0.5; // Maintain 2:1 aspect ratio
         setDimensions({ width, height });
+        map.current?.resize();
       }
     };
 
     updateDimensions();
     window.addEventListener('resize', updateDimensions);
-    
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
+
+    return () => {
+      map.current?.remove();
+      window.removeEventListener('resize', updateDimensions);
+    };
+  }, [venue.geo?.lat, venue.geo?.lng]);
 
   if (!venue.geo?.lat || !venue.geo?.lng) {
     return null;
   }
 
-  const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${venue.geo.lat},${venue.geo.lng}&zoom=15&size=${dimensions.width}x${dimensions.height}&markers=${venue.geo.lat},${venue.geo.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
-
   return (
-    <div ref={containerRef} style={{ width: '100%', height: dimensions.height }}>
-      <img 
-        src={mapUrl}
-        alt={`Map showing location of ${venue.title}`}
-        style={{width: '100%', height: '100%', objectFit: 'cover', margin: '0 auto'}}
-      />
-    </div>
+    <div 
+      ref={mapContainer} 
+      style={{ 
+        width: '100%', 
+        height: dimensions.height,
+        borderRadius: '8px',
+        overflow: 'hidden'
+      }}
+    />
   );
 };

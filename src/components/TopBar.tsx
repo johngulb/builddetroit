@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Button } from "./Button";
 import { getUser, User } from "../dpop";
+import { AuthButton } from "./AuthButton";
 
 export const TopBar = () => {
   const [user, setUser] = React.useState<User | null>(null);
@@ -18,19 +19,7 @@ export const TopBar = () => {
         <span className="tickets">5 🎟</span>
         </div> */}
       <div className="left" />
-      {user ? (
-        <a href={`/profile`}>
-          <Button variant="outline" className="user-button">
-            {user?.public_name || user?.name}
-          </Button>
-        </a>
-      ) : (
-        <a href={`/login`}>
-          <Button variant="outline" className="user-button">
-            Login
-          </Button>
-        </a>
-      )}
+      <AuthButton />
     </TopBarContainer>
   );
 };
@@ -45,6 +34,10 @@ export const TopBarContainer = styled.div`
   left: 0;
   right: 0;
   z-index: 3;
+  img {
+    padding: 0;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
   /* background: rgba(0, 0, 0, 0.5); */
   .outline.user-button {
     background-color: rgba(255, 255, 255, 0.2);

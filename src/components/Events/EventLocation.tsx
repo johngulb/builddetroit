@@ -36,8 +36,8 @@ export const EventLocation: React.FC<EventLocationProps> = ({ event }) => {
         <LocationDirections venue={event.venue}>
           <div className="venue">{event.venue.title}</div>
           <div className="address">{getLocationAddress(event.venue)}</div>
-          <VenueMap venue={event.venue} />
         </LocationDirections>
+        <VenueMap venue={event.venue} />
       </EventLocationContainer>
     </>
   );

@@ -30,14 +30,14 @@ export const EventInfo = ({
         </div>
       </div>
       <div className="more-info">
+        {header === 1 && <h1 dangerouslySetInnerHTML={{ __html: event.title }} />}
+        {header === 2 && <h2 dangerouslySetInnerHTML={{ __html: event.title }} />}
+        {header === 3 && <h3 dangerouslySetInnerHTML={{ __html: event.title }} />}
         <div className="time-range">
           {`${moment(event.start_date).format("h:mm a")} - ${moment(
             event.end_date
           ).format("h:mm a")}`}
         </div>
-        {header === 1 && <h1 dangerouslySetInnerHTML={{ __html: event.title }} />}
-        {header === 2 && <h2 dangerouslySetInnerHTML={{ __html: event.title }} />}
-        {header === 3 && <h3 dangerouslySetInnerHTML={{ __html: event.title }} />}
         {event.venue && (
           <>
             {linkLocation ? (
@@ -64,7 +64,7 @@ const EventInfoContainer = styled.div`
     font-size: 12px;
   }
   h1, h2, h3 {
-    font-size: 1.8em;
+    font-size: 1.7em;
     font-weight: bold;
     margin-bottom: 0.25rem;
   }
