@@ -12,7 +12,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import theme from "../theme";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
@@ -64,7 +63,6 @@ function MyApp(props: AppProps) {
           {/* <iframe src="https://dpop.tech/dpop"></iframe> */}
           <Component {...pageProps} />
           <Analytics />
-          <SpeedInsights />
         </ThemeProvider>
       </LocalizationProvider>
     </Page>
