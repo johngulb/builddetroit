@@ -3,6 +3,7 @@ import { getArtwork } from "../../../dpop";
 import styled from "@emotion/styled";
 import { getEnvironment } from "../../../utils/environment";
 import moment from "moment";
+import Link from "next/link";
 
 const ArtworkPage = ({ artwork }) => {
   return (
@@ -15,19 +16,44 @@ const ArtworkPage = ({ artwork }) => {
           <div className="artwork-details">
             <h1 dangerouslySetInnerHTML={{ __html: artwork.title }} />
             <p className="artwork-description">{artwork.description}</p>
-            {artwork.artist && (
-              <div className="artist-info">
-                <img
-                  src={artwork.artist.profile_picture}
-                  alt={artwork.artist.name}
-                  className="artist-picture"
-              />
-              <div className="artist-text">
-                <h2>{artwork.artist.name}</h2>
-                <p>{artwork.artist.bio}</p>
+            
+            <div className="credits">
+              {artwork.artist && (
+                <div className="artist-info">
+                  <span>By</span>
+                  <Link href={`/artists/${artwork.artist.slug}`}>
+                    <img
+                      src={artwork.artist.profile_picture}
+                      alt={artwork.artist.name}
+                      className="profile-pic"
+                    />
+                    <span className="name">{artwork.artist.name}</span>
+                  </Link>
                 </div>
-              </div>
-            )}
+              )}
+              
+              {artwork.collaborators && artwork.collaborators.length > 0 && (
+                <div className="collaborators">
+                  <span>Collaborators</span>
+                  <div className="collaborator-list">
+                    {artwork.collaborators.map((collaborator, i) => (
+                      <div key={collaborator.id} className="collaborator">
+                        <Link href={`/artists/${collaborator.slug}`}>
+                          <img
+                            src={collaborator.profile_picture}
+                            alt={collaborator.name}
+                            className="profile-pic"
+                          />
+                          <span className="name">
+                            {collaborator.name}
+                          </span>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </ArtworkHeader>
@@ -91,30 +117,71 @@ const ArtworkHeader = styled.div`
     }
   }
 
-  .artist-info {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
+  .credits {
     margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
-    .artist-picture {
-      width: 50px;
-      height: 50px;
+    .profile-pic {
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       object-fit: cover;
       padding: 0;
+      margin: 0 0.25rem;
+      vertical-align: middle;
     }
 
-    .artist-text {
-      h2 {
-        margin: 0 0 0.25rem 0;
-        font-size: 1.2rem;
+    .name {
+      margin-right: 0.5rem;
+    }
+
+    .artist-info {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .collaborators {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .collaborator-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
       }
 
-      p {
-        margin: 0;
-        font-size: 0.9rem;
-        color: #666;
+      .collaborator {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        a {
+          display: inline-flex;
+          align-items: center;
+          text-decoration: none;
+          color: inherit;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
     }
   }
@@ -160,8 +227,6 @@ export const getServerSideProps = async ({ query, res }) => {
 
   const url = `${env.url}/a/${artwork.slug}`;
 
-  //   const image = event.image ?? event.venue?.image ?? env.image;
-
   return {
     props: {
       artwork,
@@ -172,14 +237,6 @@ export const getServerSideProps = async ({ query, res }) => {
         openGraph: {
           url: url,
           type: "webpage",
-          //   images: image
-          //     ? [
-          //         {
-          //           url: image,
-          //           alt: artwork.title,
-          //         },
-          //       ]
-          //     : [],
           site_name: env.site_name,
         },
       },
