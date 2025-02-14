@@ -8,6 +8,7 @@ import { useCommunity } from "../../hooks/useCommunity";
 import MemberCard from "../../components/MemberCard";
 import { useUser } from "../../hooks/useUser";
 import Link from "next/link";
+import { Share } from "../../components/Share";
 
 interface CommunityPageProps {
   community: Community;
@@ -47,11 +48,14 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
 
         <div className="description">{community.description}</div>
 
-        {user && (
-          <ButtonLink onClick={toggleJoin} className={isMember ? "hollow" : ""}>
-            {isMember ? "Leave Community" : "Join Community"}
-          </ButtonLink>
-        )}
+        <div className="action-buttons">
+          {user && (
+            <ButtonLink onClick={toggleJoin} className={isMember ? "hollow" : ""}>
+              {isMember ? "Leave Community" : "Join Community"}
+            </ButtonLink>
+          )}
+          <Share url={`${process.env.NEXT_PUBLIC_SITE_URL}/communities/${community.slug}`} title={`Join our community: ${community.name}`} />
+        </div>
 
         <TabContainer>
           <TabButton
@@ -174,6 +178,13 @@ const PageContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
   }
 
   h1 {
