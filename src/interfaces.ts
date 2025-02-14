@@ -67,6 +67,7 @@ export interface DPoPEvent {
   cid: string;
   slug: string;
   host: string | null;
+  venue_id?: number;
   venue: Venue;
   start_date: string;
   end_date: string;

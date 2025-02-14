@@ -58,6 +58,7 @@
     "next": "latest",
     "next-seo": "^5.14.1",
     "nookies": "^2.5.2",
+    "openai": "^4.85.1",
     "puppeteer": "^21.1.1",
     "puppeteer-core": "^21.1.1",
     "pusher-js": "^8.0.2",

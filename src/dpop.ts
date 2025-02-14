@@ -194,6 +194,7 @@ export const register = async (params: RegisterParams) => {
   return result;
 };
 
+/** Events */
 export const getEvent = async (event: string) => {
   const result = await (await fetch(`${hostname}/api/event/${event}`)).json();
   return result.data;
@@ -206,6 +207,19 @@ interface EventQueryParams {
   offset?: number;
   featured?: boolean;
 }
+
+export const createEvent = async (event: Partial<DPoPEvent>) => {
+  const result = await (
+    await fetch(`${hostname}/api/event`, {
+      method: "POST",
+      body: JSON.stringify(event),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  ).json();
+  return result.data;
+};
 
 export const getEvents = async ({
   type,
