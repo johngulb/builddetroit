@@ -1,9 +1,11 @@
 export interface Artist {
   id: number;
   name: string;
+  handle: string;
   slug: string;
   profile_picture: string;
   bio: string;
+  artwork?: Artwork[];
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -11,7 +13,7 @@ export interface Artist {
 
 export interface ArtworkData {
   image?: string;
-  collaborators?: number[];
+  collaborator_ids?: number[];
 }
 
 export interface Artwork {
@@ -19,7 +21,9 @@ export interface Artwork {
   slug: string;
   title: string;
   description: string;
-  artist: Artist;
+  artist_id?: number;
+  artist?: Artist;
+  collaborators?: Artist[];
   data: ArtworkData;
   meta: any[];
 }

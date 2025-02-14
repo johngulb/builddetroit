@@ -14,7 +14,7 @@ export const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
   const imageUrl = artwork.data?.image;
 
   return (
-    <CardWrapper href={`/artwork/${artwork.id}`}>
+    <CardWrapper href={`/artwork/${artwork.slug}`}>
       <div className="artwork-preview">
         <img src={imageUrl} alt={artwork.title} />
       </div>

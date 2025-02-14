@@ -1,7 +1,7 @@
 import React from "react";
-import { getArtwork } from "../../dpop";
+import { getArtwork } from "../../../dpop";
 import styled from "@emotion/styled";
-import { getEnvironment } from "../../utils/environment";
+import { getEnvironment } from "../../../utils/environment";
 import moment from "moment";
 
 const ArtworkPage = ({ artwork }) => {

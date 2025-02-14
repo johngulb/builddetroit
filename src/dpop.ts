@@ -10,6 +10,7 @@ import {
   Venue,
   DPoPEventRsvp,
   DPoPEventComment,
+  Artist,
 } from "./interfaces";
 
 export type {
@@ -214,6 +215,33 @@ export const getEvents = async ({ type, limit, offset }: EventQueryParams) => {
   return result.data;
 };
 
+/** Artists */
+export const getArtists = async () => {
+  const result = await (await fetch(`${hostname}/api/artists`)).json();
+  return result.data;
+};
+
+export const getArtist = async (artist: string) => {
+  const result = await (await fetch(`${hostname}/api/artist/${artist}`)).json();
+  return result.data;
+};
+
+export const createArtist = async (artist: Partial<Artist>) => {
+  const result = await (await fetch(`${hostname}/api/artist`, {
+    method: "POST",
+    body: JSON.stringify(artist),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })).json();
+  return result.data;
+};
+
+export const getArtistArtwork = async (artist: string) => {
+  const result = await (await fetch(`${hostname}/api/artist/${artist}/artwork`)).json();
+  return result.data;
+};
+
 /** Artwork */
 
 export const getArtwork = async (artwork: string) => {
@@ -239,6 +267,19 @@ export const createArtwork = async (artwork: Partial<Artwork>) => {
 export const getArtworks = async () => {
   const result = await (await fetch(`${hostname}/api/artwork`)).json();
   return result.data;
+};
+
+export const updateArtwork = async (artwork: Partial<Artwork>) => {
+  const result = await (
+    await fetch(`${hostname}/api/artwork/${artwork.id}`, {
+      method: "PUT",
+      body: JSON.stringify(artwork),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  ).json();
+  return result;
 };
 
 export const getContent = async (cid: string) => {
