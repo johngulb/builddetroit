@@ -149,7 +149,7 @@ const PlacesPage = ({ venues }: PlacesPageProps) => {
           );
 
           new mapboxgl.Marker()
-            .setLngLat([parseFloat(venue.geo.lng), parseFloat(venue.geo.lat)])
+            .setLngLat([parseFloat(venue.geo.lng as unknown as string), parseFloat(venue.geo.lat as unknown as string)])
             .setPopup(popup)
             .addTo(map.current);
         });
