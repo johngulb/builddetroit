@@ -29,7 +29,6 @@ export type {
 };
 
 const hostname = "https://api.detroiter.network";
-// const hostname = 'http://localhost:9090';
 
 export const isAuthorized = () => {
   const cid = getUserCID();
