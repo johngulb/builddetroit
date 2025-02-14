@@ -49,12 +49,19 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
         <div className="description">{community.description}</div>
 
         <div className="action-buttons">
-          {user && (
+          {user ? (
             <ButtonLink onClick={toggleJoin} className={isMember ? "hollow" : ""}>
               {isMember ? "Leave Community" : "Join Community"}
             </ButtonLink>
+          ) : (
+            <Link href="/register" passHref>
+              <ButtonLink>Create Account to Join</ButtonLink>
+            </Link>
           )}
-          <Share url={`${process.env.NEXT_PUBLIC_SITE_URL}/communities/${community.slug}`} title={`Join our community: ${community.name}`} />
+          <Share
+            url={`${process.env.NEXT_PUBLIC_SITE_URL}/communities/${community.slug}`}
+            title={`Join our community: ${community.name}`}
+          />
         </div>
 
         <TabContainer>
@@ -99,8 +106,7 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
         {activeTab === "members" && !user && (
           <div className="members-container">
             <div>
-              Please{" "}
-              <Link href="/register">register</Link> or{" "}
+              Please <Link href="/register">register</Link> or{" "}
               <Link href="/login">login</Link> to see members
             </div>
           </div>
