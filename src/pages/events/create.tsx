@@ -193,7 +193,7 @@ const CreateEventPage = () => {
     // Handle form submission
     const event = await createEvent({
       title: eventTitle,
-      excerpt: description,
+      content: description,
       image: imageUrl,
       start_date: startDate?.toISOString(),
       end_date: endDate?.toISOString(),

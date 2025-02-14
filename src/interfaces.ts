@@ -74,6 +74,7 @@ export interface DPoPEvent {
   event_categories: string[];
   categories: string[];
   comments?: DPoPEventComment[];
+  content: string;
   excerpt: string;
   featured: boolean;
   image_data: ImageData;
