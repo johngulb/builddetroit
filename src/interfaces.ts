@@ -36,6 +36,7 @@ export interface Content {
     height: number;
     type: string;
     youtubeId?: string;
+    url?: string;
   };
   caption: string;
   timestamp: string;

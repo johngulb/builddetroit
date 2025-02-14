@@ -11,6 +11,7 @@ import {
   DPoPEventRsvp,
   DPoPEventComment,
   Artist,
+  Content,
 } from "./interfaces";
 
 export type {
@@ -277,6 +278,16 @@ export const updateArtwork = async (artwork: Partial<Artwork>) => {
       headers: {
         "Content-Type": "application/json",
       },
+    })
+  ).json();
+  return result;
+};
+
+export const addArtworkContent = async (artwork: string, content: Partial<Content>) => {
+  const result = await (
+    await fetch(`${hostname}/api/artwork/${artwork}/content`, {
+      method: "POST",
+      body: JSON.stringify(content),
     })
   ).json();
   return result;

@@ -48,16 +48,27 @@ const handler = async (req, res) => {
 
     const fileData = fs.readFileSync(file.filepath);
 
+    // Detect file type from mimetype
+    const mimeType = file.mimetype || '';
+    if (!mimeType.match(/^(image\/jpeg|image\/jpg|video\/.*)/)) {
+      return res.status(400).json({ error: 'Invalid file type. Only JPEG images and videos are allowed.' });
+    }
+
+    // Generate appropriate folder and extension based on type
+    const isVideo = mimeType.startsWith('video/');
+    const folder = isVideo ? 'videos' : 'images';
+    const extension = isVideo ? mimeType.split('/')[1] : 'jpg';
+
     // Generate a unique filename
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    const filename = `profile-pictures/${uniqueSuffix}.jpg`;
+    const filename = `${folder}/${uniqueSuffix}.${extension}`;
 
     // Upload to S3 with public-read ACL
     const command = new PutObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET,
       Key: filename,
       Body: fileData,
-      ContentType: 'image/jpeg',
+      ContentType: mimeType,
       ACL: 'public-read', // Make object publicly readable
     });
 
@@ -72,7 +83,7 @@ const handler = async (req, res) => {
     if (error instanceof Error) {
       console.error('Error details:', error.message);
     }
-    return res.status(500).json({ error: 'Failed to upload image' });
+    return res.status(500).json({ error: 'Failed to upload file' });
   }
 };
 

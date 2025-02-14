@@ -62,13 +62,21 @@ const ArtworkPage = ({ artwork }) => {
         return (
           <ContentWrapper key={i}>
             <div className="timestamp">
-              {moment(content.timestamp).format("dddd MMMM Do, YYYY – h:mm a")}
+              {moment.utc(content.timestamp).local().format("dddd MMMM Do, YYYY – h:mm a")}
             </div>
             {content.data.type === "image/jpeg" && (
-              <img src={content.data.url} />
+              <>
+                {content.caption && (
+                  <div className="caption">{content.caption}</div>
+                )}
+                <img src={content.data.url} />
+              </>
             )}
             {content.data.type === "video/mp4" && (
               <>
+                {content.caption && (
+                  <div className="caption">{content.caption}</div>
+                )}
                 <video controls preload="metadata">
                   <source
                     src={`${content.data.url}#t=0.1`}
@@ -78,14 +86,19 @@ const ArtworkPage = ({ artwork }) => {
               </>
             )}
             {content.data.type === "youtube" && (
-              <iframe
-                width="100%"
-                height="400"
-                src={`https://www.youtube.com/embed/${content.data.youtubeId}`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              <>
+                <iframe
+                  width="100%"
+                  height="400"
+                  src={`https://www.youtube.com/embed/${content.data.youtubeId}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+                {content.caption && (
+                  <div className="caption">{content.caption}</div>
+                )}
+              </>
             )}
           </ContentWrapper>
         );
@@ -217,6 +230,13 @@ const ContentWrapper = styled.div`
     font-size: 0.8rem;
     margin-left: 1rem;
     font-style: italic;
+  }
+  .caption {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
   }
 `;
 
