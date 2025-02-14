@@ -5,20 +5,22 @@ import { DefaultSeo } from "next-seo";
 import { NextSeo, NextSeoProps } from "next-seo";
 import { useUser } from "../hooks/useUser";
 import { AuthButton } from "./AuthButton";
+import { TabNavigation } from "./Tabs";
+import Hero from "./Hero";
 
 export interface HeaderProps {
   disableDPoP: boolean;
   hideFooter: boolean;
-};
+}
 
 export interface PageProps {
   headerProps: HeaderProps;
   meta: NextSeoProps;
-};
+}
 
 export const Page = ({ children, headerProps, meta }) => {
   const user = useUser();
-  
+
   return (
     <Container>
       {!headerProps?.hideNavigation && (
@@ -46,6 +48,22 @@ export const Page = ({ children, headerProps, meta }) => {
           locale: "en_IE",
         }}
       />
+      {headerProps?.mainRoute && (
+        <>
+          <Hero
+            title={
+              <>
+                Welcome to the
+                <br />
+                Renaissance City
+              </>
+            }
+            subtitle="Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community."
+            image="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2025/02/10201802/penobscot-e1739236711632.jpg"
+          />
+          <TabNavigation tab="artists" />
+        </>
+      )}
       <Content>{children}</Content>
       {!headerProps?.hideFooter && (
         <>

@@ -12,9 +12,6 @@ const Hero = ({ title, subtitle, image, children }: HeroProps) => {
   return (
     <HeroWrapper>
       <HeroBackground image={image}>
-        {/* Top Bar */}
-        <TopBar />
-
         <HeroContent>
           <div className="content-wrapper">
             {title && <h1>{title}</h1>}
@@ -63,10 +60,10 @@ const HeroBackground = styled.div<{ image?: string }>`
 const HeroContent = styled.div`
   position: relative;
   z-index: 2;
-  max-width: 700px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  padding: 2rem 0;
+  padding: 2rem 1rem;
 
   .content-wrapper {
     color: white;

@@ -2,35 +2,14 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { Artist } from "../../interfaces";
-import { Tabs, Tab } from "@mui/material";
 import { useRouter } from "next/router";
 import { getArtists } from "../../dpop";
+import Hero from "../../components/Hero";
+import { TabNavigation } from "../../components/Tabs";
 
 const ArtistsPage = ({ artists }: { artists: Artist[] }) => {
-  const router = useRouter();
-  const [activeTab, setActiveTab] = useState("artists");
-
-  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
-    setActiveTab(newValue);
-    if (newValue === "artwork") {
-      router.push("/artwork");
-    }
-  };
-
   return (
     <PageWrapper>
-      <HeaderSection>
-        <h1>Artists</h1>
-        <CreateButton href="/artists/create">Create New</CreateButton>
-      </HeaderSection>
-
-      <TabsContainer>
-        <Tabs value={activeTab} onChange={handleTabChange}>
-          <Tab label="Artwork" value="artwork" />
-          <Tab label="Artists" value="artists" />
-        </Tabs>
-      </TabsContainer>
-
       <ArtistGrid>
         {artists.map((artist) => (
           <ArtistCard key={artist.id} href={`/artists/${artist.slug}`}>
@@ -119,7 +98,7 @@ const ArtistCard = styled(Link)`
   .artist-preview {
     aspect-ratio: 1;
     overflow: hidden;
-    
+
     img {
       width: 100%;
       height: 100%;
@@ -149,11 +128,14 @@ const ArtistCard = styled(Link)`
 
 export async function getServerSideProps() {
   const artists = await getArtists();
-  
+
   return {
     props: {
-      artists: artists
-    }
+      artists: artists,
+      headerProps: {
+        mainRoute: "artists",
+      },
+    },
   };
 }
 

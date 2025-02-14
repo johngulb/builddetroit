@@ -2,6 +2,7 @@ import React from "react";
 import styled from '@emotion/styled'
 import { EventList } from "../../components/Events/EventList";
 import { NextSeo } from 'next-seo';
+import { getEvents } from "../../dpop";
 
 const PageWrapper = styled.div`
   background-color: #fafafa;
@@ -38,12 +39,15 @@ const Page = ({ events }) => {
 };
 
 export const getServerSideProps = async ({ res }) => {
-  const eventsRes = await fetch('https://api.detroiter.network/api/events?limit=18');
-  const fetchedEvents = await eventsRes.json();
-  const events = fetchedEvents.data;
+  const events = await getEvents({
+    limit: 18,
+  });
   return {
     props: {
       events,
+      headerProps: {
+        mainRoute: "events",
+      },
     },
   };
 };

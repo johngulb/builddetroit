@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { EventInfo } from "./EventInfo";
-import { EventBookmark } from "./EventBookmark";
+import { EventBookmark } from "./EventBookmark"; 
+import { EventCard } from "./EventCard";
 
 interface EventListProps {
   events: any[];
@@ -11,7 +12,7 @@ interface EventListProps {
   header?: number;
 }
 
-export const EventList = ({ events, variant = "default", category, loadMore = false, header = 2 }: EventListProps) => {
+export const EventList = ({ events, variant = "card", category, loadMore = false, header = 2 }: EventListProps) => {
   const [eventList, setEventList] = React.useState<any[]>(events);
   const [loading, setLoading] = React.useState(false);
   const [hasMore, setHasMore] = React.useState(true);
@@ -71,12 +72,16 @@ export const EventList = ({ events, variant = "default", category, loadMore = fa
   return (
     <EventListWrapper>
       {eventList?.map((event, i) => (
-        <div key={`event-${i}`} className="event-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <a href={`/event/${event.slug}`} style={{ flex: 1 }}>
-            <EventInfo event={event} variant={variant} header={header} />
-          </a>
-          <EventBookmark eventId={event.id} />
-        </div>
+        variant === "compact" ? (
+          <div key={`event-${i}`} className="event-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <a href={`/event/${event.slug}`} style={{ flex: 1 }}>
+              <EventInfo event={event} variant={variant} header={header} />
+            </a>
+            <EventBookmark eventId={event.id} />
+          </div>
+        ) : (
+          <EventCard key={`event-${i}`} event={event} />
+        )
       ))}
       {hasMore && loadMore && (
         <div ref={loader} style={{

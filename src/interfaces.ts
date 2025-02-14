@@ -52,16 +52,33 @@ export interface Contact {
   organization?: string;
 }
 
+export interface ImageData {
+  file: string;
+  width: number;
+  height: number;
+  "mime-type": string;
+  filesize: number;
+  url: string;
+}
+
 export interface DPoPEvent {
   id: number;
-  cid: string;
   title: string;
+  cid: string;
   slug: string;
+  host: string | null;
+  venue: Venue;
   start_date: string;
   end_date: string;
-  venue: Venue;
+  event_categories: string[];
+  categories: string[];
   comments?: DPoPEventComment[];
+  excerpt: string;
+  featured: boolean;
+  image_data: ImageData;
+  image: string;
 }
+
 
 export interface Member {
   id: number;
