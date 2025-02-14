@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { getPlace, getEvents, getVenue } from "../../dpop"; 
+import { getEvents, getVenue } from "../../dpop"; 
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Venue, DPoPEvent } from "../../interfaces";
