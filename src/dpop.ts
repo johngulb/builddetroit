@@ -494,6 +494,14 @@ export const getCommunity = async (id: string) => {
   return result ?? null;
 };
 
+export const createCommunity = async (community: Partial<Community>) => {
+  const result = await authorizedRequest(`community`, {
+    method: "POST",
+    body: JSON.stringify(community),
+  });
+  return result;
+};
+
 export const getCommunityDetails = async (slug: string) => {
   const result = await authorizedRequest(`community/${slug}/details`);
   return result ?? null;
