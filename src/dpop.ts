@@ -297,6 +297,13 @@ export const getArtwork = async (artwork: string) => {
   return result;
 };
 
+export const getArtworks = async () => {
+  const result = await (
+    await fetch(`${hostname}/api/artwork`)
+  ).json();
+  return result.data;
+};
+
 export const getContent = async (cid: string) => {
   const result = await (
     await fetch(`https://dpop.nyc3.digitaloceanspaces.com/${cid}`)

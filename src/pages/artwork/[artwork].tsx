@@ -22,6 +22,16 @@ const ArtworkPage = ({ artwork }) => {
                 </video>
               </>
             )}
+            {content.data.type === "youtube" && (
+              <iframe
+                width="100%"
+                height="400"
+                src={`https://www.youtube.com/embed/${content.data.youtubeId}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            )}
           </ContentWrapper>
         );
       })}
@@ -38,12 +48,7 @@ const PageWrapper = styled.div`
     padding: 1rem;
     margin-left: 1rem;
   }
-  img {
-    padding: 1rem;
-    padding-top: 0.5rem;
-    max-width: 100%;
-  }
-  video {
+  img, video, iframe {
     padding: 1rem;
     padding-top: 0.5rem;
     max-width: 100%;
