@@ -3,11 +3,10 @@ import styled from "@emotion/styled";
 import { Venue } from "../../interfaces";
 import Place from "@mui/icons-material/Place";
 import Link from "next/link";
-import { getPlaces, getEvents, getVenues } from "../../dpop";
+import { getVenues } from "../../dpop";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Event } from "@mui/icons-material";
-import { Person } from "@mui/icons-material";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -21,10 +20,15 @@ const PageContainer = styled.div`
   max-width: 1200px;
   width: 100%;
   margin: auto;
+  padding: 0 1rem;
   
   h1 {
     margin: 2rem 0 1.5rem;
     font-size: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
   }
 `;
 
@@ -37,50 +41,60 @@ const MapContainer = styled.div`
 `;
 
 const ContentLayout = styled.div`
-  display: flex;
-  gap: 2rem;
   padding: 1rem;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
 `;
 
 const VenueGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
 `;
 
 const VenueCard = styled(Link)`
-  display: block;
+  display: flex;
   text-decoration: none;
   color: inherit;
   background: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
     transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .venue-info {
-    padding: 1rem;
+    padding: 1.25rem;
+    width: 100%;
 
     h2 {
-      font-size: 1.2rem;
-      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 0.75rem 0;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+
+      svg {
+        color: #666;
+        font-size: 1.25rem;
+      }
     }
 
     .address {
       font-size: 0.9rem;
       color: #666;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
     }
 
     .stats {
@@ -92,10 +106,12 @@ const VenueCard = styled(Link)`
       .stat {
         display: flex;
         align-items: center;
-        gap: 0.25rem;
+        gap: 0.35rem;
+        padding: 0.25rem 0;
 
         svg {
-          font-size: 1rem;
+          font-size: 1.1rem;
+          color: #666;
         }
       }
     }
@@ -143,8 +159,12 @@ const PlacesPage = ({ venues }: PlacesPageProps) => {
           console.log('venue:', venue);
 
           const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-            `<h3>${venue.title}</h3>
-             <p>${venue.geo.address}</p>`
+            `<div style="padding: 8px;">
+              <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600;">${venue.title}</h3>
+              <div style="font-size: 14px; color: #666; margin-bottom: 4px;">${venue.geo.address}</div>
+              <div style="font-size: 14px; color: #666; margin-bottom: 8px;">${venue.geo.city}, ${venue.geo.state} ${venue.geo.zipcode}</div>
+              <div style="font-size: 14px; color: #0066cc;">${venue.event_count} upcoming events</div>
+             </div>`
           );
 
           new mapboxgl.Marker()
@@ -180,12 +200,8 @@ const PlacesPage = ({ venues }: PlacesPageProps) => {
                   <div className="stats">
                     <div className="stat">
                       <Event />
-                      {venue.event_count} upcoming
+                      {venue.event_count} upcoming events
                     </div>
-                    {/* <div className="stat">
-                      <Person />
-                      {venue.visitorsCount} visitors
-                    </div> */}
                   </div>
                 </div>
               </VenueCard>

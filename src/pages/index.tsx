@@ -81,54 +81,61 @@ const PageContainer = styled.div`
 `;
 
 const ScrollSection = styled.div`
-  width: 100vw;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 0.5rem 1rem;
-  margin: 0 -1rem;
-  
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  padding: 0.5rem 0;
 
-  @media only screen and (min-width: 823px) {
-    width: 100%;
-    margin: 0;
-    padding: 0.5rem 0;
+  @media only screen and (max-width: 822px) {
+    width: 100vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0.5rem 1rem;
+    margin: 0 -1rem;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
 const ArtistGrid = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
   
-  @media only screen and (min-width: 823px) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  @media only screen and (max-width: 822px) {
+    display: flex;
+    grid-template-columns: none;
   }
 `;
 
 const ArtworkGrid = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
 
-  > * {
-    flex: 0 0 90%;
+  @media only screen and (max-width: 822px) {
+    display: flex;
+    > * {
+      flex: 0 0 90%;
+    }
   }
 `;
 
 const CommunityGrid = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
 
-  > * {
-    flex: 0 0 70%;
+  @media only screen and (max-width: 822px) {
+    display: flex;
+    > * {
+      flex: 0 0 70%;
+    }
   }
 `;
 
@@ -140,7 +147,10 @@ const ArtistCard = styled(Link)`
   color: inherit;
   text-align: center;
   transition: transform 0.2s;
-  flex: 0 0 33%;
+
+  @media only screen and (max-width: 822px) {
+    flex: 0 0 33%;
+  }
 
   &:hover {
     transform: translateY(-2px);
