@@ -69,7 +69,7 @@ const PlacePage = ({ venue }: PlacePageProps) => {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: "mapbox://styles/mapbox/streets-v11",
-        center: [parseFloat(venue.geo.lng), parseFloat(venue.geo.lat)],
+        center: [parseFloat(venue.geo.lng as unknown as string), parseFloat(venue.geo.lat as unknown as string)],
         zoom: 15,
       });
 
@@ -80,7 +80,7 @@ const PlacePage = ({ venue }: PlacePageProps) => {
         );
 
         new mapboxgl.Marker()
-          .setLngLat([parseFloat(venue.geo.lng), parseFloat(venue.geo.lat)])
+          .setLngLat([parseFloat(venue.geo.lng as unknown as string), parseFloat(venue.geo.lat as unknown as string)])
           .setPopup(popup)
           .addTo(map.current);
       });
@@ -98,7 +98,7 @@ const PlacePage = ({ venue }: PlacePageProps) => {
       <Hero
         title={venue.title}
         image={
-          venue.image ||
+          venue?.image ||
           "https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2025/02/10201802/penobscot-e1739236711632.jpg"
         }
       />
@@ -111,7 +111,7 @@ const PlacePage = ({ venue }: PlacePageProps) => {
               {venue.geo.state && `, ${venue.geo.state}`}
               {venue.geo.zipcode && ` ${venue.geo.zipcode}`}
             </div>
-            <div className="description">{venue.description}</div>
+            {/* <div className="description">{venue.description}</div> */}
           </VenueDetails>
           <MapContainer ref={mapContainer} />
         </PageContainer>

@@ -109,6 +109,7 @@ export interface Venue {
   cid: string;
   title: string;
   slug: string;
+  image: string;
   geo: {
     lat: number;
     lng: number;
