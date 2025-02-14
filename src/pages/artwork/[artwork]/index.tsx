@@ -230,13 +230,14 @@ const ContentWrapper = styled.div`
     font-size: 0.8rem;
     margin-left: 1rem;
     font-style: italic;
+    margin-bottom: 0.5rem;
   }
   .caption {
     margin-left: 1rem;
     font-size: 0.9rem;
     color: #666;
-    margin-top: -0.5rem;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 `;
 
