@@ -32,7 +32,7 @@ const CommunityCard = ({ community, variant = 'default' }: CommunityCardProps) =
 
 const CardWrapper = styled.a<{variant: 'default' | 'compact'}>`
   display: flex;
-  flex-direction: ${props => props.variant === 'compact' ? 'row' : 'column'};
+  flex-direction: column;
   background: white;
   border-radius: 8px;
   overflow: hidden;
@@ -48,8 +48,8 @@ const CardWrapper = styled.a<{variant: 'default' | 'compact'}>`
 `;
 
 const ImageContainer = styled.div<{variant: 'default' | 'compact'}>`
-  width: ${props => props.variant === 'compact' ? '100px' : '100%'};
-  height: ${props => props.variant === 'compact' ? '100px' : '200px'};
+  width: 100%;
+  height: ${props => props.variant === 'compact' ? '120px' : '200px'};
   flex-shrink: 0;
   overflow: hidden;
 
@@ -62,7 +62,7 @@ const ImageContainer = styled.div<{variant: 'default' | 'compact'}>`
 `;
 
 const ContentContainer = styled.div<{variant: 'default' | 'compact'}>`
-  padding: ${props => props.variant === 'compact' ? '1rem' : '1.5rem'};
+  padding: ${props => props.variant === 'compact' ? '0.75rem' : '1.5rem'};
   flex-grow: 1;
 
   h3 {
@@ -76,6 +76,10 @@ const ContentContainer = styled.div<{variant: 'default' | 'compact'}>`
     font-size: ${props => props.variant === 'compact' ? '0.875rem' : '1rem'};
     color: #666;
     line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 `;
 

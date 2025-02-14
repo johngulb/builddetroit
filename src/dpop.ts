@@ -204,6 +204,7 @@ interface EventQueryParams {
   venue?: string;
   limit?: number;
   offset?: number;
+  featured?: boolean;
 }
 
 export const getEvents = async ({
@@ -211,12 +212,14 @@ export const getEvents = async ({
   venue,
   limit,
   offset,
+  featured,
 }: EventQueryParams) => {
   const params = new URLSearchParams();
   if (type) params.set("type", type);
   if (venue) params.set("venue", venue);
   params.set("limit", limit?.toString() ?? "18");
   params.set("offset", offset?.toString() ?? "0");
+  if (featured) params.set("featured", "true");
   const result = await (
     await fetch(`${hostname}/api/events?${params.toString()}`)
   ).json();

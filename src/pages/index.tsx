@@ -3,11 +3,9 @@ import styled from "@emotion/styled";
 import { EventList } from "../components/Events/EventList";
 
 import {
-  createContact,
   getUser,
   getCommunities,
   getEvents,
-  getArtwork,
   getArtworks,
   getArtists,
 } from "../dpop";
@@ -23,12 +21,18 @@ const PageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0.5rem;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 `;
 
 const PageContainer = styled.div`
   display: block;
+  width: 100%;
   max-width: 1000px;
   margin: auto;
+  padding: 0 1rem;
+
   .header {
     padding: 1rem;
     margin: 1rem 0;
@@ -55,6 +59,7 @@ const PageContainer = styled.div`
     margin-top: 1.5rem;
     @media only screen and (max-width: 822px) {
       font-size: 1.1rem;
+      padding: 0 1rem;
     }
   }
   p {
@@ -69,32 +74,84 @@ const PageContainer = styled.div`
     max-width: 240px;
     margin: auto;
   }
+
+  @media only screen and (max-width: 822px) {
+    padding: 0;
+  }
+`;
+
+const ScrollSection = styled.div`
+  width: 100vw;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.5rem 1rem;
+  margin: 0 -1rem;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media only screen and (min-width: 823px) {
+    width: 100%;
+    margin: 0;
+    padding: 0.5rem 0;
+  }
 `;
 
 const ArtistGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  
+  @media only screen and (min-width: 823px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+`;
+
+const ArtworkGrid = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  > * {
+    flex: 0 0 90%;
+  }
+`;
+
+const CommunityGrid = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  > * {
+    flex: 0 0 70%;
+  }
 `;
 
 const ArtistCard = styled(Link)`
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-decoration: none;
   color: inherit;
-  background: white;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
   transition: transform 0.2s;
+  flex: 0 0 33%;
 
   &:hover {
     transform: translateY(-2px);
   }
 
   .artist-preview {
-    aspect-ratio: 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
     overflow: hidden;
+    margin-bottom: 0.5rem;
 
     img {
       width: 100%;
@@ -105,15 +162,13 @@ const ArtistCard = styled(Link)`
   }
 
   .artist-info {
-    padding: 0.75rem;
-
     h2 {
-      font-size: 1rem;
+      font-size: 0.9rem;
       margin: 0 0 0.25rem 0;
     }
 
     p {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: #666;
       margin: 0;
       display: -webkit-box;
@@ -154,50 +209,57 @@ const HomePage = ({
     setUser(user);
   }, []);
 
-  // Group events by category
   return (
     <PageWrapper>
       <PageContainer>
-        <h2 className="section-title">COMMUNITIES</h2>
-        <ArtistGrid>
-          {communities?.map((community: Community) => (
-            <CommunityCard key={community.slug} community={community} />
-          ))}
-        </ArtistGrid>
+        <h2 className="section-title">JOIN A COMMUNITY</h2>
+        <ScrollSection>
+          <CommunityGrid>
+            {communities?.map((community: Community) => (
+              <CommunityCard key={community.slug} community={community} variant="compact" />
+            ))}
+          </CommunityGrid>
+        </ScrollSection>
 
-        <h2 className="section-title">FEATURED EVENTS</h2>
-        <EventList
-          category={category}
-          events={events}
-          variant="compact"
-          header={3}
-          loadMore={true}
-        />
+        <h2 className="section-title">FIND EVENTS</h2>
+        <ScrollSection>
+          <EventList
+            category={category}
+            events={events}
+            variant="compact"
+            header={3}
+            loadMore={true}
+          />
+        </ScrollSection>
 
-        <h2 className="section-title">FEATURED ARTWORK</h2>
-        <ArtistGrid>
-          {artworks?.slice(0, 3).map((artwork) => (
-            <ArtworkCard key={artwork.id} artwork={artwork} />
-          ))}
-        </ArtistGrid>
+        <h2 className="section-title">EXPLORE ARTWORK</h2>
+        <ScrollSection>
+          <ArtworkGrid>
+            {artworks?.slice(0, 6).map((artwork) => (
+              <ArtworkCard key={artwork.id} artwork={artwork} />
+            ))}
+          </ArtworkGrid>
+        </ScrollSection>
 
-        <h2 className="section-title">FEATURED ARTISTS</h2>
-        <ArtistGrid>
-          {artists?.slice(0, 3).map((artist) => (
-            <ArtistCard key={artist.id} href={`/artists/${artist.slug}`}>
-              <div className="artist-preview">
-                <img
-                  src={artist.profile_picture || "/default-avatar.png"}
-                  alt={artist.name}
-                />
-              </div>
-              <div className="artist-info">
-                <h2>{artist.name}</h2>
-                <p>{artist.bio}</p>
-              </div>
-            </ArtistCard>
-          ))}
-        </ArtistGrid>
+        <h2 className="section-title">CONNECT WITH ARTISTS</h2>
+        <ScrollSection>
+          <ArtistGrid>
+            {artists?.slice(0, 6).map((artist) => (
+              <ArtistCard key={artist.id} href={`/artists/${artist.slug}`}>
+                <div className="artist-preview">
+                  <img
+                    src={artist.profile_picture || "/default-avatar.png"}
+                    alt={artist.name}
+                  />
+                </div>
+                <div className="artist-info">
+                  <h2>{artist.name}</h2>
+                  <p>{artist.bio}</p>
+                </div>
+              </ArtistCard>
+            ))}
+          </ArtistGrid>
+        </ScrollSection>
       </PageContainer>
     </PageWrapper>
   );
@@ -212,6 +274,7 @@ export const getServerSideProps = async () => {
     const [events, communities, artworks, artists] = await Promise.all([
       getEvents({
         type: env.category,
+        featured: true,
         limit: 18,
         offset: 0,
       }),
