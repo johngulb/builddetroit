@@ -247,7 +247,6 @@ export const getServerSideProps = async () => {
           },
         },
         headerProps: {
-          hideNavigation: true,
           mainRoute: "/",
         },
       },

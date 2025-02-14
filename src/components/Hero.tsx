@@ -32,7 +32,7 @@ const HeroWrapper = styled.div`
 
 const HeroBackground = styled.div<{ image?: string }>`
   width: 100vw;
-  min-height: 400px;
+  min-height: 280px;
   background-image: ${(props) =>
     props.image ? `url(${props.image})` : "none"};
   background-size: cover;
@@ -83,7 +83,6 @@ const HeroContent = styled.div`
 
     p {
       font-size: 1.5rem;
-      margin-bottom: 2rem;
 
       @media (max-width: 768px) {
         font-size: 1.2rem;

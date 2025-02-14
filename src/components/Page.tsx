@@ -96,7 +96,7 @@ export const Page = ({ children, headerProps, meta }) => {
 const Container = styled.div``;
 
 const Spacer = styled.div`
-  height: 68px;
+  height: 78px;
 `;
 
 const Content = styled.div`
