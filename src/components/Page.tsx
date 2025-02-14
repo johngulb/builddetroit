@@ -61,7 +61,7 @@ export const Page = ({ children, headerProps, meta }) => {
             subtitle="Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community."
             image="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2025/02/10201802/penobscot-e1739236711632.jpg"
           />
-          <TabNavigation tab="artists" />
+          <TabNavigation tab={headerProps.mainRoute} />
         </>
       )}
       <Content>{children}</Content>

@@ -38,6 +38,9 @@ export const TabNavigation = ({ tab }: TabsProps) => {
     if (value === "artwork") {
       router.push("/artwork");
     }
+    if (value === "places") {
+      router.push("/places");
+    }
   };
 
   return (
@@ -47,6 +50,7 @@ export const TabNavigation = ({ tab }: TabsProps) => {
         <MuiTab label="Events" value="events" />
         <MuiTab label="Artwork" value="artwork" />
         <MuiTab label="Artists" value="artists" />
+        <MuiTab label="Places" value="places" />
       </MuiTabs>
     </TabsContainer>
   );

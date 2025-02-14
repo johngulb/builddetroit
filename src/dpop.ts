@@ -475,6 +475,18 @@ export const parseJwt = (token) => {
   return JSON.parse(jsonPayload);
 };
 
+/** Places */
+
+export const getPlaces = async () => {
+  const result = await authorizedRequest("venues");
+  return result.data;
+};
+
+export const getPlace = async (id: string) => {
+  const result = await authorizedRequest(`venue/${id}`);
+  return result.data;
+};
+
 /** Communities */
 
 export const getCommunity = async (id: string) => {
