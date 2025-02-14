@@ -118,6 +118,8 @@ export interface Venue {
     state?: string;
     zipcode?: string;
   };
+  event_count?: number;
+  event_ids?: number[];
 }
 
 export interface DPoPEventRsvp {

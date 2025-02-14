@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { getPlace } from "../../dpop";
+import { getPlace, getEvents, getVenue } from "../../dpop"; 
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { Venue } from "../../interfaces";
+import { Venue, DPoPEvent } from "../../interfaces";
 import Hero from "../../components/Hero";
+import { EventList } from "../../components/Events/EventList";
 
 const PageWrapper = styled.div`
   display: flex;
@@ -47,9 +48,10 @@ const VenueDetails = styled.div`
 
 interface PlacePageProps {
   venue: Venue;
+  events: DPoPEvent[];
 }
 
-const PlacePage = ({ venue }: PlacePageProps) => {
+const PlacePage = ({ venue, events }: PlacePageProps) => {
   const mapContainer = React.useRef(null);
   const map = React.useRef(null);
 
@@ -114,6 +116,12 @@ const PlacePage = ({ venue }: PlacePageProps) => {
             {/* <div className="description">{venue.description}</div> */}
           </VenueDetails>
           <MapContainer ref={mapContainer} />
+          {events.length > 0 && (
+            <>
+              <h2>Upcoming Events</h2>
+              <EventList events={events} variant="compact" loadMore={false} />
+            </>
+          )}
         </PageContainer>
       </PageWrapper>
     </>
@@ -122,10 +130,16 @@ const PlacePage = ({ venue }: PlacePageProps) => {
 
 export const getServerSideProps = async ({ params }) => {
   try {
-    const venue = await getPlace(params.place);
+    const venue = await getVenue(params.place);
+    const events = await getEvents({
+      venue: venue.id,
+      limit: 10
+    });
+
     return {
       props: {
         venue,
+        events,
         meta: {
           title: `${venue.title} | Detroit Places of Interest`,
           description:

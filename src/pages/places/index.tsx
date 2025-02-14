@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Venue } from "../../interfaces";
 import Place from "@mui/icons-material/Place";
 import Link from "next/link";
-import { getPlaces, getEvents } from "../../dpop";
+import { getPlaces, getEvents, getVenues } from "../../dpop";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Event } from "@mui/icons-material";
@@ -103,10 +103,7 @@ const VenueCard = styled(Link)`
 `;
 
 interface PlacesPageProps {
-  venues: (Venue & {
-    upcomingEventsCount: number;
-    visitorsCount: number;
-  })[];
+  venues: Venue[];
 }
 
 const PlacesPage = ({ venues }: PlacesPageProps) => {
@@ -143,6 +140,8 @@ const PlacesPage = ({ venues }: PlacesPageProps) => {
         venues?.forEach((venue) => {
           if (!venue.geo?.lat || !venue.geo?.lng) return;
 
+          console.log('venue:', venue);
+
           const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
             `<h3>${venue.title}</h3>
              <p>${venue.geo.address}</p>`
@@ -157,7 +156,7 @@ const PlacesPage = ({ venues }: PlacesPageProps) => {
     } catch (error) {
       console.error("Error initializing map:", error);
     }
-  }, [venues]);
+  }, [mapCenter.lat, mapCenter.lng, venues]);
 
   return (
     <PageWrapper>
@@ -181,12 +180,12 @@ const PlacesPage = ({ venues }: PlacesPageProps) => {
                   <div className="stats">
                     <div className="stat">
                       <Event />
-                      {venue.upcomingEventsCount} upcoming
+                      {venue.event_count} upcoming
                     </div>
-                    <div className="stat">
+                    {/* <div className="stat">
                       <Person />
                       {venue.visitorsCount} visitors
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </VenueCard>
@@ -200,26 +199,13 @@ const PlacesPage = ({ venues }: PlacesPageProps) => {
 
 export const getServerSideProps = async () => {
   try {
-    const venues = await getPlaces();
-    const events = await getEvents({ limit: 1000 }); // Get all upcoming events
-
-    // Add event and visitor counts to each venue
-    const venuesWithStats = venues.map(venue => {
-      const upcomingEventsCount = events.filter(event => event.venue?.id === venue.id).length;
-      // For this example, generating a random number of visitors
-      // In a real app, you would get this from your database
-      const visitorsCount = Math.floor(Math.random() * 1000);
-      
-      return {
-        ...venue,
-        upcomingEventsCount,
-        visitorsCount
-      };
+    const venues = await getVenues({
+        type: "upcoming-events"
     });
 
     return {
       props: {
-        venues: venuesWithStats,
+        venues,
         meta: {
           title: "Places | Detroit Places of Interest",
           description: "Discover interesting places and venues around Detroit",

@@ -201,13 +201,20 @@ export const getEvent = async (event: string) => {
 
 interface EventQueryParams {
   type?: string;
+  venue?: string;
   limit?: number;
   offset?: number;
 }
 
-export const getEvents = async ({ type, limit, offset }: EventQueryParams) => {
+export const getEvents = async ({
+  type,
+  venue,
+  limit,
+  offset,
+}: EventQueryParams) => {
   const params = new URLSearchParams();
   if (type) params.set("type", type);
+  if (venue) params.set("venue", venue);
   params.set("limit", limit?.toString() ?? "18");
   params.set("offset", offset?.toString() ?? "0");
   const result = await (
@@ -228,18 +235,22 @@ export const getArtist = async (artist: string) => {
 };
 
 export const createArtist = async (artist: Partial<Artist>) => {
-  const result = await (await fetch(`${hostname}/api/artist`, {
-    method: "POST",
-    body: JSON.stringify(artist),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })).json();
+  const result = await (
+    await fetch(`${hostname}/api/artist`, {
+      method: "POST",
+      body: JSON.stringify(artist),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  ).json();
   return result.data;
 };
 
 export const getArtistArtwork = async (artist: string) => {
-  const result = await (await fetch(`${hostname}/api/artist/${artist}/artwork`)).json();
+  const result = await (
+    await fetch(`${hostname}/api/artist/${artist}/artwork`)
+  ).json();
   return result.data;
 };
 
@@ -283,7 +294,10 @@ export const updateArtwork = async (artwork: Partial<Artwork>) => {
   return result;
 };
 
-export const addArtworkContent = async (artwork: string, content: Partial<Content>) => {
+export const addArtworkContent = async (
+  artwork: string,
+  content: Partial<Content>
+) => {
   const result = await (
     await fetch(`${hostname}/api/artwork/${artwork}/content`, {
       method: "POST",
@@ -475,14 +489,21 @@ export const parseJwt = (token) => {
   return JSON.parse(jsonPayload);
 };
 
-/** Places */
+/** Venues */
 
-export const getPlaces = async () => {
-  const result = await authorizedRequest("venues");
+export const getVenues = async ({ type, limit, offset }: { type?: string, limit?: number, offset?: number }) => {
+  const params = new URLSearchParams();
+  if (type) params.set("type", type);
+  params.set("limit", limit?.toString() ?? "100");
+  params.set("offset", offset?.toString() ?? "0");
+  const result = await (
+    await fetch(`${hostname}/api/venues?${params.toString()}`)
+  ).json();
+
   return result.data;
 };
 
-export const getPlace = async (id: string) => {
+export const getVenue = async (id: string) => {
   const result = await authorizedRequest(`venue/${id}`);
   return result.data;
 };
