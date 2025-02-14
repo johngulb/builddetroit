@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Page } from "../components/Page";
 import { getEvents } from "../dpop";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";

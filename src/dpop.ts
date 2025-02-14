@@ -1,109 +1,32 @@
+import {
+  Artwork,
+  Contact,
+  ContentSignature,
+  DPoPEventCheckIn,
+  User,
+  DPoPEvent,
+  Community,
+  Member,
+  Venue,
+  DPoPEventRsvp,
+  DPoPEventComment,
+} from "./interfaces";
 
-export interface Contact {
-  cid?: string;
-  name: string;
-  email: string;
-  phone: string;
-  public_name: string;
-  organization?: string;
-}
+export type {
+  Artwork,
+  Contact,
+  ContentSignature,
+  DPoPEventCheckIn,
+  User,
+  DPoPEvent,
+  Community,
+  Member,
+  Venue,
+  DPoPEventRsvp,
+  DPoPEventComment,
+};
 
-export interface DPoPEvent {
-  id: number;
-  cid: string;
-  title: string;
-  slug: string;
-  start_date: string;
-  end_date: string;
-  venue: Venue;
-  comments?: DPoPEventComment[];
-}
-
-export interface Member {
-  id: number;
-  user: User;
-  role: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface Community {
-  id: number;
-  name: string;
-  slug: string;
-  description: string;
-  image: string;
-  cover: string;
-  data: {
-    type: string;
-  };
-  members?: Member[];
-  is_member?: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface Venue {
-  id: number;
-  cid: string;
-  title: string;
-  slug: string;
-  geo: {
-    lat: number;
-    lng: number;
-    address?: string;
-    city?: string;
-    state?: string;
-    zipcode?: string;
-  };
-}
-
-export interface DPoPEventRsvp {
-  cid?: string;
-  event_cid: string;
-  user_cid: string;
-  user?: User;
-  number?: number;
-  confirmed?: boolean;
-}
-
-export interface DPoPEventCheckIn {
-  cid?: string;
-  event_cid: string;
-  user_cid: string;
-  user?: User;
-  rsvp?: DPoPEventRsvp;
-}
-
-export interface DPoPEventComment {
-  id: number;
-  text: string;
-  user: User;
-}
-
-export interface User {
-  cid: string;
-  created_at: string;
-  email: string;
-  email_verified_at: string | null;
-  id: number;
-  name: string;
-  phone: string | null;
-  public_address: string | null;
-  public_name: string | null; 
-  organization: string | null;
-  profile_picture: string | null;
-  communities?: Community[];
-  updated_at: string;
-}
-
-export interface ContentSignature {
-  content_id: string;
-  signature: string;
-  address: string;
-}
-
-const hostname = 'https://api.detroiter.network';
+const hostname = "https://api.detroiter.network";
 // const hostname = 'http://localhost:9090';
 
 export const isAuthorized = () => {
@@ -122,7 +45,7 @@ export const saveContact = (contact: Contact) => {
 };
 
 export const getUserCID = (): string | null => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === "undefined") return null;
   const user_cid = localStorage.getItem("DPoPUserCID");
   return user_cid ? user_cid : null;
 };
@@ -135,7 +58,7 @@ export const storeCID = (cid: string) => {
   const contact = getContact();
   if (contact) {
     contact.cid = cid;
-    console.log('STORE CID: ', contact);
+    console.log("STORE CID: ", contact);
     saveContact(contact);
     saveUserCID(cid);
   }
@@ -150,8 +73,11 @@ export const logout = () => {
 };
 
 export const storeCheckIn = (checkIn: DPoPEventCheckIn) => {
-  console.log("storeCheckIn: ", checkIn)
-  localStorage.setItem(`DPoPEvent-${checkIn.event_cid}-checkin`, JSON.stringify(checkIn));
+  console.log("storeCheckIn: ", checkIn);
+  localStorage.setItem(
+    `DPoPEvent-${checkIn.event_cid}-checkin`,
+    JSON.stringify(checkIn)
+  );
 };
 
 export const getCheckIn = (event_cid: string) => {
@@ -160,12 +86,12 @@ export const getCheckIn = (event_cid: string) => {
 };
 
 const getDPoPToken = () => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === "undefined") return null;
   return localStorage.getItem("DPoPToken");
 };
 
 const setDPoPToken = (token: string) => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
   localStorage.setItem("DPoPToken", token);
 };
 
@@ -175,13 +101,13 @@ export const getProfile = async (id: string) => {
 };
 
 export const getUser = (): User => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === "undefined") return null;
   const u = localStorage.getItem("DPoPUser");
   return JSON.parse(u);
 };
 
 const setUser = (user: User) => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
   localStorage.setItem("DPoPUser", JSON.stringify(user));
 };
 
@@ -213,7 +139,7 @@ export const login = async (email: string, password: string) => {
       headers: { "content-type": "application/json" },
     })
   ).json();
-  if (result.status === 'error') {
+  if (result.status === "error") {
     throw new Error(result.message);
   }
   if (result.authorization?.token) {
@@ -229,7 +155,7 @@ interface RegisterParams {
   name: string;
   email: string;
   phone: string | null;
-  public_name: string | null; 
+  public_name: string | null;
   organization: string | null;
   profile_picture: string | null;
   password: string;
@@ -254,7 +180,7 @@ export const register = async (params: RegisterParams) => {
       headers: { "content-type": "application/json" },
     })
   ).json();
-  if (result.status === 'error') {
+  if (result.status === "error") {
     throw new Error(result.message);
   }
   if (result.authorization?.token) {
@@ -267,9 +193,7 @@ export const register = async (params: RegisterParams) => {
 };
 
 export const getEvent = async (event: string) => {
-  const result = await (
-    await fetch(`${hostname}/api/event/${event}`)
-  ).json();
+  const result = await (await fetch(`${hostname}/api/event/${event}`)).json();
   return result.data;
 };
 
@@ -279,16 +203,18 @@ interface EventQueryParams {
   offset?: number;
 }
 
-export const getEvents = async ({type, limit, offset}: EventQueryParams) => {
+export const getEvents = async ({ type, limit, offset }: EventQueryParams) => {
   const params = new URLSearchParams();
-  if (type) params.set('type', type);
-  params.set('limit', limit?.toString() ?? '18');
-  params.set('offset', offset?.toString() ?? '0');
+  if (type) params.set("type", type);
+  params.set("limit", limit?.toString() ?? "18");
+  params.set("offset", offset?.toString() ?? "0");
   const result = await (
     await fetch(`${hostname}/api/events?${params.toString()}`)
   ).json();
   return result.data;
 };
+
+/** Artwork */
 
 export const getArtwork = async (artwork: string) => {
   const result = await (
@@ -297,10 +223,21 @@ export const getArtwork = async (artwork: string) => {
   return result;
 };
 
-export const getArtworks = async () => {
+export const createArtwork = async (artwork: Partial<Artwork>) => {
   const result = await (
-    await fetch(`${hostname}/api/artwork`)
+    await fetch(`${hostname}/api/artwork`, {
+      method: "POST",
+      body: JSON.stringify(artwork),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
   ).json();
+  return result;
+};
+
+export const getArtworks = async () => {
+  const result = await (await fetch(`${hostname}/api/artwork`)).json();
   return result.data;
 };
 
@@ -312,14 +249,15 @@ export const getContent = async (cid: string) => {
 };
 
 export const getUserEvents = async (user_cid?: string) => {
-  const result = await authorizedRequest(`user/events${user_cid ? `?user_cid=${user_cid}` : ''}`);
+  const result = await authorizedRequest(
+    `user/events${user_cid ? `?user_cid=${user_cid}` : ""}`
+  );
   return result?.data;
 };
 
 export const createContact = async (contact: Contact, user_cid?: string) => {
   const data = contact;
-  if (user_cid)
-    data['attestator'] = user_cid;
+  if (user_cid) data["attestator"] = user_cid;
   const result = await authorizedRequest(`user`, {
     method: "POST",
     headers: {
@@ -342,7 +280,7 @@ export const requestPhoneNumberVerification = async (phone: string) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      phone
+      phone,
     }),
   });
   return result;
@@ -356,15 +294,19 @@ export const verifyPhoneNumber = async (code: string, secret: string) => {
     },
     body: JSON.stringify({
       code,
-      secret
+      secret,
     }),
   });
   return result;
 };
 
-export const submitEventCheckIn = async (event: string, contact: Contact, user_cid: string) => {
+export const submitEventCheckIn = async (
+  event: string,
+  contact: Contact,
+  user_cid: string
+) => {
   const data = contact;
-  data['attestator'] = user_cid;
+  data["attestator"] = user_cid;
   const result = await authorizedRequest(`event/${event}/check-in`, {
     method: "POST",
     headers: {
@@ -372,12 +314,15 @@ export const submitEventCheckIn = async (event: string, contact: Contact, user_c
     },
     body: contact ? JSON.stringify(contact) : null,
   });
-  if (result?.data?.user_cid)
-    storeCheckIn(result.data);
+  if (result?.data?.user_cid) storeCheckIn(result.data);
   return result?.data;
 };
 
-export const submitEventConfirmationCheckIn = async (event: string, user_cid: string, attestator: string) => {
+export const submitEventConfirmationCheckIn = async (
+  event: string,
+  user_cid: string,
+  attestator: string
+) => {
   const data = { attestator, user_cid };
   const result = await authorizedRequest(`event/${event}/check-in`, {
     method: "POST",
@@ -386,13 +331,16 @@ export const submitEventConfirmationCheckIn = async (event: string, user_cid: st
     },
     body: JSON.stringify(data),
   });
-  if (result?.data?.user_cid)
-    storeCheckIn(result.data);
+  if (result?.data?.user_cid) storeCheckIn(result.data);
   return result?.data;
 };
 
-export const submitEventRsvp = async (event: string, contact?: Contact, referral?: string) => {
-  const data = contact ? contact as any : {};
+export const submitEventRsvp = async (
+  event: string,
+  contact?: Contact,
+  referral?: string
+) => {
+  const data = contact ? (contact as any) : {};
   data.referral = referral;
   const result = await authorizedRequest(`event/${event}/rsvp`, {
     method: "POST",
@@ -404,13 +352,17 @@ export const submitEventRsvp = async (event: string, contact?: Contact, referral
   if (result.data?.user?.cid) {
     storeCID(result.data?.user?.cid);
   }
-  if (result.status === 'error') {
+  if (result.status === "error") {
     throw new Error(result.message);
   }
   return result.data;
 };
 
-export const submitEventConfirmationRsvp = async (event: string, user_cid: string, referral: string) => {
+export const submitEventConfirmationRsvp = async (
+  event: string,
+  user_cid: string,
+  referral: string
+) => {
   const data = { referral, user_cid };
   const result = await authorizedRequest(`event/${event}/rsvp`, {
     method: "POST",
@@ -450,11 +402,13 @@ export const inRSVPs = (rsvps) => {
 export const myRSVP = (rsvps) => {
   const cid = getUserCID();
   const user = getUser();
-  const matches = rsvps.filter((rsvp) => rsvp.user?.cid == cid || rsvp.user?.id == user?.id);
-  return matches[0]; 
+  const matches = rsvps.filter(
+    (rsvp) => rsvp.user?.cid == cid || rsvp.user?.id == user?.id
+  );
+  return matches[0];
 };
 
-const parseJwt = (token) => {
+export const parseJwt = (token) => {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   const jsonPayload = decodeURIComponent(
@@ -505,8 +459,6 @@ export const getCommunityMembers = async (id: string) => {
   return result;
 };
 
-
-
 /** Search */
 
 export const searchEvents = async (query: string) => {
@@ -540,7 +492,7 @@ export const getEventCategories = async () => {
       id: 4,
       name: "Tech",
       slug: "tech",
-    },    
+    },
     {
       id: 5,
       name: "Fitness",
@@ -548,4 +500,3 @@ export const getEventCategories = async () => {
     },
   ];
 };
-

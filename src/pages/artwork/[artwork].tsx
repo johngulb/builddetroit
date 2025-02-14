@@ -15,17 +15,19 @@ const ArtworkPage = ({ artwork }) => {
           <div className="artwork-details">
             <h1 dangerouslySetInnerHTML={{ __html: artwork.title }} />
             <p className="artwork-description">{artwork.description}</p>
-            <div className="artist-info">
-              <img
-                src={artwork.artist.profile_picture}
-                alt={artwork.artist.name}
-                className="artist-picture"
+            {artwork.artist && (
+              <div className="artist-info">
+                <img
+                  src={artwork.artist.profile_picture}
+                  alt={artwork.artist.name}
+                  className="artist-picture"
               />
               <div className="artist-text">
                 <h2>{artwork.artist.name}</h2>
                 <p>{artwork.artist.bio}</p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </ArtworkHeader>

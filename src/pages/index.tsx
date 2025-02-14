@@ -5,19 +5,12 @@ import { ContactBoxModal } from "../components/ContactBox";
 import { AuthModal } from "../components/Auth/AuthModal";
 import { Form } from "../components/Form";
 
-import {
-  Contact,
-  createContact,
-  getUser,
-  User,
-  getCommunities,
-  getEvents,
-} from "../dpop";
+import { createContact, getUser, getCommunities, getEvents } from "../dpop";
+import { Community, Contact, User } from "../interfaces";
 import { getEnvironment } from "../utils/environment";
 import { NextSeoProps } from "next-seo";
 import Hero from "../components/Hero";
 import CommunityCard from "../components/CommunityCard";
-import { Community } from "../dpop";
 import { DPoPLabs } from "../components/DPoPLabs";
 
 const PageWrapper = styled.div`
