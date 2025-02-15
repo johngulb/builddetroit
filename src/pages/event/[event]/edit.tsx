@@ -207,9 +207,12 @@ const EditEventPage = ({ event }) => {
                 label="Start Date & Time"
                 value={startDate}
                 onChange={setStartDate}
-                renderInput={(params) => (
-                  <TextField {...params} fullWidth required />
-                )}
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    required: true
+                  }
+                }}
                 views={["year", "month", "day", "hours", "minutes"]}
               />
             </LocalizationProvider>
@@ -221,9 +224,12 @@ const EditEventPage = ({ event }) => {
                 label="End Date & Time"
                 value={endDate}
                 onChange={setEndDate}
-                renderInput={(params) => (
-                  <TextField {...params} fullWidth required />
-                )}
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    required: true
+                  }
+                }}
                 views={["year", "month", "day", "hours", "minutes"]}
                 minDateTime={startDate || undefined}
               />
