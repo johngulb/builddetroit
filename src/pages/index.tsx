@@ -29,50 +29,68 @@ const PageWrapper = styled.div`
 const PageContainer = styled.div`
   display: block;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: auto;
   padding: 0 1rem;
 
   .header {
-    padding: 1rem;
-    margin: 1rem 0;
+    padding: 0.75rem;
+    margin: 0.75rem 0;
   }
   .header-container {
-    margin-top: -0.5rem;
+    margin-top: -0.25rem;
   }
   img {
-    padding: 0.5rem;
+    padding: 0.25rem;
     margin: auto;
   }
   h1 {
-    margin-bottom: 0.75rem;
-    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
     @media only screen and (max-width: 822px) {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
     }
   }
   .section-title {
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
     font-weight: bold;
     text-align: left;
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     @media only screen and (max-width: 822px) {
-      font-size: 1.1rem;
-      padding: 0 1rem;
+      font-size: 1rem;
+      padding: 0 0.75rem;
     }
   }
   p {
-    font-size: 0.9rem;
-    margin: 0.75rem auto;
+    font-size: 0.85rem;
+    margin: 0.5rem auto;
     @media only screen and (max-width: 822px) {
-      margin: 0.5rem auto;
-      font-size: 0.8rem;
+      margin: 0.35rem auto;
+      font-size: 0.75rem;
     }
   }
   .build-btn {
-    max-width: 240px;
+    max-width: 200px;
     margin: auto;
+  }
+
+  .more-info {
+    h3 { margin-bottom: 0.25rem; font-size: 1.2rem; }
+    p { margin: 0.25rem auto; }
+    .time-range {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .venue {
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .date-info-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
   }
 
   @media only screen and (max-width: 822px) {
@@ -81,7 +99,7 @@ const PageContainer = styled.div`
 `;
 
 const ScrollSection = styled.div`
-  padding: 0.5rem 0;
+  padding: 0.35rem 0;
 
   @media only screen and (max-width: 822px) {
     width: 100vw;
@@ -90,8 +108,8 @@ const ScrollSection = styled.div`
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 0.5rem 1rem;
-    margin: 0 -1rem;
+    padding: 0.35rem 0.75rem;
+    margin: 0 -0.75rem;
     
     &::-webkit-scrollbar {
       display: none;
@@ -101,9 +119,9 @@ const ScrollSection = styled.div`
 
 const ArtistGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
   
   @media only screen and (max-width: 822px) {
     display: flex;
@@ -114,13 +132,13 @@ const ArtistGrid = styled.div`
 const ArtworkGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 
   @media only screen and (max-width: 822px) {
     display: flex;
     > * {
-      flex: 0 0 90%;
+      flex: 0 0 85%;
     }
   }
 `;
@@ -128,13 +146,13 @@ const ArtworkGrid = styled.div`
 const CommunityGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 
   @media only screen and (max-width: 822px) {
     display: flex;
     > * {
-      flex: 0 0 70%;
+      flex: 0 0 65%;
     }
   }
 `;
@@ -149,7 +167,7 @@ const ArtistCard = styled(Link)`
   transition: transform 0.2s;
 
   @media only screen and (max-width: 822px) {
-    flex: 0 0 33%;
+    flex: 0 0 30%;
   }
 
   &:hover {
@@ -157,11 +175,11 @@ const ArtistCard = styled(Link)`
   }
 
   .artist-preview {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
 
     img {
       width: 100%;
@@ -173,12 +191,12 @@ const ArtistCard = styled(Link)`
 
   .artist-info {
     h2 {
-      font-size: 0.9rem;
-      margin: 0 0 0.25rem 0;
+      font-size: 0.85rem;
+      margin: 0 0 0.15rem 0;
     }
 
     p {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #666;
       margin: 0;
       display: -webkit-box;
@@ -186,6 +204,23 @@ const ArtistCard = styled(Link)`
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+  }
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+`;
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+  gap: 1.5rem;
+
+  @media (max-width: 822px) {
+    display: flex;
+    flex-direction: column;
   }
 `;
 
@@ -222,54 +257,62 @@ const HomePage = ({
   return (
     <PageWrapper>
       <PageContainer>
-        <h2 className="section-title">JOIN A COMMUNITY</h2>
-        <ScrollSection>
-          <CommunityGrid>
-            {communities?.map((community: Community) => (
-              <CommunityCard key={community.slug} community={community} variant="compact" />
-            ))}
-          </CommunityGrid>
-        </ScrollSection>
+        <ContentWrapper>
+          <GridContainer>
+            <div>
+              <h2 className="section-title">JOIN A COMMUNITY</h2>
+              <ScrollSection>
+                <CommunityGrid>
+                  {communities?.map((community: Community) => (
+                    <CommunityCard key={community.slug} community={community} variant="compact" />
+                  ))}
+                </CommunityGrid>
+              </ScrollSection>
 
-        <h2 className="section-title">FIND EVENTS</h2>
-        <ScrollSection>
-          <EventList
-            category={category}
-            events={events}
-            variant="compact"
-            header={3}
-            loadMore={true}
-          />
-        </ScrollSection>
+              <h2 className="section-title">EXPLORE ARTWORK</h2>
+              <ScrollSection>
+                <ArtworkGrid>
+                  {artworks?.slice(0, 6).map((artwork) => (
+                    <ArtworkCard key={artwork.id} artwork={artwork} />
+                  ))}
+                </ArtworkGrid>
+              </ScrollSection>
 
-        <h2 className="section-title">EXPLORE ARTWORK</h2>
-        <ScrollSection>
-          <ArtworkGrid>
-            {artworks?.slice(0, 6).map((artwork) => (
-              <ArtworkCard key={artwork.id} artwork={artwork} />
-            ))}
-          </ArtworkGrid>
-        </ScrollSection>
+              <h2 className="section-title">CONNECT WITH ARTISTS</h2>
+              <ScrollSection>
+                <ArtistGrid>
+                  {artists?.slice(0, 6).map((artist) => (
+                    <ArtistCard key={artist.id} href={`/artists/${artist.slug}`}>
+                      <div className="artist-preview">
+                        <img
+                          src={artist.profile_picture || "/default-avatar.png"}
+                          alt={artist.name}
+                        />
+                      </div>
+                      <div className="artist-info">
+                        <h2>{artist.name}</h2>
+                        <p>{artist.bio}</p>
+                      </div>
+                    </ArtistCard>
+                  ))}
+                </ArtistGrid>
+              </ScrollSection>
+            </div>
 
-        <h2 className="section-title">CONNECT WITH ARTISTS</h2>
-        <ScrollSection>
-          <ArtistGrid>
-            {artists?.slice(0, 6).map((artist) => (
-              <ArtistCard key={artist.id} href={`/artists/${artist.slug}`}>
-                <div className="artist-preview">
-                  <img
-                    src={artist.profile_picture || "/default-avatar.png"}
-                    alt={artist.name}
-                  />
-                </div>
-                <div className="artist-info">
-                  <h2>{artist.name}</h2>
-                  <p>{artist.bio}</p>
-                </div>
-              </ArtistCard>
-            ))}
-          </ArtistGrid>
-        </ScrollSection>
+            <div>
+              <h2 className="section-title">FIND EVENTS</h2>
+              <ScrollSection>
+                <EventList
+                  category={category}
+                  events={events}
+                  variant="compact"
+                  header={3}
+                  loadMore={true}
+                />
+              </ScrollSection>
+            </div>
+          </GridContainer>
+        </ContentWrapper>
       </PageContainer>
     </PageWrapper>
   );

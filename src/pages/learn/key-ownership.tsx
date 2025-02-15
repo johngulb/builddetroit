@@ -29,7 +29,7 @@ const KeyOwnershipPage = () => {
               </Card>
               <Card>
                 <h3>Your Keys, Your Responsibility</h3>
-                <p>When you control your private keys, you have direct ownership without intermediaries - but you're also solely responsible for their security.</p>
+                <p>When you control your private keys, you have direct ownership without intermediaries - but you&apos;re also solely responsible for their security.</p>
               </Card>
               <Card>
                 <h3>Key Storage Risks</h3>
