@@ -277,6 +277,19 @@ export const createArtist = async (artist: Partial<Artist>) => {
   return result.data;
 };
 
+export const updateArtist = async (artist: Partial<Artist>) => {
+  const result = await (
+    await fetch(`${hostname}/api/artist/${artist.id}`, {
+      method: "PUT",
+      body: JSON.stringify(artist),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  ).json();
+  return result.data;
+};
+
 export const getArtistArtwork = async (artist: string) => {
   const result = await (
     await fetch(`${hostname}/api/artist/${artist}/artwork`)

@@ -25,7 +25,7 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
   } = useCommunity(community.slug);
 
   return (
-    <PageWrapper>
+    <>
       <NextSeo
         title={`${community.name} Community | Detroit Events`}
         description={community.description}
@@ -33,87 +33,87 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
           process.env.NEXT_PUBLIC_SITE_URL
         }/communities/${community.name.toLowerCase()}`}
       />
-      <PageContainer>
-        <div className="header-container">
-          <h1>{community.name}</h1>
-        </div>
-
-        {community.image && (
-          <img
-            src={community.image}
-            alt={`${community.name} community`}
-            className="community-image"
-          />
-        )}
-
-        <div className="description">{community.description}</div>
-
-        <div className="action-buttons">
-          {user ? (
-            <ButtonLink
-              onClick={toggleJoin}
-              className={isMember ? "hollow" : ""}
-            >
-              {isMember ? "Leave Community" : "Join Community"}
-            </ButtonLink>
-          ) : (
-            <Link href="/register">Create Account to Join</Link>
+      <PageWrapper>
+        <HeroSection>
+          {community.image && (
+            <HeroImage
+              src={community.image}
+              alt={`${community.name} community`}
+            />
           )}
-          <Share
-            url={`${process.env.NEXT_PUBLIC_SITE_URL}/communities/${community.slug}`}
-            title={`Join our community: ${community.name}`}
-          />
-        </div>
-
-        <TabContainer>
-          <TabButton
-            active={activeTab === "events"}
-            onClick={() => setActiveTab("events")}
-          >
-            Events
-          </TabButton>
-          <TabButton
-            active={activeTab === "members"}
-            onClick={() => setActiveTab("members")}
-          >
-            Members ({communityDetails?.members?.length})
-          </TabButton>
-        </TabContainer>
-
-        {activeTab === "events" && (
-          <EventList
-            events={events}
-            variant="compact"
-            loadMore={false}
-            header={3}
-          />
-        )}
-
-        {activeTab === "members" && user && (
-          <div className="members-container">
-            {communityDetails?.members &&
-            communityDetails.members.length > 0 ? (
-              <div className="members-grid">
-                {communityDetails.members.map((member) => (
-                  <MemberCard key={member.id} member={member} />
-                ))}
-              </div>
-            ) : (
-              <div>No members yet</div>
-            )}
-          </div>
-        )}
-
-        {activeTab === "members" && !user && (
-          <div className="members-container">
-            <div>
-              Please <Link href="/register">register</Link> or{" "}
-              <Link href="/login">login</Link> to see members
+          <HeroContent>
+            <h1>{community.name}</h1>
+            <div className="description">{community.description}</div>
+            <div className="action-buttons">
+              {user ? (
+                <ButtonLink
+                  onClick={toggleJoin}
+                  className={isMember ? "hollow" : ""}
+                >
+                  {isMember ? "Leave Community" : "Join Community"}
+                </ButtonLink>
+              ) : (
+                <Link href="/register">Create Account to Join</Link>
+              )}
+              <Share
+                url={`${process.env.NEXT_PUBLIC_SITE_URL}/communities/${community.slug}`}
+                title={`Join our community: ${community.name}`}
+              />
             </div>
-          </div>
-        )}
-      </PageContainer>
-    </PageWrapper>
+          </HeroContent>
+        </HeroSection>
+
+        <PageContainer>
+          <TabContainer>
+            <TabButton
+              active={activeTab === "events"}
+              onClick={() => setActiveTab("events")}
+            >
+              Events
+            </TabButton>
+            <TabButton
+              active={activeTab === "members"}
+              onClick={() => setActiveTab("members")}
+            >
+              Members ({communityDetails?.members?.length})
+            </TabButton>
+          </TabContainer>
+
+          {activeTab === "events" && (
+            <EventList
+              events={events}
+              variant="compact"
+              loadMore={false}
+              header={3}
+            />
+          )}
+
+          {activeTab === "members" && user && (
+            <div className="members-container">
+              {communityDetails?.members &&
+              communityDetails.members.length > 0 ? (
+                <div className="members-grid">
+                  {communityDetails.members.map((member) => (
+                    <MemberCard key={member.id} member={member} />
+                  ))}
+                </div>
+              ) : (
+                <div>No members yet</div>
+              )}
+            </div>
+          )}
+
+          {activeTab === "members" && !user && (
+            <div className="members-container">
+              <div>
+                Please <Link href="/register">register</Link> or{" "}
+                <Link href="/login">login</Link> to see members
+              </div>
+            </div>
+          )}
+        </PageContainer>
+      </PageWrapper>
+    </>
   );
 };
 
@@ -149,9 +149,69 @@ export const PageWrapper = styled.div`
   background-color: #fafafa;
   max-width: 900px;
   margin: auto;
-  img {
-    margin-top: 1rem;
-    max-width: 100%;
+`;
+const HeroSection = styled.div`
+  position: relative;
+  width: 100vw;
+  height: 400px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  background-color: #000;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+`;
+
+const HeroImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+`;
+
+const HeroContent = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  .description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
+    justify-content: flex-start;
   }
 `;
 
@@ -179,50 +239,6 @@ const TabButton = styled.button<{ active: boolean }>`
 
 const PageContainer = styled.div`
   padding: 1rem;
-
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .action-buttons {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 0;
-
-    @media (max-width: 768px) {
-      font-size: 2rem;
-    }
-  }
-
-  h2 {
-    font-size: 1.8rem;
-    font-weight: bold;
-  }
-
-  .description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #333;
-    margin-bottom: 2rem;
-  }
-
-  .community-image {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin: 1rem 0 2rem;
-  }
 
   .members-container {
     min-height: 200px;

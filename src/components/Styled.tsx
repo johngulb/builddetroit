@@ -47,19 +47,23 @@ export const Button = styled.button`
 `;
 
 export const ButtonLink = styled.a`
-  /* color: #d1e4dd; */
   color: white;
   background-color: #28303d;
-  border: solid 4px #28303d;
+  border: solid 2px #28303d;
+  border-radius: 20px;
   text-align: center;
-  padding: 0.5rem;
-  margin: 1rem auto;
+  padding: 0.4rem 0.8rem;
   display: block;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+
   &:hover {
     color: #28303d;
     background-color: transparent;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
+
   &.hollow {
     color: #28303d;
     background-color: transparent;
@@ -68,10 +72,11 @@ export const ButtonLink = styled.a`
       color: white;
     }
   }
+
   &.inverted {
     color: white;
     background-color: transparent;
-    border: solid 4px white;
+    border: solid 2px white;
     &:hover {
       background-color: #28303d;
       color: white;
@@ -80,9 +85,9 @@ export const ButtonLink = styled.a`
 `;
 
 export const ButtonLinkCompact = styled(ButtonLink)`
-  padding: 0rem 0.5rem;
+  padding: 0.2rem 0.6rem;
   display: inline-block;
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin-right: 0.5rem;
   margin-top: 0;
   margin-bottom: 0.5rem;
