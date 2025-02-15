@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Contact,
-  inRSVPs,
+  inRSVPs, 
   getEvent,
   submitEventRsvp,
   getUserCID,
