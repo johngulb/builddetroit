@@ -50,13 +50,14 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
 
         <div className="action-buttons">
           {user ? (
-            <ButtonLink onClick={toggleJoin} className={isMember ? "hollow" : ""}>
+            <ButtonLink
+              onClick={toggleJoin}
+              className={isMember ? "hollow" : ""}
+            >
               {isMember ? "Leave Community" : "Join Community"}
             </ButtonLink>
           ) : (
-            <Link href="/register" passHref>
-              <ButtonLink>Create Account to Join</ButtonLink>
-            </Link>
+            <Link href="/register">Create Account to Join</Link>
           )}
           <Share
             url={`${process.env.NEXT_PUBLIC_SITE_URL}/communities/${community.slug}`}
