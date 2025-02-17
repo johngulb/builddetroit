@@ -11,6 +11,7 @@ export const VenueMap: React.FC<VenueMapProps> = ({ venue }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [dimensions, setDimensions] = useState({ width: 400, height: 200 });
+  const [zoomEnabled, setZoomEnabled] = useState(false);
 
   useEffect(() => {
     if (!venue.geo?.lat || !venue.geo?.lng) return;
@@ -22,7 +23,10 @@ export const VenueMap: React.FC<VenueMapProps> = ({ venue }) => {
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [venue.geo.lng, venue.geo.lat],
-        zoom: 15
+        zoom: 15,
+        scrollZoom: zoomEnabled, // Enable/disable scroll zoom based on state
+        dragRotate: false, // Disable rotation
+        touchZoomRotate: zoomEnabled // Enable/disable touch zoom based on state
       });
 
       // Add marker
@@ -47,7 +51,13 @@ export const VenueMap: React.FC<VenueMapProps> = ({ venue }) => {
       map.current?.remove();
       window.removeEventListener('resize', updateDimensions);
     };
-  }, [venue.geo?.lat, venue.geo?.lng]);
+  }, [venue.geo?.lat, venue.geo?.lng, zoomEnabled]);
+
+  const handleMapClick = () => {
+    setZoomEnabled(true);
+    map.current?.scrollZoom.enable();
+    map.current?.touchZoomRotate.enable();
+  };
 
   if (!venue.geo?.lat || !venue.geo?.lng) {
     return null;
@@ -56,11 +66,13 @@ export const VenueMap: React.FC<VenueMapProps> = ({ venue }) => {
   return (
     <div 
       ref={mapContainer} 
+      onClick={handleMapClick}
       style={{ 
         width: '100%', 
         height: dimensions.height,
         borderRadius: '8px',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        cursor: zoomEnabled ? 'grab' : 'pointer'
       }}
     />
   );

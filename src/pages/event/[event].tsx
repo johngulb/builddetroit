@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Contact,
-  inRSVPs, 
+  inRSVPs,
   getEvent,
   submitEventRsvp,
   getUserCID,
@@ -38,6 +38,9 @@ const EventPage = ({ event, events, referral }) => {
   const [showFixedRsvp, setShowFixedRsvp] = React.useState<boolean>(false);
   const isAuthorized = useIsAuthorized();
   const [isHost, setIsHost] = React.useState(false);
+  const [isLive, setIsLive] = React.useState(false);
+  const [checkIn, setCheckIn] = React.useState(false);
+  const [rewardEarned, setRewardEarned] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -49,6 +52,12 @@ const EventPage = ({ event, events, referral }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  React.useEffect(() => {
+    const isLive = event.start_time > new Date() && event.end_time < new Date();
+    // setIsLive(isLive);
+    setIsLive(true);
+  }, [event.start_time, event.end_time]);
 
   React.useEffect(() => {
     const cid = getUserCID();
@@ -129,6 +138,14 @@ const EventPage = ({ event, events, referral }) => {
     setShowAuth(false);
   }, [submitRsvp]);
 
+  const handleCheckIn = React.useCallback(() => {
+    setCheckIn(true);
+  }, []);
+
+  const handleClaimReward = React.useCallback(() => {
+    setRewardEarned(true);
+  }, []);
+
   const publicRSVPs = rsvps.filter((rsvp) => {
     return rsvp.user?.name?.length > 0;
   });
@@ -192,15 +209,39 @@ const EventPage = ({ event, events, referral }) => {
       </PageContainer>
       <PageContainer>
         <ActionButtonsContainer>
-          <ActionButton
-            className={`rsvp-button ${rsvp ? "hollow" : ""}`}
-            onClick={handleRsvp}
-          >
-            {rsvp ? "REGISTERED" : "RSVP"}
-          </ActionButton>
+          {isLive ? (
+            <>
+              <ActionButton
+                className={`rsvp-button ${checkIn ? "hollow" : ""}`}
+                onClick={handleCheckIn}
+              >
+                {checkIn ? "CHECKED IN" : "CHECK IN"}
+              </ActionButton>
+            </>
+          ) : (
+            <ActionButton className="rsvp-button hollow" onClick={handleRsvp}>
+              {rsvp ? "REGISTERED" : "RSVP"}
+            </ActionButton>
+          )}
           <EventShare event={event} />
           <EventAddToCalendar event={event} />
         </ActionButtonsContainer>
+        {checkIn ||
+          (true && (
+            <ActionButtonsContainer>
+              <ActionButton
+                className="rsvp-button hollow"
+                onClick={handleClaimReward}
+              >
+                <i
+                  className="fas fa-check-circle"
+                  style={{ marginRight: "8px" }}
+                ></i>
+                {rewardEarned ? "REWARD CLAIMED (1 EXP)" : "CLAIM REWARD"}
+              </ActionButton>
+            </ActionButtonsContainer>
+          ))}
+
         {isHost && event.host && (
           <ActionButtonsContainer>
             <ActionButton
