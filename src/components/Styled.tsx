@@ -60,7 +60,7 @@ export const ButtonLink = styled.a`
 
   &:hover {
     color: #28303d;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.1);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
 

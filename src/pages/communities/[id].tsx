@@ -53,7 +53,7 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
                   {isMember ? "Leave Community" : "Join Community"}
                 </ButtonLink>
               ) : (
-                <Link href="/register">Create Account to Join</Link>
+                <ButtonLink href="/register">Create Account to Join</ButtonLink>
               )}
               <Share
                 url={`${process.env.NEXT_PUBLIC_SITE_URL}/communities/${community.slug}`}

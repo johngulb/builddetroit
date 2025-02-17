@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { TextField, Button as MuiButton, Typography } from "@mui/material";
-import { createArtwork } from "../../dpop";
+import { TextField, Button as MuiButton, Typography, Autocomplete } from "@mui/material";
+import { createArtwork, getArtists } from "../../dpop";
 
 const CreateArtworkPage = () => {
   const router = useRouter();
@@ -10,6 +10,20 @@ const CreateArtworkPage = () => {
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [artists, setArtists] = useState([]);
+  const [selectedArtist, setSelectedArtist] = useState(null);
+
+  useEffect(() => {
+    const loadArtists = async () => {
+      try {
+        const artistsData = await getArtists();
+        setArtists(artistsData);
+      } catch (error) {
+        console.error("Error loading artists:", error);
+      }
+    };
+    loadArtists();
+  }, []);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -47,10 +61,16 @@ const CreateArtworkPage = () => {
       return;
     }
 
+    if (!selectedArtist) {
+      alert("Please select an artist");
+      return;
+    }
+
     try {
       const artwork = await createArtwork({
         title,
         description,
+        artist_id: selectedArtist.id,
         data: {
           image: imageUrl,
         },
@@ -96,6 +116,24 @@ const CreateArtworkPage = () => {
         </FormGroup>
 
         <FormGroup>
+          <Autocomplete
+            options={artists}
+            getOptionLabel={(artist) => artist.name}
+            value={selectedArtist}
+            onChange={(_, newValue) => setSelectedArtist(newValue)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Artist"
+                variant="outlined"
+                required
+                fullWidth
+              />
+            )}
+          />
+        </FormGroup>
+
+        <FormGroup>
           <Typography variant="subtitle2" gutterBottom>Upload Image</Typography>
           <ImageUploadContainer>
             <input
@@ -118,7 +156,7 @@ const CreateArtworkPage = () => {
         <MuiButton 
           variant="contained" 
           type="submit" 
-          disabled={!imageUrl || uploading}
+          disabled={!imageUrl || uploading || !selectedArtist}
           fullWidth
         >
           Create Artwork

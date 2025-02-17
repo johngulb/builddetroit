@@ -23,7 +23,9 @@ export const AddToCalendarButton = ({
           <i className="fas fa-calendar-plus" style={{marginBottom: '4px'}}></i>
         </StyledButton>
         {isTooltipVisible && (
-          <AddToCalendarButtonTooltip calendarEvent={calendarEvent} />
+          <div className="tooltip-container">
+            <AddToCalendarButtonTooltip calendarEvent={calendarEvent} />
+          </div>
         )}
       </div>
     </AddToCalendarButtonWrapper>
@@ -42,6 +44,19 @@ const AddToCalendarButtonWrapper = styled.div`
   .add-to-calendar-wrapper {
     position: relative;
     display: inline-block;
+  }
+
+  .tooltip-container {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    .add-to-calendar-button-tooltip {
+      background-color: #ddd;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      top: 12px;
+      left: -156px;
+    }
   }
 
   .event-card {

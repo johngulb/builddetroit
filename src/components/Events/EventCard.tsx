@@ -26,19 +26,20 @@ const CardWrapper = styled(Link)`
   text-decoration: none;
   color: inherit;
   background: white;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: all 0.15s ease;
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12);
   }
 
   .event-preview {
     aspect-ratio: 16/9;
     overflow: hidden;
-
+    
     img {
       width: 100%;
       height: 100%;
@@ -48,21 +49,22 @@ const CardWrapper = styled(Link)`
   }
 
   .event-info {
-    padding: 1rem;
+    padding: 0.75rem;
 
     h2 {
-      font-size: 1.2rem;
-      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+      margin: 0 0 0.35rem 0;
+      font-weight: 500;
     }
 
     .date {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: #666;
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.35rem 0;
     }
 
     .description {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: #444;
       margin: 0;
       display: -webkit-box;
@@ -72,4 +74,3 @@ const CardWrapper = styled(Link)`
     }
   }
 `;
-

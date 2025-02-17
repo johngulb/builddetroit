@@ -1,6 +1,10 @@
 import React from "react";
 import { CalendarEvent } from "../index";
 import styled from '@emotion/styled'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AppleIcon from '@mui/icons-material/Apple';
+import MailIcon from '@mui/icons-material/Mail';
+import WindowIcon from '@mui/icons-material/Window';
 
 interface AddToCalendarButtonTooltipProps {
   calendarEvent: CalendarEvent;
@@ -18,7 +22,7 @@ export default function AddToCalendarButtonTooltip({
         rel="noopener noreferrer"
         className="calendar-provider-link"
       >
-        <span className="icon__placeholder" /> Google Calendar
+        <CalendarMonthIcon /> Google Calendar
       </a>
       <a
         href={generateIcsCalendarFile(calendarEvent)}
@@ -26,7 +30,7 @@ export default function AddToCalendarButtonTooltip({
         rel="noopener noreferrer"
         className="calendar-provider-link"
       >
-        <span className="icon__placeholder" /> Apple Calendar
+        <AppleIcon /> Apple Calendar
       </a>
 
       <a
@@ -35,7 +39,7 @@ export default function AddToCalendarButtonTooltip({
         rel="noopener noreferrer"
         className="calendar-provider-link"
       >
-        <span className="icon__placeholder" /> Yahoo Calendar
+        <MailIcon /> Yahoo Calendar
       </a>
 
       <a
@@ -44,7 +48,7 @@ export default function AddToCalendarButtonTooltip({
         rel="noopener noreferrer"
         className="calendar-provider-link"
       >
-        <span className="icon__placeholder" /> Outlook Calendar
+        <WindowIcon /> Outlook Calendar
       </a>
     </AddToCalendarWrapper>
   );
@@ -195,13 +199,10 @@ const AddToCalendarWrapper = styled.div`
       cursor: pointer;
       color: #111;
     }
-  }
 
-  .icon__placeholder {
-    display: block;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: rebeccapurple;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 `;

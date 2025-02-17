@@ -3,75 +3,63 @@ import moment from "moment";
 import styled from "@emotion/styled";
 import Place from "@mui/icons-material/Place";
 
-const VenueName = ({ venue }) => {
-  return (
-    <div className="venue">
-      <Place />
-      {venue.title}
-    </div>
-  );
-};
+const VenueName = ({ venue }) => (
+  <div className="venue">
+    <Place />
+    {venue.title}
+  </div>
+);
 
 export const EventInfo = ({
   event,
   linkLocation = false,
   variant = "default",
   header = 2,
-}) => {
-  return (
-    <EventInfoContainer className={`event-info ${variant}`}>
-      <div className="date-info">
-        <div className="date-info-wrapper">
-          <div className="weekday">
-            {moment(event.start_date).format("ddd")}
-          </div>
-          <div className="month">{moment(event.start_date).format("MMM")}</div>
-          <div className="day">{moment(event.start_date).format("D")}</div>
-        </div>
+}) => (
+  <EventInfoContainer className={`event-info ${variant}`}>
+    <div className="date-info">
+      <div className="date-info-wrapper">
+        <div className="weekday">{moment(event.start_date).format("ddd")}</div>
+        <div className="month">{moment(event.start_date).format("MMM")}</div>
+        <div className="day">{moment(event.start_date).format("D")}</div>
       </div>
-      <div className="more-info">
-        {header === 1 && <h1 dangerouslySetInnerHTML={{ __html: event.title }} />}
-        {header === 2 && <h2 dangerouslySetInnerHTML={{ __html: event.title }} />}
-        {header === 3 && <h3 dangerouslySetInnerHTML={{ __html: event.title }} />}
-        <div className="time-range">
-          {`${moment(event.start_date).format("h:mm a")} - ${moment(
-            event.end_date
-          ).format("h:mm a")}`}
-        </div>
-        {event.venue && (
-          <>
-            {linkLocation ? (
-              <a href="#location">
-                <VenueName venue={event.venue} />
-              </a>
-            ) : (
-              <VenueName venue={event.venue} />
-            )}
-          </>
-        )}
+    </div>
+    <div className="more-info">
+      {header === 1 && <h1 dangerouslySetInnerHTML={{ __html: event.title }} />}
+      {header === 2 && <h2 dangerouslySetInnerHTML={{ __html: event.title }} />}
+      {header === 3 && <h3 dangerouslySetInnerHTML={{ __html: event.title }} />}
+      <div className="time-range">
+        {`${moment(event.start_date).format("h:mm a")} - ${moment(event.end_date).format("h:mm a")}`}
       </div>
-    </EventInfoContainer>
-  );
-};
+      {event.venue && (
+        linkLocation ? (
+          <a href="#location"><VenueName venue={event.venue} /></a>
+        ) : (
+          <VenueName venue={event.venue} />
+        )
+      )}
+    </div>
+  </EventInfoContainer>
+);
 
 const EventInfoContainer = styled.div`
   display: flex;
   font-size: 24px;
-  &.compact {
-    font-size: 18px;
-  }
-  &.nano {
-    font-size: 12px;
-  }
+  
+  &.compact { font-size: 18px; }
+  &.nano { font-size: 12px; }
+
   h1, h2, h3 {
     font-size: 1.7em;
     font-weight: bold;
     margin-bottom: 0.25rem;
   }
+
   .time-range {
     font-size: 1.2em;
     font-weight: bold;
   }
+
   .venue {
     align-items: center;
     display: flex;
@@ -80,6 +68,7 @@ const EventInfoContainer = styled.div`
       color: #666;
     }
   }
+
   .date-info {
     text-align: center;
     width: 100px;
@@ -87,16 +76,16 @@ const EventInfoContainer = styled.div`
     text-transform: uppercase;
     margin-right: 1em;
     flex: 0;
+
     .date-info-wrapper {
       border: solid 2px #ddd;
       border-radius: 4px;
       padding: 0.5em;
       min-width: 4.5em;
     }
-    .weekday {
-      font-size: 0.8em;
-    }
-    .month {
+
+    .weekday { font-size: 0.8em; }
+    .month { 
       font-size: 1em;
       font-weight: bold;
     }
@@ -107,13 +96,12 @@ const EventInfoContainer = styled.div`
       display: inline-block;
     }
   }
+
   @media only screen and (max-width: 822px) {
     font-size: 14px;
     &.compact {
       font-size: 12px;
-      .date-info-wrapper {
-        min-width: 3em;
-      }
+      .date-info-wrapper { min-width: 3em; }
     }
   }
 `;
