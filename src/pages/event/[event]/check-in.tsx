@@ -95,7 +95,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
         );
       }, 100);
     }
-  }, [handleCheckIn, handleConfirmationCheckIn, checkIn, event.slug, attestator_cid]);
+  }, [handleCheckIn, checkIn, event.slug, attestator_cid]);
 
   return (
     <PageWrapper>
