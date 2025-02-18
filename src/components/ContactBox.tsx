@@ -29,6 +29,17 @@ const style = {
   // p: 4,
 };
 
+interface ContactBoxModalProps {
+  show: boolean;
+  setShow: (show: boolean) => void;
+  onSubmit: (contact: Contact) => void;
+  onConfirmation?: (user_cid: string) => void;
+  bodyContent?: React.ReactNode;
+  buttonText?: string;
+  titleText?: React.ReactNode | string;
+  footerContent?: React.ReactNode;
+}
+
 export const ContactBoxModal = ({
   show,
   setShow,
@@ -37,7 +48,8 @@ export const ContactBoxModal = ({
   titleText,
   bodyContent,
   buttonText,
-}) => {
+  footerContent,
+}: ContactBoxModalProps) => {
   return (
     <LazyLoad>
       <ContactModalWrapper>
@@ -49,6 +61,7 @@ export const ContactBoxModal = ({
               buttonText={buttonText}
               onConfirmation={onConfirmation}
               onSubmit={onSubmit}
+              footerContent={footerContent}
             />
           </Box>
         </Modal>
@@ -77,6 +90,7 @@ export const ContactBox = ({
   bodyContent,
   buttonText = "Submit",
   titleText,
+  footerContent,
 }: ContactBoxProps) => {
   const [name, setName] = React.useState<string>();
   const [email, setEmail] = React.useState<string>();
@@ -242,6 +256,7 @@ export const ContactBox = ({
       >
         {buttonText}
       </Button>
+      {footerContent && <div className="footer-content">{footerContent}</div>}
     </ContactBoxWrapper>
   );
 };

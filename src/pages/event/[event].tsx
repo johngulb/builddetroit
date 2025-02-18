@@ -195,10 +195,7 @@ const EventPage = ({ event, events, referral }) => {
         onConfirmation={handleConfirmationRsvp}
         bodyContent={
           <>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <EventInfo event={event} variant="compact" header={2} />
-              <EventBookmark eventId={event.id} />
-            </div>
+            <EventInfo event={event} variant="compact" header={2} />
 
             <div style={{ fontSize: 14, marginBottom: 8, marginTop: 16 }}>
               <a
@@ -216,11 +213,18 @@ const EventPage = ({ event, events, referral }) => {
         }
         titleText={
           <>
-            <div style={{ marginBottom: 8, textTransform: "uppercase" }}>
+            <div style={{ marginBottom: 8, textTransform: "uppercase", fontSize: 18 }}>
               Submit your RSVP
             </div>
           </>
         }
+        // footerContent={
+        //   <>
+        //     <div style={{ fontSize: 12, marginTop: 8 }}>
+        //       By submitting your number, you provide express written consent to contact you via SMS. Message frequency varies. Message and data rates may apply. Text STOP to opt out.
+        //     </div>
+        //   </>
+        // }
         buttonText="RSVP"
       />
       <PageContainer>
