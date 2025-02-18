@@ -7,8 +7,8 @@ interface UserCardProps {
 }
 
 export const UserCard: React.FC<UserCardProps> = ({ user, variant = 'horizontal' }) => {
-  const imageSize = variant === 'vertical' ? 64 : 24;
-  const fontSize = variant === 'vertical' ? 24 : 12;
+  const imageSize = variant === 'vertical' ? 96 : 24;
+  const fontSize = variant === 'vertical' ? 32 : 12;
 
   return (
     <div style={{ 

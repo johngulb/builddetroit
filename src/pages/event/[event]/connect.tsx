@@ -16,14 +16,15 @@ import { CheckInQRCode } from "../../../components/CheckInQRCode";
 
 const ConnectContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   margin: 4rem 0;
+  gap: 1rem;
 `;
 
 const OuterCircle = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 96px;
+  height: 96px;
   border: 2px solid #ccc;
   border-radius: 50%;
   display: flex;
@@ -32,8 +33,8 @@ const OuterCircle = styled.div`
 `;
 
 const MiddleCircle = styled.div`
-  width: 150px;
-  height: 150px;
+  width: 72px;
+  height: 72px;
   border: 2px solid #ccc;
   border-radius: 50%;
   display: flex;
@@ -42,8 +43,8 @@ const MiddleCircle = styled.div`
 `;
 
 const InnerCircle = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 48px;
+  height: 48px;
   background-color: #ccc;
   border-radius: 50%;
   display: flex;
@@ -141,11 +142,10 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
         <ConnectContainer>
           <OuterCircle>
             <MiddleCircle>
-              <InnerCircle>
-                <ConnectText>Creating connection...</ConnectText>
-              </InnerCircle>
+              <InnerCircle />
             </MiddleCircle>
           </OuterCircle>
+          <ConnectText>Creating connection...</ConnectText>
         </ConnectContainer>
       )}
 
