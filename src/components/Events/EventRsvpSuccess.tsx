@@ -46,7 +46,7 @@ export const EventRsvpSuccess = ({ event, show, setShow, rsvp }) => {
                 <EventInviteButton event={event} rsvp={rsvp} />
                 <EventAddToCalendar event={event} />
               </div>
-              {!false && (
+              {!user && (
                 <ButtonLink
                   className="complete-profile hollow"
                   onClick={() => setShowRegister(true)}
