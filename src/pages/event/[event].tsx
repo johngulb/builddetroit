@@ -33,6 +33,7 @@ import { UserCard } from "../../components/UserCard";
 import { EventLocation } from "../../components/Events/EventLocation";
 import { EventBookmark } from "../../components/Events/EventBookmark";
 import { CheckInQRCode } from "../../components/CheckInQRCode";
+import moment from "moment";
 
 const EventPage = ({ event, events, referral }) => {
   const user = getUser();
@@ -75,11 +76,12 @@ const EventPage = ({ event, events, referral }) => {
 
   React.useEffect(() => {
     const isLive =
-      event.start_time > new Date() &&
-      event.end_time < new Date(new Date().getTime() + 1000 * 60 * 60 * 3);
+      moment().isAfter(moment(event.start_date)) &&
+      moment().isBefore(moment(event.end_date).add(3, 'hours'));
+    console.log('isLive: ', isLive, moment(event.start_date).format('YYYY-MM-DD HH:mm'), moment(event.end_date).format('YYYY-MM-DD HH:mm'), moment().add(3, 'hours').format('YYYY-MM-DD HH:mm'));
     // setIsLive(true);
     setIsLive(isLive);
-  }, [event.start_time, event.end_time]);
+  }, [event.start_date, event.end_date]);
 
   React.useEffect(() => {
     const cid = getUserCID();
