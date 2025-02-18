@@ -31,11 +31,13 @@ const AuthButtonContainer = styled.div`
   display: flex;
   align-items: center;
   img {
-    width: 48px;
-    height: 48px;
     border-radius: 50%;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     border: 1px solid #666;
+  }
+  img, a {
+    width: 46px;
+    height: 46px;
   }
 `;
 
