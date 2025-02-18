@@ -7,11 +7,12 @@ import { ButtonLink } from "./ButtonLink";
 interface RaffleNumberProps {
   checkIn: DPoPEventCheckIn;
   event: DPoPEvent;
+  type?: "check-in" | "connect";
 }
 
 export const CheckInQRCode: React.FC<
   React.PropsWithChildren<RaffleNumberProps>
-> = ({ checkIn, event }) => {
+> = ({ checkIn, event, type = "check-in" }) => {
   return (
     <CheckInQRCodeWrapper>
       <p style={{ fontSize: 14 }}>
@@ -19,7 +20,7 @@ export const CheckInQRCode: React.FC<
       </p>
       <div style={{ marginTop: 16 }}>
         <QRCode
-          value={`${process.env.NEXT_PUBLIC_SITE_URL}/event/${event.slug}/check-in?attestator=${checkIn.user_cid}`}
+          value={`${process.env.NEXT_PUBLIC_SITE_URL}/event/${event.slug}/${type}?attestator=${checkIn.user_cid}`}
         />
       </div>
     </CheckInQRCodeWrapper>

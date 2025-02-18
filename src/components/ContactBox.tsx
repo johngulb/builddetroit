@@ -10,7 +10,7 @@ import { MuiTelInput } from "mui-tel-input";
 
 import { VerifyPhoneNumber } from "./VerifyPhoneNumber";
 
-import { getContact, saveContact } from "../dpop";
+import { Contact, getContact, saveContact } from "../dpop";
 
 const style = {
   position: "absolute" as "absolute",
@@ -60,13 +60,21 @@ const ContactModalWrapper = styled.div`
   }
 `;
 
+interface ContactBoxProps {
+  onConfirmation?: (user_cid: string) => void;
+  onSubmit: (contact: Contact) => void;
+  bodyContent?: string;
+  buttonText?: string;
+  titleText?: string;
+}
+
 export const ContactBox = ({
   onConfirmation,
   onSubmit,
   bodyContent,
   buttonText = "Submit",
   titleText,
-}) => {
+}: ContactBoxProps) => {
   const [name, setName] = React.useState<string>();
   const [email, setEmail] = React.useState<string>();
   const [publicName, setPublicName] = React.useState<string>();

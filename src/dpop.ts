@@ -499,8 +499,16 @@ export const submitSignedEventRsvp = async (
   return result.data;
 };
 
-export const getConnections = async (event: string) => {
+export const getEventConnections = async (event: string) => {
   const result = await authorizedRequest(`event/${event}/connections`);
+  return result.data;
+};
+
+export const createEventConnection = async (event: string, connection_user_cid: string) => {
+  const result = await authorizedRequest(`event/${event}/connection`, {
+    method: "POST",
+    body: JSON.stringify({ connection_user_cid }),
+  });
   return result.data;
 };
 

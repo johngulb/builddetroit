@@ -12,6 +12,7 @@ import {
   getUser,
   getCheckIn,
   DPoPEventCheckIn,
+  getEventConnections,
 } from "../../dpop";
 import styled from "@emotion/styled";
 import { ButtonLink, ButtonLinkCompact } from "../../components/Styled";
@@ -49,6 +50,14 @@ const EventPage = ({ event, events, referral }) => {
   const [connections, setConnections] = React.useState([]);
 
   React.useEffect(() => {
+    if (checkIn) {
+      getEventConnections(event.slug).then((connections) => {
+        setConnections(connections);
+      });
+    }
+  }, [event.slug, checkIn]);
+
+  React.useEffect(() => {
     const checkIn = getCheckIn(event.cid);
     setCheckIn(checkIn);
   }, [event.cid]);
@@ -68,6 +77,7 @@ const EventPage = ({ event, events, referral }) => {
     const isLive =
       event.start_time > new Date() &&
       event.end_time < new Date(new Date().getTime() + 1000 * 60 * 60 * 3);
+    // setIsLive(true);
     setIsLive(isLive);
   }, [event.start_time, event.end_time]);
 
@@ -274,7 +284,7 @@ const EventPage = ({ event, events, referral }) => {
             <h3 className="section-title" style={{ textAlign: "center" }}>
               Connect to Earn Rewards
             </h3>
-            <CheckInQRCode event={event} checkIn={checkIn} />
+            <CheckInQRCode event={event} checkIn={checkIn} type="connect" />
           </>
         )}
 
@@ -284,7 +294,7 @@ const EventPage = ({ event, events, referral }) => {
             <ul className="rsvp-container">
               {connections.map((connection) => (
                 <li key={connection.id}>
-                  <UserCard user={connection} />
+                  <UserCard user={connection.connection} />
                 </li>
               ))}
             </ul>

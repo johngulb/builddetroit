@@ -20,13 +20,10 @@ import { stripHtml } from "string-strip-html";
 import { ChatRoom } from "../../../components/Chat/ChatRoom";
 import { ButtonLink } from "../../../components/ButtonLink";
 import { EventList } from "../../../components/Events/EventList";
-import { Social } from "../../../components/Social";
 import { CheckInQRCode } from "../../../components/CheckInQRCode";
-import { RaffleNumber } from "../../../components/Raffle";
 import {
   CenteredContainer,
   SectionSubtitle,
-  SectionTitle,
 } from "../../../components/Styled";
 import Pusher from "pusher-js";
 
@@ -50,6 +47,7 @@ const PageContainer = styled.div`
 const EventPage = ({ attestator_cid, event, events }) => {
   const [checkIn, setCheckIn] = React.useState<DPoPEventCheckIn>(null);
   const [checkIns, setCheckIns] = React.useState<DPoPEventCheckIn[]>([]);
+  const [isLoadingCheckIn, setIsLoadingCheckIn] = React.useState(true);
 
   const openGraph =
     event.image || event.venue?.image
@@ -64,8 +62,9 @@ const EventPage = ({ attestator_cid, event, events }) => {
       : {};
 
   React.useEffect(() => {
-    const checkIn = getCheckIn(event.cid);
-    setCheckIn(checkIn);
+    getCheckIn(event.cid).then((checkIn) => {
+      setCheckIn(checkIn);
+    });
   }, [event.cid]);
 
   const handleConfirmationCheckIn = React.useCallback(
@@ -84,6 +83,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
       submitEventCheckIn(event.slug, contact, attestator_cid).then(
         (checkIn) => {
           setCheckIn(checkIn);
+          setIsLoadingCheckIn(false);
         }
       );
     },
@@ -102,6 +102,7 @@ const EventPage = ({ attestator_cid, event, events }) => {
         submitEventConfirmationCheckIn(event.slug, user.cid, attestator_cid).then(
           (checkIn) => {
             setCheckIn(checkIn);
+            setIsLoadingCheckIn(false)
           }
         );
       }, 100);
@@ -165,7 +166,8 @@ const EventPage = ({ attestator_cid, event, events }) => {
               {/* <RaffleNumber checkIn={checkIn} /> */}
             </CenteredContainer>
 
-            <CheckInQRCode event={event} checkIn={checkIn} />
+            {checkIn && <CheckInQRCode event={event} checkIn={checkIn} />}
+            {!checkIn && isLoadingCheckIn && <div>Loading check-in...</div>}
 
             {/* {event.slug === "women-in-web3-detroit-2" && (
               <Social

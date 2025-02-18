@@ -139,6 +139,7 @@ export interface DPoPEventCheckIn {
   user_cid: string;
   user?: User;
   rsvp?: DPoPEventRsvp;
+  attestator?: User;
 }
 
 export interface DPoPEventComment {
