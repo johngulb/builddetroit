@@ -65,7 +65,9 @@ const EventPage = ({ event, events, referral }) => {
   }, []);
 
   React.useEffect(() => {
-    const isLive = event.start_time > new Date() && event.end_time < new Date();
+    const isLive =
+      event.start_time > new Date() &&
+      event.end_time < new Date(new Date().getTime() + 1000 * 60 * 60 * 3);
     setIsLive(isLive);
   }, [event.start_time, event.end_time]);
 
@@ -267,7 +269,7 @@ const EventPage = ({ event, events, referral }) => {
           </>
         )}
 
-        {checkIn && (
+        {checkIn && isLive && (
           <>
             <h3 className="section-title" style={{ textAlign: "center" }}>
               Connect to Earn Rewards
