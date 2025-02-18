@@ -17,7 +17,6 @@ import styled from "@emotion/styled";
 import { ContactBox } from "../../../components/ContactBox";
 import { UserCard } from "../../../components/UserCard";
 import { CheckInQRCode } from "../../../components/CheckInQRCode";
-import React from "react";
 
 const ConnectContainer = styled.div`
   display: flex;
