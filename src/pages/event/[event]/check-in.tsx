@@ -25,7 +25,6 @@ import {
   CenteredContainer,
   SectionSubtitle,
 } from "../../../components/Styled";
-import Pusher from "pusher-js";
 
 const PageWrapper = styled.div`
   background-color: #fafafa;
@@ -108,20 +107,6 @@ const EventPage = ({ attestator_cid, event, events }) => {
       }, 100);
     }
   }, [handleCheckIn, handleConfirmationCheckIn, checkIn, event.slug, attestator_cid]);
-
-  // React.useEffect(() => {
-  //   var pusher = new Pusher("833f21249be60c36277b", {
-  //     cluster: "mt1",
-  //   });
-
-  //   var channel = pusher.subscribe(event.slug);
-  //   channel.bind("check_in", (data) => {
-  //     // alert(JSON.stringify(data));
-  //     if (data.check_ins) {
-  //       setCheckIns(data.check_ins);
-  //     }
-  //   });
-  // }, [event.slug]);
 
   return (
     <PageWrapper>

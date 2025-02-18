@@ -56,7 +56,7 @@ function MyApp(props: AppProps) {
           href="https://detroitartdao.com/wp-content/uploads/2022/08/cropped-Screen-Shot-2022-08-14-at-2.10.22-AM-180x180.png"
         ></link>
       </Head>
-      <Script src="https://js.pusher.com/7.2/pusher.min.js" />
+      {/* <Script src="https://js.pusher.com/7.2/pusher.min.js" /> */}
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <ThemeProvider theme={theme}>
           <CssBaseline />

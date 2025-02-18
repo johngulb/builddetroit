@@ -33,18 +33,16 @@ interface ContactBoxModalProps {
   show: boolean;
   setShow: (show: boolean) => void;
   onSubmit: (contact: Contact) => void;
-  onConfirmation?: (user_cid: string) => void;
-  bodyContent?: React.ReactNode;
+  bodyContent?: React.ReactNode | string;
   buttonText?: string;
   titleText?: React.ReactNode | string;
-  footerContent?: React.ReactNode;
+  footerContent?: React.ReactNode | string;
 }
 
 export const ContactBoxModal = ({
   show,
   setShow,
   onSubmit,
-  onConfirmation,
   titleText,
   bodyContent,
   buttonText,
@@ -59,7 +57,6 @@ export const ContactBoxModal = ({
               bodyContent={bodyContent}
               titleText={titleText}
               buttonText={buttonText}
-              onConfirmation={onConfirmation}
               onSubmit={onSubmit}
               footerContent={footerContent}
             />
@@ -77,15 +74,14 @@ const ContactModalWrapper = styled.div`
 `;
 
 interface ContactBoxProps {
-  onConfirmation?: (user_cid: string) => void;
   onSubmit: (contact: Contact) => void;
-  bodyContent?: string;
+  bodyContent?: React.ReactNode | string;
   buttonText?: string;
-  titleText?: string;
+  titleText?: React.ReactNode | string;
+  footerContent?: React.ReactNode | string;
 }
 
 export const ContactBox = ({
-  onConfirmation,
   onSubmit,
   bodyContent,
   buttonText = "Submit",

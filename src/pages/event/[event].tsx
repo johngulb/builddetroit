@@ -26,7 +26,6 @@ import { useIsAuthorized } from "../../hooks/useIsAuthorized";
 import { stripHtml } from "string-strip-html";
 import { getEnvironment } from "../../utils/environment";
 
-import Pusher from "pusher-js";
 import { ChatRoom } from "../../components/Chat/ChatRoom";
 import { EventShare } from "../../components/Events/EventShare";
 import { UserCard } from "../../components/UserCard";
@@ -96,20 +95,6 @@ const EventPage = ({ event, events, referral }) => {
     setDidRSVP(inRSVPs(rsvps));
   }, [rsvps]);
 
-  // React.useEffect(() => {
-  //   var pusher = new Pusher("833f21249be60c36277b", {
-  //     cluster: "mt1",
-  //   });
-
-  //   var channel = pusher.subscribe(event.slug);
-  //   channel.bind("rsvp", (data) => {
-  //     // alert(JSON.stringify(data));
-  //     if (data.rsvps) {
-  //       setRsvps(data.rsvps);
-  //     }
-  //   });
-  // }, [event.slug]);
-
   const submitRsvp = React.useCallback(() => {
     submitEventRsvp(event.id, null, referral)
       .then((res) => {
@@ -123,21 +108,6 @@ const EventPage = ({ event, events, referral }) => {
         alert(err);
       });
   }, [event.id, referral]);
-
-  const handleConfirmationRsvp = React.useCallback(
-    (user_cid: string) => {
-      submitEventConfirmationRsvp(event.slug, user_cid, referral).then(
-        (rsvp) => {
-          setShowDidRsvp(true);
-          setShowRsvpModal(false);
-          getEvent(event.id).then((res) => {
-            setRsvps(res.rsvps);
-          });
-        }
-      );
-    },
-    [event.id, event.slug, referral]
-  );
 
   const submitEmailRsvp = (contact: Contact) => {
     submitEventRsvp(event.id, contact).then((res) => {
@@ -192,7 +162,6 @@ const EventPage = ({ event, events, referral }) => {
         show={showRsvpModal}
         setShow={setShowRsvpModal}
         onSubmit={submitEmailRsvp}
-        onConfirmation={handleConfirmationRsvp}
         bodyContent={
           <>
             <EventInfo event={event} variant="compact" header={2} />
