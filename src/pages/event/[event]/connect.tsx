@@ -8,6 +8,7 @@ import {
   getEvents,
   submitEventCheckIn,
   createEventConnection,
+  getEventConnections,
 } from "../../../dpop";
 import styled from "@emotion/styled";
 import { ContactBox } from "../../../components/ContactBox";
@@ -74,11 +75,19 @@ const StatusMessage = styled.div`
   margin: 2rem 0;
 `;
 
+const ConnectionsList = styled.div`
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+`;
+
 const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
   const [isConnecting, setIsConnecting] = useState(false);
   const [checkIn, setCheckIn] = useState(null);
   const [isLoadingCheckIn, setIsLoadingCheckIn] = useState(true);
   const [connection, setConnection] = useState(null);
+  const [connections, setConnections] = useState([]);
 
   useEffect(() => {
     setIsLoadingCheckIn(true);
@@ -86,6 +95,14 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
     setCheckIn(checkIn);
     setIsLoadingCheckIn(false);
   }, [event.cid]);
+
+  useEffect(() => {
+    if (checkIn) {
+      getEventConnections(event.slug).then((connections) => {
+        setConnections(connections);
+      });
+    }
+  }, [event.slug, checkIn]);
 
   const handleCheckIn = React.useCallback(
     (contact: Contact) => {
@@ -105,6 +122,10 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
       createEventConnection(event.slug, attestator_cid).then((connection) => {
         console.log(connection);
         setConnection(connection);
+        // Refresh connections list after new connection
+        getEventConnections(event.slug).then((connections) => {
+          setConnections(connections);
+        });
       });
     }
   }, [checkIn, event.slug, attestator_cid]);
@@ -113,13 +134,13 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
     <PageContainer>
       <PageTitle>Connect to Earn Rewards</PageTitle>
 
-      {checkIn && (
+      {/* {checkIn && (
         <StatusMessage>
           <p style={{ color: "green", fontWeight: "bold", fontSize: "1.2rem" }}>
             ✓ You&apos;re checked in
           </p>
         </StatusMessage>
-      )}
+      )} */}
 
       {isLoadingCheckIn && (
         <StatusMessage>
@@ -172,6 +193,20 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
           <CheckInQRCode event={event} checkIn={checkIn} type="connect" />
         </>
       )}
+
+      {connections.length > 0 && (
+        <>
+          <h3 style={{ marginTop: "2rem", fontSize: "1.2rem" }}>
+            Connections Made ({connections.length})
+          </h3>
+          <ConnectionsList>
+            {connections.map((conn) => (
+              <UserCard key={conn.id} user={conn.connection} />
+            ))}
+          </ConnectionsList>
+        </>
+      )}
+
     </PageContainer>
   );
 };
