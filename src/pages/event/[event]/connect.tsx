@@ -9,11 +9,15 @@ import {
   submitEventCheckIn,
   createEventConnection,
   getEventConnections,
+  getContact,
+  getUser,
+  submitEventConfirmationCheckIn,
 } from "../../../dpop";
 import styled from "@emotion/styled";
 import { ContactBox } from "../../../components/ContactBox";
 import { UserCard } from "../../../components/UserCard";
 import { CheckInQRCode } from "../../../components/CheckInQRCode";
+import React from "react";
 
 const ConnectContainer = styled.div`
   display: flex;
@@ -90,13 +94,6 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
   const [connections, setConnections] = useState([]);
 
   useEffect(() => {
-    setIsLoadingCheckIn(true);
-    const checkIn = getCheckIn(event.cid);
-    setCheckIn(checkIn);
-    setIsLoadingCheckIn(false);
-  }, [event.cid]);
-
-  useEffect(() => {
     if (checkIn) {
       getEventConnections(event.slug).then((connections) => {
         setConnections(connections);
@@ -115,6 +112,30 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
     },
     [attestator_cid, event.slug]
   );
+
+  useEffect(() => {
+    setIsLoadingCheckIn(true);
+    const checkIn = getCheckIn(event.cid);
+    setCheckIn(checkIn);
+    setIsLoadingCheckIn(false);
+
+    if (!checkIn) {
+      const contact = getContact();
+      const user = getUser();
+      if (contact) {
+        handleCheckIn(contact);
+      } else if (user) {
+        submitEventConfirmationCheckIn(
+          event.slug,
+          user.cid,
+          attestator_cid
+        ).then((checkIn) => {
+          setCheckIn(checkIn);
+          setIsLoadingCheckIn(false);
+        });
+      }
+    }
+  }, [attestator_cid, event.cid, event.slug, handleCheckIn]);
 
   React.useEffect(() => {
     if (checkIn) {
@@ -206,7 +227,6 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
           </ConnectionsList>
         </>
       )}
-
     </PageContainer>
   );
 };
