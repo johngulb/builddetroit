@@ -8,6 +8,10 @@ import {
   myRSVP,
   DPoPEventRsvp,
   submitEventConfirmationRsvp,
+  submitEventConfirmationCheckIn,
+  getUser,
+  getCheckIn,
+  DPoPEventCheckIn,
 } from "../../dpop";
 import styled from "@emotion/styled";
 import { ButtonLink, ButtonLinkCompact } from "../../components/Styled";
@@ -27,8 +31,10 @@ import { EventShare } from "../../components/Events/EventShare";
 import { UserCard } from "../../components/UserCard";
 import { EventLocation } from "../../components/Events/EventLocation";
 import { EventBookmark } from "../../components/Events/EventBookmark";
+import { CheckInQRCode } from "../../components/CheckInQRCode";
 
 const EventPage = ({ event, events, referral }) => {
+  const user = getUser();
   const [showRsvpModal, setShowRsvpModal] = React.useState<boolean>(false);
   const [showAuth, setShowAuth] = React.useState<boolean>(false);
   const [rsvps, setRsvps] = React.useState(event.rsvps ?? []);
@@ -39,8 +45,13 @@ const EventPage = ({ event, events, referral }) => {
   const isAuthorized = useIsAuthorized();
   const [isHost, setIsHost] = React.useState(false);
   const [isLive, setIsLive] = React.useState(false);
-  const [checkIn, setCheckIn] = React.useState(false);
-  const [rewardEarned, setRewardEarned] = React.useState(false);
+  const [checkIn, setCheckIn] = React.useState<DPoPEventCheckIn | null>(null);
+  const [connections, setConnections] = React.useState([]);
+
+  React.useEffect(() => {
+    const checkIn = getCheckIn(event.cid);
+    setCheckIn(checkIn);
+  }, [event.cid]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -55,8 +66,7 @@ const EventPage = ({ event, events, referral }) => {
 
   React.useEffect(() => {
     const isLive = event.start_time > new Date() && event.end_time < new Date();
-    // setIsLive(isLive);
-    setIsLive(true);
+    setIsLive(isLive);
   }, [event.start_time, event.end_time]);
 
   React.useEffect(() => {
@@ -72,19 +82,19 @@ const EventPage = ({ event, events, referral }) => {
     setDidRSVP(inRSVPs(rsvps));
   }, [rsvps]);
 
-  React.useEffect(() => {
-    var pusher = new Pusher("833f21249be60c36277b", {
-      cluster: "mt1",
-    });
+  // React.useEffect(() => {
+  //   var pusher = new Pusher("833f21249be60c36277b", {
+  //     cluster: "mt1",
+  //   });
 
-    var channel = pusher.subscribe(event.slug);
-    channel.bind("rsvp", (data) => {
-      // alert(JSON.stringify(data));
-      if (data.rsvps) {
-        setRsvps(data.rsvps);
-      }
-    });
-  }, [event.slug]);
+  //   var channel = pusher.subscribe(event.slug);
+  //   channel.bind("rsvp", (data) => {
+  //     // alert(JSON.stringify(data));
+  //     if (data.rsvps) {
+  //       setRsvps(data.rsvps);
+  //     }
+  //   });
+  // }, [event.slug]);
 
   const submitRsvp = React.useCallback(() => {
     submitEventRsvp(event.id, null, referral)
@@ -139,12 +149,12 @@ const EventPage = ({ event, events, referral }) => {
   }, [submitRsvp]);
 
   const handleCheckIn = React.useCallback(() => {
-    setCheckIn(true);
-  }, []);
-
-  const handleClaimReward = React.useCallback(() => {
-    setRewardEarned(true);
-  }, []);
+    submitEventConfirmationCheckIn(event.slug, user.cid, user.cid).then(
+      (checkIn) => {
+        setCheckIn(checkIn);
+      }
+    );
+  }, [event.slug, user?.cid]);
 
   const publicRSVPs = rsvps.filter((rsvp) => {
     return rsvp.user?.name?.length > 0;
@@ -212,10 +222,20 @@ const EventPage = ({ event, events, referral }) => {
           {isLive ? (
             <>
               <ActionButton
-                className={`rsvp-button ${checkIn ? "hollow" : ""}`}
+                className={`rsvp-button ${checkIn ? "" : "hollow"}`}
                 onClick={handleCheckIn}
               >
-                {checkIn ? "CHECKED IN" : "CHECK IN"}
+                {checkIn ? (
+                  <>
+                    <i
+                      className="fas fa-check-circle"
+                      style={{ marginRight: "8px", color: "lightGreen" }}
+                    ></i>
+                    CHECKED IN
+                  </>
+                ) : (
+                  "CHECK IN"
+                )}
               </ActionButton>
             </>
           ) : (
@@ -226,38 +246,49 @@ const EventPage = ({ event, events, referral }) => {
           <EventShare event={event} />
           <EventAddToCalendar event={event} />
         </ActionButtonsContainer>
-        {checkIn ||
-          (false && (
-            <ActionButtonsContainer>
-              <ActionButton
-                className="rsvp-button hollow"
-                onClick={handleClaimReward}
-              >
-                <i
-                  className="fas fa-check-circle"
-                  style={{ marginRight: "8px" }}
-                ></i>
-                {rewardEarned ? "REWARD CLAIMED (1 EXP)" : "CLAIM REWARD"}
-              </ActionButton>
-            </ActionButtonsContainer>
-          ))}
 
         {isHost && event.host && (
-          <ActionButtonsContainer>
-            <ActionButton
-              href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}
-              className="hollow"
-            >
-              Start Check-In
-            </ActionButton>
-            <ActionButton
-              href={`/event/${event.slug}/raffle`}
-              className="hollow"
-            >
-              Start Raffle
-            </ActionButton>
-          </ActionButtonsContainer>
+          <>
+            <h3 className="section-title">Host Actions</h3>
+            <ActionButtonsContainer>
+              <ActionButton
+                href={`/event/${event.slug}/check-in?attestator=${event.host.cid}`}
+                className="hollow"
+              >
+                Start Check-In
+              </ActionButton>
+              <ActionButton
+                href={`/event/${event.slug}/raffle`}
+                className="hollow"
+              >
+                Start Raffle
+              </ActionButton>
+            </ActionButtonsContainer>
+          </>
         )}
+
+        {checkIn && (
+          <>
+            <h3 className="section-title" style={{ textAlign: "center" }}>
+              Connect to Earn Rewards
+            </h3>
+            <CheckInQRCode event={event} checkIn={checkIn} />
+          </>
+        )}
+
+        {connections?.length > 0 && (
+          <>
+            <h3 className="section-title">Connections ({connections.length})</h3>
+            <ul className="rsvp-container">
+              {connections.map((connection) => (
+                <li key={connection.id}>
+                  <UserCard user={connection} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
         {rsvps?.length > 0 && (
           <>
             <h3 className="section-title">RSVPs ({rsvps?.length})</h3>

@@ -15,7 +15,7 @@ export const CheckInQRCode: React.FC<
   return (
     <CheckInQRCodeWrapper>
       <p style={{ fontSize: 14 }}>
-        <b>Share this QR code to invite others to join.</b>
+        <b>Share this QR code to connect.</b>
       </p>
       <div style={{ marginTop: 16 }}>
         <QRCode

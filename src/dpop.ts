@@ -499,6 +499,11 @@ export const submitSignedEventRsvp = async (
   return result.data;
 };
 
+export const getConnections = async (event: string) => {
+  const result = await authorizedRequest(`event/${event}/connections`);
+  return result.data;
+};
+
 export const getRsvps = async () => {
   const result = await authorizedRequest("rsvps");
   return result.data;
