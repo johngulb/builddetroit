@@ -7,7 +7,7 @@ import { useUser } from "../hooks/useUser";
 import { AuthButton } from "./AuthButton";
 import { TabNavigation } from "./Tabs";
 import Hero from "./Hero";
-
+import { Footer } from "./Footer";
 export interface HeaderProps {
   disableDPoP: boolean;
   hideFooter: boolean;
@@ -65,30 +65,7 @@ export const Page = ({ children, headerProps, meta }) => {
         </>
       )}
       <Content>{children}</Content>
-      {!headerProps?.hideFooter && (
-        <>
-          <Footer>
-            <a href="https://thedetroitilove.com/" target="_blank">
-              <img
-                width="80"
-                src="https://thedetroitilove.com/wp-content/uploads/2022/08/TDIL-acid-heart-700x688.png"
-                className="custom-logo"
-                alt=""
-              />
-            </a>
-            <div>
-              <p>
-                Looking for something fun to do tonight? Look no further than
-                the{" "}
-                <a href="https://thedetroitilove.com/" target="_blank">
-                  detroitilove.com
-                </a>
-                .
-              </p>
-            </div>
-          </Footer>
-        </>
-      )}
+      {!headerProps?.hideFooter && <Footer />}
     </Container>
   );
 };
@@ -122,11 +99,4 @@ const HeaderContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
-`;
-
-const Footer = styled.div`
-  text-align: center;
-  padding: 2rem;
-  background-color: #d2e4dd;
-  border-top: solid 2px #ddd;
 `;

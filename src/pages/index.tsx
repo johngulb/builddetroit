@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { EventList } from "../components/Events/EventList";
+// import { EventCalendar } from "../components/Events/EventCalendar";
 
 import {
   getUser,
@@ -302,6 +303,7 @@ const HomePage = ({
             <div>
               <h2 className="section-title">FIND EVENTS</h2>
               <ScrollSection>
+                {/* <EventCalendar events={events} /> */}
                 <EventList
                   category={category}
                   events={events}
