@@ -7,6 +7,9 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { MuiTelInput } from "mui-tel-input";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from 'next/link';
 
 import { VerifyPhoneNumber } from "./VerifyPhoneNumber";
 
@@ -80,6 +83,7 @@ export const ContactBox = ({
   const [publicName, setPublicName] = React.useState<string>();
   const [organization, setOrganization] = React.useState<string>();
   const [phone, setPhone] = React.useState<string>();
+  const [agreedToTerms, setAgreedToTerms] = React.useState(false);
 
   React.useEffect(() => {
     const contact = getContact();
@@ -116,6 +120,11 @@ export const ContactBox = ({
   }, []);
 
   const handleSubmit = React.useCallback(() => {
+    if (!agreedToTerms) {
+      alert("Please agree to the Terms & Conditions and Privacy Policy");
+      return;
+    }
+    
     saveContact({
       name,
       email,
@@ -130,7 +139,7 @@ export const ContactBox = ({
       public_name: publicName,
       organization,
     });
-  }, [name, email, phone, publicName, organization, onSubmit]);
+  }, [name, email, phone, publicName, organization, onSubmit, agreedToTerms]);
 
   // const handlePhoneConfirmation = React.useCallback((phone, user_cid) => {
   //   setPhone(phone);
@@ -209,12 +218,27 @@ export const ContactBox = ({
           variant="filled"
           onChange={handleOrganizationChange}
         />
+        <FormControlLabel
+          control={
+            <Checkbox 
+              checked={agreedToTerms}
+              onChange={(e) => setAgreedToTerms(e.target.checked)}
+              required
+            />
+          }
+          label={
+            <span>
+              I agree to the <Link href="/terms">Terms & Conditions</Link> and <Link href="/privacy">Privacy Policy</Link>
+            </span>
+          }
+        />
       </Box>
       <Button
         className="button"
         type="submit"
         onClick={handleSubmit}
         variant="contained"
+        disabled={!agreedToTerms}
       >
         {buttonText}
       </Button>
@@ -243,6 +267,13 @@ const ContactBoxWrapper = styled.div`
     outline: none !important;
     .form-control:focus {
       outline: none !important;
+    }
+  }
+  a {
+    color: #007bff;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
     }
   }
 `;

@@ -31,6 +31,6 @@ export const EventInviteButton = ({ event, rsvp }) => {
   if (!shareText) return null;
 
   return (
-    <ButtonLink href={`sms:&body=${shareText}`}>BRING FRIENDS!</ButtonLink>
+    <ButtonLink href={`sms:&body=${shareText}`} className="invite-button">BRING FRIENDS!</ButtonLink>
   );
 };

@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "@emotion/styled";
-import moment from "moment";
 import LazyLoad from "react-lazy-load";
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
 
 import { EventInfo } from "./EventInfo";
 import { EventAddToCalendar } from "./EventAddToCalendar";
+import { Register } from "../Auth/Register";
 
 import Close from "@mui/icons-material/Close";
-import { ButtonLink } from "../Styled";
-import { getUserCID } from "../../dpop";
 import { EventInviteButton } from "./EventInviteButton";
+import { useUser } from "../../hooks/useUser";
+import { ButtonLink } from "../Styled";
 
 const style = {
   position: "absolute" as "absolute",
@@ -22,15 +23,14 @@ const style = {
   width: 400,
   maxWidth: "85%",
   bgcolor: "background.paper",
-  // border: "2px solid #000",
   borderRadius: "2px",
   boxShadow: 24,
-  //   p: 4,
 };
 
-export const EventRsvpSuccess = ({ event, show, setShow, rsvp}) => {
-  const [shareText, setShareText] = React.useState<string | null>(null);
-  const [referral, setReferral] = React.useState<string | null>(null);
+export const EventRsvpSuccess = ({ event, show, setShow, rsvp }) => {
+  const [showRegister, setShowRegister] = React.useState(false);
+  const user = useUser();
+
   return (
     <LazyLoad>
       <ContactModalWrapper>
@@ -42,8 +42,37 @@ export const EventRsvpSuccess = ({ event, show, setShow, rsvp}) => {
               </button>
               <div className="contact-title">Your RSVP is Confirmed</div>
               <EventInfo event={event} variant="compact" />
-              <EventAddToCalendar event={event} />
-              <EventInviteButton event={event} rsvp={rsvp} />
+              <div className="action-buttons">
+                <EventInviteButton event={event} rsvp={rsvp} />
+                <EventAddToCalendar event={event} />
+              </div>
+              {!false && (
+                <ButtonLink
+                  className="complete-profile hollow"
+                  onClick={() => setShowRegister(true)}
+                >
+                  Complete Your Profile
+                </ButtonLink>
+              )}
+            </ContactBoxWrapper>
+          </Box>
+        </Modal>
+
+        <Modal open={showRegister} onClose={() => setShowRegister(false)}>
+          <Box sx={style}>
+            <ContactBoxWrapper>
+              <button
+                className="close-btn"
+                onClick={() => setShowRegister(false)}
+              >
+                <Close />
+              </button>
+              <Register
+                onRegister={() => {
+                  setShowRegister(false);
+                  setShow(false);
+                }}
+              />
             </ContactBoxWrapper>
           </Box>
         </Modal>
@@ -81,17 +110,30 @@ const ContactBoxWrapper = styled.div`
     font-weight: bold;
     margin-bottom: 0.5em;
   }
-  .add-to-calendar-wrapper {
-    text-align: center;
-    width: 100%;
-    display: inline-block !important;
-    /* background-color: #28303d; */
-    border: solid 4px #28303d;
-    padding: 8px;
+  .action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
     margin-top: 12px;
+    width: 100%;
+
     button {
-      color: #28303d;
+      flex: 1;
     }
+    .add-to-calendar-wrapper {
+      a {
+        width: 60px;
+        height: 48px;
+        font-size: 1.2rem;
+      }
+    }
+    .invite-button {
+      width: 100%;
+    }
+  }
+  .complete-profile {
+    width: 100%;
+    margin-top: 1rem;
   }
   h1 {
     max-lines: 4;

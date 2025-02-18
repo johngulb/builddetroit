@@ -5,7 +5,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ProfilePicture from "../ProfilePicture";
 
-import { register } from "../../dpop";
+import { register, getContact } from "../../dpop";
+import { stripPhoneNumber } from "../../utils/phone";
 
 export const Register = ({ onRegister }) => {
   const [name, setName] = React.useState<string>();
@@ -15,6 +16,17 @@ export const Register = ({ onRegister }) => {
   const [publicName, setPublicName] = React.useState<string>();
   const [organization, setOrganization] = React.useState<string>();
   const [profilePicture, setProfilePicture] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const contact = getContact();
+    if (contact) {
+      setName(contact.name);
+      setEmail(contact.email);
+      setPhone(contact.phone);
+      setPublicName(contact.public_name);
+      setOrganization(contact.organization);
+    }
+  }, []);
 
   const handleNameChange = React.useCallback((e) => {
     setName(e.target.value);
@@ -45,7 +57,7 @@ export const Register = ({ onRegister }) => {
       name,
       email,
       password,
-      phone,
+      phone: stripPhoneNumber(phone),
       public_name: publicName,
       organization,
       profile_picture: profilePicture,

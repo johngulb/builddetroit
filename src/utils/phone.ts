@@ -12,3 +12,9 @@ export const formatPhoneNumber = (value: string) => {
   }
   return value;
 };
+
+export const stripPhoneNumber = (value: string) => {
+  if (!value) return "";
+  // Remove all non-digit characters
+  return value.replace(/\D/g, "");
+};
