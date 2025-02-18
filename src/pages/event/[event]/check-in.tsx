@@ -66,17 +66,6 @@ const EventPage = ({ attestator_cid, event, events }) => {
     });
   }, [event.cid]);
 
-  const handleConfirmationCheckIn = React.useCallback(
-    (user_cid: string) => {
-      submitEventConfirmationCheckIn(event.slug, user_cid, attestator_cid).then(
-        (checkIn) => {
-          setCheckIn(checkIn);
-        }
-      );
-    },
-    [attestator_cid, event.slug]
-  );
-
   const handleCheckIn = React.useCallback(
     (contact: Contact) => {
       submitEventCheckIn(event.slug, contact, attestator_cid).then(
@@ -193,7 +182,6 @@ const EventPage = ({ attestator_cid, event, events }) => {
               titleText=""
               buttonText="Join the List"
               onSubmit={handleCheckIn}
-              onConfirmation={handleConfirmationCheckIn}
             />
             {event.content && (
               <>

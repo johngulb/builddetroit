@@ -400,53 +400,5 @@ export const getServerSideProps = async () => {
     };
   }
 };
-export default HomePage;
 
-{
-  /* <div className="header-container">
-          <div>
-            <AuthModal
-              show={showAuth}
-              setShow={setShowAuth}
-              onAuthorized={handleAuthorized}
-              mode="login"
-            />
-            <ContactBoxModal
-              show={showContactBox}
-              setShow={setShowContactBox}
-              onSubmit={handleSubmitContact}
-              onConfirmation={() => {}}
-              bodyContent={
-                <>
-                  <div style={{ fontSize: 14, marginBottom: 8, marginTop: 16 }}>
-                    <a
-                      onClick={() => {
-                        setShowContactBox(false);
-                        setShowAuth(true);
-                      }}
-                      style={{ color: "blue", fontWeight: "bold" }}
-                    >
-                      Login
-                    </a>{" "}
-                    or enter your contact info below.
-                  </div>
-                </>
-              }
-              titleText={
-                <>
-                  <div style={{ marginBottom: 8, textTransform: "uppercase" }}>
-                    JOIN BUILDERS IN DETROIT
-                  </div>
-                </>
-              }
-              buttonText="BUILD WITH US"
-            />
-          </div>
-        </div>
-        {contact && (
-          <Form
-            formID="1"
-            populatedFields={{ email: contact?.email, cid: contact?.cid }}
-          />
-        )} */
-}
+export default HomePage;
