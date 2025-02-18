@@ -50,7 +50,7 @@ const CommunityPage = ({ community, events }: CommunityPageProps) => {
                   onClick={toggleJoin}
                   className={isMember ? "hollow" : ""}
                 >
-                  {isMember ? "Leave Community" : "Join Community"}
+                  {isMember ? <><i className="fas fa-user-check"></i> Member</> : "Join"}
                 </ButtonLink>
               ) : (
                 <ButtonLink href="/register">Create Account to Join</ButtonLink>
@@ -153,8 +153,7 @@ export const PageWrapper = styled.div`
 const HeroSection = styled.div`
   position: relative;
   width: 100vw;
-  height: 400px;
-  margin-bottom: 2rem;
+  height: 300px;
   overflow: hidden;
   background-color: #000;
   margin-left: calc(-50vw + 50%);
@@ -173,14 +172,14 @@ const HeroContent = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 2rem 0;
+  padding: 1rem 0;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
   color: white;
 
   h1 {
     font-size: 2.5rem;
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     max-width: 900px;
     margin-left: auto;
@@ -201,6 +200,7 @@ const HeroContent = styled.div`
     margin-left: auto;
     margin-right: auto;
     padding: 0 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .action-buttons {
@@ -210,8 +210,18 @@ const HeroContent = styled.div`
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     justify-content: flex-start;
+    .hollow {
+      border: 2px solid #ccc;
+      background-color: rgba(0, 122, 255, 0.7);
+      color: #ccc;
+      font-weight: bold;
+      .fas {
+        color: #ccc;
+        margin-right: 0.2rem;
+      }
+    }
   }
 `;
 

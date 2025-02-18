@@ -7,6 +7,11 @@ const FooterWrapper = styled.footer`
   padding: 2rem;
   background-color: #d2e4dd;
   border-top: solid 2px #ddd;
+  padding-bottom: 8rem;
+
+  p {
+    font-size: 1rem;
+  } 
 
   .links {
     margin-top: 1rem;
@@ -36,7 +41,7 @@ export const Footer: React.FC = () => {
       </a>
       <div>
         <p>
-          Looking for something fun to do tonight? Look no further than
+          Want to get into something fun tonight? Look no further than
           the{" "}
           <a href="https://thedetroitilove.com/" target="_blank" rel="noopener noreferrer">
             detroitilove.com

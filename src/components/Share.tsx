@@ -54,7 +54,7 @@ export const Share: React.FC<React.PropsWithChildren<ShareProps>> = ({
   return (
     <>
       <ButtonLink className="share-button" onClick={handleShare}>
-        <i className="fas fa-share-alt" style={{marginBottom: '4px'}}></i>
+        <i className="fas fa-share-alt" style={{margin: '8px 0px'}}></i>
       </ButtonLink>
       <Modal open={show} onClose={() => setShow(false)}>
         <Box sx={style}>
