@@ -9,6 +9,8 @@ import {
   getEvent,
   submitEventCheckIn,
   submitEventConfirmationCheckIn,
+  getEvents,
+  getUser,
 } from "../../../dpop";
 import styled from "@emotion/styled";
 import { ContactBox } from "../../../components/ContactBox";
@@ -90,26 +92,35 @@ const EventPage = ({ attestator_cid, event, events }) => {
 
   React.useEffect(() => {
     const contact = getContact();
+    const user = getUser();
     if (contact) {
       setTimeout(() => {
         handleCheckIn(contact);
       }, 100);
+    } else if (user) {
+      setTimeout(() => {
+        submitEventConfirmationCheckIn(event.slug, user.cid, attestator_cid).then(
+          (checkIn) => {
+            setCheckIn(checkIn);
+          }
+        );
+      }, 100);
     }
-  }, [handleCheckIn]);
+  }, [handleCheckIn, handleConfirmationCheckIn, checkIn, event.slug, attestator_cid]);
 
-  React.useEffect(() => {
-    var pusher = new Pusher("833f21249be60c36277b", {
-      cluster: "mt1",
-    });
+  // React.useEffect(() => {
+  //   var pusher = new Pusher("833f21249be60c36277b", {
+  //     cluster: "mt1",
+  //   });
 
-    var channel = pusher.subscribe(event.slug);
-    channel.bind("check_in", (data) => {
-      // alert(JSON.stringify(data));
-      if (data.check_ins) {
-        setCheckIns(data.check_ins);
-      }
-    });
-  }, [event.slug]);
+  //   var channel = pusher.subscribe(event.slug);
+  //   channel.bind("check_in", (data) => {
+  //     // alert(JSON.stringify(data));
+  //     if (data.check_ins) {
+  //       setCheckIns(data.check_ins);
+  //     }
+  //   });
+  // }, [event.slug]);
 
   return (
     <PageWrapper>
@@ -127,14 +138,14 @@ const EventPage = ({ attestator_cid, event, events }) => {
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}/event/${event.slug}/check-in`}
       />
       <PageContainer>
-        {/* <EventInfo event={event} linkLocation={true} variant="compact" /> */}
-        <div style={{ textAlign: 'center' }}>
+        <EventInfo event={event} linkLocation={true} variant="compact" />
+        {/* <div style={{ textAlign: 'center' }}>
           <h2 style={{ fontSize: '2rem' }}><b><i>Learn how YOU can invest in revitalization of Detroit</i></b></h2>
-        </div>
+        </div> */}
         {checkIn ? (
           <div style={{ marginTop: 4 }}>
             <CenteredContainer>
-              <SectionTitle>Stay tuned, you are on this list!</SectionTitle>
+              {/* <SectionTitle>Stay tuned, you are on this list!</SectionTitle> */}
               {/* <SectionTitle>Congrats, you are entered to win!</SectionTitle> */}
               {/* <div
                 style={{
@@ -225,8 +236,11 @@ export const getServerSideProps = async ({ query, res }) => {
     };
   }
 
-  const eventsRes = await fetch("https://api.detroiter.network/api/events");
-  const fetchedEvents = await eventsRes.json();
+  const fetchedEvents = await getEvents({
+    type: "event",
+    limit: 4,
+  });
+
   const events = fetchedEvents.data
     ?.filter((e) => e.id !== event.id)
     .slice(0, 3);

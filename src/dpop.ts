@@ -47,8 +47,9 @@ export const saveContact = (contact: Contact) => {
 
 export const getUserCID = (): string | null => {
   if (typeof window === "undefined") return null;
+  const user = getUser();
   const user_cid = localStorage.getItem("DPoPUserCID");
-  return user_cid ? user_cid : null;
+  return user_cid ? user_cid : user?.cid;
 };
 
 export const saveUserCID = (user_cid: string) => {

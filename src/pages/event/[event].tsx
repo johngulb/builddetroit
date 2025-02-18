@@ -55,8 +55,8 @@ const EventPage = ({ event, events, referral }) => {
 
   React.useEffect(() => {
     const isLive = event.start_time > new Date() && event.end_time < new Date();
-    setIsLive(isLive);
-    // setIsLive(true);
+    // setIsLive(isLive);
+    setIsLive(true);
   }, [event.start_time, event.end_time]);
 
   React.useEffect(() => {
