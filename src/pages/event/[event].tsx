@@ -207,6 +207,7 @@ const EventPage = ({ event, events, referral }) => {
 
         {event.image && <img src={event.image} />}
       </PageContainer>
+
       <PageContainer>
         <ActionButtonsContainer>
           {isLive ? (
