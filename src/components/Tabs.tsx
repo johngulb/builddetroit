@@ -49,10 +49,10 @@ export const TabNavigation = ({ tab }: TabsProps) => {
     <TabsContainer>
       <MuiTabs value={activeTab} onChange={handleTabChange}>
         <MuiTab label="Home" value="home" />
-        {env.category !== "artnight" && <MuiTab label="Events" value="events" />}
-        {env.category === "artnight" && <MuiTab label="Artwork" value="artwork" />}
-        {env.category === "artnight" && <MuiTab label="Artists" value="artists" />}
-        {env.category !== "artnight" && <MuiTab label="Places" value="places" />}
+        <MuiTab label="Events" value="events" />
+        <MuiTab label="Artwork" value="artwork" />
+        <MuiTab label="Artists" value="artists" />
+        <MuiTab label="Places" value="places" />
       </MuiTabs>
     </TabsContainer>
   );
