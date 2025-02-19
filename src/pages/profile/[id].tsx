@@ -6,6 +6,8 @@ import Avatar from "@mui/material/Avatar";
 import { useRouter } from "next/router";
 import { formatPhoneNumber } from "../../utils/phone";
 import CommunityCard from "../../components/CommunityCard";
+import { EventInfo } from "../../components/Events/EventInfo";
+import { useRSVPs } from "../../hooks/useRSVPs";
 
 interface ProfilePageProps {
   user: User;
@@ -13,8 +15,8 @@ interface ProfilePageProps {
 
 const ProfilePage = ({ user }: ProfilePageProps) => {
   const router = useRouter();
-
   const phone = formatPhoneNumber(user.phone);
+  const { rsvps } = useRSVPs(user.id);
 
   return (
     <ProfileWrapper>
@@ -22,49 +24,54 @@ const ProfilePage = ({ user }: ProfilePageProps) => {
         <div className="profile-info">
           {user && (
             <div className="user-info">
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  mb: 3,
-                  position: "relative",
-                  width: "100%",
-                }}
-              >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
                 <Avatar
                   src={user.profile_picture || undefined}
-                  sx={{ width: 100, height: 100 }}
+                  sx={{ width: 80, height: 80 }}
                 />
-              </Box>
-              <Box sx={{ "& > div": { marginBottom: 2 } }}>
-                <InfoField>
-                  <label>Name</label>
-                  <div>{user.public_name || user.name}</div>
-                </InfoField>
-                {user.organization && (
+                <Box>
                   <InfoField>
-                    <label>Organization</label>
-                    <div>{user.organization}</div>
+                    <div>{user.name}</div>
                   </InfoField>
-                )}
+                  {user.organization && (
+                    <InfoField>
+                      <div>{user.organization}</div>
+                    </InfoField>
+                  )}
+                </Box>
               </Box>
             </div>
           )}
         </div>
         {user.communities && user.communities.length > 0 && (
-          <InfoField>
+          <>
             <label>Communities</label>
-            <div className="communities-grid">
-              {user.communities.map((community) => (
-                <CommunityCard
-                  key={community.id}
-                  community={community}
-                  variant="compact"
+            <ScrollSection>
+              <div className="communities-grid">
+                {user.communities.map((community) => (
+                  <CommunityCard
+                    key={community.id}
+                    community={community}
+                    variant="compact"
+                  />
+                ))}
+              </div>
+            </ScrollSection>
+          </>
+        )}
+        {rsvps && rsvps.length > 0 && (
+          <>
+            <label>Event RSVPs</label>
+            <div className="events-grid">
+              {rsvps.map((rsvp) => (
+                <EventInfo
+                  key={rsvp.event.id}
+                  event={rsvp.event}
+                  variant="nano"
                 />
               ))}
             </div>
-          </InfoField>
+          </>
         )}
       </ProfileContent>
     </ProfileWrapper>
@@ -103,22 +110,25 @@ const ProfileWrapper = styled.div`
   align-items: flex-start;
 `;
 
+const ScrollSection = styled.div`
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 1rem 0;
+  -webkit-overflow-scrolling: touch;
+
+  .communities-grid {
+    display: inline-flex;
+    gap: 1rem;
+  }
+`;
+
 const ProfileContent = styled.div`
-  padding: 2rem;
   width: 100%;
   max-width: 600px;
+  padding: 1.5rem;
 
   .profile-info {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    h2 {
-      margin-bottom: 2rem;
-      color: #333;
-      text-align: center;
-    }
+    margin-bottom: 2rem;
 
     .user-info {
       form {
@@ -128,14 +138,21 @@ const ProfileContent = styled.div`
       }
     }
   }
+
+  .events-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
 `;
 
 const InfoField = styled.div`
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+  
   label {
     font-size: 0.9rem;
     color: #666;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     display: block;
   }
 

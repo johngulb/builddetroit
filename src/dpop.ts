@@ -535,8 +535,18 @@ export const getConnections = async () => {
   return result.data;
 };
 
-export const getRsvps = async () => {
-  const result = await authorizedRequest("rsvps");
+interface RsvpQueryParams {
+  user_id?: number;
+  limit?: number;
+  offset?: number;
+}
+
+export const getRsvps = async ({ user_id, limit, offset }: RsvpQueryParams) => {
+  const params = new URLSearchParams();
+  if (user_id) params.set("user_id", user_id.toString());
+  params.set("limit", limit?.toString() ?? "100");
+  params.set("offset", offset?.toString() ?? "0");
+  const result = await authorizedRequest(`rsvps?${params.toString()}`);
   return result.data;
 };
 
