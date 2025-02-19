@@ -50,6 +50,7 @@ const CardWrapper = styled(Link)`
 
   .event-info {
     padding: 0.75rem;
+    width: 100%;
 
     h2 {
       font-size: 1rem;

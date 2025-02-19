@@ -366,9 +366,28 @@ const EventPage = ({ event, events, referral }) => {
       </PageContainer>
       {showFixedRsvp && (
         <MobileRSVPBar>
-          <ButtonLink className={`rsvp-button inverted`} onClick={handleRsvp}>
-            {rsvp ? "REGISTERED" : "RSVP"}
-          </ButtonLink>
+          {isLive ? (
+            <ButtonLink
+              className={`rsvp-button inverted ${checkIn ? "" : "hollow"}`}
+              onClick={handleCheckIn}
+            >
+              {checkIn ? (
+                <>
+                  <i
+                    className="fas fa-check-circle"
+                    style={{ marginRight: "8px", color: "lightGreen" }}
+                  ></i>
+                  CHECKED IN
+                </>
+              ) : (
+                "CHECK IN"
+              )}
+            </ButtonLink>
+          ) : (
+            <ButtonLink className={`rsvp-button inverted`} onClick={handleRsvp}>
+              {rsvp ? "REGISTERED" : "RSVP"}
+            </ButtonLink>
+          )}
         </MobileRSVPBar>
       )}
     </PageWrapper>
@@ -411,6 +430,7 @@ const PageContainer = styled.div`
   }
   .event-info {
     margin-bottom: 1rem;
+    width: 100%;
   }
   .content {
     font-size: 0.9rem;

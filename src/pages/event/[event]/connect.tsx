@@ -73,6 +73,7 @@ const PageContainer = styled.div`
   margin: 0 auto;
   .event-info {
     margin-bottom: 1rem;
+    width: 100%;
   }
   .event-info-link {
     text-decoration: none;
