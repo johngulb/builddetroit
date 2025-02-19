@@ -154,6 +154,10 @@ export const login = async (email: string, password: string) => {
   if (result.user) {
     setUser(result.user);
   }
+  const newEvent = new CustomEvent("DPoP_AUTH", {
+    detail: result,
+  });
+  window.dispatchEvent(newEvent);
   return result;
 };
 
@@ -198,6 +202,10 @@ export const register = async (params: RegisterParams) => {
   if (result.user) {
     setUser(result.user);
   }
+  const newEvent = new CustomEvent("DPoP_AUTH", {
+    detail: result,
+  });
+  window.dispatchEvent(newEvent);
   return result;
 };
 

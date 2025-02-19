@@ -6,5 +6,10 @@ export const useUser = (): User | undefined => {
     React.useEffect(() => {
         setUser(getUser());
     }, []);
+    React.useEffect(() => {
+        window.addEventListener("DPoP_AUTH", (event: CustomEvent) => {
+            setUser(event.detail.user);
+        });
+    }, []);
     return user;
 }
