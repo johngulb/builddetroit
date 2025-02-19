@@ -15,7 +15,7 @@ export const Register = ({ onRegister }) => {
   const [phone, setPhone] = React.useState<string>();
   const [publicName, setPublicName] = React.useState<string>();
   const [organization, setOrganization] = React.useState<string>();
-  const [profilePicture, setProfilePicture] = React.useState<string | null>(null);
+  const [profilePicture, setProfilePicture] = React.useState<string>();
 
   React.useEffect(() => {
     const contact = getContact();

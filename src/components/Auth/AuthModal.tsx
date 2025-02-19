@@ -20,13 +20,13 @@ const style = {
   // p: 4,
 };
 
-export const AuthModal = ({ show, setShow, onAuthorized, mode }) => {
+export const AuthModal = ({ show, setShow, onAuthorized, mode, canToggle = true }) => {
   return (
     <LazyLoad>
       <AuthModalWrapper>
         <Modal open={show} onClose={() => setShow(false)}>
           <Box sx={style}>
-            <AuthBox mode={mode} onAuthorized={onAuthorized} />
+            <AuthBox mode={mode} onAuthorized={onAuthorized} canToggle={canToggle} />
           </Box>
         </Modal>
       </AuthModalWrapper>

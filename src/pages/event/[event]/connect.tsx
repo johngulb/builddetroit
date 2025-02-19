@@ -20,6 +20,9 @@ import { UserCard } from "../../../components/UserCard";
 import { CheckInQRCode } from "../../../components/CheckInQRCode";
 import { EventInfo } from "../../../components/Events/EventInfo";
 import { Card, Link } from "@mui/material";
+import { Register } from "../../../components/Auth/Register";
+import { AuthModal } from "../../../components/Auth/AuthModal";
+import { ButtonLink } from "../../../components/ButtonLink";
 
 const ConnectContainer = styled.div`
   display: flex;
@@ -96,7 +99,7 @@ const StyledCard = styled(Card)`
   text-align: center;
   margin-bottom: 2rem;
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 `;
 
@@ -137,7 +140,9 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
   const [connection, setConnection] = useState(null);
   const [connections, setConnections] = useState([]);
   const [upcomingRSVPs, setUpcomingRSVPs] = useState([]);
-
+  const [contact, setContact] = useState(null);
+  const [user, setUser] = useState(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   useEffect(() => {
     if (checkIn) {
       getEventConnections(event.slug).then((connections) => {
@@ -151,6 +156,7 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
       submitEventCheckIn(event.slug, contact, attestator_cid).then(
         (checkIn) => {
           setCheckIn(checkIn);
+          setContact(contact);
           setIsLoadingCheckIn(false);
         }
       );
@@ -164,13 +170,16 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
     setCheckIn(checkIn);
     setIsLoadingCheckIn(false);
 
+    const contact = getContact();
+    setContact(contact);
+    const user = getUser();
+    setUser(user);
+
     if (!checkIn) {
-      const contact = getContact();
-      const user = getUser();
       if (contact) {
         handleCheckIn(contact);
       } else if (user) {
-        submitEventConfirmationCheckIn(
+          submitEventConfirmationCheckIn(
           event.slug,
           user.cid,
           attestator_cid
@@ -227,8 +236,9 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
           <ContactBox
             bodyContent=""
             titleText=""
-            buttonText="Join the List"
+            buttonText="Connect"
             onSubmit={handleCheckIn}
+            variant="simple"
           />
         </ContactBoxWrapper>
       )}
@@ -256,11 +266,11 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
                 Events {connection.connection.name} is attending:
               </UpcomingEventsTitle>
               {upcomingRSVPs?.map((rsvp) => (
-                <div key={rsvp.id} style={{ marginBottom: '1rem' }}>
+                <div key={rsvp.id} style={{ marginBottom: "1rem" }}>
                   <a href={`/event/${rsvp.event.slug}`}>
                     <EventInfo
                       event={rsvp.event}
-                      variant="compact" 
+                      variant="compact"
                       header={3}
                     />
                   </a>
@@ -271,15 +281,32 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
         </StyledCard>
       )}
 
-      <PageTitle>Connect to Earn Rewards</PageTitle>
+      {contact && !user && (
+        <>
+          <AuthModal
+            show={showAuthModal}
+            setShow={setShowAuthModal}
+            onAuthorized={(user) => {
+              setShowAuthModal(false);
+              setUser(user);
+            }}
+            mode="register"
+            canToggle={false}
+          />
+          <ButtonLink onClick={() => setShowAuthModal(true)}>
+            Complete Your Profile
+          </ButtonLink>
+        </>
+      )}
 
       {checkIn && (
         <>
+          <PageTitle>Connect to Earn Rewards</PageTitle>
           <CheckInQRCode event={event} checkIn={checkIn} type="connect" />
         </>
       )}
 
-      {connections.length > 0 && (
+      {connections?.length > 0 && (
         <>
           <ConnectionsTitle>
             Connections Made ({connections.length})

@@ -81,6 +81,9 @@ export const storeCheckIn = (checkIn: DPoPEventCheckIn) => {
     `DPoPEvent-${checkIn.event_cid}-checkin`,
     JSON.stringify(checkIn)
   );
+  if (checkIn.user_cid) {
+    storeCID(checkIn.user_cid);
+  }
 };
 
 export const getCheckIn = (event_cid: string) => {
@@ -176,6 +179,9 @@ export const updateUser = async (params: Partial<User>) => {
 };
 
 export const register = async (params: RegisterParams) => {
+  if (!params?.phone?.length) {
+    delete params.phone;
+  }
   const result = await (
     await fetch(`${hostname}/api/register`, {
       method: "POST",

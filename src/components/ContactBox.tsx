@@ -7,9 +7,9 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { MuiTelInput } from "mui-tel-input";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from 'next/link';
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "next/link";
 
 import { VerifyPhoneNumber } from "./VerifyPhoneNumber";
 
@@ -79,6 +79,7 @@ interface ContactBoxProps {
   buttonText?: string;
   titleText?: React.ReactNode | string;
   footerContent?: React.ReactNode | string;
+  variant?: "default" | "simple";
 }
 
 export const ContactBox = ({
@@ -87,6 +88,7 @@ export const ContactBox = ({
   buttonText = "Submit",
   titleText,
   footerContent,
+  variant = "default",
 }: ContactBoxProps) => {
   const [name, setName] = React.useState<string>();
   const [email, setEmail] = React.useState<string>();
@@ -134,7 +136,7 @@ export const ContactBox = ({
       alert("Please agree to the Terms & Conditions and Privacy Policy");
       return;
     }
-    
+
     saveContact({
       name,
       email,
@@ -198,39 +200,44 @@ export const ContactBox = ({
           variant="filled"
           onChange={handleEmailChange}
         />
-        <MuiTelInput
-          // disableDropdown={true}
-          defaultCountry={"US"}
-          id="phone"
-          label="Phone"
-          name="phone"
-          // required
-          onChange={handlePhoneChange}
-          value={phone}
-          variant="filled"
-        />
-        <TextField
-          value={publicName}
-          label="Public Display Name (optional)"
-          id="public_name"
-          name="public_name"
-          // feedback="Please enter your number."
-          variant="filled"
-          onChange={handlePublicNameChange}
-        />
-        <TextField
-          value={organization}
-          label="Organization (optional)"
-          id="organization"
-          name="organization"
-          type="organization"
-          // feedback="Please enter your number."
-          variant="filled"
-          onChange={handleOrganizationChange}
-        />
+        {variant === "default" && (
+          <>
+            <MuiTelInput
+              // disableDropdown={true}
+              defaultCountry={"US"}
+              id="phone"
+              label="Phone"
+              name="phone"
+              // required
+              onChange={handlePhoneChange}
+              value={phone}
+              variant="filled"
+            />
+            <TextField
+              value={publicName}
+              label="Public Display Name (optional)"
+              id="public_name"
+              name="public_name"
+              // feedback="Please enter your number."
+              variant="filled"
+              onChange={handlePublicNameChange}
+            />
+            <TextField
+              value={organization}
+              label="Organization (optional)"
+              id="organization"
+              name="organization"
+              type="organization"
+              // feedback="Please enter your number."
+              variant="filled"
+              onChange={handleOrganizationChange}
+            />
+          </>
+        )}
+
         <FormControlLabel
           control={
-            <Checkbox 
+            <Checkbox
               checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}
               required
@@ -238,7 +245,8 @@ export const ContactBox = ({
           }
           label={
             <span>
-              I agree to the <Link href="/terms">Terms & Conditions</Link> and <Link href="/privacy">Privacy Policy</Link>
+              I agree to the <Link href="/terms">Terms & Conditions</Link> and{" "}
+              <Link href="/privacy">Privacy Policy</Link>
             </span>
           }
         />
