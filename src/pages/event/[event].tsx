@@ -201,7 +201,7 @@ const EventPage = ({ event, events, referral }) => {
       />
       <PageContainer>
         <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-          <EventInfo event={event} linkLocation={true} header={2} />
+          <EventInfo event={event} linkLocation={true} variant="compact" header={2} />
           <EventBookmark event={event} />
         </div>
 
@@ -298,14 +298,14 @@ const EventPage = ({ event, events, referral }) => {
               )}
             </ul>
             {/* {rsvps?.length > 80 && <h3>Waitlist ({rsvps?.length - 80})</h3>} */}
-            {rsvp && (
+            {/* {rsvp && (
               <ChatRoom
                 attestator_cid={referral}
                 event={event}
                 comments={event.comments}
                 user={rsvp.user}
               />
-            )}
+            )} */}
           </>
         )}
         {event.venue && <EventLocation event={event} />}
@@ -377,13 +377,18 @@ const PageContainer = styled.div`
   }
   h3.section-title {
     padding-top: 1em;
+    margin-top: 1em;
     margin-bottom: 0.5em;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 0.9rem;
+  }
+  .event-info {
+    margin-bottom: 1rem;
   }
   .content {
     font-size: 0.9rem;
     white-space: pre-line;
+    margin-bottom: 1rem;
   }
   .share-button,
   .rsvp-button {

@@ -71,6 +71,13 @@ const PageContainer = styled.div`
   padding: 1rem;
   max-width: 800px;
   margin: 0 auto;
+  .event-info {
+    margin-bottom: 1rem;
+  }
+  .event-info-link {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 const PageTitle = styled.h1`
@@ -219,11 +226,10 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
 
   return (
     <PageContainer>
-      {/* {checkIn && (
-        <StatusMessage>
-          <StatusText>✓ You&apos;re checked in</StatusText>
-        </StatusMessage>
-      )} */}
+      
+      <Link href={`/event/${event.slug}`} className="event-info-link">
+        <EventInfo event={event} variant="compact" header={1} />
+      </Link>
 
       {isLoadingCheckIn && (
         <StatusMessage>

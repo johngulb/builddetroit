@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { User } from '../dpop';
 
 interface UserCardProps {
@@ -6,60 +7,72 @@ interface UserCardProps {
   variant?: 'horizontal' | 'vertical';
 }
 
+const Container = styled.div<{variant: 'horizontal' | 'vertical'}>`
+  display: flex;
+  flex-direction: ${props => props.variant === 'vertical' ? 'column' : 'row'};
+  align-items: center;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  gap: 8px;
+`;
+
+const ProfileImage = styled.img<{size: number}>`
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 !important;
+`;
+
+const ProfileInitial = styled.div<{size: number, fontSize: number}>`
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
+  border-radius: 50%;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: ${props => props.fontSize}px;
+`;
+
+const InfoContainer = styled.div<{variant: 'horizontal' | 'vertical'}>`
+  display: flex;
+  flex-direction: ${props => props.variant === 'vertical' ? 'column' : 'row'};
+  align-items: ${props => props.variant === 'vertical' ? 'center' : 'flex-start'};
+  gap: ${props => props.variant === 'vertical' ? '4px' : '0'};
+`;
+
+const Organization = styled.span<{variant: 'horizontal' | 'vertical'}>`
+  font-size: 11px;
+  margin-left: ${props => props.variant === 'vertical' ? 0 : 4}px;
+  color: #666;
+`;
+
 export const UserCard: React.FC<UserCardProps> = ({ user, variant = 'horizontal' }) => {
   const imageSize = variant === 'vertical' ? 96 : 24;
   const fontSize = variant === 'vertical' ? 32 : 12;
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: variant === 'vertical' ? 'column' : 'row',
-      alignItems: 'center', 
-      gap: '8px' 
-    }}>
+    <Container variant={variant}>
       {user.profile_picture ? (
-        <img 
+        <ProfileImage 
           src={user.profile_picture} 
           alt={user.name}
-          style={{ 
-            width: imageSize, 
-            height: imageSize, 
-            borderRadius: '50%',
-            objectFit: 'cover',
-            margin: 0,
-          }}
+          size={imageSize}
         />
       ) : (
-        <div style={{
-          width: imageSize,
-          height: imageSize,
-          borderRadius: '50%',
-          backgroundColor: '#eee',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: fontSize
-        }}>
+        <ProfileInitial size={imageSize} fontSize={fontSize}>
           {user.name[0].toUpperCase()}
-        </div>
+        </ProfileInitial>
       )}
-      <div style={{
-        display: 'flex',
-        flexDirection: variant === 'vertical' ? 'column' : 'row',
-        alignItems: variant === 'vertical' ? 'center' : 'flex-start',
-        gap: variant === 'vertical' ? '4px' : '0'
-      }}>
+      <InfoContainer variant={variant}>
         <span>{user.name}</span>
         {user?.organization && (
-          <span style={{ 
-            fontSize: 12, 
-            marginLeft: variant === 'vertical' ? 0 : 4, 
-            color: "#666" 
-          }}>
+          <Organization variant={variant}>
             {user.organization}
-          </span>
+          </Organization>
         )}
-      </div>
-    </div>
+      </InfoContainer>
+    </Container>
   );
 };

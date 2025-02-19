@@ -10,12 +10,19 @@ const VenueName = ({ venue }) => (
   </div>
 );
 
+interface EventInfoProps {
+  event: any;
+  linkLocation?: boolean;
+  variant?: "default" | "compact" | "nano";
+  header?: 1 | 2 | 3;
+}
+
 export const EventInfo = ({
   event,
   linkLocation = false,
   variant = "default",
   header = 2,
-}) => (
+}: EventInfoProps) => (
   <EventInfoContainer className={`event-info ${variant}`}>
     <div className="date-info">
       <div className="date-info-wrapper">
