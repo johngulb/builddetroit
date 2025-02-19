@@ -170,3 +170,12 @@ export interface ContentSignature {
   address: string;
 }
 
+
+export interface EventConnection {
+  id: number;
+  event_cid: string;
+  connection_cid: string;
+  connection: User;
+  created_at: string;
+  updated_at: string;
+}

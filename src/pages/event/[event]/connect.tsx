@@ -12,11 +12,14 @@ import {
   getContact,
   getUser,
   submitEventConfirmationCheckIn,
+  getRsvps,
 } from "../../../dpop";
 import styled from "@emotion/styled";
 import { ContactBox } from "../../../components/ContactBox";
 import { UserCard } from "../../../components/UserCard";
 import { CheckInQRCode } from "../../../components/CheckInQRCode";
+import { EventInfo } from "../../../components/Events/EventInfo";
+import { Card, Link } from "@mui/material";
 
 const ConnectContainer = styled.div`
   display: flex;
@@ -62,15 +65,15 @@ const ConnectText = styled.p`
 `;
 
 const PageContainer = styled.div`
-  padding: 2rem;
+  padding: 1rem;
   max-width: 800px;
   margin: 0 auto;
 `;
 
 const PageTitle = styled.h1`
   text-align: center;
-  font-size: 32px;
-  margin-bottom: 3rem;
+  font-size: 24px;
+  margin-bottom: 0.5rem;
 `;
 
 const StatusMessage = styled.div`
@@ -80,9 +83,51 @@ const StatusMessage = styled.div`
 
 const ConnectionsList = styled.div`
   margin: 1rem 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
+`;
+
+const ContactBoxWrapper = styled.div`
+  margin: 3rem 0;
+`;
+
+const StyledCard = styled(Card)`
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+`;
+
+const CardTitle = styled.h3`
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+`;
+
+const UpcomingEventsWrapper = styled.div`
+  margin-top: 1rem;
+  text-align: left;
+`;
+
+const UpcomingEventsTitle = styled.h4`
+  margin: 1rem 0;
+  font-size: 1rem;
+`;
+
+const ConnectionsTitle = styled.h3`
+  margin-top: 2rem;
+  font-size: 1.2rem;
+`;
+
+const StatusText = styled.p`
+  font-size: 1.1rem;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
@@ -91,6 +136,7 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
   const [isLoadingCheckIn, setIsLoadingCheckIn] = useState(true);
   const [connection, setConnection] = useState(null);
   const [connections, setConnections] = useState([]);
+  const [upcomingRSVPs, setUpcomingRSVPs] = useState([]);
 
   useEffect(() => {
     if (checkIn) {
@@ -150,33 +196,41 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
     }
   }, [checkIn, event.slug, attestator_cid]);
 
+  React.useEffect(() => {
+    const upcomingRSVPs = connection?.connection?.rsvps?.filter(
+      (rsvp) => rsvp.event.id !== event.id
+    );
+    const sortedRSVPs = upcomingRSVPs?.sort((a, b) => {
+      const dateA = new Date(a.event.start_date);
+      const dateB = new Date(b.event.start_date);
+      return dateA.getTime() - dateB.getTime();
+    });
+    setUpcomingRSVPs(sortedRSVPs);
+  }, [connection?.connection?.rsvps, event.id]);
+
   return (
     <PageContainer>
-      <PageTitle>Connect to Earn Rewards</PageTitle>
-
       {/* {checkIn && (
         <StatusMessage>
-          <p style={{ color: "green", fontWeight: "bold", fontSize: "1.2rem" }}>
-            ✓ You&apos;re checked in
-          </p>
+          <StatusText>✓ You&apos;re checked in</StatusText>
         </StatusMessage>
       )} */}
 
       {isLoadingCheckIn && (
         <StatusMessage>
-          <p style={{ fontSize: "1.1rem" }}>Loading check-in status...</p>
+          <StatusText>Loading check-in status...</StatusText>
         </StatusMessage>
       )}
 
       {!checkIn && !isLoadingCheckIn && (
-        <div style={{ margin: "3rem 0" }}>
+        <ContactBoxWrapper>
           <ContactBox
             bodyContent=""
             titleText=""
             buttonText="Join the List"
             onSubmit={handleCheckIn}
           />
-        </div>
+        </ContactBoxWrapper>
       )}
 
       {checkIn && !connection && (
@@ -191,22 +245,33 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
       )}
 
       {connection && (
-        <div style={{ textAlign: "center", margin: "3rem 0" }}>
-          <UserCard user={connection.connection} variant="vertical" />
-          <h3
-            style={{
-              marginTop: "2rem",
-              marginBottom: "1rem",
-              fontSize: "1.5rem",
-            }}
-          >
-            You are now connected!
-          </h3>
-        </div>
-        // <div style={{marginTop: 12, fontSize: 14}}>
-        //   You earned {connection.points} points!
-        // </div>
+        <StyledCard>
+          <CardTitle>You are now connected!</CardTitle>
+          <StyledLink href={`/profile/${connection.connection.id}`}>
+            <UserCard user={connection.connection} variant="vertical" />
+          </StyledLink>
+          {upcomingRSVPs?.length > 0 && (
+            <UpcomingEventsWrapper>
+              <UpcomingEventsTitle>
+                Events {connection.connection.name} is attending:
+              </UpcomingEventsTitle>
+              {upcomingRSVPs?.map((rsvp) => (
+                <div key={rsvp.id} style={{ marginBottom: '1rem' }}>
+                  <a href={`/event/${rsvp.event.slug}`}>
+                    <EventInfo
+                      event={rsvp.event}
+                      variant="compact" 
+                      header={3}
+                    />
+                  </a>
+                </div>
+              ))}
+            </UpcomingEventsWrapper>
+          )}
+        </StyledCard>
       )}
+
+      <PageTitle>Connect to Earn Rewards</PageTitle>
 
       {checkIn && (
         <>
@@ -216,9 +281,9 @@ const ConnectPage = ({ attestator, attestator_cid, event, events }) => {
 
       {connections.length > 0 && (
         <>
-          <h3 style={{ marginTop: "2rem", fontSize: "1.2rem" }}>
+          <ConnectionsTitle>
             Connections Made ({connections.length})
-          </h3>
+          </ConnectionsTitle>
           <ConnectionsList>
             {connections.map((conn) => (
               <UserCard key={conn.id} user={conn.connection} />

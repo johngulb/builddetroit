@@ -77,7 +77,7 @@ export const EventList = ({ events, variant = "card", category, loadMore = false
             <a href={`/event/${event.slug}`} style={{ flex: 1 }}>
               <EventInfo event={event} variant={variant} header={header} />
             </a>
-            <EventBookmark eventId={event.id} />
+            <EventBookmark event={event} />
           </div>
         ) : (
           <EventCard key={`event-${i}`} event={event} />

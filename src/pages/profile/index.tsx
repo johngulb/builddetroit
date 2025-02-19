@@ -8,14 +8,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/router";
 import { EventInfo } from "../../components/Events/EventInfo";
-import { useEvents } from "../../hooks/useEvents";
+// import { getEventsFromCache, useEvents } from "../../hooks/useEvents";
 import { EventBookmark } from "../../components/Events/EventBookmark";
+import { useBookmarks } from "../../hooks/useBookmarks";
 
 const ProfilePage = () => {
   const router = useRouter();
   const [user, setUser] = React.useState<User | null>(null);
-  const [bookmarkedEvents, setBookmarkedEvents] = React.useState([]);
-  const [events] = useEvents();
+  const { bookmarkedEvents, loadBookmarks } = useBookmarks();
+  // const [events] = useEvents();
 
   React.useEffect(() => {
     const user = getUser();
@@ -23,15 +24,10 @@ const ProfilePage = () => {
     if (!user) {
       window.location.href = "/login";
     }
-
-    const bookmarkedEvents = JSON.parse(
-      localStorage.getItem("bookmarkedEvents") || "[]"
-    );
-    const bookmarkedEventsData = events.filter((event) =>
-      bookmarkedEvents.includes(event.id)
-    );
-    setBookmarkedEvents(bookmarkedEventsData);
-  }, [events]);
+    if (!bookmarkedEvents.length) {
+      loadBookmarks();
+    }
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -134,7 +130,7 @@ const ProfilePage = () => {
                   <a href={`/event/${event.slug}`} style={{ flex: 1 }}>
                     <EventInfo event={event} variant="compact" header={3} />
                   </a>
-                  <EventBookmark eventId={event.id} />
+                  <EventBookmark event={event} />
                 </div>
               ))}
             </div>

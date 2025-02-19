@@ -2,33 +2,41 @@ import React from 'react';
 import styled from '@emotion/styled';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { createEventBookmark } from '../../dpop';
+import { deleteEventBookmark } from '../../dpop';
+import { DPoPEvent } from '../../dpop';
+import { cacheEvent } from '../../hooks/useEvents';
+
 
 interface EventBookmarkProps {
-  eventId: string;
+  event: DPoPEvent;
   className?: string;
 }
 
-export const EventBookmark: React.FC<EventBookmarkProps> = ({ eventId, className }) => {
+export const EventBookmark: React.FC<EventBookmarkProps> = ({ event, className }) => {
   const [bookmarked, setBookmarked] = React.useState(false);
 
   React.useEffect(() => {
     const bookmarkedEvents = JSON.parse(localStorage.getItem('bookmarkedEvents') || '[]');
-    setBookmarked(bookmarkedEvents.includes(eventId));
-  }, [eventId]);
+    setBookmarked(bookmarkedEvents.includes(event.id.toString()));
+  }, [event.id]);
 
   const toggleBookmark = () => {
     const bookmarkedEvents = JSON.parse(localStorage.getItem('bookmarkedEvents') || '[]');
-    
+    cacheEvent(event);
+
     if (bookmarked) {
       // Remove from bookmarks
-      const updatedBookmarks = bookmarkedEvents.filter(id => id !== eventId);
+      const updatedBookmarks = bookmarkedEvents.filter(id => id !== event.id.toString());
       localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
       setBookmarked(false);
+      deleteEventBookmark(event.id.toString());
     } else {
       // Add to bookmarks
-      bookmarkedEvents.push(eventId);
+      bookmarkedEvents.push(event.id.toString());
       localStorage.setItem('bookmarkedEvents', JSON.stringify(bookmarkedEvents));
       setBookmarked(true);
+      createEventBookmark(event.id.toString());
     }
   };
 

@@ -12,6 +12,7 @@ import {
   DPoPEventComment,
   Artist,
   Content,
+  EventConnection,
 } from "./interfaces";
 
 export type {
@@ -28,7 +29,7 @@ export type {
   DPoPEventComment,
 };
 
-const hostname = "https://api.detroiter.network";
+export const hostname = "https://api.detroiter.network";
 
 export const isAuthorized = () => {
   const cid = getUserCID();
@@ -200,12 +201,13 @@ export const getEvent = async (event: string) => {
   return result.data;
 };
 
-interface EventQueryParams {
+export interface EventQueryParams {
   type?: string;
   venue?: string;
   limit?: number;
   offset?: number;
   featured?: boolean;
+  ids?: string;
 }
 
 export const createEvent = async (event: Partial<DPoPEvent>) => {
@@ -237,6 +239,7 @@ export const updateEvent = async (event: Partial<DPoPEvent>) => {
 
 export const getEvents = async ({
   type,
+  ids,
   venue,
   limit,
   offset,
@@ -245,6 +248,7 @@ export const getEvents = async ({
   const params = new URLSearchParams();
   if (type) params.set("type", type);
   if (venue) params.set("venue", venue);
+  if (ids) params.set("ids", ids);
   params.set("limit", limit?.toString() ?? "18");
   params.set("offset", offset?.toString() ?? "0");
   if (featured) params.set("featured", "true");
@@ -499,7 +503,7 @@ export const submitSignedEventRsvp = async (
   return result.data;
 };
 
-export const getEventConnections = async (event: string) => {
+export const getEventConnections = async (event: string): Promise<EventConnection[]> => {
   const result = await authorizedRequest(`event/${event}/connections`);
   return result.data;
 };
@@ -529,6 +533,27 @@ export const myRSVP = (rsvps) => {
     (rsvp) => rsvp.user?.cid == cid || rsvp.user?.id == user?.id
   );
   return matches[0];
+};
+
+/** Bookmarks */
+
+export const getBookmarks = async () => {
+  const result = await authorizedRequest(`bookmarks`);
+  return result.data;
+};
+
+export const createEventBookmark = async (event: string) => {
+  const result = await authorizedRequest(`event/${event}/bookmark`, {
+    method: "POST",
+  });
+  return result.data;
+};
+
+export const deleteEventBookmark = async (event: string) => {
+  const result = await authorizedRequest(`event/${event}/bookmark`, {
+    method: "DELETE",
+  });
+  return result.data;
 };
 
 export const parseJwt = (token) => {

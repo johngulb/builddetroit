@@ -1,40 +1,67 @@
 import { useEffect, useState } from 'react';
+import { getEvents, DPoPEvent, EventQueryParams, hostname } from '../dpop';
 
-const CACHE_KEY = 'cached_events';
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-export const useEvents = () => {
-  const [events, setEvents] = useState([]);
+export const useEvents = (params?: EventQueryParams) => {
+  const [events, setEvents] = useState<DPoPEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchEvents = async (params?: URLSearchParams) => {
+  const fetchEvents = async (params?: EventQueryParams) => {
     try {
       setLoading(true);
       
-      // Check cache first
-      const cached = localStorage.getItem(CACHE_KEY);
-      if (cached) {
-        const { data, timestamp } = JSON.parse(cached);
-        if (Date.now() - timestamp < CACHE_DURATION) {
-          setEvents(data);
-          setLoading(false);
-          return data;
+      let data: DPoPEvent[] = [];
+
+      if (params?.ids) {
+        // If specific IDs requested, check cache for each
+        const requestedIds = params.ids.split(',');
+        const now = Date.now();
+        const uncachedIds: string[] = [];
+        
+        // Check cache for each requested ID
+        data = requestedIds.map(id => {
+          const cached = localStorage.getItem(`event-${id}`);
+          if (cached) {
+            const { data: eventData, timestamp } = JSON.parse(cached);
+            if (now - timestamp <= CACHE_DURATION) {
+              return eventData;
+            }
+          }
+          uncachedIds.push(id);
+          return null;
+        }).filter((event): event is DPoPEvent => event !== null);
+
+        if (uncachedIds.length > 0) {
+          // Fetch any missing/expired events
+          const freshEvents = await getEvents({ ...params, ids: uncachedIds.join(',') });
+          
+          // Cache each fresh event
+          freshEvents.forEach(event => {
+            localStorage.setItem(`event-${event.id}`, JSON.stringify({
+              data: event,
+              timestamp: now
+            }));
+          });
+
+          data = [...data, ...freshEvents];
         }
+      } else {
+        // For non-ID queries, fetch fresh data
+        data = await getEvents(params || {});
+        
+        // Cache each event individually
+        const now = Date.now();
+        data.forEach(event => {
+          localStorage.setItem(`event-${event.id}`, JSON.stringify({
+            data: event,
+            timestamp: now
+          }));
+        });
       }
 
-      // Fetch fresh data if cache missing or expired
-      const url = `https://api.detroiter.network/api/events${params ? `?${params}` : ''}`;
-      const response = await fetch(url);
-      const result = await response.json();
-      
-      // Update cache
-      localStorage.setItem(CACHE_KEY, JSON.stringify({
-        data: result.data,
-        timestamp: Date.now()
-      }));
-
-      setEvents(result.data);
-      return result.data;
+      setEvents(data);
+      return data;
     } catch (error) {
       console.error("Error fetching events:", error);
       return [];
@@ -44,8 +71,38 @@ export const useEvents = () => {
   };
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    fetchEvents(params);
+  }, [params]);
 
   return [events, loading] as const;
+};
+
+export const cacheEvent = (event: DPoPEvent) => {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(`event-${event.id}`, JSON.stringify({
+    data: event,
+    timestamp: Date.now()
+  }));
+};
+
+export const getEvent = async (event: string) => {
+  const result = await (await fetch(`${hostname}/api/event/${event}`)).json();
+  return result.data;
+};
+
+export const getEventFromCache = (event: string) => {
+  if (typeof window === "undefined") return;
+  const cached = localStorage.getItem(`event-${event}`);
+  if (cached) {
+    const { data: eventData, timestamp } = JSON.parse(cached);
+    if (Date.now() - timestamp <= CACHE_DURATION) {
+      return eventData;
+    }
+  }
+  return null;
+};
+
+
+export const getEventsFromCache = (ids: string[]) => {
+  return ids.map(id => getEventFromCache(id)).filter((event): event is DPoPEvent => event !== null);
 };

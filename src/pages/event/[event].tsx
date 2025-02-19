@@ -14,6 +14,7 @@ import {
   DPoPEventCheckIn,
   getEventConnections,
 } from "../../dpop";
+import { cacheEvent } from "../../hooks/useEvents";
 import styled from "@emotion/styled";
 import { ButtonLink, ButtonLinkCompact } from "../../components/Styled";
 import { EventRsvpSuccess } from "../../components/Events/EventRsvpSuccess";
@@ -48,6 +49,8 @@ const EventPage = ({ event, events, referral }) => {
   const [isLive, setIsLive] = React.useState(false);
   const [checkIn, setCheckIn] = React.useState<DPoPEventCheckIn | null>(null);
   const [connections, setConnections] = React.useState([]);
+
+  cacheEvent(event);
 
   React.useEffect(() => {
     if (checkIn) {
@@ -199,7 +202,7 @@ const EventPage = ({ event, events, referral }) => {
       <PageContainer>
         <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
           <EventInfo event={event} linkLocation={true} header={2} />
-          <EventBookmark eventId={event.id} />
+          <EventBookmark event={event} />
         </div>
 
         {event.image && <img src={event.image} />}
