@@ -9,7 +9,7 @@ interface EventListProps {
   variant?: string;
   category?: string;
   loadMore?: boolean;
-  header?: number;
+  header?: 1 | 2 | 3;
 }
 
 export const EventList = ({ events, variant = "card", category, loadMore = false, header = 2 }: EventListProps) => {
