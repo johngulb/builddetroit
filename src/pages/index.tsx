@@ -273,7 +273,7 @@ const HomePage = ({
               <h2 className="section-title">EXPLORE ARTWORK</h2>
               <ScrollSection>
                 <ArtworkGrid>
-                  {artworks?.slice(0, 6).map((artwork) => (
+                  {artworks?.slice(0, 3).map((artwork) => (
                     <ArtworkCard key={artwork.id} artwork={artwork} />
                   ))}
                 </ArtworkGrid>
@@ -282,7 +282,7 @@ const HomePage = ({
               <h2 className="section-title">CONNECT WITH ARTISTS</h2>
               <ScrollSection>
                 <ArtistGrid>
-                  {artists?.slice(0, 6).map((artist) => (
+                  {artists?.slice(0, 4).map((artist) => (
                     <ArtistCard key={artist.id} href={`/artists/${artist.slug}`}>
                       <div className="artist-preview">
                         <img
