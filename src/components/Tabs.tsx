@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Tabs as MuiTabs, Tab as MuiTab } from "@mui/material";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { getEnvironment } from "../utils/environment";
 
 const TabsContainer = styled.div`
   border-bottom: 1px solid #e0e0e0;
@@ -23,6 +24,7 @@ interface TabsProps {
 export const TabNavigation = ({ tab }: TabsProps) => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(tab);
+  const env = getEnvironment();
 
   const handleTabChange = (event: React.SyntheticEvent, value: string) => {
     setActiveTab(value);
@@ -47,10 +49,10 @@ export const TabNavigation = ({ tab }: TabsProps) => {
     <TabsContainer>
       <MuiTabs value={activeTab} onChange={handleTabChange}>
         <MuiTab label="Home" value="home" />
-        <MuiTab label="Events" value="events" />
-        <MuiTab label="Artwork" value="artwork" />
-        <MuiTab label="Artists" value="artists" />
-        <MuiTab label="Places" value="places" />
+        {env.category !== "artnight" && <MuiTab label="Events" value="events" />}
+        {env.category === "artnight" && <MuiTab label="Artwork" value="artwork" />}
+        {env.category === "artnight" && <MuiTab label="Artists" value="artists" />}
+        {env.category !== "artnight" && <MuiTab label="Places" value="places" />}
       </MuiTabs>
     </TabsContainer>
   );
