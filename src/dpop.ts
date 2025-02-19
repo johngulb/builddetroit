@@ -522,6 +522,11 @@ export const createEventConnection = async (event: string, connection_user_cid: 
   return result.data;
 };
 
+export const getConnections = async () => {
+  const result = await authorizedRequest("connections");
+  return result.data;
+};
+
 export const getRsvps = async () => {
   const result = await authorizedRequest("rsvps");
   return result.data;
