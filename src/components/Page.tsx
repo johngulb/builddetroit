@@ -8,6 +8,8 @@ import { AuthButton } from "./AuthButton";
 import { TabNavigation } from "./Tabs";
 import Hero from "./Hero";
 import { Footer } from "./Footer";
+import { getEnvironment } from "../utils/environment";
+
 export interface HeaderProps {
   disableDPoP: boolean;
   hideFooter: boolean;
@@ -20,6 +22,8 @@ export interface PageProps {
 
 export const Page = ({ children, headerProps, meta }) => {
   const user = useUser();
+
+  const env = getEnvironment();
 
   return (
     <Container>
@@ -52,14 +56,26 @@ export const Page = ({ children, headerProps, meta }) => {
         <>
           <Hero
             title={
-              <>
-                Welcome to the
-                <br />
-                Renaissance City
-              </>
+              env.layout === "artnight" ? (
+                "Detroit Art Night"
+              ) : (
+                <>
+                  Welcome to the
+                  <br />
+                  Renaissance City
+                </>
+              )
             }
-            subtitle="Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community."
-            image="https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2025/02/10201802/penobscot-e1739236711632.jpg"
+            subtitle={
+              env.layout === "artnight"
+                ? "Creating a community of creative people to come together on Wednesday nights for the sake of art, since 2018."
+                : "Our mission is to empower creators in Detroit by deploying technology that drives positive change in our community."
+            }
+            image={
+              env.layout === "artnight"
+                ? "https://nyc3.digitaloceanspaces.com/dpop/profile-pictures/1739511541672-205990853.jpg"
+                : "https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2025/02/10201802/penobscot-e1739236711632.jpg"
+            }
           />
           <TabNavigation tab={headerProps.mainRoute} />
         </>

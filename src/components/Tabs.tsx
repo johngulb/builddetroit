@@ -52,7 +52,7 @@ export const TabNavigation = ({ tab }: TabsProps) => {
         <MuiTab label="Events" value="events" />
         <MuiTab label="Artwork" value="artwork" />
         <MuiTab label="Artists" value="artists" />
-        <MuiTab label="Places" value="places" />
+        {env.layout !== "artnight" && <MuiTab label="Places" value="places" />}
       </MuiTabs>
     </TabsContainer>
   );

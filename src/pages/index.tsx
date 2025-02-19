@@ -77,8 +77,13 @@ const PageContainer = styled.div`
   }
 
   .more-info {
-    h3 { margin-bottom: 0.25rem; font-size: 1.2rem; }
-    p { margin: 0.25rem auto; }
+    h3 {
+      margin-bottom: 0.25rem;
+      font-size: 1.2rem;
+    }
+    p {
+      margin: 0.25rem auto;
+    }
     .time-range {
       font-size: 0.85rem;
       color: #666;
@@ -111,7 +116,7 @@ const ScrollSection = styled.div`
     -ms-overflow-style: none;
     padding: 0.35rem 0.75rem;
     margin: 0 -0.75rem;
-    
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -123,7 +128,7 @@ const ArtistGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 0.75rem;
   margin-bottom: 1.5rem;
-  
+
   @media only screen and (max-width: 822px) {
     display: flex;
     grid-template-columns: none;
@@ -261,14 +266,22 @@ const HomePage = ({
         <ContentWrapper>
           <GridContainer>
             <div>
-              <h2 className="section-title">JOIN A COMMUNITY</h2>
-              <ScrollSection>
-                <CommunityGrid>
-                  {communities?.map((community: Community) => (
-                    <CommunityCard key={community.slug} community={community} variant="compact" />
-                  ))}
-                </CommunityGrid>
-              </ScrollSection>
+              {layout !== "artnight" && (
+                <>
+                  <h2 className="section-title">JOIN A COMMUNITY</h2>
+                  <ScrollSection>
+                    <CommunityGrid>
+                      {communities?.map((community: Community) => (
+                        <CommunityCard
+                          key={community.slug}
+                          community={community}
+                          variant="compact"
+                        />
+                      ))}
+                    </CommunityGrid>
+                  </ScrollSection>
+                </>
+              )}
 
               <h2 className="section-title">EXPLORE ARTWORK</h2>
               <ScrollSection>
@@ -283,7 +296,10 @@ const HomePage = ({
               <ScrollSection>
                 <ArtistGrid>
                   {artists?.slice(0, 60).map((artist) => (
-                    <ArtistCard key={artist.id} href={`/artists/${artist.slug}`}>
+                    <ArtistCard
+                      key={artist.id}
+                      href={`/artists/${artist.slug}`}
+                    >
                       <div className="artist-preview">
                         <img
                           src={artist.profile_picture || "/default-avatar.png"}
