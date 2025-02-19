@@ -130,7 +130,7 @@ const ProfilePage = () => {
                   {rsvps.map((rsvp) => (
                     <div key={rsvp.id} className="event-list-item">
                       <a href={`/event/${rsvp.event.slug}`}>
-                        <EventInfo event={rsvp.event} variant="compact" header={3} />
+                        <EventInfo event={rsvp.event} variant="nano" header={3} />
                       </a>
                     </div>
                   ))}
@@ -146,7 +146,7 @@ const ProfilePage = () => {
                   {bookmarkedEvents.map((event) => (
                     <div key={event.id} className="event-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <a href={`/event/${event.slug}`} style={{ flex: 1 }}>
-                        <EventInfo event={event} variant="compact" header={3} />
+                        <EventInfo event={event} variant="nano" header={3} />
                       </a>
                       <EventBookmark event={event} />
                     </div>
@@ -217,10 +217,10 @@ const ProfileContent = styled.div`
   }
 
   .bookmarked-events, .rsvp-events, .connections {
-    background: white;
+    /* background: white;
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     margin-bottom: 2rem;
 
     h2 {
