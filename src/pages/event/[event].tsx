@@ -79,8 +79,14 @@ const EventPage = ({ event, events, referral }) => {
   React.useEffect(() => {
     const isLive =
       moment().isAfter(moment(event.start_date)) &&
-      moment().isBefore(moment(event.end_date).add(3, 'hours'));
-    console.log('isLive: ', isLive, moment(event.start_date).format('YYYY-MM-DD HH:mm'), moment(event.end_date).format('YYYY-MM-DD HH:mm'), moment().add(3, 'hours').format('YYYY-MM-DD HH:mm'));
+      moment().isBefore(moment(event.end_date).add(3, "hours"));
+    console.log(
+      "isLive: ",
+      isLive,
+      moment(event.start_date).format("YYYY-MM-DD HH:mm"),
+      moment(event.end_date).format("YYYY-MM-DD HH:mm"),
+      moment().add(3, "hours").format("YYYY-MM-DD HH:mm")
+    );
     // setIsLive(true);
     setIsLive(isLive);
   }, [event.start_date, event.end_date]);
@@ -114,11 +120,16 @@ const EventPage = ({ event, events, referral }) => {
 
   const submitEmailRsvp = (contact: Contact) => {
     submitEventRsvp(event.id, contact).then((res) => {
-      setShowDidRsvp(true);
+      if (!isLive) {
+        setShowDidRsvp(true);
+      }
       setShowRsvpModal(false);
       getEvent(event.id).then((res) => {
         setRsvps(res.rsvps);
       });
+      if (isLive) {
+        handleCheckIn();
+      }
     });
   };
 
@@ -136,11 +147,14 @@ const EventPage = ({ event, events, referral }) => {
   }, [submitRsvp]);
 
   const handleCheckIn = React.useCallback(() => {
-    submitEventConfirmationCheckIn(event.slug, user.cid, user.cid).then(
-      (checkIn) => {
-        setCheckIn(checkIn);
-      }
-    );
+    const cid = getUserCID();
+    if (!cid) {
+      setShowRsvpModal(true);
+      return;
+    }
+    submitEventConfirmationCheckIn(event.slug, cid, cid).then((checkIn) => {
+      setCheckIn(checkIn);
+    });
   }, [event.slug, user?.cid]);
 
   const publicRSVPs = rsvps.filter((rsvp) => {
@@ -185,8 +199,14 @@ const EventPage = ({ event, events, referral }) => {
         }
         titleText={
           <>
-            <div style={{ marginBottom: 8, textTransform: "uppercase", fontSize: 18 }}>
-              Submit your RSVP
+            <div
+              style={{
+                marginBottom: 8,
+                textTransform: "uppercase",
+                fontSize: 18,
+              }}
+            >
+              {isLive ? "Check In" : "RSVP"}
             </div>
           </>
         }
@@ -197,11 +217,16 @@ const EventPage = ({ event, events, referral }) => {
         //     </div>
         //   </>
         // }
-        buttonText="RSVP"
+        buttonText={isLive ? "Check In" : "RSVP"}
       />
       <PageContainer>
         <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-          <EventInfo event={event} linkLocation={true} variant="compact" header={2} />
+          <EventInfo
+            event={event}
+            linkLocation={true}
+            variant="compact"
+            header={2}
+          />
           <EventBookmark event={event} />
         </div>
 
@@ -269,7 +294,9 @@ const EventPage = ({ event, events, referral }) => {
 
         {connections?.length > 0 && (
           <>
-            <h3 className="section-title">Connections ({connections.length})</h3>
+            <h3 className="section-title">
+              Connections ({connections.length})
+            </h3>
             <ul className="rsvp-container">
               {connections.map((connection) => (
                 <li key={connection.id}>
