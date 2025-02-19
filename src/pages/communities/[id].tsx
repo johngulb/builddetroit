@@ -253,8 +253,8 @@ const PageContainer = styled.div`
   .members-container {
     min-height: 200px;
     a {
-      color: #0082ae;
-      text-decoration: underline;
+      color: inherit;
+      text-decoration: none;
     }
   }
 `;

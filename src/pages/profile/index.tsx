@@ -16,6 +16,8 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+// import { CompleteProfile } from "../../components/Auth/CompleteProfile";
+
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -114,6 +116,8 @@ const ProfilePage = () => {
           )}
         </div>
 
+        {/* <CompleteProfile /> */}
+
         <TabContext value={activeTab}>
           <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
             <TabList onChange={(e, val) => setActiveTab(val)}>
@@ -209,11 +213,11 @@ const ProfileContent = styled.div`
   max-width: 600px;
 
   .profile-info {
-    background: white;
+    /* background: white;
     padding: 1.5rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    margin-bottom: 1rem;
   }
 
   .bookmarked-events, .rsvp-events, .connections {
