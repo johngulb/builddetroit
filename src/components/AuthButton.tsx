@@ -11,7 +11,7 @@ export const AuthButton = () => {
   return (
     <AuthButtonContainer>
       {user ? (
-        <a href={`/profile`}>
+        <a href={`/profile`} className={user?.profile_picture ? "has-profile-picture" : ""}>
           {user?.profile_picture ? (
             <img src={user?.profile_picture} alt={user?.name} />
           ) : (
@@ -35,7 +35,11 @@ const AuthButtonContainer = styled.div`
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     border: 1px solid #666;
   }
-  img, a {
+  img {
+    width: 46px;
+    height: 46px;
+  }
+  a.has-profile-picture {
     width: 46px;
     height: 46px;
   }
