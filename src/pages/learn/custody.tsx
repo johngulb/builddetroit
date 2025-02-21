@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { NextSeo } from "next-seo";
-// import { ButtonLink } from "../../components/Styled";
-
+import { NextButton } from "../../components/Styled";
 const SelfCustodyPage = () => {
   return (
     <>
       <NextSeo
-        title="Self-Custody & Asset Security | Detroit Events"
+        title="Self-Custody & Asset Security | Learn"
         description="Learn about self-custody of digital assets and how cryptographic security protects your holdings."
       />
       <PageWrapper>
@@ -65,6 +64,13 @@ const SelfCustodyPage = () => {
                 </tr>
               </tbody>
             </ComparisonTable>
+          </Section>
+
+          <Section>
+            <NextButton href="/learn/quiz">
+              Test Your Knowledge
+              <span>→</span>
+            </NextButton>
           </Section>
         </ContentContainer>
       </PageWrapper>

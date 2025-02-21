@@ -92,3 +92,23 @@ export const ButtonLinkCompact = styled(ButtonLink)`
   margin-top: 0;
   margin-bottom: 0.5rem;
 `;
+
+export const NextButton = styled(ButtonLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 300px;
+  margin: 2rem auto 0;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.5rem;
+  
+  span {
+    font-size: 1.4rem;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover span {
+    transform: translateX(4px);
+  }
+`;

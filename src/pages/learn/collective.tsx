@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { NextSeo } from "next-seo";
-import { ButtonLink } from "../../components/Styled";
+import { NextButton } from "../../components/Styled";
 
 const CollectivePage = () => {
   return (
     <>
       <NextSeo
-        title="Collective Ownership Models | Detroit Events"
+        title="Collective Ownership Models | Learn"
         description="Explore the advantages and challenges of collective ownership models enabled by blockchain technology."
       />
       <PageWrapper>
@@ -101,6 +101,13 @@ const CollectivePage = () => {
                 <p>Robust platforms and tools to facilitate coordination and asset management</p>
               </Card>
             </Grid>
+          </Section>
+
+          <Section>
+            <NextButton href="/learn/key-ownership">
+              Next: Digital Sovereignty
+              <span>→</span>
+            </NextButton>
           </Section>
         </ContentContainer>
       </PageWrapper>

@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { NextSeo } from "next-seo";
+import { NextButton } from "../../components/Styled";
 
 const CryptographyPage = () => {
   return (
     <>
       <NextSeo
-        title="Cryptography & Security | Detroit Events"
+        title="Cryptography & Security | Learn"
         description="Learn about cryptographic security and how public-private key pairs protect and authenticate blockchain transactions."
       />
       <PageWrapper>
@@ -64,6 +65,13 @@ const CryptographyPage = () => {
                 </tr>
               </tbody>
             </ComparisonTable>
+          </Section>
+
+          <Section>
+            <NextButton href="/learn/custody">
+              Next: Self-Custody
+              <span>→</span>
+            </NextButton>
           </Section>
         </ContentContainer>
       </PageWrapper>

@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { NextSeo } from "next-seo";
-import { ButtonLink } from "../../components/Styled";
-import Link from "next/link";
+import { NextButton } from "../../components/Styled";
 
 const KeyOwnershipPage = () => {
   return (
     <>
       <NextSeo
-        title="Digital Sovereignty & Key Ownership | Detroit Events"
+        title="Digital Sovereignty & Key Ownership | Learn"
         description="Learn about digital sovereignty through private key ownership, the risks involved, and social recovery options."
       />
       <PageWrapper>
@@ -189,26 +188,6 @@ const ComparisonTable = styled.table`
 
   tr:last-child td {
     border-bottom: none;
-  }
-`;
-
-const NextButton = styled(ButtonLink)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  max-width: 300px;
-  margin: 2rem auto 0;
-  font-size: 1.2rem;
-  padding: 0.8rem 1.5rem;
-  
-  span {
-    font-size: 1.4rem;
-    transition: transform 0.2s ease;
-  }
-
-  &:hover span {
-    transform: translateX(4px);
   }
 `;
 

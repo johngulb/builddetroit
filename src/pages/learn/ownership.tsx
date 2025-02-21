@@ -7,7 +7,7 @@ const OwnershipPage = () => {
   return (
     <>
       <NextSeo
-        title="Digital Communities & Collective Organization | Detroit Events"
+        title="Digital Communities & Collective Organization | Learn"
         description="Learn how digital communities can organize collectively using blockchain technology and new ownership models."
       />
       <PageWrapper>
@@ -86,8 +86,8 @@ const OwnershipPage = () => {
           </Section>
 
           <Section>
-            <NextButton href="/learn/self-custody">
-              Next: Self-Custody
+            <NextButton href="/learn/sovereignty">
+              Next: Sovereignty
               <span>→</span>
             </NextButton>
           </Section>

@@ -45,7 +45,7 @@ const LearnPage = () => {
               <Card>
                 <h3>Digital Sovereignty</h3>
                 <p>Control your own private keys to achieve true ownership and financial independence</p>
-                <ButtonLink href="/learn/key-ownership">Learn More</ButtonLink>
+                <ButtonLink href="/learn/sovereignty">Learn More</ButtonLink>
               </Card>
               <Card>
                 <h3>Cryptographic Security</h3>
@@ -55,7 +55,7 @@ const LearnPage = () => {
               <Card>
                 <h3>Self-Custody</h3>
                 <p>Learn why being your own bank brings both freedom and responsibility</p>
-                <ButtonLink href="/learn/self-custody">Learn More</ButtonLink>
+                <ButtonLink href="/learn/custody">Learn More</ButtonLink>
               </Card>
             </Grid>
           </Section>
