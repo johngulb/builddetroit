@@ -3,7 +3,7 @@ export const completion = async (text: string) => {
     await fetch(`https://api.openai.com/v1/chat/completions`, {
       method: "POST",
       body: JSON.stringify({
-        model: "gpt-3.5-turbo-0301",
+        model: "gpt-4o",
         messages: [
           {
             role: "system",
@@ -19,7 +19,7 @@ export const completion = async (text: string) => {
       }),
       headers: {
         "content-type": "application/json",
-        authorization: `Bearer ${process.env.OPEN_AI_TOKEN}`,
+        authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
     })
   ).json();

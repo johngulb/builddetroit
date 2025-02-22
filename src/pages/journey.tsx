@@ -1,5 +1,3 @@
-// I'm not sure where I should go next. I'm making my way to Denver, and don't know if I should go through Kansas City or Lincoln Nebraska.
-
 import React from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
@@ -9,8 +7,12 @@ const PageWrapper = styled.div`
   background-color: #fafafa;
   margin: auto;
   background-image: url("https://detroitartdao.com/wp-content/uploads/2024/02/dark-side-of-the-moon-galaxy.png");
-  height: 100vh;
+  min-height: 100vh;
   background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-y: auto;
   img {
     margin-top: 1rem;
   }
@@ -18,7 +20,7 @@ const PageWrapper = styled.div`
 
 const PageContainer = styled.div`
   padding: 1rem;
-  height: 100vh;
+  min-height: 100vh;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -43,7 +45,7 @@ const PageContainer = styled.div`
     margin: 1rem 0;
     width: 100%;
   }
-  button.submmit {
+  button.submit {
     padding: 0.5rem 2rem;
     font-weight: bold;
   }
@@ -60,16 +62,36 @@ const Content = styled.div`
       margin: 0.5rem;
       font-size: 1rem;
       color: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      &:hover {
+        background: rgba(255,255,255,0.1);
+        transform: translateY(-2px);
+      }
     }
+  }
+`;
+
+const ChatMessage = styled.div`
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.5s ease;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 `;
 
 const Page = () => {
   const [direction, setDirection] = React.useState<string>("");
   const [message, setMessage] = React.useState<string>("");
-  const [response, setResponse] = React.useState<string>("");
+  const [chatHistory, setChatHistory] = React.useState<Array<{type: string, content: string}>>([]);
+  const [isTyping, setIsTyping] = React.useState(false);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const options = {
     know: {
       prompt: "I know where I am headed.",
@@ -89,27 +111,29 @@ const Page = () => {
   };
 
   const handleButtonPress = React.useCallback((e) => {
-    console.log(e.target.innerHTML, e.target.id);
-    setDirection(e.target.id);
-  }, []);
+    const id = e.target.id;
+    setDirection(id);
+    setChatHistory(prev => [...prev, 
+      {type: 'user', content: options[id].prompt},
+      {type: 'assistant', content: options[id].message}
+    ]);
+  }, [options]);
 
-  const handleSubmit = React.useCallback(() => {
-    console.log("options", options, direction);
-    const chat = `i'm building an interactive artwork that has the goal to help someone along on their journey in life.
+  const handleSubmit = React.useCallback(async () => {
+    if (!message.trim()) return;
+    
+    setIsTyping(true);
+    setChatHistory(prev => [...prev, {type: 'user', content: message}]);
+    setMessage('');
 
-    the prompt is "Hello fellow traveler... How are you doing on your journey?"
-    
-    the initial inputs the traveler can select to help provide direction are: "I know where I am headed", "I am finding my way." and "I am lost. :("
-    
-    the traveler selected "${options[direction].prompt}" and was prompted the following: "${options[direction].message}"
-    
-    they answered:
-    
-    "${message}"
-    
-    can you share a response`;
-    console.log("chat", chat);
-    (async () => {
+    try {
+      const chat = `i'm building an interactive artwork that has the goal to help someone along on their journey in life.
+      the prompt is "Hello fellow traveler... How are you doing on your journey?"
+      the initial inputs the traveler can select to help provide direction are: "I know where I am headed", "I am finding my way." and "I am lost. :("
+      the traveler selected "${options[direction].prompt}" and was prompted the following: "${options[direction].message}"
+      they answered: "${message}"
+      can you share a response, and prompt the traveler to share further?`;
+
       const res = await fetch(`/api/chat`, {
         method: "POST",
         body: JSON.stringify({
@@ -117,10 +141,24 @@ const Page = () => {
         }),
         headers: { "content-type": "application/json" },
       });
+      
       const json = await res.json();
-      setResponse(json.detail.choices[0].message.content);
-    })();
+      const response = json.detail.choices[0].message.content;
+      
+      setChatHistory(prev => [...prev, {type: 'assistant', content: response}]);
+    } catch (error) {
+      console.error('Chat error:', error);
+    } finally {
+      setIsTyping(false);
+    }
   }, [direction, message, options]);
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
 
   return (
     <PageWrapper>
@@ -142,6 +180,7 @@ const Page = () => {
             <br />
             How are you doing on your journey?
           </h3>
+          
           {direction?.length === 0 && (
             <div className="button-container">
               <button id="know" onClick={handleButtonPress}>
@@ -155,25 +194,32 @@ const Page = () => {
               </button>
             </div>
           )}
+
+          {chatHistory.map((msg, index) => (
+            <ChatMessage key={index}>
+              <p>{msg.content}</p>
+            </ChatMessage>
+          ))}
+
           {direction?.length > 0 && (
             <>
-              <p>{options[direction]?.message}</p>
               <textarea
-                placeholder="enter message..."
-                onChange={(e) => {
-                  setMessage(e.target.value);
-                }}
+                placeholder="Share your thoughts..."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                disabled={isTyping}
               />
-              <button className="submmit" id="submit" onClick={handleSubmit}>
-                SUBMIT
+              <button 
+                className="submit" 
+                onClick={handleSubmit}
+                disabled={isTyping || !message.trim()}
+              >
+                {isTyping ? 'Thinking...' : 'SUBMIT'}
               </button>
             </>
           )}
-          {response?.length > 0 && (
-            <>
-              <p>{response}</p>
-            </>
-          )}
+
           <br />
           <br />
           <br />

@@ -7,87 +7,83 @@ const OwnershipPage = () => {
   return (
     <>
       <NextSeo
-        title="Digital Communities & Collective Organization | Learn"
-        description="Learn how digital communities can organize collectively using blockchain technology and new ownership models."
+        title="Crypto Communities & Collective Organization | Learn"
+        description="Learn how crypto communities organize collectively using blockchain technology, tokens, and decentralized governance."
       />
       <PageWrapper>
         <HeroSection>
           <HeroContent>
-            <h1>Digital Communities & Collective Organization</h1>
-            <p>Discover how blockchain enables communities to coordinate, make decisions, and share ownership in new ways</p>
+            <h1>Crypto Communities & Collective Organization</h1>
+            <p>Discover how blockchain enables new forms of community coordination, ownership and governance through tokens, DAOs and decentralized systems</p>
           </HeroContent>
         </HeroSection>
 
         <ContentContainer>
           <Section>
-            <h2>Community Organization Models</h2>
+            <h2>Types of Crypto Communities</h2>
             <Grid>
               <Card>
-                <h3>Decentralized Autonomous Organizations (DAOs)</h3>
-                <p>Community-owned entities where decisions are made collectively through transparent voting mechanisms</p>
+                <h3>Tokenized Communities</h3>
+                <p>Communities powered by native tokens that represent ownership, governance rights and participation. Members can earn and use tokens to participate in decision-making.</p>
               </Card>
               <Card>
-                <h3>Social Coordination</h3>
-                <p>Tools and frameworks for communities to align incentives and work together toward shared goals</p>
+                <h3>DAOs (Decentralized Autonomous Organizations)</h3>
+                <p>Organizations governed by smart contracts and token holders through transparent voting mechanisms and community-led decisions.</p>
               </Card>
               <Card>
-                <h3>Digital Commons</h3>
-                <p>Shared resources and infrastructure governed by community members for collective benefit</p>
+                <h3>Creator Economies</h3>
+                <p>Platforms enabling creators to monetize digital assets as NFTs with collective curation and community support for artistic growth.</p>
               </Card>
             </Grid>
           </Section>
 
           <Section>
-            <h2>Benefits of Community Organization</h2>
-            <ComparisonTable>
-              <thead>
-                <tr>
-                  <th>Aspect</th>
-                  <th>Benefits</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Collective Decision Making</td>
-                  <td>Democratic processes that give voice to all members</td>
-                </tr>
-                <tr>
-                  <td>Resource Sharing</td>
-                  <td>Pooled resources and knowledge for greater impact</td>
-                </tr>
-                <tr>
-                  <td>Network Effects</td>
-                  <td>Growing value and opportunities as community expands</td>
-                </tr>
-                <tr>
-                  <td>Shared Ownership</td>
-                  <td>Equitable distribution of value created by the community</td>
-                </tr>
-              </tbody>
-            </ComparisonTable>
+            <h2>Key Components</h2>
+            <BenefitsInfographic>
+              <BenefitItem>
+                <BenefitIcon>🏛️</BenefitIcon>
+                <BenefitTitle>Decentralized Governance</BenefitTitle>
+                <BenefitDescription>Token-based voting and community-driven decision making</BenefitDescription>
+              </BenefitItem>
+              <BenefitItem>
+                <BenefitIcon>💰</BenefitIcon>
+                <BenefitTitle>Economic Models</BenefitTitle>
+                <BenefitDescription>Treasury management and tokenomics for sustainable growth</BenefitDescription>
+              </BenefitItem>
+              <BenefitItem>
+                <BenefitIcon>🎯</BenefitIcon>
+                <BenefitTitle>Incentives & Rewards</BenefitTitle>
+                <BenefitDescription>Token incentives and POAPs for active participation</BenefitDescription>
+              </BenefitItem>
+              <BenefitItem>
+                <BenefitIcon>🔐</BenefitIcon>
+                <BenefitTitle>Digital Identity</BenefitTitle>
+                <BenefitDescription>Decentralized identifiers for secure community access</BenefitDescription>
+              </BenefitItem>
+            </BenefitsInfographic>
           </Section>
 
           <Section>
-            <h2>Community Building Blocks</h2>
+            <h2>Building Blocks</h2>
             <Grid>
               <Card>
-                <h3>Governance Systems</h3>
-                <p>Clear frameworks for proposal submission, discussion, and collective decision making</p>
+                <h3>Token Design</h3>
+                <p>Creating utility tokens for governance, access and incentives with fair launch mechanisms and community distribution</p>
               </Card>
               <Card>
-                <h3>Token Economics</h3>
-                <p>Incentive structures that reward participation and align community interests</p>
+                <h3>Community Engagement</h3>
+                <p>Dual-path onboarding, invite-only growth models and referral-based credibility systems</p>
               </Card>
               <Card>
-                <h3>Contribution Tracking</h3>
-                <p>Systems to recognize and reward member contributions to the community</p>
+                <h3>Leadership Roles</h3>
+                <p>Community leaders, organizers and curators working together to enable decentralized growth</p>
               </Card>
             </Grid>
           </Section>
 
           <Section>
-            <NextButton href="/learn/sovereignty">
-              Next: Sovereignty
+            <NextButton href="/learn/collective">
+              Next: Collective Models
               <span>→</span>
             </NextButton>
           </Section>
@@ -98,120 +94,182 @@ const OwnershipPage = () => {
 };
 
 const PageWrapper = styled.div`
-  background-color: #fafafa;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 `;
 
 const HeroSection = styled.div`
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/images/ownership-bg.jpg');
+  background: linear-gradient(90deg, rgba(49,130,206,0.9), rgba(44,82,130,0.9)), url('/images/ownership-bg.jpg');
   background-size: cover;
   background-position: center;
   height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
 `;
 
 const HeroContent = styled.div`
   text-align: center;
   color: white;
-  padding: 0 1rem;
+  padding: 0 2rem;
   max-width: 800px;
 
   h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
     
     @media (max-width: 768px) {
-      font-size: 2rem;
+      font-size: 2.25rem;
     }
   }
 
   p {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     line-height: 1.6;
+    opacity: 0.9;
+    margin: 0 auto;
   }
 `;
 
 const ContentContainer = styled.div`
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  margin: -25px auto 0;
+  padding: 3rem 2rem;
+  position: relative;
+  z-index: 2;
 `;
 
 const Section = styled.div`
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 
   h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
     text-align: center;
+    color: #1a1a1a;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #3182ce;
+      margin: 1rem auto 0;
+      border-radius: 2px;
+    }
   }
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin: 0 auto;
+  max-width: 1400px;
 `;
 
 const Card = styled.div`
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08), 0 15px 25px rgba(0,0,0,0.06);
+  }
 
   h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    color: #2d3748;
   }
 
   p {
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #4a5568;
+    margin-bottom: 0;
   }
 `;
 
-const ComparisonTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
+const BenefitsInfographic = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
   background: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 20px rgba(0,0,0,0.04);
+`;
+
+const BenefitItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  background: #f7fafc;
   border-radius: 8px;
-  overflow: hidden;
+  transition: transform 0.2s ease;
 
-  th, td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+  &:hover {
+    transform: translateY(-5px);
   }
+`;
 
-  th {
-    background: #28303d;
-    color: white;
-  }
+const BenefitIcon = styled.div`
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+`;
 
-  tr:last-child td {
-    border-bottom: none;
-  }
+const BenefitTitle = styled.h3`
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.8rem;
+`;
+
+const BenefitDescription = styled.p`
+  font-size: 1.1rem;
+  color: #4a5568;
+  line-height: 1.5;
 `;
 
 const NextButton = styled(ButtonLink)`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  max-width: 300px;
-  margin: 2rem auto 0;
-  font-size: 1.2rem;
-  padding: 0.8rem 1.5rem;
+  gap: 0.8rem;
+  max-width: 320px;
+  margin: 3rem auto 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  background: #3182ce;
+  color: white;
+  transition: all 0.2s ease;
   
   span {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     transition: transform 0.2s ease;
   }
 
-  &:hover span {
-    transform: translateX(4px);
+  &:hover {
+    background: #2c5282;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+    
+    span {
+      transform: translateX(6px);
+    }
   }
 `;
 

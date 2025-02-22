@@ -2,7 +2,7 @@ import { ChatGPTAPI } from "chatgpt";
 
 const handler = async (req, res) => {
   const api = new ChatGPTAPI({
-    apiKey: process.env.OPEN_AI_TOKEN,
+    apiKey: process.env.OPENAI_API_KEY,
   });
 
   const message = req.query.text;
