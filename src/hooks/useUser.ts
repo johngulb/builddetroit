@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUser, User } from "../dpop";
+import { Contact, getContact, getUser, User } from "../dpop";
 
 export const useUser = (): User | undefined => {
     const [ user, setUser ] = React.useState<User>();
@@ -12,4 +12,17 @@ export const useUser = (): User | undefined => {
         });
     }, []);
     return user;
+}
+
+export const useContact = (): Contact | undefined => {
+    const [ contact, setContact ] = React.useState<Contact>();
+    React.useEffect(() => {
+        setContact(getContact());
+    }, []);
+    React.useEffect(() => {
+        window.addEventListener("DPoP_CONTACT", (event: CustomEvent) => {
+            setContact(event.detail.contact);
+        });
+    }, []);
+    return contact;
 }

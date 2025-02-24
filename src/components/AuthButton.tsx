@@ -1,13 +1,20 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { useUser } from "../hooks/useUser";
+import { useUser, useContact } from "../hooks/useUser";
 import { Button } from "./Button";
 
 export const AuthButton = () => {
   const user = useUser();
+  const contact = useContact();
+  
   const handleLogin = React.useCallback(() => {
     window.location.href = "/login";
   }, []);
+
+  const handleCompleteProfile = React.useCallback(() => {
+    window.location.href = "/profile/complete";
+  }, []);
+
   return (
     <AuthButtonContainer>
       {user ? (
@@ -21,7 +28,15 @@ export const AuthButton = () => {
           )}
         </a>
       ) : (
-        <LoginButton onClick={handleLogin}>Login</LoginButton>
+        <>
+          {contact ? (
+            <CompleteProfileButton onClick={handleCompleteProfile}>
+              Complete Profile
+            </CompleteProfileButton>
+          ) : (
+            <LoginButton onClick={handleLogin}>Login</LoginButton>
+          )}
+        </>
       )}
     </AuthButtonContainer>
   );
@@ -58,5 +73,16 @@ const LoginButton = styled.button`
   &:hover {
     background: #666;
     color: white;
+  }
+`;
+
+const CompleteProfileButton = styled(LoginButton)`
+  background: #28303d;
+  border-color: #28303d;
+  color: white;
+
+  &:hover {
+    background: #1a1f28;
+    border-color: #1a1f28;
   }
 `;
