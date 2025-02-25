@@ -17,7 +17,10 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 // import { CompleteProfile } from "../../components/Auth/CompleteProfile";
-
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TelegramIcon from "@mui/icons-material/Telegram";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -86,9 +89,7 @@ const ProfilePage = () => {
         <div className="profile-info">
           {user && (
             <div className="user-info">
-              <Box
-                sx={{ display: "flex", alignItems: "center", gap: 3 }}
-              >
+              <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
                 <Avatar
                   src={user.profile_picture || undefined}
                   sx={{ width: 80, height: 80 }}
@@ -109,6 +110,44 @@ const ProfilePage = () => {
                     <InfoField>
                       <div>{user.organization}</div>
                     </InfoField>
+                  )}
+                </Box>
+                <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+                  {user.data?.instagram && (
+                    <a
+                      href={`${user.data.instagram}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <InstagramIcon sx={{ color: "text.secondary" }} />
+                    </a>
+                  )}
+                  {user.data?.linkedin && (
+                    <a
+                      href={user.data.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <LinkedInIcon sx={{ color: "text.secondary" }} />
+                    </a>
+                  )}
+                  {user.data?.telegram && (
+                    <a
+                      href={`${user.data.telegram}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <TelegramIcon sx={{ color: "text.secondary" }} />
+                    </a>
+                  )}
+                  {user.data?.twitter && (
+                    <a
+                      href={`${user.data.twitter}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <TwitterIcon sx={{ color: "text.secondary" }} />
+                    </a>
                   )}
                 </Box>
               </Box>
@@ -134,7 +173,11 @@ const ProfilePage = () => {
                   {rsvps.map((rsvp) => (
                     <div key={rsvp.id} className="event-list-item">
                       <a href={`/event/${rsvp.event.slug}`}>
-                        <EventInfo event={rsvp.event} variant="nano" header={3} />
+                        <EventInfo
+                          event={rsvp.event}
+                          variant="nano"
+                          header={3}
+                        />
                       </a>
                     </div>
                   ))}
@@ -148,7 +191,15 @@ const ProfilePage = () => {
               {bookmarkedEvents.length > 0 ? (
                 <div className="events-list">
                   {bookmarkedEvents.map((event) => (
-                    <div key={event.id} className="event-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div
+                      key={event.id}
+                      className="event-list-item"
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                      }}
+                    >
                       <a href={`/event/${event.slug}`} style={{ flex: 1 }}>
                         <EventInfo event={event} variant="nano" header={3} />
                       </a>
@@ -169,15 +220,19 @@ const ProfilePage = () => {
                   {connections.map((c) => (
                     <div key={c.id} className="connection-item">
                       <a href={`/profile/${c.connection.id}`}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                          <Avatar 
+                        <Box
+                          sx={{ display: "flex", alignItems: "center", gap: 2 }}
+                        >
+                          <Avatar
                             src={c.connection.profile_picture || undefined}
                             sx={{ width: 50, height: 50 }}
                           />
                           <Box>
                             <div>{c.connection.name}</div>
                             {c.connection.organization && (
-                              <div style={{ color: '#666', fontSize: '0.9rem' }}>
+                              <div
+                                style={{ color: "#666", fontSize: "0.9rem" }}
+                              >
                                 {c.connection.organization}
                               </div>
                             )}
@@ -220,7 +275,9 @@ const ProfileContent = styled.div`
     margin-bottom: 1rem;
   }
 
-  .bookmarked-events, .rsvp-events, .connections {
+  .bookmarked-events,
+  .rsvp-events,
+  .connections {
     /* background: white;
     padding: 1.5rem;
     border-radius: 8px;
@@ -233,19 +290,22 @@ const ProfileContent = styled.div`
       font-size: 1.2rem;
     }
 
-    .events-list, .connections-list {
+    .events-list,
+    .connections-list {
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
 
-    .no-events, .no-connections {
+    .no-events,
+    .no-connections {
       text-align: center;
       color: #666;
       font-style: italic;
     }
 
-    .event-list-item a, .connection-item a {
+    .event-list-item a,
+    .connection-item a {
       text-decoration: none;
       color: inherit;
     }

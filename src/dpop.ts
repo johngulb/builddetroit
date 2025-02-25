@@ -13,6 +13,7 @@ import {
   Artist,
   Content,
   EventConnection,
+  Project,
 } from "./interfaces";
 
 export type {
@@ -176,8 +177,8 @@ export const updateUser = async (params: Partial<User>) => {
     method: "PUT",
     body: JSON.stringify(params),
   });
-  if (result.data) {
-    setUser(result.data);
+  if (result) {
+    setUser(result);
   }
   return result;
 };
@@ -364,6 +365,9 @@ export const addArtworkContent = async (
     await fetch(`${hostname}/api/artwork/${artwork}/content`, {
       method: "POST",
       body: JSON.stringify(content),
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
   ).json();
   return result;
@@ -662,6 +666,27 @@ export const getCommunityMembers = async (id: string) => {
   const result = await authorizedRequest(`community/${id}/members`);
   return result;
 };
+
+/** Project */
+
+export const getProjects = async () => {
+  const result = await authorizedRequest(`projects`);
+  return result.data;
+};
+
+export const getProject = async (id: string) => {
+  const result = await authorizedRequest(`project/${id}`);
+  return result;
+};
+
+export const createProject = async (project: Partial<Project>) => {
+  const result = await authorizedRequest(`project`, {
+    method: "POST",
+    body: JSON.stringify(project),
+  });
+  return result;
+};
+
 
 /** Search */
 

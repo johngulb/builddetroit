@@ -15,6 +15,10 @@ const EditProfilePage = () => {
   const [phone, setPhone] = React.useState("");
   const [organization, setOrganization] = React.useState("");
   const [profilePicture, setProfilePicture] = React.useState<string | null>(null);
+  const [instagram, setInstagram] = React.useState("");
+  const [linkedin, setLinkedin] = React.useState("");
+  const [telegram, setTelegram] = React.useState("");
+  const [twitter, setTwitter] = React.useState("");
   const router = useRouter();
 
   React.useEffect(() => {
@@ -29,6 +33,10 @@ const EditProfilePage = () => {
       setPhone(formatPhoneNumber(user.phone || ""));
       setOrganization(user.organization || "");
       setProfilePicture(user.profile_picture || null);
+      setInstagram(user.data?.instagram || "");
+      setLinkedin(user.data?.linkedin || "");
+      setTelegram(user.data?.telegram || "");
+      setTwitter(user.data?.twitter || "");
     }
   }, []);
 
@@ -67,10 +75,16 @@ const EditProfilePage = () => {
       phone: rawPhone, 
       public_name: publicName, 
       organization,
-      profile_picture: profilePicture 
+      profile_picture: profilePicture,
+      data: {
+        instagram,
+        linkedin,
+        telegram,
+        twitter
+      }
     });
     router.push('/profile');
-  }, [name, email, phone, publicName, organization, profilePicture]);
+  }, [name, email, phone, publicName, organization, profilePicture, instagram, linkedin, telegram, twitter, router]);
 
   return (
     <ProfileWrapper>
@@ -130,6 +144,34 @@ const EditProfilePage = () => {
                   label="Organization"
                   variant="filled"
                   onChange={(e) => setOrganization(e.target.value)}
+                />
+                <TextField
+                  value={instagram}
+                  label="Instagram Profile URL"
+                  variant="filled"
+                  onChange={(e) => setInstagram(e.target.value)}
+                  placeholder="https://instagram.com/username"
+                />
+                <TextField
+                  value={linkedin}
+                  label="LinkedIn Profile URL"
+                  variant="filled"
+                  onChange={(e) => setLinkedin(e.target.value)}
+                  placeholder="https://linkedin.com/in/username"
+                />
+                <TextField
+                  value={telegram}
+                  label="Telegram Username"
+                  variant="filled"
+                  onChange={(e) => setTelegram(e.target.value)}
+                  placeholder="@username"
+                />
+                <TextField
+                  value={twitter}
+                  label="X (Twitter) Profile URL"
+                  variant="filled"
+                  onChange={(e) => setTwitter(e.target.value)}
+                  placeholder="https://x.com/username"
                 />
                 <Button
                   variant="contained"

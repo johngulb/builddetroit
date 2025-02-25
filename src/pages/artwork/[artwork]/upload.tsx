@@ -32,7 +32,11 @@ const UploadContentPage = ({ artwork }) => {
 
         const { url } = await response.json();
         setUploadUrl(url);
-        setFileTimestamp(selectedFile.lastModified ? new Date(selectedFile.lastModified).toISOString() : new Date().toISOString());
+        setFileTimestamp(
+          selectedFile.lastModified
+            ? new Date(selectedFile.lastModified).toISOString()
+            : new Date().toISOString()
+        );
       } catch (error) {
         console.error("Error uploading file:", error);
         alert("Failed to upload file. Please try again.");
@@ -68,7 +72,7 @@ const UploadContentPage = ({ artwork }) => {
           width: 0,
           height: 0,
         },
-        timestamp: fileTimestamp
+        timestamp: fileTimestamp,
       });
 
       router.push(`/artwork/${artwork.slug}`);
@@ -107,8 +111,16 @@ const UploadContentPage = ({ artwork }) => {
           />
           {uploadUrl && (
             <div>
-              <img src={uploadUrl} alt="Uploaded content" style={{maxWidth: '100%', marginTop: '1rem'}} />
-              <Typography variant="caption" display="block" style={{marginTop: '0.5rem'}}>
+              <img
+                src={uploadUrl}
+                alt="Uploaded content"
+                style={{ maxWidth: "100%", marginTop: "1rem" }}
+              />
+              <Typography
+                variant="caption"
+                display="block"
+                style={{ marginTop: "0.5rem" }}
+              >
                 Upload timestamp: {new Date(fileTimestamp).toLocaleString()}
               </Typography>
             </div>
@@ -131,7 +143,7 @@ const UploadContentPage = ({ artwork }) => {
           type="submit"
           variant="contained"
           color="primary"
-          disabled={uploading || (!uploadUrl)}
+          disabled={uploading || !uploadUrl}
         >
           {uploading ? "Uploading..." : "Upload Content"}
         </Button>
@@ -157,7 +169,7 @@ const Form = styled.form`
   gap: 1.5rem;
 `;
 
-const FormGroup = styled.div`
+export const FormGroup = styled.div`
   width: 100%;
 `;
 

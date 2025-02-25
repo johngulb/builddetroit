@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { getArtwork } from "../../../dpop";
 import styled from "@emotion/styled";
 import { getEnvironment } from "../../../utils/environment";
@@ -54,6 +54,11 @@ const ArtworkPage = ({ artwork }) => {
                 </div>
               )}
             </div>
+            <UploadButton>
+              <Link href={`/artwork/${artwork.slug}/upload`}>
+                Upload Content
+              </Link>
+            </UploadButton>
           </div>
         </div>
       </ArtworkHeader>
@@ -61,9 +66,11 @@ const ArtworkPage = ({ artwork }) => {
       {artwork.content.map((content, i: number) => {
         return (
           <ContentWrapper key={i}>
-            <div className="timestamp">
-              {moment.utc(content.timestamp).local().format("dddd MMMM Do, YYYY – h:mm a")}
-            </div>
+            <Suspense>
+              <div className="timestamp">
+                {moment.utc(content.timestamp).local().format("dddd MMMM Do, YYYY – h:mm a")}
+              </div>
+            </Suspense>
             {content.data.type === "image/jpeg" && (
               <>
                 {content.caption && (
@@ -106,6 +113,24 @@ const ArtworkPage = ({ artwork }) => {
     </PageWrapper>
   );
 };
+
+const UploadButton = styled.div`
+  margin: 1rem 0;
+  
+  a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    
+    &:hover {
+      background-color: #444;
+    }
+  }
+`;
 
 const ArtworkHeader = styled.div`
   margin: 2rem 1rem;

@@ -160,6 +160,12 @@ export interface User {
   public_name: string | null; 
   organization: string | null;
   profile_picture: string | null;
+  data: {
+    instagram?: string | null;
+    linkedin?: string | null;
+    telegram?: string | null;
+    twitter?: string | null;
+  };
   communities?: Community[];
   updated_at: string;
 }
@@ -176,6 +182,20 @@ export interface EventConnection {
   event_cid: string;
   connection_cid: string;
   connection: User;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Project {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  data: {
+    image?: string;
+    url?: string;
+    parentMessageId?: string;
+  };
   created_at: string;
   updated_at: string;
 }

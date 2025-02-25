@@ -1,9 +1,16 @@
-import { ChatGPTAPI } from "chatgpt";
+import OpenAI from "openai";
 import { NextApiRequest, NextApiResponse } from "next";
+import { z } from "zod";
+import { zodResponseFormat } from "openai/helpers/zod";
 
-// Initialize ChatGPT API with environment variables
-const api = new ChatGPTAPI({
-  apiKey: process.env.OPENAI_API_KEY,
+const openai = new OpenAI();
+
+const RatingSchema = z.object({
+  is_useful: z.boolean(),
+  category: z.enum(["question", "comment", "other"]).nullable(),
+  explanation_if_not_useful: z.string().nullable(),
+  analysis: z.string().nullable(),
+  rating: z.number().nullable(),
 });
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -12,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const { text, parentMessageId, projectContext } = req.body;
+    const { text, projectContext } = req.body;
 
     // Build system message with project context if provided
     let systemMessage = "You are a helpful AI assistant.";
@@ -22,17 +29,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         Project URL: ${projectContext.url}`;
     }
 
-    // Send message to ChatGPT API with context
-    const chatResponse = await api.sendMessage(text, {
-      parentMessageId,
-      systemMessage,
+    const completion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-2024-08-06",
+      messages: [
+        { role: "system", content: systemMessage },
+        { role: "user", content: text },
+      ],
+      response_format: zodResponseFormat(RatingSchema, "rating"),
     });
+    
+    const rating = completion.choices[0].message.parsed;
 
     // Return response with message ID for maintaining conversation history
     return res.status(200).json({
-      detail: chatResponse.detail,
-      parentMessageId: chatResponse.id,
-      text: chatResponse.text
+      rating,
     });
 
   } catch (error) {
