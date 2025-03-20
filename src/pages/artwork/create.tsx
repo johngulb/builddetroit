@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { TextField, Button as MuiButton, Typography, Autocomplete } from "@mui/material";
+import {
+  TextField,
+  Button as MuiButton,
+  Typography,
+  Autocomplete,
+} from "@mui/material";
 import { createArtwork, getArtists } from "../../dpop";
 
 const CreateArtworkPage = () => {
@@ -10,6 +15,7 @@ const CreateArtworkPage = () => {
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const [artists, setArtists] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState(null);
 
@@ -24,6 +30,39 @@ const CreateArtworkPage = () => {
     };
     loadArtists();
   }, []);
+
+  const generateArtworkDetails = async (imageUrl: string) => {
+    if (!imageUrl) return;
+
+    try {
+      setGenerating(true);
+
+      // Only generate if title or description is empty
+      if (!title || !description) {
+        const response = await fetch("/api/ai/artwork", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ imageUrl }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to generate artwork details");
+        }
+
+        const data = await response.json();
+
+        // Only set values if they're currently empty
+        if (!title) setTitle(data.artwork.title);
+        if (!description) setDescription(data.artwork.description);
+      }
+    } catch (error) {
+      console.error("Error generating artwork details:", error);
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -45,6 +84,9 @@ const CreateArtworkPage = () => {
 
       const { url } = await response.json();
       setImageUrl(url);
+
+      // Generate title and description after upload
+      await generateArtworkDetails(url);
     } catch (error) {
       console.error("Error uploading image:", error);
       alert("Failed to upload image. Please try again.");
@@ -55,7 +97,7 @@ const CreateArtworkPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!imageUrl) {
       alert("Please upload an image first");
       return;
@@ -87,8 +129,34 @@ const CreateArtworkPage = () => {
 
   return (
     <PageWrapper>
-      <Typography variant="h5" gutterBottom>Create New Artwork</Typography>
+      <Typography variant="h5" gutterBottom>
+        Create New Artwork
+      </Typography>
       <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Typography variant="subtitle2" gutterBottom>
+            Upload Image
+          </Typography>
+          <ImageUploadContainer>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={handleImageUpload}
+              disabled={uploading}
+              required
+            />
+            {uploading && <UploadStatus>Uploading...</UploadStatus>}
+            {generating && (
+              <UploadStatus>Generating title and description...</UploadStatus>
+            )}
+            {imageUrl && (
+              <ImagePreview>
+                <img src={imageUrl} alt="Preview" />
+              </ImagePreview>
+            )}
+          </ImageUploadContainer>
+        </FormGroup>
         <FormGroup>
           <TextField
             fullWidth
@@ -133,30 +201,10 @@ const CreateArtworkPage = () => {
           />
         </FormGroup>
 
-        <FormGroup>
-          <Typography variant="subtitle2" gutterBottom>Upload Image</Typography>
-          <ImageUploadContainer>
-            <input
-              type="file"
-              id="image"
-              accept="image/*"
-              onChange={handleImageUpload}
-              disabled={uploading}
-              required
-            />
-            {uploading && <UploadStatus>Uploading...</UploadStatus>}
-            {imageUrl && (
-              <ImagePreview>
-                <img src={imageUrl} alt="Preview" />
-              </ImagePreview>
-            )}
-          </ImageUploadContainer>
-        </FormGroup>
-
-        <MuiButton 
-          variant="contained" 
-          type="submit" 
-          disabled={!imageUrl || uploading || !selectedArtist}
+        <MuiButton
+          variant="contained"
+          type="submit"
+          disabled={!imageUrl || uploading || generating || !selectedArtist}
           fullWidth
         >
           Create Artwork
