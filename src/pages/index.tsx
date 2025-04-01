@@ -221,8 +221,8 @@ const ContentWrapper = styled.div`
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
-  gap: 1.5rem;
+  /* grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+  gap: 1.5rem; */
 
   @media (max-width: 822px) {
     display: flex;
@@ -316,10 +316,9 @@ const HomePage = ({
               </ScrollSection>
             </div>
 
-            <div>
+            {/* <div>
               <h2 className="section-title">FIND EVENTS</h2>
               <ScrollSection>
-                {/* <EventCalendar events={events} /> */}
                 <EventList
                   category={category}
                   events={events}
@@ -328,7 +327,7 @@ const HomePage = ({
                   loadMore={true}
                 />
               </ScrollSection>
-            </div>
+            </div> */}
           </GridContainer>
         </ContentWrapper>
       </PageContainer>
