@@ -81,7 +81,7 @@ const CreateArtworkPage = () => {
       const artwork = await createArtwork({
         title,
         description,
-        artist_id: selectedArtist.id,
+        artist_id: selectedArtist?.id,
         data: {
           image: imageUrl,
         },
@@ -161,7 +161,6 @@ const CreateArtworkPage = () => {
                 {...params}
                 label="Artist"
                 variant="outlined"
-                required
                 fullWidth
               />
             )}
@@ -171,7 +170,7 @@ const CreateArtworkPage = () => {
         <MuiButton
           variant="contained"
           type="submit"
-          disabled={!imageUrl || uploading || generating || !selectedArtist}
+          disabled={!imageUrl || uploading || generating}
           fullWidth
         >
           Create Artwork
