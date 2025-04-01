@@ -729,3 +729,17 @@ export const getEventCategories = async () => {
     },
   ];
 };
+
+/** Upload Media */
+
+export const uploadMedia = async (file: File) => {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const response = await fetch(`${hostname}/api/upload-media`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  return response.json();
+};

@@ -4,6 +4,7 @@ import moment from "moment";
 import { Tooltip } from "@mui/material";
 
 import { Artwork } from "../interfaces";
+import { convertDefaultToResized } from "../utils/image";
 
 interface ArtworkCardProps {
   artwork: Artwork;
@@ -17,7 +18,7 @@ export const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
   return (
     <CardWrapper href={`/artwork/${artwork.slug}`}>
       <div className="artwork-preview">
-        <img src={imageUrl} alt={artwork.title} />
+        <img src={convertDefaultToResized(imageUrl)} alt={artwork.title} />
       </div>
       <div className="artwork-info">
         <h2 dangerouslySetInnerHTML={{ __html: artwork.title }} />

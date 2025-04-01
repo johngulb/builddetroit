@@ -73,7 +73,7 @@ export const Page = ({ children, headerProps, meta }) => {
             }
             image={
               env.layout === "artnight"
-                ? "https://nyc3.digitaloceanspaces.com/dpop/profile-pictures/1739511541672-205990853.jpg"
+                ? "https://dpop.nyc3.digitaloceanspaces.com/uploads/resized/800w/oOVcomL9Ybez4Tzt2cFIPSwjZ0o0J88ewsM78ie1.png"
                 : "https://dpop.nyc3.digitaloceanspaces.com/wp-content/uploads/2025/02/10201802/penobscot-e1739236711632.jpg"
             }
           />

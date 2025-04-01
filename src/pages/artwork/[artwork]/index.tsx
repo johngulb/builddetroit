@@ -4,14 +4,14 @@ import styled from "@emotion/styled";
 import { getEnvironment } from "../../../utils/environment";
 import moment from "moment";
 import Link from "next/link";
-
+import { convertDefaultToResized } from "../../../utils/image";
 const ArtworkPage = ({ artwork }) => {
   return (
     <PageWrapper>
       <ArtworkHeader>
         <div className="artwork-grid">
           <div className="artwork-image">
-            <img src={artwork.data.image} alt={artwork.title} />
+            <img src={convertDefaultToResized(artwork.data.image)} alt={artwork.title} />
           </div>
           <div className="artwork-details">
             <h1 dangerouslySetInnerHTML={{ __html: artwork.title }} />

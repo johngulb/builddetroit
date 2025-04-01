@@ -1,7 +1,7 @@
 import React from "react";
 import { NextSeo } from 'next-seo';
 import { useRouter } from "next/router";
-import { Community, createCommunity } from "../../dpop";
+import { Community, createCommunity, uploadMedia } from "../../dpop";
 import { 
   Box,
   Container,
@@ -11,7 +11,7 @@ import {
   Paper,
   styled
 } from '@mui/material';
-
+import UploadMedia from '../../components/UploadMedia';
 const ImagePreview = styled('div')({
   marginTop: '1rem',
   width: '200px',
@@ -36,38 +36,6 @@ const CreateCommunityPage = () => {
   const [type, setType] = React.useState<string>('');
   const [image, setImage] = React.useState<string>('');
   const [cover, setCover] = React.useState<string>('');
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Create preview
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const preview = reader.result as string;
-        if (e.target.name === 'image') {
-          setImagePreview(preview);
-        }
-      };
-      reader.readAsDataURL(file);
-
-      // Upload file
-      const formData = new FormData();
-      formData.append('file', file);
-      
-      fetch('/api/upload', {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => res.json())
-      .then(data => {
-        // Update form data with uploaded file URL
-        setImage(data.url);
-      })
-      .catch(err => {
-        console.error('Error uploading file:', err);
-      });
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,24 +121,13 @@ const CreateCommunityPage = () => {
           />
         </Box>
 
-        <Box mb={3}>
-          <Typography variant="subtitle1" gutterBottom>
-            Profile Image
-          </Typography>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            onChange={handleImageChange}
-            style={{ marginBottom: '1rem' }}
-          />
-          {imagePreview && (
-            <ImagePreview>
-              <img src={imagePreview} alt="Profile preview" />
-            </ImagePreview>
-          )}
-        </Box>
+        <UploadMedia
+          onUploadComplete={(url) => setImage(url)}
+          label="Profile Image"
+          buttonText="Choose File"
+          accept="image/*"
+          showPreview={true}
+        />
 
         <Button
           type="submit"

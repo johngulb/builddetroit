@@ -7,8 +7,8 @@ import {
   Typography,
   Autocomplete,
 } from "@mui/material";
-import { createArtwork, getArtists } from "../../dpop";
-
+import { createArtwork, getArtists, uploadMedia } from "../../dpop";
+import UploadMedia from "../../components/UploadMedia";
 const CreateArtworkPage = () => {
   const router = useRouter();
   const [title, setTitle] = useState("");
@@ -64,37 +64,6 @@ const CreateArtworkPage = () => {
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    try {
-      setUploading(true);
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Upload failed");
-      }
-
-      const { url } = await response.json();
-      setImageUrl(url);
-
-      // Generate title and description after upload
-      await generateArtworkDetails(url);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      alert("Failed to upload image. Please try again.");
-    } finally {
-      setUploading(false);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -134,29 +103,27 @@ const CreateArtworkPage = () => {
       </Typography>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Typography variant="subtitle2" gutterBottom>
-            Upload Image
-          </Typography>
-          <ImageUploadContainer>
-            <input
-              type="file"
-              id="image"
-              accept="image/*"
-              onChange={handleImageUpload}
-              disabled={uploading}
-              required
-            />
-            {uploading && <UploadStatus>Uploading...</UploadStatus>}
-            {generating && (
-              <UploadStatus>Generating title and description...</UploadStatus>
-            )}
-            {imageUrl && (
-              <ImagePreview>
-                <img src={imageUrl} alt="Preview" />
-              </ImagePreview>
-            )}
-          </ImageUploadContainer>
+          <UploadMedia
+            onUploadComplete={(url) => setImageUrl(url)}
+            label="Upload Image"
+            buttonText="Choose File"
+            accept="image/*"
+            showPreview={true}
+          />
         </FormGroup>
+        <MuiButton
+          variant="outlined"
+          type="button"
+          disabled={!imageUrl || generating}
+          onClick={() => generateArtworkDetails(imageUrl)}
+          fullWidth
+          sx={{ mb: 2 }}
+        >
+          {generating ? "Generating..." : "Generate Title & Description"}
+        </MuiButton>
+        {generating && (
+          <UploadStatus>Generating title and description...</UploadStatus>
+        )}
         <FormGroup>
           <TextField
             fullWidth
